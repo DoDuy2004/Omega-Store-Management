@@ -1,0 +1,110 @@
+﻿@{
+    ViewData["Title"] = "Sửa Thông Tin Website";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/admin/css/All.css">
+}
+
+@section Scripts {
+    <script src="~/admin/js/zoom.js"></script>
+    <script src="~/admin/js/tinymce/tinymce.min.js"></script>
+    <script src="~/admin/js/tinymce/tinymce-custom.js"></script>
+    <script src="~/admin/js/switcher.js"></script>
+    <script src="~/admin/js/theme-settings.js"></script>
+}
+
+<div class="main-content">
+    <!-- main-content-wrap -->
+    <div class="main-content-inner">
+        <!-- main-content-wrap -->
+        <div class="main-content-wrap">
+            <div class="flex items-center flex-wrap justify-between gap20 mb-27">
+                <h3>Sửa giao diện</h3>
+                <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+                    <li>
+                        <a href="index.html">
+                            <div class="text-tiny">Tổng quan</div>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="icon-chevron-right"></i>
+                    </li>
+                    <li>
+                        <div class="text-tiny">Sửa thông tin website</div>
+                    </li>
+                </ul>
+            </div>
+            <!-- new-page-wrap -->
+            <form class="form-new-page">
+                <div class="new-page-wrap">
+                    <div class="left">
+                        <div class="wg-box">
+                            <div class="widget-tabs">
+                                <div class="widget-content-tab">
+                                    <div class="widget-content-inner active">
+                                        <fieldset class="name mb-24">
+                                            <div class="body-title mb-10">Thông tin liên hệ: <span class="number"></span></div>
+                                            <textarea type="text" name="area"></textarea>
+                                            <!-- <input class="" type="text" placeholder="Name" name="text" tabindex="0" value="" aria-required="true" required=""> -->
+                                        </fieldset>
+                                        <fieldset class="text mb-24">
+                                            <div class="body-title mb-10">Bản đồ: <span class="number"></span></div>
+                                            <textarea type="text" name="area"></textarea>
+                                            <!-- <input class="" type="text" placeholder="https://themeforest.net/user/themesflat" name="text" tabindex="0" value="" aria-required="true" required=""> -->
+                                        </fieldset>
+                                        <fieldset class="description mb-24">
+                                            <div class="body-title mb-10">Giới thiệu: <span class="number"></span></div>
+                                            <textarea type="text" name="area"></textarea>
+                                            <!-- <textarea class="" name="description" placeholder="Description" tabindex="0" aria-required="true" required=""></textarea> -->
+                                        </fieldset>
+                                        <fieldset class="content" style="margin-bottom: 80px;">
+                                            <div class="body-title mb-10">Chính sách:</div>
+                                            <textarea type="text" name="area"></textarea>
+                                            <!-- <input type="text"> -->
+                                            <!-- <h4>Lorem ipsum dolor sit amet</h4> -->
+                                            <!-- <div class="body-text"></div> -->
+                                            <!-- <textarea type="text" name="area"> Đơn hàng 3 tháng chưa giao.</textarea> -->
+                                        </fieldset>
+                                        <fieldset class="content" style="margin-bottom: 80px;">
+                                            <div class="body-title mb-10">Mạng xã hội:</div>
+                                            <textarea type="text" name="area"></textarea>
+                                            <!-- <input type="text"> -->
+                                            <!-- <h4>Lorem ipsum dolor sit amet</h4> -->
+                                            <!-- <div class="body-text"></div> -->
+                                            <!-- <textarea type="text" name="area"> Đơn hàng 3 tháng chưa giao.</textarea> -->
+                                        </fieldset>
+                                        <div>
+                                            <div class="choose-logo w-50">
+                                                <span>Logo</span>
+                                                <input type="file" id="fileInput" class="file-input">
+                                                <label for="fileInput" class="choose-logo-button">Chọn tệp</label>
+                                            </div>
+                                        </div>
+                                        <div class="box-update-info">
+                                            <button class="block-update">Cập nhật thông tin</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- /new-page-wrap -->
+        </div>
+        <!-- /main-content-wrap -->
+    </div>
+    <!-- /main-content-wrap -->
+    <!-- bottom-page -->
+    <div class="bottom-page">
+        <div class="body-text">Copyright © 2024 Omega. Design with</div>
+        <i class="icon-heart"></i>
+        <div class="body-text">
+            by
+            <a href="#">Omega Group</a>
+            All rights reserved.
+        </div>
+    </div>
+    <!-- /bottom-page -->
+</div>

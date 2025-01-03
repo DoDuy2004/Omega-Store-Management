@@ -1,0 +1,117 @@
+﻿@{
+    ViewData["Title"] = "Chi Tiết Thư Liên Hệ";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/admin/css/All.css">
+}
+
+@section Scripts {
+    <script src="~/admin/js/zoom.js"></script>
+    <script src="~/admin/js/tinymce/tinymce.min.js"></script>
+    <script src="~/admin/js/tinymce/tinymce-custom.js"></script>
+    <script src="~/admin/js/switcher.js"></script>
+    <script src="~/admin/js/theme-settings.js"></script>
+}
+
+<div class="main-content">
+    <!-- main-content-wrap -->
+    <div class="main-content-inner">
+        <!-- main-content-wrap -->
+        <div class="main-content-wrap">
+            <div class="flex items-center flex-wrap justify-between gap20 mb-27">
+                <h3>Chi tiết yêu cầu</h3>
+                <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+                    <li>
+                        <a href="index.html">
+                            <div class="text-tiny">Tổng quan</div>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="icon-chevron-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="text-tiny">Liên hệ</div>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="icon-chevron-right"></i>
+                    </li>
+                    <li>
+                        <div class="text-tiny">Chi tiết</div>
+                    </li>
+                </ul>
+            </div>
+            <!-- new-page-wrap -->
+            <form class="form-new-page">
+                <div class="new-page-wrap">
+                    <div class="left">
+                        <div class="wg-box">
+                            <div class="widget-tabs">
+                                <div class="widget-content-tab">
+                                    <div class="widget-content-inner active">
+                                        <div class="box-response">
+                                            <div>
+                                                <div class="block-response">Chờ xử lý</div>
+                                            </div>
+                                        </div>
+                                        <fieldset class="name mb-24">
+                                            <div class="body-title mb-10">
+                                                Email yêu cầu: <span class="number">
+                                                    hoanganh@gmail.com
+                                                </span>
+                                            </div>
+                                            <!-- <input class="" type="text" placeholder="Name" name="text" tabindex="0" value="" aria-required="true" required=""> -->
+                                        </fieldset>
+                                        <fieldset class="text mb-24">
+                                            <div class="body-title mb-10">
+                                                Tiêu đề: <span class="number">Giao hàng quá chậm</span>
+                                            </div>
+                                            <!-- <input class="" type="text" placeholder="https://themeforest.net/user/themesflat" name="text" tabindex="0" value="" aria-required="true" required=""> -->
+                                        </fieldset>
+                                        <fieldset class="description mb-24">
+                                            <div class="body-title mb-10">Mã vận đơn (nếu có): <span class="number"></span></div>
+                                            <!-- <textarea class="" name="description" placeholder="Description" tabindex="0" aria-required="true" required=""></textarea> -->
+                                        </fieldset>
+                                        <fieldset class="content" style="margin-bottom: 80px;">
+                                            <div class="body-title mb-10">Nội dung:</div>
+                                            <!-- <input type="text"> -->
+                                            <!-- <h4>Lorem ipsum dolor sit amet</h4> -->
+                                            <!-- <div class="body-text"></div> -->
+                                            <textarea type="text" name="area"> Đơn hàng 3 tháng chưa giao.</textarea>
+                                        </fieldset>
+                                        <fieldset class="content">
+                                            <div class="body-title mb-10">Phản hồi:</div>
+                                            <!-- <input type="text"> -->
+                                            <!-- <h4>Lorem ipsum dolor sit amet</h4> -->
+                                            <!-- <div class="body-text"></div> -->
+                                            <textarea type="text" name="area" placeholder="Nội dung phản hồi"></textarea>
+
+                                        </fieldset>
+                                        <div class="box-response">
+                                            <button class="block-response">Gửi phản hồi</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- /new-page-wrap -->
+        </div>
+        <!-- /main-content-wrap -->
+    </div>
+    <!-- /main-content-wrap -->
+    <!-- bottom-page -->
+    <div class="bottom-page">
+        <div class="body-text">Copyright © 2024 Omega. Design with</div>
+        <i class="icon-heart"></i>
+        <div class="body-text">
+            by <a href="https://themeforest.net/user/themesflat/portfolio">Themesflat</a> All
+            rights reserved.
+        </div>
+    </div>
+    <!-- /bottom-page -->
+</div>

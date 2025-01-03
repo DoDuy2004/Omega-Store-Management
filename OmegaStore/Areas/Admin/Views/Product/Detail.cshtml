@@ -1,0 +1,325 @@
+﻿@{
+    ViewData["Title"] = "Chi Tiết Sản Phẩm";
+}
+
+@section Styles {
+    <link href="~/admin/lib/slick/slick.css" rel="stylesheet">
+    <link href="~/admin/lib/slick/slick-theme.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/admin/css/All.css">
+}
+
+@section Scripts {
+    <script src="~/admin/js/zoom.js"></script>
+    <script src="~/admin/js/switcher.js"></script>
+    <script src="~/admin/js/theme-settings.js"></script>
+    <script src="https://kit.fontawesome.com/ffa90392e4.js" crossorigin="anonymous"></script>
+    <script src="~/admin/lib/easing/easing.min.js"></script>
+    <script src="~/admin/lib/slick/slick.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="~/admin/js/slideshow.js"></script>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+
+            // Ẩn tất cả các tab content
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Hiển thị tab content hiện tại
+            document.getElementById(tabName).style.display = "block";
+        }
+
+        function activateButton(button) {
+            // Lấy tất cả các nút
+            var buttons = document.getElementsByClassName('toggle-button');
+
+            // Loại bỏ lớp 'active' từ tất cả các nút
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+
+            // Thêm lớp 'active' vào nút hiện tại
+            button.classList.add('active');
+        }
+
+        // Hiển thị tab mặc định
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("description").style.display = "block";
+            document.querySelector('.description-button').classList.add('active');
+        });
+    </script>
+}
+
+<div class="main-content">
+    <!-- main-content-wrap -->
+    <div class="main-content-inner">
+        <!-- main-content-wrap -->
+        <div class="main-content-wrap">
+            <div class="flex items-center flex-wrap justify-between gap20 mb-27">
+                <h3>Chi tiết sản phẩm</h3>
+                <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+                    <li>
+                        <a href="index.html">
+                            <div class="text-tiny">Quản lý</div>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="icon-chevron-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="text-tiny">Sản phẩm</div>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="icon-chevron-right"></i>
+                    </li>
+                    <li>
+                        <div class="text-tiny">Chi tiết sản phẩm</div>
+                    </li>
+                </ul>
+            </div>
+            <!-- form-add-product -->
+            <form class="w-100">
+                <div class="wg-box">
+                    <div class="back-list">
+                        <a href=""><i class="fa-solid fa-circle-arrow-left"></i>Quay Lại Danh Sách</a>
+                    </div>
+                    <fieldset class="">
+                        <div class="detail-product-section">
+
+                            <div class="box-detail mb-16 mt-3 col-md-5">
+                                <div class="item-image-avatar product-slider-single normal-slider mt-3">
+
+                                    <img src="~/admin/images/luffy.png" alt="Product Image">
+                                    <img src="~/admin/images/rua.jpg" alt="Product Image">
+                                    <img src="~/admin/images/mabu.jpg" alt="Product Image">
+                                    <img src="~/admin/images/ruaxanh.webp" alt="Product Image">
+                                    <img src="~/admin/images/thap.jpg" alt="Product Image">
+                                </div>
+                                <div>
+                                    <div class="image-list-product product-slider-single-nav mt-3">
+                                        <div class="box-image-item mt-2 slider-nav-img "><img src="~/admin/images/luffy.png" alt="Product Image" class=" product-image-details "></div>
+                                        <div class="box-image-item mt-2 slider-nav-img "><img src="~/admin/images/rua.jpg" alt="Product Image" class=" product-image-details "></div>
+                                        <div class="box-image-item mt-2 slider-nav-img "><img src="~/admin/images/mabu.jpg" alt="Product Image" class=" product-image-details "></div>
+                                        <div class="box-image-item mt-2 slider-nav-img "><img src="~/admin/images/ruaxanh.webp" alt="Product Image" class=" product-image-details "></div>
+                                        <div class="box-image-item mt-2 slider-nav-img "><img src="~/admin/images/thap.jpg" alt="Product Image" class=" product-image-details "></div>
+                                    </div>
+                                    <div class="chevron-item">
+                                        <span class="chevron-left"><i class=" fa-solid fa-chevron-left"></i></span>
+                                        <span class="chevron-right"><i class=" fa-solid fa-chevron-right"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-info-product">
+                                <div class="info-product">
+                                    <div class="product-name">
+                                        <h4>Tên sản phẩm</h4>
+                                    </div>
+                                    <div class="product-code">
+                                        <span>Mã sản phẩm: SP071224001</span>
+                                    </div>
+                                    <div class="product-category">
+                                        <span>Loại sản phẩm: Mô hình nhựa</span>
+                                    </div>
+                                    <div class="product-price-detail">
+                                        <span>Giá: <strong class="text-danger">300.00đ</strong></span>
+                                        <span class="original-price">359.000đ</span>
+                                    </div>
+                                    <div class="product-stock">
+                                        <span>Số lượng tồn kho: 9999</span>
+                                    </div>
+                                    <div class="product-supplier">
+                                        <span>Nhà cung cấp: VECTO</span>
+                                    </div>
+                                    <div class="product-brand">
+                                        <span>Thương hiệu: VECTO</span>
+                                    </div>
+                                    <div class="product-slug">
+                                        <span>Slug: ten-san-pham-1</span>
+                                    </div>
+                                    <div class="bottom-info-product">
+                                        <div>
+                                            <div class="sales-count">
+                                                <span>Lượt bán: 20</span>
+                                            </div>
+                                            <div class="product-status">
+                                                <span>Trạng thái: <span class="status-active">hoạt động</span></span>
+                                            </div>
+                                        </div>
+                                        <div class="view-item">
+                                            <div class="some-metric">
+                                                <span><i class="fa-solid fa-eye"></i>2345</span>
+                                            </div>
+                                            <div class="another-metric">
+                                                <span><i class="fa-solid fa-heart"></i>1121</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+                </div>
+            </form>
+            <div class="menu-button col-lg-12">
+                <ul class="nav nav-pills nav-justified col-lg-6">
+                    <li class="nav-item">
+                        <button class="toggle-button description-button active" data-toggle="pill" href="#description" onclick="openTab(event, 'description'); activateButton(this)">Mô tả</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="toggle-button rate-button" data-toggle="pill" href="#specification" onclick="openTab(event, 'specification'); activateButton(this)">Đánh giá(10)</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="wg-box tabcontent" id="description">
+                <div class=" box-comment col-lg-12">
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium similique deserunt tempore enim quo, veniam eius rem sapiente atque harum soluta earum voluptatibus,
+                        incidunt fuga ut modi quibusdam nobis velit optio consequuntur mollitia officiis eum! Tenetur a assumenda molestias repellendus. Illo libero mollitia quisquam ex rerum
+                        possimus quidem ipsa molestiae magnam iusto deleniti ab nobis facilis fuga maxime eligendi in cumque, minima esse. Exercitationem corporis dolore tempora harum fuga
+                        quas sed unde eaque dolor neque. Ex error ad repudiandae. Mollitia expedita id corrupti aut, perspiciatis dolorum magnam iste voluptates? Adipisci exercitationem cupiditate
+                        nulla eius harum illo atque culpa illum impedit aperiam quaerat numquam aliquid accusantium explicabo, officia repellat labore a optio nobis veniam ratione nesciunt doloribus
+                        cum mollitia? Odit saepe dolor nostrum quod debitis. Nulla fugiat ipsum perferendis ullam facilis aspernatur quasi numquam animi, cum libero, velit quia et praesentium. Nobis
+                        iure quasi ipsum quos veniam exercitationem mollitia perferendis maxime necessitatibus quisquam impedit explicabo culpa at recusandae facere incidunt delectus dolor porro sit,
+                        eum asperiores odit. Expedita, ea eum sed temporibus beatae non officiis consequatur ullam nihil aliquid nec
+                        essitatibus repellat inventore! Natus sequi quia nam, repellendus voluptatum ipsam et dolorem, tempore, qui quaerat quis debitis distinctio tenetur nihil beatae maxime.
+                    </p>
+                </div>
+            </div>
+
+            <div class="wg-box tabcontent" id="specification">
+                <div class=" box-comment col-lg-12">
+                    <div class="comment-section">
+                        <div class="filter-newest-comments">
+                            <fieldset class="male">
+                                <div class="select">
+                                    <select class="">
+                                        <option>VECTO</option>
+                                        <!-- <option>Female</option>
+                                        <option>Other</option> -->
+                                    </select>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="comment">
+                            <div class="comment-header">
+                                <span class="comment-author">Putin Capnuwng -</span>
+                                <span class="comment-date">2024-12-28</span>
+                                <span class="comment-delete">
+                                    <button class="delete-btn">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="comment-body">
+                                <p class="comment-text">Sản phẩm rất tốt và đáng mua,mô hình này giá cả hợp lý mà còn đẹp nữa,mua về mình ưng quá chừng kk.</p>
+                                <div class="comment-rating">
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9734;</span> <!-- Ngôi sao rỗng -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comment-section">
+                        <div class="comment">
+                            <div class="comment-header">
+                                <span class="comment-author">Putin Capnuwng -</span>
+                                <span class="comment-date">2024-12-28</span>
+                                <span class="comment-delete">
+                                    <button class="delete-btn">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="comment-body">
+                                <p class="comment-text">Sản phẩm rất tốt và đáng mua,mô hình này giá cả hợp lý mà còn đẹp nữa,mua về mình ưng quá chừng kk.</p>
+                                <div class="comment-rating">
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9734;</span> <!-- Ngôi sao rỗng -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comment-section">
+                        <div class="comment">
+                            <div class="comment-header">
+                                <span class="comment-author">Putin Capnuwng -</span>
+                                <span class="comment-date">2024-12-28</span>
+                                <span class="comment-delete">
+                                    <button class="delete-btn">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="comment-body">
+                                <p class="comment-text">Sản phẩm rất tốt và đáng mua,mô hình này giá cả hợp lý mà còn đẹp nữa,mua về mình ưng quá chừng kk.</p>
+                                <div class="comment-rating">
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9734;</span> <!-- Ngôi sao rỗng -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comment-section">
+                        <div class="comment">
+                            <div class="comment-header">
+                                <span class="comment-author">Putin Capnuwng -</span>
+                                <span class="comment-date">2024-12-28</span>
+                                <span class="comment-delete">
+                                    <button class="delete-btn">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="comment-body">
+                                <p class="comment-text">Sản phẩm rất tốt và đáng mua,mô hình này giá cả hợp lý mà còn đẹp nữa,mua về mình ưng quá chừng kk.</p>
+                                <div class="comment-rating">
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9734;</span> <!-- Ngôi sao rỗng -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /form-add-product -->
+        </div>
+        <!-- /main-content-wrap -->
+    </div>
+    <!-- /main-content-wrap -->
+    <!-- bottom-page -->
+    <div class="bottom-page">
+        <div class="body-text">Copyright © 2024 Omega. Design with</div>
+        <i class="icon-heart"></i>
+        <div class="body-text">
+            by
+            <a href="#">Omega Group</a>
+            All rights reserved.
+        </div>
+    </div>
+    <!-- /bottom-page -->
+</div>
