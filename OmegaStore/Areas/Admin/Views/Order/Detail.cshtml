@@ -1,0 +1,194 @@
+﻿@{
+    ViewData["Title"] = "Chi Tiết Đơn Hàng";
+}
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/admin/css/Custum.css">
+}
+
+@section Scripts {
+    <script src="~/admin/js/zoom.js"></script>
+    <script src="~/admin/js/apexcharts/apexcharts.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-1.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-2.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-3.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-4.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-5.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-6.js"></script>
+    <script src="~/admin/js/switcher.js"></script>
+    <script src="~/admin/js/theme-settings.js"></script>
+}
+
+<div class="main-content">
+    <!-- main-content-wrap -->
+    <div class="main-content-inner">
+        <!-- main-content-wrap -->
+        <div class="main-content-wrap">
+            <div class="flex items-center flex-wrap justify-between gap20 mb-27">
+                <h3>Đơn hàng #123783</h3>
+                <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+                    <li>
+                        <a href="index.html">
+                            <div class="text-tiny">Quản lý</div>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="icon-chevron-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="text-tiny">Đơn hàng</div>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="icon-chevron-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="text-tiny">Chi tiết</div>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="icon-chevron-right"></i>
+                    </li>
+                    <li>
+                        <div class="text-tiny">Đơn hàng #123783</div>
+                    </li>
+                </ul>
+            </div>
+            <!-- order-detail -->
+            <div class="wg-order-detail">
+                <div class="left flex-grow">
+                    <div class="wg-box mb-20">
+                        <div class="wg-table table-order-detail">
+                            <ul class="table-title flex items-center justify-between gap20 mb-24">
+                                <li>
+                                    <div class="body-title">Tất cả sản phẩm</div>
+                                </li>
+                                <li>
+                                    <div class="dropdown default">
+                                        <button class="btn btn-secondary dropdown-toggle"
+                                                type="button" data-bs-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                            <span class="body-title-2 flex items-center gap8">
+                                                Sắp xếp theo<i class="h6 icon-chevron-down"></i>
+                                            </span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="javascript:void(0);">Sản phẩm</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Số lượng</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Đơn giá</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="flex flex-column">
+                                <li class="product-item gap14">
+                                    <div class="image no-bg">
+                                        <img src="~/admin/images/products/41.png" alt="">
+                                    </div>
+                                    <div class="flex items-center justify-between gap40 flex-grow">
+                                        <div class="name">
+                                            <div class="text-tiny mb-1">Tên sản phẩm</div>
+                                            <a href="product-list.html" class="body-title-2">
+                                                Kristin
+                                                Watson
+                                            </a>
+                                        </div>
+                                        <div class="name">
+                                            <div class="text-tiny mb-1">Số lượng</div>
+                                            <div class="body-title-2">1</div>
+                                        </div>
+                                        <div class="name">
+                                            <div class="text-tiny mb-1">Đơn giá</div>
+                                            <div class="body-title-2">$50.47</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wg-box">
+                        <div class="wg-table table-cart-totals">
+                            <ul class="table-title flex mb-24">
+                                <li>
+                                    <div class="body-title">Tổng giỏ hàng</div>
+                                </li>
+                                <li>
+                                    <div class="body-title">Giá tiền</div>
+                                </li>
+                            </ul>
+                            <ul class="flex flex-column gap14">
+                                <li class="cart-totals-item">
+                                    <span class="body-text">Tạm tính:</span>
+                                    <span class="body-title-2">100.000VNĐ</span>
+                                </li>
+                                <li class="divider"></li>
+                                <li class="cart-totals-item">
+                                    <span class="body-text">Phí vận chuyển:</span>
+                                    <span class="body-title-2">10.000VNĐ</span>
+                                </li>
+                                <li class="divider"></li>
+                                <li class="cart-totals-item">
+                                    <span class="body-title">Tổng tiền</span>
+                                    <span class="body-title tf-color-1">110.000VNĐ</span>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="wg-box mb-20 gap10">
+                        <div class="body-title">Tóm tắt:</div>
+                        <div class="summary-item">
+                            <div class="body-text">Mã đơn hàng</div>
+                            <div class="body-title-2">#192847</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="body-text">Ngày:</div>
+                            <div class="body-title-2">01/10/2024</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="body-text">Tổng tiền:</div>
+                            <div class="body-title-2 tf-color-1">200.000.000VNĐ</div>
+                        </div>
+                    </div>
+                    <div class="wg-box mb-20 gap10">
+                        <div class="body-title">Địa chỉ giao hàng</div>
+                        <div class="body-text">
+                            123 Huỳnh Thúc Khánh, Phường Bến Nghé, Quận 1, TPHCM
+                        </div>
+                    </div>
+                    <div class="wg-box mb-20 gap10">
+                        <div class="body-title">Phương thức thanh toán</div>
+                        <div class="body-text">Thanh toán khi nhận hàng.</div>
+                    </div>
+                    <div class="wg-box gap10">
+                        <div class="body-title">Ngày giao hàng dự kiến</div>
+                        <div class="body-title-2 tf-color-2">05/10/2024</div>
+                        <a class="tf-button style-1 w-full" href="oder-tracking.html">
+                            <i class="icon-truck"></i>Theo dõi đơn hàng
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /order-detail -->
+        </div>
+        <!-- /main-content-wrap -->
+    </div>
+    <!-- /main-content-wrap -->
+    <!-- bottom-page -->
+    <div class="bottom-page">
+        <div class="body-text">Copyright © 2024 Remos. Design with</div>
+        <i class="icon-heart"></i>
+        <div class="body-text">by <a href="https://themeforest.net/user/themesflat/portfolio">Themesflat</a> All rights reserved.</div>
+    </div>
+    <!-- /bottom-page -->
+</div>
