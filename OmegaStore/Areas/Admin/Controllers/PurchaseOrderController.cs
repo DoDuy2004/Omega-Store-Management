@@ -3,24 +3,19 @@
 namespace OmegaStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class HomeController : Controller
+    public class PurchaseOrderController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Roles()
+        public IActionResult Detail()
         {
             return View();
         }
 
-        public IActionResult Report()
-        {
-            return View();
-        }
-
-        public IActionResult Component()
+        public IActionResult Create()
         {
             return View();
         }

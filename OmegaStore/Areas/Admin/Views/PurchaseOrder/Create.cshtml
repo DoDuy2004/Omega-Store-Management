@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "Tạo Phiếu Nhập Kho";
+}
+
+@section Styles {
+
+}
+
+@section Scripts {
+    <script src="~/admin/js/zoom.js"></script>
+    <script src="~/admin/js/apexcharts/apexcharts.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-1.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-2.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-3.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-4.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-5.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-6.js"></script>
+    <script src="~/admin/js/theme-settings.js"></script>
+    <script src="~/admin/js/search-product.js"></script>
+}
+
+<div class="main-content">
+    <!-- main-content-wrap -->
+    <div class="main-content-inner">
+        <!-- main-content-wrap -->
+        <div class="main-content-wrap">
+            <div class="flex items-center flex-wrap justify-between gap20 mb-27">
+                <h3>Lập phiếu nhập kho</h3>
+                <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+                    <li>
+                        <a href="index.html">
+                            <div class="text-tiny">Quản lý</div>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="icon-chevron-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="text-tiny">Nhập kho</div>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="icon-chevron-right"></i>
+                    </li>
+                    <li>
+                        <div class="text-tiny">Lập phiếu nhập kho</div>
+                    </li>
+                </ul>
+            </div>
+            <!-- countries -->
+            <div class="wg-box">
+                <div class="flex items-center justify-between gap10 flex-wrap">
+                    <div class="position-relative mb-4">
+                        <input type="text" id="searchProduct" class="form-control"
+                               placeholder="Nhập mã hoặc tên sản phẩm" />
+                        <ul id="productList" class="list-group position-absolute w-100 mt-1" style="
+                            max-height: 300px;
+                            overflow-y: auto;
+                            z-index: 1000;
+                          "></ul>
+                    </div>
+                    <a class="tf-button style-1 w220" href="#"><i class="icon-plus"></i>Thêm sản phẩm mới</a>
+                </div>
+                <table class="" id="productTable">
+                    <thead>
+                        <tr>
+                            <th>Mã sản phẩm</th>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá nhập</th>
+                            <th>Thành tiền</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <div class="text-end">
+                    <button class="btn btn-success me-2" style="font-size: 1.6rem;">Lập phiếu</button>
+                    <button class="btn btn-danger" style="font-size: 1.6rem;">Hủy</button>
+                </div>
+                <div class="divider"></div>
+                <div class="flex items-center justify-between flex-wrap gap10">
+                    <div class="text-tiny">
+                        Showing 10 to 16 in 16 records
+                    </div>
+                    <ul class="wg-pagination">
+                        <li>
+                            <a href="#"><i class="icon-chevron-left"></i></a>
+                        </li>
+                        <li>
+                            <a href="#">1</a>
+                        </li>
+                        <li class="active">
+                            <a href="#">2</a>
+                        </li>
+                        <li>
+                            <a href="#">3</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon-chevron-right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /countries -->
+        </div>
+        <!-- /main-content-wrap -->
+    </div>
+    <!-- /main-content-wrap -->
+    <!-- bottom-page -->
+    <div class="bottom-page">
+        <div class="body-text">Copyright © 2024 Omega. Design with</div>
+        <i class="icon-heart"></i>
+        <div class="body-text">
+            by
+            <a href="#">Omega Group</a>
+            All rights reserved.
+        </div>
+    </div>
+    <!-- /bottom-page -->
+</div>

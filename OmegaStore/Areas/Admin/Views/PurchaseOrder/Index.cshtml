@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "Danh Sách Phiếu Nhập Kho";
+}
+
+@section Styles {
+
+}
+
+@section Scripts {
+    <script src="~/admin/js/zoom.js"></script>
+    <script src="~/admin/js/apexcharts/apexcharts.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-1.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-2.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-3.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-4.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-5.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-6.js"></script>
+    <script src="~/admin/js/switcher.js"></script>
+    <script src="~/admin/js/theme-settings.js"></script>
+}
+
+<div class="main-content">
+    <!-- main-content-wrap -->
+    <div class="main-content-inner">
+        <!-- main-content-wrap -->
+        <div class="main-content-wrap">
+            <div class="flex items-center flex-wrap justify-between gap20 mb-27">
+                <h3>Danh sách nhập kho</h3>
+                <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+                    <li>
+                        <a href="index.html">
+                            <div class="text-tiny">Trang chủ</div>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="icon-chevron-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="text-tiny">Kho hàng</div>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="icon-chevron-right"></i>
+                    </li>
+                    <li>
+                        <div class="text-tiny">Danh sách phiếu nhập kho</div>
+                    </li>
+                </ul>
+            </div>
+            <!-- order-list -->
+            <div class="wg-box">
+                <div class="flex items-center gap10">
+                    <a href="" class="fw-bold btn btn-info btn-lg">Chờ xác nhận</a>
+                    <a href="" class="fw-bold btn btn-outline-info btn-lg">Xác nhận</a>
+                    <a href="" class="fw-bold btn btn-outline-info btn-lg">Đã hủy</a>
+                </div>
+                <div class="flex items-center justify-between gap10 flex-wrap">
+                    <div class="wg-filter flex-grow">
+                        <div class="show">
+                            <div class="text-tiny">Hiển thị</div>
+                            <div class="select">
+                                <select class="">
+                                    <option>10</option>
+                                    <option>20</option>
+                                    <option>30</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <form class="form-search">
+                            <fieldset class="name">
+                                <input type="text" placeholder="Search here..." class="" name="name" tabindex="2" value=""
+                                       aria-required="true" required="" />
+                            </fieldset>
+                            <div class="button-submit">
+                                <button class="" type="submit">
+                                    <i class="icon-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="wg-table table-all-category">
+                    <ul class="table-title flex gap20 mb-14 ">
+                        <li style="width: 150px;">
+                            <div class="body-title">Mã phiếu</div>
+                        </li>
+                        <li>
+                            <div class="body-title">Ngày lập</div>
+                        </li>
+                        <li>
+                            <div class="body-title">Người lập</div>
+                        </li>
+                        <li>
+                            <div class="body-title">Tổng tiền</div>
+                        </li>
+                        <li style="width: 200px;">
+                            <div class="body-title">Hành động</div>
+                        </li>
+                    </ul>
+                    <ul class="flex flex-column ">
+                        <li class="product-item gap14">
+                            <div class="flex items-center justify-between flex-grow">
+                                <div class="body-text" style="width: 170px;">#ABC123XYZ22</div>
+                                <div class="body-text">12/01/2025</div>
+                                <div class="name">
+                                    <a href="#" class="body-title-2">hoanganhle@gmail.com</a>
+                                </div>
+                                <div class="body-text">10,000,000 VND</div>
+                                <div class="list-icon-function" style="width: 200px;">
+                                    <div class="body-text flex">
+                                        <button type="button" class="btn btn-lg btn-success" style="border-radius: 20px; width: 80px;">Xác nhận</button>
+                                        <button type="button" class="btn btn-lg btn-danger" style="border-radius: 20px;  width: 80px;">Hủy</button>
+                                    </div>
+                                    <div class="item eye">
+                                        <i class="icon-eye"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="divider"></div>
+                <div class="flex items-center justify-between flex-wrap gap10">
+                    <div class="text-tiny">Showing 10 entries</div>
+                    <ul class="wg-pagination">
+                        <li>
+                            <a href="#"><i class="icon-chevron-left"></i></a>
+                        </li>
+                        <li>
+                            <a href="#">1</a>
+                        </li>
+                        <li class="active">
+                            <a href="#">2</a>
+                        </li>
+                        <li>
+                            <a href="#">3</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon-chevron-right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /order-list -->
+        </div>
+        <!-- /main-content-wrap -->
+    </div>
+    <!-- /main-content-wrap -->
+    <!-- bottom-page -->
+    <div class="bottom-page">
+        <div class="body-text">Copyright © 2024 Omega. Design with</div>
+        <i class="icon-heart"></i>
+        <div class="body-text">
+            by
+            <a href="#">Omega Group</a>
+            All rights reserved.
+        </div>
+    </div>
+    <!-- /bottom-page -->
+</div>
