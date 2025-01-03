@@ -1,0 +1,177 @@
+/* Dashboards */
+.tf-section-6 > div:nth-child(1) {
+  grid-column: span 5 / span 5 !important;
+}
+.tf-section-6 > div:nth-child(2) {
+  grid-column: span 3 / span 3 !important;
+}
+.tf-section-5 > div:nth-child(1) {
+  grid-column: span 5 / span 5 !important;
+}
+.tf-section-5 > div:nth-child(2) {
+  grid-column: span 3 / span 3 !important;
+}
+.wg-table.table-product-overview ul.table-title li:nth-child(1) {
+  width: 120px;
+}
+.wg-table.table-product-overview ul.table-title li:nth-child(2) {
+  width: 120px;
+}
+.wg-table.table-product-overview ul.table-title li:nth-child(3) {
+  width: 120px;
+}
+.wg-table.table-product-overview ul.table-title li:nth-child(4) {
+  width: 120px;
+}
+.wg-table.table-product-overview ul.table-title li:nth-child(5) {
+  width: 120px;
+}
+.wg-table.table-product-overview .product-item > .flex > div:nth-child(1) {
+  width: 120px;
+}
+.wg-table.table-product-overview .product-item > .flex > div:nth-child(2) {
+  width: 120px;
+}
+.wg-table.table-product-overview .product-item > .flex > div:nth-child(3) {
+  width: 120px;
+}
+.wg-table.table-product-overview .product-item > .flex > div:nth-child(4) {
+  width: 120px;
+}
+.wg-table.table-product-overview .product-item > .flex > div:nth-child(5) {
+  width: 120px;
+}
+.wg-table.table-product-overview > * {
+  min-width: 750px;
+}
+.wg-table.table-top-product > * {
+  min-width: 340px;
+}
+.wg-table.table-top-product .product-item > .flex > div:nth-child(1) {
+  width: 180px;
+}
+.wg-table.table-top-product .product-item > .flex > div:nth-child(2) {
+  width: 50px;
+}
+@media (min-width: 1200px){
+  .table-top-product{
+    overflow: hidden;
+  }
+}
+@media (max-width: 1200px){
+  .table-top-product{
+    overflow: auto;
+  }
+}
+/* Dashboards */
+
+/* Danh sách đơn hàng */
+.input-button-container {
+    display: flex; /* Sử dụng flexbox để bố trí các phần tử ngang */
+    border-radius: 8px; /* Bo góc cho cả container */
+    overflow: hidden; /* Ẩn các phần thừa ra ngoài */
+    width: 200px; /* Chiều rộng container */
+  }
+  
+  .btn-custom {
+    background-color: #007bff; /* Nền xanh dương */
+    color: white; /* Chữ màu trắng */
+    border: none; /* Không viền */
+    padding: 10px 20px; /* Khoảng cách trong button */
+    cursor: pointer; /* Con trỏ chuột khi hover vào */
+    border-radius: 8px 0 0 8px; /* Bo góc chỉ cho phần trên bên trái */
+  }
+  
+  .input-custom {
+    border: 2px solid #007bff; /* Viền màu xanh dương */
+    padding: 5px; /* Khoảng cách trong input */
+    width: 50%; /* Chiếm toàn bộ chiều rộng còn lại */
+    border-radius: 0 8px 8px 0; /* Bo góc chỉ cho phần trên bên phải */
+    color: black; /* Chữ màu đen */
+    font-size: 16px; /* Kích thước chữ */
+  }
+  
+  .btn-custom:hover {
+    background-color: #0056b3;
+  }
+  
+  .input-custom:focus {
+    outline: none; /* Bỏ outline mặc định */
+    border-color: #0056b3; /* Đổi màu viền khi focus */
+  }
+  .order-state{
+    width: 40%
+  }
+  @media (max-width: 1400px) {
+    .order-state{
+      width: 60%
+    }
+  }
+  @media (max-width: 768px) {
+    .order-state{
+      width: 80%
+    }
+  }
+  @media (max-width: 576px) {
+    .order-state{
+      width: 100%
+    }
+  }
+  .wg-table.table-all-category ul.order-title-custum li:first-child {
+    width: 150px;
+    flex-shrink: 0;
+  }
+  .wg-table.table-all-category ul.order-title-custum li:nth-child(4) {
+    width: 200%;
+  }
+  .wg-table.table-all-category ul.order-title-custum li:last-child {
+    width: 600px;
+    flex-shrink: 0;
+  }
+  .wg-table.table-all-category .product-item > .flex > div:first-child {
+    width: 150px;
+    flex-shrink: 0;
+  }
+  .wg-table.table-all-category .product-item > .flex > div:nth-child(4){
+    width: 200%;
+  }
+  .wg-table.table-all-category .product-item > .flex > div:last-child {
+    width: 600px;
+    flex-shrink: 0;
+  }
+/* Danh sách đơn hàng */
+
+/* Danh sách sản phẩm */
+.wg-table.table-product-list > * {
+  min-width: 1200px;
+}
+.product-item .name a {
+  line-height: 17px;
+  display: block; /* Đặt thẻ a thành block */
+  overflow: hidden; /* Ẩn nội dung vượt ra ngoài */
+  text-overflow: ellipsis; /* Hiện thị dấu ba chấm */
+  white-space: nowrap; /* Không cho xuống dòng */
+}
+.wg-table.table-product-list ul.table-title li {
+  width: 10%;
+}
+.wg-table.table-product-list .product-item > .flex > div {
+  width: 10%;
+}
+.wg-table.table-product-list ul.table-title li:nth-child(5){
+  width: 100px;
+  flex-shrink: 0;
+}
+
+/* Danh sách sản phẩm */
+
+/* Danh sách Vai trò */
+.wg-table.table-all-roles ul.table-title li:last-child {
+  width: 800px;
+  flex-shrink: 0;
+}
+.wg-table.table-all-roles .roles-item > div:last-child {
+  width: 800px;
+  flex-shrink: 0;
+}
+/* Danh sách Vai trò */

@@ -1,0 +1,139 @@
+﻿@{
+    ViewData["Title"] = "Tạo Tài Khoản";
+}
+
+@section Styles {
+
+}
+
+@section Scripts {
+    <script src="~/admin/js/zoom.js"></script>
+    <script src="~/admin/js/apexcharts/apexcharts.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-1.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-2.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-3.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-4.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-5.js"></script>
+    <script src="~/admin/js/apexcharts/line-chart-6.js"></script>
+    <script src="~/admin/js/theme-settings.js"></script>
+}
+
+<div class="main-content">
+    <!-- main-content-wrap -->
+    <div class="main-content-inner">
+        <!-- main-content-wrap -->
+        <div class="flex items-center flex-wrap justify-between gap20 mb-27">
+            <h3>Thêm nhân viên</h3>
+            <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+                <li>
+                    <a href="index.html"><div class="text-tiny">Trang chủ</div></a>
+                </li>
+                <li>
+                    <i class="icon-chevron-right"></i>
+                </li>
+                <li>
+                    <a href="#"><div class="text-tiny">Nhân viên</div></a>
+                </li>
+                <li>
+                    <i class="icon-chevron-right"></i>
+                </li>
+                <li>
+                    <div class="text-tiny">Thêm nhân viên</div>
+                </li>
+            </ul>
+        </div>
+        <!-- add-new-user -->
+        <form class="form-add-new-user form-style-2">
+            <div class="wg-box">
+                <div class="left">
+                    <fieldset class="name mb-24">
+                        <div class="body-title mb-10">Họ tên</div>
+                        <input class="flex-grow" type="text" placeholder="Họ tên" name="name" tabindex="0" value="" aria-required="true" required="">
+                    </fieldset>
+                    <fieldset class="name mb-24">
+                        <div class="body-title mb-10">Ngày sinh</div>
+                        <input class="flex-grow" type="date" name="date" value="">
+                    </fieldset>
+                    <fieldset class="name mb-24">
+                        <div class="body-title mb-10">Tên đăng nhập</div>
+                        <input class="flex-grow" type="text" placeholder="Username" name="name" tabindex="0" value="" aria-required="true" required="">
+                    </fieldset>
+                    <fieldset class="name mb-24">
+                        <div class="body-title mb-10">Số điện thoại</div>
+                        <input class="flex-grow" type="text" placeholder="Số điện thoại" name="name" tabindex="0" value="" aria-required="true" required="">
+                    </fieldset>
+                    <fieldset class="password mb-24">
+                        <div class="body-title mb-10">Mật khẩu</div>
+                        <input class="password-input" type="password" placeholder="Nhập mật khẩu" name="password" tabindex="0" value="" aria-required="true" required="">
+                        <span class="show-pass">
+                            <i class="icon-eye view"></i>
+                            <i class="icon-eye-off hide"></i>
+                        </span>
+                    </fieldset>
+                </div>
+                <div class="right flex-grow">
+                    <fieldset class="name mb-24">
+                        <div class="body-title mb-10">Địa chỉ</div>
+                        <input class="flex-grow" type="text" placeholder="Nhập địa chỉ" name="name" tabindex="0" value="" aria-required="true" required="">
+                    </fieldset>
+                    <fieldset class="mb-24">
+                        <div class="body-title mb-10">Giới tính</div>
+                        <div class="select">
+                            <select class="">
+                                <option>--Chọn giới tính--</option>
+                                <option>Nam</option>
+                                <option>Nữ</option>
+                                <option>Khác</option>
+                            </select>
+                        </div>
+                    </fieldset>
+                    <fieldset class="email mb-24">
+                        <div class="body-title mb-10">Email</div>
+                        <input class="flex-grow" type="email" placeholder="Nhập Email" name="email" tabindex="0" value="" aria-required="true" required="">
+                    </fieldset>
+                    <fieldset class="name mb-24">
+                        <div class="body-title mb-10">Chức vụ</div>
+                        <div class="select">
+                            <select class="">
+                                <option>--Chọn chức vụ--</option>
+                                <option>Bán hàng</option>
+                                <option>Thủ kho</option>
+                                <option>Admin</option>
+                                <option>Super Adminvb </option>
+
+                            </select>
+                        </div>
+                    </fieldset>
+                    <fieldset class="password">
+                        <div class="body-title mb-10">Nhập lại mật khẩu</div>
+                        <input class="password-input" type="password" placeholder="Nhập lại mật khẩu" name="password" tabindex="0" value="" aria-required="true" required="">
+                        <span class="show-pass">
+                            <i class="icon-eye view"></i>
+                            <i class="icon-eye-off hide"></i>
+                        </span>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="bot">
+                <button class="tf-button w180" type="submit">Lưu lại</button>
+                <button class="tf-button w180" type="submit">Hủy bỏ</button>
+            </div>
+
+        </form>
+        <!-- /add-new-user -->
+        <!-- /main-content-wrap -->
+    </div>
+    <!-- /main-content-wrap -->
+    <!-- bottom-page -->
+    <div class="bottom-page">
+        <div class="body-text">Copyright © 2024 Omega. Design with</div>
+        <i class="icon-heart"></i>
+        <div class="body-text">
+            by
+            <a href="#">Omega Group</a>
+            All rights reserved.
+        </div>
+    </div>
+    <!-- /bottom-page -->
+</div>

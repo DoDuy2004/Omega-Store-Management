@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@section Styles {
+    @RenderSection("Styles", required: false)
+}
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
+
+<!-- layout-wrap -->
+<div class="layout-wrap">
+    <!-- preload -->
+    <div id="preload" class="preload-container">
+        <div class="preloading">
+            <span></span>
+        </div>
+    </div>
+    <!-- /preload -->
+
+    <!-- section-menu-left -->
+    @await Html.PartialAsync("_SidebarPartial")
+    <!-- /section-menu-left -->
+
+    <!-- section-content-right -->
+    <div class="section-content-right">
+
+        <!-- header-dashboard -->
+        @await Html.PartialAsync("_HeaderDashboardPartial")
+        <!-- /header-dashboard -->
+
+        <!-- main-content -->
+        @RenderBody()
+        <!-- /main-content -->
+
+    </div>
+    <!-- /section-content-right -->
+
+</div>
+<!-- /layout-wrap -->
