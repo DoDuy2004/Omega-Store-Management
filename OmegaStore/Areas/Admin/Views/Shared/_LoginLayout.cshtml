@@ -2,6 +2,14 @@
     Layout = "_Layout";
 }
 
+@section Styles {
+    @RenderSection("Styles", required: false)
+}
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
+
 <div class="wrap-login-page">
     <div class="flex-grow flex flex-column justify-center gap30">
         <a href="index.html" id="site-logo-inner">
