@@ -18,7 +18,7 @@
         <!-- main-content-wrap -->
         <div class="main-content-wrap">
             <div class="flex items-center flex-wrap justify-between gap20 mb-27">
-                <h3>Chỉnh sửa tài khoản</h3>
+                <h3>Sửa thông tin tài khoản</h3>
                 <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                     <li>
                         <a href="index.html"><div class="text-tiny">Tổng quan</div></a>
@@ -33,7 +33,7 @@
                         <i class="icon-chevron-right"></i>
                     </li>
                     <li>
-                        <div class="text-tiny">Sửa tài khoản</div>
+                        <div class="text-tiny">Sửa thông tin tài khoản</div>
                     </li>
                 </ul>
             </div>
@@ -49,38 +49,53 @@
                     <div class="left flex-grow">
                         <fieldset class="name mb-24">
                             <div class="body-title mb-10">Họ tên</div>
-                            <input class="flex-grow" type="text" placeholder="" value="Nguyễn Văn A" name="name" tabindex="0" aria-required="true" required="">
+                            <input class="flex-grow" type="text" placeholder="Nhập họ tên" value="Nguyễn Văn A" name="name" tabindex="0" aria-required="true" required="">
                         </fieldset>
                         <fieldset class="name mb-24">
                             <div class="body-title mb-10">Ngày sinh</div>
-                            <input class="flex-grow" type="text" placeholder="" value="01/01/2004" name="name" tabindex="0" aria-required="true" required="">
+                            <input class="flex-grow" type="date" value="01/01/2004" name="name" tabindex="0" aria-required="true" required="">
                         </fieldset>
                         <fieldset class="name mb-24">
                             <div class="body-title mb-10">Tên đăng nhập</div>
-                            <input class="flex-grow" type="text" placeholder="" value="username012@@" name="name" tabindex="0" aria-required="true" required="">
+                            <input class="flex-grow" type="text" placeholder="Nhập tên đăng nhập" value="username012@@" name="name" tabindex="0" aria-required="true" required="">
                         </fieldset>
                         <fieldset class="name mb-24">
                             <div class="body-title mb-10">Số điện thoại</div>
-                            <input class="flex-grow" type="text" placeholder="" value="0909455678" name="name" tabindex="0" aria-required="true" required="">
-                        </fieldset>                                            
+                            <input class="flex-grow" type="text" placeholder="Nhập số điện thoại" value="0909455678" name="name" tabindex="0" aria-required="true" required="">
+                        </fieldset>
                     </div>
                     <div class="right flex-grow">
                         <fieldset class="name mb-24">
                             <div class="body-title mb-10">Địa chỉ</div>
-                            <input class="flex-grow" type="text" placeholder="" value="12/345 Nguyễn Thị Minh Khai, P.Đa Kao, Q.1, TP Hồ Chí Minh" name="name" tabindex="0" aria-required="true" required="">
+                            <input class="flex-grow" type="text" placeholder="Nhập địa chỉ" value="12/345 Nguyễn Thị Minh Khai, P.Đa Kao, Q.1, TP Hồ Chí Minh" name="name" tabindex="0" aria-required="true" required="">
                         </fieldset>   
-                        <fieldset class="name mb-24">
+                        <fieldset class="mb-24">
                             <div class="body-title mb-10">Giới tính</div>
-                            <input class="flex-grow" type="text" placeholder="" value="Nam" name="name" tabindex="0" aria-required="true" required="">
-                        </fieldset>   
+                            <div class="select">
+                                <select class="">
+                                    <option>--Chọn giới tính--</option>
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
+                                    <option>Khác</option>
+                                </select>
+                            </div>
+                        </fieldset>
                         <fieldset class="name mb-24">
                             <div class="body-title mb-10">Email</div>
-                            <input class="flex-grow" type="text" placeholder="" value="vanadeptrai123@gmail.com" name="name" tabindex="0" aria-required="true" required="">
+                            <input class="flex-grow" type="email" placeholder="Nhập email" value="vanadeptrai123@gmail.com" name="name" tabindex="0" aria-required="true" required="">
                         </fieldset>   
                         <fieldset class="name mb-24">
                             <div class="body-title mb-10">Vai trò</div>
-                            <input class="flex-grow" type="text" placeholder="" value="Khách hàng" name="name" tabindex="0" aria-required="true" required="">
-                        </fieldset>   
+                            <div class="select">
+                                <select class="">
+                                    <option>--Chọn vai trò--</option>
+                                    <option>Bán hàng</option>
+                                    <option>Thủ kho</option>
+                                    <option>Admin</option>
+                                    <option>Super Adminvb </option>
+                                </select>
+                            </div>
+                        </fieldset>
                     </div>
                 </div>             
                 <div class="flex justify-center">

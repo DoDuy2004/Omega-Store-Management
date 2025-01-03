@@ -24,7 +24,7 @@
     <div class="main-content-inner">
         <!-- main-content-wrap -->
         <div class="flex items-center flex-wrap justify-between gap20 mb-27">
-            <h3>Thêm nhân viên</h3>
+            <h3>Tạo tài khoản</h3>
             <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                 <li>
                     <a href="index.html"><div class="text-tiny">Trang chủ</div></a>
@@ -33,35 +33,41 @@
                     <i class="icon-chevron-right"></i>
                 </li>
                 <li>
-                    <a href="#"><div class="text-tiny">Nhân viên</div></a>
+                    <a href="#"><div class="text-tiny">Tài khoản</div></a>
                 </li>
                 <li>
                     <i class="icon-chevron-right"></i>
                 </li>
                 <li>
-                    <div class="text-tiny">Thêm nhân viên</div>
+                    <div class="text-tiny">Tạo tài khoản</div>
                 </li>
             </ul>
         </div>
         <!-- add-new-user -->
+        <div class="bot mb-24" style="display: flex; flex-direction: row-reverse;">
+            <a href="accounts.html" class="tf-button w180 fs-5 " style="width: 200px; background-color: #1dd1a1;">
+                <i class="icon-arrow-left fw-bold fs-4" style="background-color: #fff; color: #1dd1a1; border-radius: 50%;"></i>
+                Quay lại danh sách
+            </a>
+        </div>
         <form class="form-add-new-user form-style-2">
             <div class="wg-box">
-                <div class="left">
+                <div class="left flex-grow">
                     <fieldset class="name mb-24">
                         <div class="body-title mb-10">Họ tên</div>
-                        <input class="flex-grow" type="text" placeholder="Họ tên" name="name" tabindex="0" value="" aria-required="true" required="">
+                        <input class="flex-grow" type="text" placeholder="Nhập họ tên" value="" name="name" tabindex="0" aria-required="true" required="">
                     </fieldset>
                     <fieldset class="name mb-24">
                         <div class="body-title mb-10">Ngày sinh</div>
-                        <input class="flex-grow" type="date" name="date" value="">
+                        <input class="flex-grow" type="date" value="" name="name" tabindex="0" aria-required="true" required="">
                     </fieldset>
                     <fieldset class="name mb-24">
                         <div class="body-title mb-10">Tên đăng nhập</div>
-                        <input class="flex-grow" type="text" placeholder="Username" name="name" tabindex="0" value="" aria-required="true" required="">
+                        <input class="flex-grow" type="text" placeholder="Nhập tên đăng nhập" value="" name="name" tabindex="0" aria-required="true" required="">
                     </fieldset>
                     <fieldset class="name mb-24">
                         <div class="body-title mb-10">Số điện thoại</div>
-                        <input class="flex-grow" type="text" placeholder="Số điện thoại" name="name" tabindex="0" value="" aria-required="true" required="">
+                        <input class="flex-grow" type="text" placeholder="Nhập số điện thoại" value="" name="name" tabindex="0" aria-required="true" required="">
                     </fieldset>
                     <fieldset class="password mb-24">
                         <div class="body-title mb-10">Mật khẩu</div>
@@ -75,7 +81,7 @@
                 <div class="right flex-grow">
                     <fieldset class="name mb-24">
                         <div class="body-title mb-10">Địa chỉ</div>
-                        <input class="flex-grow" type="text" placeholder="Nhập địa chỉ" name="name" tabindex="0" value="" aria-required="true" required="">
+                        <input class="flex-grow" type="text" placeholder="Nhập địa chỉ" value="" name="name" tabindex="0" aria-required="true" required="">
                     </fieldset>
                     <fieldset class="mb-24">
                         <div class="body-title mb-10">Giới tính</div>
@@ -88,20 +94,19 @@
                             </select>
                         </div>
                     </fieldset>
-                    <fieldset class="email mb-24">
+                    <fieldset class="name mb-24">
                         <div class="body-title mb-10">Email</div>
-                        <input class="flex-grow" type="email" placeholder="Nhập Email" name="email" tabindex="0" value="" aria-required="true" required="">
+                        <input class="flex-grow" type="email" placeholder="Nhập email" value="" name="name" tabindex="0" aria-required="true" required="">
                     </fieldset>
                     <fieldset class="name mb-24">
-                        <div class="body-title mb-10">Chức vụ</div>
+                        <div class="body-title mb-10">Vai trò</div>
                         <div class="select">
                             <select class="">
-                                <option>--Chọn chức vụ--</option>
+                                <option>--Chọn vai trò--</option>
                                 <option>Bán hàng</option>
                                 <option>Thủ kho</option>
                                 <option>Admin</option>
                                 <option>Super Adminvb </option>
-
                             </select>
                         </div>
                     </fieldset>
@@ -115,12 +120,9 @@
                     </fieldset>
                 </div>
             </div>
-
-            <div class="bot">
-                <button class="tf-button w180" type="submit">Lưu lại</button>
-                <button class="tf-button w180" type="submit">Hủy bỏ</button>
+            <div class="flex justify-center">
+                <button class="tf-button w180 fs-5 " style="width: 200px; background-color: #1dd1a1;" type="submit">Lưu thay đổi</button>
             </div>
-
         </form>
         <!-- /add-new-user -->
         <!-- /main-content-wrap -->
