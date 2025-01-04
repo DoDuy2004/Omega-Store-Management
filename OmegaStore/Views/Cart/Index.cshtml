@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/cart.css">
+}
+
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+            <li class="breadcrumb-item active">Giỏ hàng</li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Cart Start -->
+<div class="cart-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="order-products">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Hình ảnh</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Tổng tiền</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="#" class="d-block" style="width: 60px;">
+                                        <img class="img-fluid" src="~/img/gura.jpeg" alt="">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#" class="ellipsis">
+                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi
+                                        dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.
+                                    </a>
+                                </td>
+                                <td>3.000.000đ</td>
+                                <td>
+                                    <div class="qty border border-secondary rounded-lg">
+                                        <button class="btn-minus rounded-left"><i class="fa fa-minus"></i></button>
+                                        <input type="text" value="1">
+                                        <button class="btn-plus rounded-right"><i class="fa fa-plus"></i></button>
+                                    </div>
+                                </td>
+                                <td>3.000.000đ</td>
+                                <th>
+                                    <a href="#" class="btn btn-danger" style="transform:translateY(60%);">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#" class="d-block" style="width: 60px;">
+                                        <img class="img-fluid" src="~/img/gura.jpeg" alt="">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#" class="ellipsis">
+                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi
+                                        dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.
+                                    </a>
+                                </td>
+                                <td>3.000.000đ</td>
+                                <td>
+                                    <div class="qty border border-secondary rounded-lg">
+                                        <button class="btn-minus rounded-left"><i class="fa fa-minus"></i></button>
+                                        <input type="text" value="1">
+                                        <button class="btn-plus rounded-right"><i class="fa fa-plus"></i></button>
+                                    </div>
+                                </td>
+                                <td>3.000.000đ</td>
+                                <th>
+                                    <a href="#" class="btn btn-danger" style="transform:translateY(60%);">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#" class="d-block" style="width: 60px;">
+                                        <img class="img-fluid" src="~/img/gura.jpeg" alt="">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#" class="ellipsis">
+                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi
+                                        dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.
+                                    </a>
+                                </td>
+                                <td>3.000.000đ</td>
+                                <td>
+                                    <div class="qty border border-secondary rounded-lg">
+                                        <button class="btn-minus rounded-left"><i class="fa fa-minus"></i></button>
+                                        <input type="text" value="1">
+                                        <button class="btn-plus rounded-right"><i class="fa fa-plus"></i></button>
+                                    </div>
+                                </td>
+                                <td>3.000.000đ</td>
+                                <th>
+                                    <a href="#" class="btn btn-danger" style="transform:translateY(60%);">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cart-summary">
+                    <div class="cart-content">
+                        <h1>Giỏ hàng rút gọn</h1>
+                        <p>Tổng tiền hàng:<span>100.000đ</span></p>
+                        <p>Phí vận chuyển:<span>Sẽ báo sau</span></p>
+                        <h2>Thành tiền:<span>100.000đ</span></h2>
+                    </div>
+                    <div class="d-flex justify-content-between p-4">
+                        <a href="#" class="btn btn-info py-2 px-3">Cập nhật giỏ hàng</a>
+                        <a href="#" class="btn btn-outline-info py-2 px-3">Thanh toán</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4 mb-5">
+            <div class="col-md-3">
+                <a href="#" class="btn btn-info">Tiếp tục mua sắm</a>
+            </div>
+            <div class="col-md-9"></div>
+        </div>
+    </div>
+</div>
+<!-- Cart End -->
