@@ -9,39 +9,55 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = OmegaStore
 build_property.RootNamespace = OmegaStore
-build_property.ProjectDir = C:\nopbai\Doan\OmegaStoreSln\OmegaStore\
+build_property.ProjectDir = C:\nopbai\Doan\Omega-Store-Management\OmegaStore\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\nopbai\Doan\OmegaStoreSln\OmegaStore
+build_property.MSBuildProjectDirectory = C:\nopbai\Doan\Omega-Store-Management\OmegaStore
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/nopbai/Doan/OmegaStoreSln/OmegaStore/Views/Home/Index.cshtml]
+[C:/nopbai/Doan/Omega-Store-Management/OmegaStore/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/nopbai/Doan/OmegaStoreSln/OmegaStore/Views/Home/Privacy.cshtml]
+[C:/nopbai/Doan/Omega-Store-Management/OmegaStore/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/nopbai/Doan/OmegaStoreSln/OmegaStore/Views/Shared/Error.cshtml]
+[C:/nopbai/Doan/Omega-Store-Management/OmegaStore/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/nopbai/Doan/OmegaStoreSln/OmegaStore/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/nopbai/Doan/Omega-Store-Management/OmegaStore/Views/Shared/_BottombarPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Cb3R0b21iYXJQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/nopbai/Doan/Omega-Store-Management/OmegaStore/Views/Shared/_FooterPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXJQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/nopbai/Doan/Omega-Store-Management/OmegaStore/Views/Shared/_NavbarPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9OYXZiYXJQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/nopbai/Doan/Omega-Store-Management/OmegaStore/Views/Shared/_ProductSliderPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Qcm9kdWN0U2xpZGVyUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/nopbai/Doan/Omega-Store-Management/OmegaStore/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/nopbai/Doan/OmegaStoreSln/OmegaStore/Views/_ViewImports.cshtml]
+[C:/nopbai/Doan/Omega-Store-Management/OmegaStore/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/nopbai/Doan/OmegaStoreSln/OmegaStore/Views/_ViewStart.cshtml]
+[C:/nopbai/Doan/Omega-Store-Management/OmegaStore/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/nopbai/Doan/OmegaStoreSln/OmegaStore/Views/Shared/_Layout.cshtml]
+[C:/nopbai/Doan/Omega-Store-Management/OmegaStore/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-9usqoc4gl4
