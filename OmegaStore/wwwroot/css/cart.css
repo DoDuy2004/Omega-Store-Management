@@ -1,0 +1,21 @@
+.order-products thead {
+  background-color: #00d2d3;
+  border-radius: 10px;
+}
+
+.order-products thead th {
+  border-bottom: none;
+}
+
+.order-products tbody {
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.ellipsis {
+  display: block;
+  white-space: nowrap;        /* Không cho xuống dòng */
+  overflow: hidden;           /* Ẩn nội dung vượt quá */
+  text-overflow: ellipsis;    /* Thêm dấu "..." */
+  max-width: 200px;           /* Đặt độ rộng cụ thể */
+}

@@ -1,0 +1,96 @@
+.order-title, .order-info, .order-info-client,
+.order-delivery, .order-total-amount, .order-note {
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.order-detail .row:first-of-type > .col-md-12 h3 {
+  font-size: 22px;
+  margin: 0;
+}
+
+.order-detail p {
+  margin-bottom: 5px;
+}
+
+.order-detail a.btn {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.order-detail a.back-btn {
+  left: 10px;
+}
+
+.order-detail a.cancel-btn {
+  right: 10px;
+}
+
+.status {
+  color: #fff;
+  border-radius: 10px;
+  padding: 4px 14px;
+}
+
+.status-processing {
+  background-color: #ff9f43;
+}
+
+.status-confirmed {
+  background-color: #2e86de;
+}
+
+.status-shipping {
+  background-color: #00d2d3;
+}
+
+.status-delivered {
+  background-color: #1DD1A1;
+}
+
+.status-cancelled {
+  background-color: #EE5253;
+}
+
+p.order-code span {
+  color: #2E86DE;
+}
+
+.order-info span {
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+.order-info-client .title {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00D2D3;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 18px;
+}
+
+.order-products thead {
+  background-color: #00d2d3;
+  border-radius: 10px;
+}
+
+.order-products thead th {
+  border-bottom: none;
+}
+
+.order-products tbody {
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.ellipsis {
+  display: block;
+  white-space: nowrap;        /* Không cho xuống dòng */
+  overflow: hidden;           /* Ẩn nội dung vượt quá */
+  text-overflow: ellipsis;    /* Thêm dấu "..." */
+  max-width: 200px;           /* Đặt độ rộng cụ thể */
+}

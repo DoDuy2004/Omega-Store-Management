@@ -953,12 +953,184 @@
       "PackagePath": "staticwebassets\\admin\\scss\\widgets.scss"
     },
     {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\css\\cart.css",
+      "PackagePath": "staticwebassets\\css\\cart.css"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\css\\order-detail.css",
+      "PackagePath": "staticwebassets\\css\\order-detail.css"
+    },
+    {
       "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
       "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\banner-tet.jpg",
+      "PackagePath": "staticwebassets\\img\\banner-tet.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\brand-1.png",
+      "PackagePath": "staticwebassets\\img\\brand-1.png"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\brand-2.png",
+      "PackagePath": "staticwebassets\\img\\brand-2.png"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\brand-3.png",
+      "PackagePath": "staticwebassets\\img\\brand-3.png"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\brand-4.png",
+      "PackagePath": "staticwebassets\\img\\brand-4.png"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\brand-5.png",
+      "PackagePath": "staticwebassets\\img\\brand-5.png"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\brand-6.png",
+      "PackagePath": "staticwebassets\\img\\brand-6.png"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\category-1.jpg",
+      "PackagePath": "staticwebassets\\img\\category-1.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\category-2.jpg",
+      "PackagePath": "staticwebassets\\img\\category-2.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\category-3.jpg",
+      "PackagePath": "staticwebassets\\img\\category-3.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\category-4.jpg",
+      "PackagePath": "staticwebassets\\img\\category-4.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\category-5.jpg",
+      "PackagePath": "staticwebassets\\img\\category-5.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\category-6.jpg",
+      "PackagePath": "staticwebassets\\img\\category-6.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\category-7.jpg",
+      "PackagePath": "staticwebassets\\img\\category-7.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\category-8.jpg",
+      "PackagePath": "staticwebassets\\img\\category-8.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\deal_soc_banner.jpg",
+      "PackagePath": "staticwebassets\\img\\deal_soc_banner.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\godaddy.svg",
+      "PackagePath": "staticwebassets\\img\\godaddy.svg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\gura.jpeg",
+      "PackagePath": "staticwebassets\\img\\gura.jpeg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\logo.png",
+      "PackagePath": "staticwebassets\\img\\logo.png"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\norton.svg",
+      "PackagePath": "staticwebassets\\img\\norton.svg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\onepiece-bg.jpg",
+      "PackagePath": "staticwebassets\\img\\onepiece-bg.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\payment-method.png",
+      "PackagePath": "staticwebassets\\img\\payment-method.png"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\product-1.jpg",
+      "PackagePath": "staticwebassets\\img\\product-1.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\product-10.jpg",
+      "PackagePath": "staticwebassets\\img\\product-10.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\product-2.jpg",
+      "PackagePath": "staticwebassets\\img\\product-2.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\product-3.jpg",
+      "PackagePath": "staticwebassets\\img\\product-3.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\product-4.jpg",
+      "PackagePath": "staticwebassets\\img\\product-4.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\product-5.jpg",
+      "PackagePath": "staticwebassets\\img\\product-5.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\product-6.jpg",
+      "PackagePath": "staticwebassets\\img\\product-6.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\product-7.jpg",
+      "PackagePath": "staticwebassets\\img\\product-7.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\product-8.jpg",
+      "PackagePath": "staticwebassets\\img\\product-8.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\product-9.jpg",
+      "PackagePath": "staticwebassets\\img\\product-9.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\review-1.jpg",
+      "PackagePath": "staticwebassets\\img\\review-1.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\review-2.jpg",
+      "PackagePath": "staticwebassets\\img\\review-2.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\review-3.jpg",
+      "PackagePath": "staticwebassets\\img\\review-3.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\slider-1.jpg",
+      "PackagePath": "staticwebassets\\img\\slider-1.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\slider-2.jpg",
+      "PackagePath": "staticwebassets\\img\\slider-2.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\slider-3.jpg",
+      "PackagePath": "staticwebassets\\img\\slider-3.jpg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\img\\ssl.svg",
+      "PackagePath": "staticwebassets\\img\\ssl.svg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\js\\main.js",
+      "PackagePath": "staticwebassets\\js\\main.js"
     },
     {
       "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\js\\site.js",
@@ -1145,6 +1317,14 @@
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\easing\\easing.js",
+      "PackagePath": "staticwebassets\\lib\\easing\\easing.js"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\easing\\easing.min.js",
+      "PackagePath": "staticwebassets\\lib\\easing\\easing.min.js"
+    },
+    {
       "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
@@ -1191,6 +1371,62 @@
     {
       "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\ajax-loader.gif",
+      "PackagePath": "staticwebassets\\lib\\slick\\ajax-loader.gif"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\config.rb",
+      "PackagePath": "staticwebassets\\lib\\slick\\config.rb"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\fonts\\slick.eot",
+      "PackagePath": "staticwebassets\\lib\\slick\\fonts\\slick.eot"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\fonts\\slick.svg",
+      "PackagePath": "staticwebassets\\lib\\slick\\fonts\\slick.svg"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\fonts\\slick.ttf",
+      "PackagePath": "staticwebassets\\lib\\slick\\fonts\\slick.ttf"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\fonts\\slick.woff",
+      "PackagePath": "staticwebassets\\lib\\slick\\fonts\\slick.woff"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\slick-theme.css",
+      "PackagePath": "staticwebassets\\lib\\slick\\slick-theme.css"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\slick-theme.less",
+      "PackagePath": "staticwebassets\\lib\\slick\\slick-theme.less"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\slick-theme.scss",
+      "PackagePath": "staticwebassets\\lib\\slick\\slick-theme.scss"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\slick.css",
+      "PackagePath": "staticwebassets\\lib\\slick\\slick.css"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\slick.js",
+      "PackagePath": "staticwebassets\\lib\\slick\\slick.js"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\slick.less",
+      "PackagePath": "staticwebassets\\lib\\slick\\slick.less"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\slick.min.js",
+      "PackagePath": "staticwebassets\\lib\\slick\\slick.min.js"
+    },
+    {
+      "Id": "D:\\Asp.net\\FilesWord\\MonDoAnWeb\\Omega-Store-Management\\OmegaStore\\wwwroot\\lib\\slick\\slick.scss",
+      "PackagePath": "staticwebassets\\lib\\slick\\slick.scss"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.OmegaStore.Microsoft.AspNetCore.StaticWebAssets.props",
