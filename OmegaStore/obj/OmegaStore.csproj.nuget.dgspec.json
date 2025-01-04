@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\asp\\DoAn4_1\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj": {}
+    "D:\\ASPNET\\DOANMONHOC\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj": {}
   },
   "projects": {
-    "D:\\asp\\DoAn4_1\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj": {
+    "D:\\ASPNET\\DOANMONHOC\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\asp\\DoAn4_1\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj",
+        "projectUniqueName": "D:\\ASPNET\\DOANMONHOC\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj",
         "projectName": "OmegaStore",
-        "projectPath": "D:\\asp\\DoAn4_1\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\asp\\DoAn4_1\\Omega-Store-Management\\OmegaStore\\obj\\",
+        "projectPath": "D:\\ASPNET\\DOANMONHOC\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj",
+        "packagesPath": "C:\\Users\\TP\\.nuget\\packages\\",
+        "outputPath": "D:\\ASPNET\\DOANMONHOC\\Omega-Store-Management\\OmegaStore\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\TP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -82,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
