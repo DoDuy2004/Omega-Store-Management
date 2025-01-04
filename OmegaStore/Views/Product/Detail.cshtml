@@ -5,7 +5,7 @@
 <div class="breadcrumb-wrap">
     <div class="container">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
             <li class="breadcrumb-item active">Chi tiết sản phẩm</li>
         </ul>
     </div>
@@ -82,10 +82,10 @@
                                     </div>
                                 </div>
                                 <div class="action">
-                                    <a class="btn btn-outline-info" href="#">
+                                    <a class="btn btn-outline-info" asp-controller="Cart" asp-action="Index">
                                         <i class="fa fa-shopping-cart"></i>Thêm vào giỏ
                                     </a>
-                                    <a class="btn btn-outline-danger" href="#">
+                                    <a class="btn btn-outline-danger" asp-controller="Account" asp-action="Index">
                                         <i class="fa fa-heart"></i>Yêu thích
                                     </a>
                                 </div>
@@ -185,117 +185,6 @@
         <div class="section-header">
             <h1>Sản Phẩm Liên Quan</h1>
         </div>
-        <div class="row align-items-center product-slider product-slider-4">
-            <div class="col-lg-3">
-                <div class="product-item">
-                    <div class="product-image">
-                        <div class="discount-per">
-                            <span>18%</span>
-                        </div>
-                        <a href="#"><img src="~/img/gura.jpeg" alt=""></a>
-                    </div>
-                    <div class="product-title"><a href="#">Tên sản phẩm</a></div>
-                    <div class="product-price">
-                        <p class="price-discount"><span>300.000đ</span></p>
-                        <p class="price"><span>359.000đ</span></p>
-                    </div>
-                    <div class="view-rating">
-                        <span class="view">23<i class="fa fa-eye"></i></span>
-                        <span class="rating">4.7/5<i class="fa fa-star"></i></span>
-                    </div>
-                    <div class="btn-add-cart">
-                        <button>Thêm vào giỏ hàng</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product-item">
-                    <div class="product-image">
-                        <div class="discount-per">
-                            <span>18%</span>
-                        </div>
-                        <a href="#"><img src="~/img/gura.jpeg" alt=""></a>
-                    </div>
-                    <div class="product-title"><a href="#">Tên sản phẩm</a></div>
-                    <div class="product-price">
-                        <p class="price-discount"><span>300.000đ</span></p>
-                        <p class="price"><span>359.000đ</span></p>
-                    </div>
-                    <div class="view-rating">
-                        <span class="view">23<i class="fa fa-eye"></i></span>
-                        <span class="rating">4.7/5<i class="fa fa-star"></i></span>
-                    </div>
-                    <div class="btn-add-cart">
-                        <button>Thêm vào giỏ hàng</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product-item">
-                    <div class="product-image">
-                        <div class="discount-per">
-                            <span>18%</span>
-                        </div>
-                        <a href="#"><img src="~/img/gura.jpeg" alt=""></a>
-                    </div>
-                    <div class="product-title"><a href="#">Tên sản phẩm</a></div>
-                    <div class="product-price">
-                        <p class="price-discount"><span>300.000đ</span></p>
-                        <p class="price"><span>359.000đ</span></p>
-                    </div>
-                    <div class="view-rating">
-                        <span class="view">23<i class="fa fa-eye"></i></span>
-                        <span class="rating">4.7/5<i class="fa fa-star"></i></span>
-                    </div>
-                    <div class="btn-add-cart">
-                        <button>Thêm vào giỏ hàng</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product-item">
-                    <div class="product-image">
-                        <div class="discount-per">
-                            <span>18%</span>
-                        </div>
-                        <a href="#"><img src="~/img/gura.jpeg" alt=""></a>
-                    </div>
-                    <div class="product-title"><a href="#">Tên sản phẩm</a></div>
-                    <div class="product-price">
-                        <p class="price-discount"><span>300.000đ</span></p>
-                        <p class="price"><span>359.000đ</span></p>
-                    </div>
-                    <div class="view-rating">
-                        <span class="view">23<i class="fa fa-eye"></i></span>
-                        <span class="rating">4.7/5<i class="fa fa-star"></i></span>
-                    </div>
-                    <div class="btn-add-cart">
-                        <button>Thêm vào giỏ hàng</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product-item">
-                    <div class="product-image">
-                        <div class="discount-per">
-                            <span>18%</span>
-                        </div>
-                        <a href="#"><img src="~/img/gura.jpeg" alt=""></a>
-                    </div>
-                    <div class="product-title"><a href="#">Tên sản phẩm</a></div>
-                    <div class="product-price">
-                        <p class="price-discount"><span>300.000đ</span></p>
-                        <p class="price"><span>359.000đ</span></p>
-                    </div>
-                    <div class="view-rating">
-                        <span class="view">23<i class="fa fa-eye"></i></span>
-                        <span class="rating">4.7/5<i class="fa fa-star"></i></span>
-                    </div>
-                    <div class="btn-add-cart">
-                        <button>Thêm vào giỏ hàng</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @await Html.PartialAsync("_ProductSliderPartial")
     </div>
 </div>
