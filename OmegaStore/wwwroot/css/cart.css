@@ -6,10 +6,13 @@
 .order-products thead th {
   border-bottom: none;
 }
-
+.order-products thead tr > th{
+    min-width: 100px;
+}
 .order-products tbody {
   background-color: #fff;
   border-radius: 10px;
+  margin-right: 20px;
 }
 
 .ellipsis {
@@ -18,4 +21,7 @@
   overflow: hidden;           /* Ẩn nội dung vượt quá */
   text-overflow: ellipsis;    /* Thêm dấu "..." */
   max-width: 200px;           /* Đặt độ rộng cụ thể */
+}
+.qty {
+/*    width: 110px;*/
 }

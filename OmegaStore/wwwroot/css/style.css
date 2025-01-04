@@ -1583,7 +1583,7 @@ h2 {
 
 .cart-page .table .qty {
   display: inline-block;
-  min-width: 101px;
+  min-width: 102px;
   font-size: 0;
 }
 
@@ -1669,6 +1669,7 @@ h2 {
   position: relative;
   width: 100%;
   background-color: #ffffff;
+  margin-left: 50px;
 }
 
 .cart-page .cart-summary .cart-content {
