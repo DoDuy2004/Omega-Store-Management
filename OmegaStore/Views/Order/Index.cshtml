@@ -16,7 +16,7 @@
 <div class="breadcrumb-wrap">
 	<div class="container">
 		<ul class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+			<li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
 			<li class="breadcrumb-item active">Chi tiết đơn hàng</li>
 		</ul>
 	</div>
@@ -29,8 +29,8 @@
 			<div class="col-md-12">
 				<div class="order-title mb-3 p-3 position-relative">
 					<h3 class="font-weight-bold text-uppercase text-center">Chi tiết đơn hàng</h3>
-					<a href="#" class="btn btn-outline-success back-btn position-absolute">Quay lại</a>
-					<a href="#" class="btn btn-danger cancel-btn position-absolute">Hủy đơn</a>
+					<a asp-controller="Account" asp-action="Index" class="btn btn-outline-success back-btn position-absolute">Quay lại</a>
+					<a asp-controller="" asp-action="" class="btn btn-danger cancel-btn position-absolute">Hủy đơn</a>
 				</div>
 			</div>
 		</div>
@@ -84,12 +84,12 @@
 								<tbody>
 									<tr>
 										<td>
-											<a href="#" class="d-block" style="width: 80px;">
-												<img class="img-fluid" src="./img/gura.jpeg" alt="">
+											<a asp-controller="Product" asp-action="Detail" class="d-block" style="width: 80px;">
+												<img class="img-fluid" src="~/img/gura.jpeg" alt="">
 											</a>
 										</td>
 										<td>
-											<a href="#" class="ellipsis">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.</a>
+											<a asp-controller="Product" asp-action="Detail" class="ellipsis">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.</a>
 										</td>
 										<td>3.000.000đ</td>
 										<td class="text-center">1</td>
@@ -97,12 +97,12 @@
 									</tr>
 									<tr>
 										<td>
-											<a href="#" class="d-block" style="width: 80px;">
-												<img class="img-fluid" src="./img/gura.jpeg" alt="">
+											<a asp-controller="Product" asp-action="Detail" class="d-block" style="width: 80px;">
+												<img class="img-fluid" src="~/img/gura.jpeg" alt="">
 											</a>
 										</td>
 										<td>
-											<a href="#" class="ellipsis">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.</a>
+											<a asp-controller="Product" asp-action="Detail" class="ellipsis">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.</a>
 										</td>
 										<td>3.000.000đ</td>
 										<td class="text-center">1</td>
@@ -110,12 +110,12 @@
 									</tr>
 									<tr>
 										<td>
-											<a href="#" class="d-block" style="width: 80px;">
-												<img class="img-fluid" src="./img/gura.jpeg" alt="">
+											<a asp-controller="Product" asp-action="Detail" class="d-block" style="width: 80px;">
+												<img class="img-fluid" src="~/img/gura.jpeg" alt="">
 											</a>
 										</td>
 										<td>
-											<a href="#" class="ellipsis">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.</a>
+											<a asp-controller="Product" asp-action="Detail" class="ellipsis">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.</a>
 										</td>
 										<td>3.000.000đ</td>
 										<td class="text-center">1</td>
