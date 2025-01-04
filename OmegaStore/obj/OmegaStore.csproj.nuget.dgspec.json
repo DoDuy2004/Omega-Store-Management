@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\LENOVO\\OneDrive\\Desktop\\github\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj": {}
+    "D:\\ASPNET\\DOANMONHOC\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\LENOVO\\OneDrive\\Desktop\\github\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj": {
+    "D:\\ASPNET\\DOANMONHOC\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LENOVO\\OneDrive\\Desktop\\github\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj",
+        "projectUniqueName": "D:\\ASPNET\\DOANMONHOC\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj",
         "projectName": "OmegaStore",
-        "projectPath": "C:\\Users\\LENOVO\\OneDrive\\Desktop\\github\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj",
-        "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LENOVO\\OneDrive\\Desktop\\github\\Omega-Store-Management\\OmegaStore\\obj\\",
+        "projectPath": "D:\\ASPNET\\DOANMONHOC\\Omega-Store-Management\\OmegaStore\\OmegaStore.csproj",
+        "packagesPath": "C:\\Users\\TP\\.nuget\\packages\\",
+        "outputPath": "D:\\ASPNET\\DOANMONHOC\\Omega-Store-Management\\OmegaStore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\TP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -72,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
