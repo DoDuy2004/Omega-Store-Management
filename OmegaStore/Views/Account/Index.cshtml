@@ -2,7 +2,7 @@
 <div class="breadcrumb-wrap">
     <div class="container">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
             <li class="breadcrumb-item active">Tài khoản của tôi</li>
         </ul>
     </div>
@@ -105,7 +105,7 @@
                                         <td>299.000đ</td>
                                         <td>Chờ xác nhận</td>
                                         <td>
-                                            <a href="#"><i class="fa fa-eye text-dark"></i></a>
+                                            <a asp-controller="Order" asp-action="Index"><i class="fa fa-eye text-dark"></i></a>
                                         </td>
                                         <td>
                                             <button class="btn border-danger text-danger">
@@ -119,7 +119,7 @@
                                         <td>299.000đ</td>
                                         <td>Chờ xác nhận</td>
                                         <td>
-                                            <a href="#"><i class="fa fa-eye text-dark"></i></a>
+                                            <a asp-controller="Order" asp-action="Index"><i class="fa fa-eye text-dark"></i></a>
                                         </td>
                                         <td>
                                             <button class="btn border-danger text-danger">
@@ -133,7 +133,7 @@
                                         <td>299.000đ</td>
                                         <td>Chờ xác nhận</td>
                                         <td>
-                                            <a href="#"><i class="fa fa-eye text-dark"></i></a>
+                                            <a asp-controller="Order" asp-action="Index"><i class="fa fa-eye text-dark"></i></a>
                                         </td>
                                         <td>
                                             <button class="btn border-danger text-danger">
@@ -148,19 +148,19 @@
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
                                         <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1">Trước</a>
+                                            <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
                                         </li>
                                         <li class="page-item active">
-                                            <a class="page-link" href="#">1</a>
+                                            <a class="page-link" asp-controller="" asp-action="">1</a>
                                         </li>
                                         <li class="page-item">
-                                            <a class="page-link" href="#">2</a>
+                                            <a class="page-link" asp-controller="" asp-action="">2</a>
                                         </li>
                                         <li class="page-item">
-                                            <a class="page-link" href="#">3</a>
+                                            <a class="page-link" asp-controller="" asp-action="">3</a>
                                         </li>
                                         <li class="page-item">
-                                            <a class="page-link" href="#">Sau</a>
+                                            <a class="page-link" asp-controller="" asp-action="">Sau</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -287,10 +287,10 @@
                                             <div class="discount-per">
                                                 <span>18%</span>
                                             </div>
-                                            <a href="#"><img src="img/gura.jpeg" alt="" /></a>
+                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
                                         </div>
                                         <div class="product-title">
-                                            <a href="#">Tên sản phẩm</a>
+                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
                                         </div>
                                         <div class="product-price">
                                             <p class="price-discount"><span>300.000đ</span></p>
@@ -303,8 +303,8 @@
                                             </span>
                                         </div>
                                         <div class="wish-action">
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -314,13 +314,13 @@
                                             <div class="discount-per">
                                                 <span>18%</span>
                                             </div>
-                                            <a href="#"><img src="img/gura.jpeg" alt="" /></a>
+                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
                                             <div class="discount-per">
                                                 <span>18%</span>
                                             </div>
                                         </div>
                                         <div class="product-title">
-                                            <a href="#">Tên sản phẩm</a>
+                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
                                         </div>
                                         <div class="product-price">
                                             <p class="price-discount"><span>300.000đ</span></p>
@@ -333,21 +333,21 @@
                                             </span>
                                         </div>
                                         <div class="wish-action">
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="product-item">
                                         <div class="product-image">
-                                            <a href="#"><img src="img/gura.jpeg" alt="" /></a>
+                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
                                             <div class="discount-per">
                                                 <span>18%</span>
                                             </div>
                                         </div>
                                         <div class="product-title">
-                                            <a href="#">Tên sản phẩm</a>
+                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
                                         </div>
                                         <div class="product-price">
                                             <p class="price-discount"><span>300.000đ</span></p>
@@ -360,21 +360,21 @@
                                             </span>
                                         </div>
                                         <div class="wish-action">
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="product-item">
                                         <div class="product-image">
-                                            <a href="#"><img src="img/gura.jpeg" alt="" /></a>
+                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
                                             <div class="discount-per">
                                                 <span>18%</span>
                                             </div>
                                         </div>
                                         <div class="product-title">
-                                            <a href="#">Tên sản phẩm</a>
+                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
                                         </div>
                                         <div class="product-price">
                                             <p class="price-discount"><span>300.000đ</span></p>
@@ -387,21 +387,21 @@
                                             </span>
                                         </div>
                                         <div class="wish-action">
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="product-item">
                                         <div class="product-image">
-                                            <a href="#"><img src="img/gura.jpeg" alt="" /></a>
+                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
                                             <div class="discount-per">
                                                 <span>18%</span>
                                             </div>
                                         </div>
                                         <div class="product-title">
-                                            <a href="#">Tên sản phẩm</a>
+                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
                                         </div>
                                         <div class="product-price">
                                             <p class="price-discount"><span>300.000đ</span></p>
@@ -414,21 +414,21 @@
                                             </span>
                                         </div>
                                         <div class="wish-action">
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="product-item">
                                         <div class="product-image">
-                                            <a href="#"><img src="img/gura.jpeg" alt="" /></a>
+                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
                                             <div class="discount-per">
                                                 <span>18%</span>
                                             </div>
                                         </div>
                                         <div class="product-title">
-                                            <a href="#">Tên sản phẩm</a>
+                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
                                         </div>
                                         <div class="product-price">
                                             <p class="price-discount"><span>300.000đ</span></p>
@@ -441,8 +441,8 @@
                                             </span>
                                         </div>
                                         <div class="wish-action">
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -453,19 +453,19 @@
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
                                         <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1">Trước</a>
+                                            <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
                                         </li>
                                         <li class="page-item active">
-                                            <a class="page-link" href="#">1</a>
+                                            <a class="page-link" asp-controller="" asp-action="">1</a>
                                         </li>
                                         <li class="page-item">
-                                            <a class="page-link" href="#">2</a>
+                                            <a class="page-link" asp-controller="" asp-action="">2</a>
                                         </li>
                                         <li class="page-item">
-                                            <a class="page-link" href="#">3</a>
+                                            <a class="page-link" asp-controller="" asp-action="">3</a>
                                         </li>
                                         <li class="page-item">
-                                            <a class="page-link" href="#">Sau</a>
+                                            <a class="page-link" asp-controller="" asp-action="">Sau</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -487,10 +487,10 @@
                                             <div class="discount-per">
                                                 <span>18%</span>
                                             </div>
-                                            <a href="#"><img src="img/gura.jpeg" alt="" /></a>
+                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
                                         </div>
                                         <div class="product-title">
-                                            <a href="#">Tên sản phẩm</a>
+                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
                                         </div>
                                         <div class="product-price">
                                             <p class="price-discount"><span>300.000đ</span></p>
@@ -503,8 +503,8 @@
                                             </span>
                                         </div>
                                         <div class="wish-action">
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -514,13 +514,10 @@
                                             <div class="discount-per">
                                                 <span>18%</span>
                                             </div>
-                                            <a href="#"><img src="img/gura.jpeg" alt="" /></a>
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
+                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
                                         </div>
                                         <div class="product-title">
-                                            <a href="#">Tên sản phẩm</a>
+                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
                                         </div>
                                         <div class="product-price">
                                             <p class="price-discount"><span>300.000đ</span></p>
@@ -533,21 +530,21 @@
                                             </span>
                                         </div>
                                         <div class="wish-action">
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="product-item">
                                         <div class="product-image">
-                                            <a href="#"><img src="img/gura.jpeg" alt="" /></a>
+                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
                                             <div class="discount-per">
                                                 <span>18%</span>
                                             </div>
                                         </div>
                                         <div class="product-title">
-                                            <a href="#">Tên sản phẩm</a>
+                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
                                         </div>
                                         <div class="product-price">
                                             <p class="price-discount"><span>300.000đ</span></p>
@@ -560,21 +557,21 @@
                                             </span>
                                         </div>
                                         <div class="wish-action">
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="product-item">
                                         <div class="product-image">
-                                            <a href="#"><img src="img/gura.jpeg" alt="" /></a>
+                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
                                             <div class="discount-per">
                                                 <span>18%</span>
                                             </div>
                                         </div>
                                         <div class="product-title">
-                                            <a href="#">Tên sản phẩm</a>
+                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
                                         </div>
                                         <div class="product-price">
                                             <p class="price-discount"><span>300.000đ</span></p>
@@ -587,21 +584,21 @@
                                             </span>
                                         </div>
                                         <div class="wish-action">
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="product-item">
                                         <div class="product-image">
-                                            <a href="#"><img src="img/gura.jpeg" alt="" /></a>
+                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
                                             <div class="discount-per">
                                                 <span>18%</span>
                                             </div>
                                         </div>
                                         <div class="product-title">
-                                            <a href="#">Tên sản phẩm</a>
+                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
                                         </div>
                                         <div class="product-price">
                                             <p class="price-discount"><span>300.000đ</span></p>
@@ -614,21 +611,21 @@
                                             </span>
                                         </div>
                                         <div class="wish-action">
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="product-item">
                                         <div class="product-image">
-                                            <a href="#"><img src="img/gura.jpeg" alt="" /></a>
+                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
                                             <div class="discount-per">
                                                 <span>18%</span>
                                             </div>
                                         </div>
                                         <div class="product-title">
-                                            <a href="#">Tên sản phẩm</a>
+                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
                                         </div>
                                         <div class="product-price">
                                             <p class="price-discount"><span>300.000đ</span></p>
@@ -641,8 +638,8 @@
                                             </span>
                                         </div>
                                         <div class="wish-action">
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -653,19 +650,19 @@
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
                                         <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1">Trước</a>
+                                            <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
                                         </li>
                                         <li class="page-item active">
-                                            <a class="page-link" href="#">1</a>
+                                            <a class="page-link" asp-controller="" asp-action="">1</a>
                                         </li>
                                         <li class="page-item">
-                                            <a class="page-link" href="#">2</a>
+                                            <a class="page-link" asp-controller="" asp-action="">2</a>
                                         </li>
                                         <li class="page-item">
-                                            <a class="page-link" href="#">3</a>
+                                            <a class="page-link" asp-controller="" asp-action="">3</a>
                                         </li>
                                         <li class="page-item">
-                                            <a class="page-link" href="#">Sau</a>
+                                            <a class="page-link" asp-controller="" asp-action="">Sau</a>
                                         </li>
                                     </ul>
                                 </nav>

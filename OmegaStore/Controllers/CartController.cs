@@ -8,5 +8,10 @@ namespace OmegaStore.Controllers
         {
             return View();
         }
+
+        public IActionResult Checkout() 
+        { 
+            return View(); 
+        }
     }
 }
