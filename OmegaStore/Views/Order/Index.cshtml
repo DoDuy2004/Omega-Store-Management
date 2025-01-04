@@ -1,0 +1,172 @@
+﻿@{
+	ViewData["Title"] = "Chi tiết đơn hàng";
+}
+
+@section Styles {
+	<link rel="stylesheet" href="./css/order-detail.css">
+}
+@section Scripts {
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+	<script src="lib/easing/easing.min.js"></script>
+	<script src="lib/slick/slick.min.js"></script>
+}
+
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+	<div class="container">
+		<ul class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+			<li class="breadcrumb-item active">Chi tiết đơn hàng</li>
+		</ul>
+	</div>
+</div>
+<!-- Breadcrumb End -->
+
+<div class="order-detail mb-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="order-title mb-3 p-3 position-relative">
+					<h3 class="font-weight-bold text-uppercase text-center">Chi tiết đơn hàng</h3>
+					<a href="#" class="btn btn-outline-success back-btn position-absolute">Quay lại</a>
+					<a href="#" class="btn btn-danger cancel-btn position-absolute">Hủy đơn</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="order-info mb-3 px-3 py-2 position-relative">
+							<p class="order-code font-weight-bold">Đơn hàng: <span>#120720040123456abc</span></p>
+							<p class="order-date font-weight-bold">Ngày đặt: <span class="font-weight-normal">12/07/2024 - 18:12:00</p>
+							<!-- <span class="status status-processing position-absolute">Đang xử lý</span> -->
+							<!-- <span class="status status-confirmed position-absolute">Đã xác nhận</span> -->
+							<!-- <span class="status status-shipping position-absolute">Đang giao</span> -->
+							<span class="status status-delivered position-absolute">Đã giao</span>
+							<!-- <span class="status status-cancelled position-absolute">Đã hủy</span> -->
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="order-info-client mb-4">
+							<div class="row">
+								<div class="col-md-3">
+									<div class="title font-weight-bold">Người nhận:</div>
+								</div>
+								<div class="col-md-9 py-1">
+									<p class="font-weight-bold">Nguyễn Văn Năm</p>
+									<p>
+										<span>0909092004</span>
+										<span>NguyenVanNam99@gmail.com</span>
+									</p>
+									<p>Số 199, ấp Xóm Mới, xã Tân Phú, huyện Nghĩa Dương, Đà Nẵng</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="order-products">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Hình ảnh</th>
+										<th>Tên sản phẩm</th>
+										<th>Giá</th>
+										<th>Số lượng</th>
+										<th>Tổng tiền</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<a href="#" class="d-block" style="width: 80px;">
+												<img class="img-fluid" src="./img/gura.jpeg" alt="">
+											</a>
+										</td>
+										<td>
+											<a href="#" class="ellipsis">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.</a>
+										</td>
+										<td>3.000.000đ</td>
+										<td class="text-center">1</td>
+										<td>3.000.000đ</td>
+									</tr>
+									<tr>
+										<td>
+											<a href="#" class="d-block" style="width: 80px;">
+												<img class="img-fluid" src="./img/gura.jpeg" alt="">
+											</a>
+										</td>
+										<td>
+											<a href="#" class="ellipsis">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.</a>
+										</td>
+										<td>3.000.000đ</td>
+										<td class="text-center">1</td>
+										<td>3.000.000đ</td>
+									</tr>
+									<tr>
+										<td>
+											<a href="#" class="d-block" style="width: 80px;">
+												<img class="img-fluid" src="./img/gura.jpeg" alt="">
+											</a>
+										</td>
+										<td>
+											<a href="#" class="ellipsis">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.</a>
+										</td>
+										<td>3.000.000đ</td>
+										<td class="text-center">1</td>
+										<td>3.000.000đ</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="order-delivery mb-3 px-3 py-2 position-relative">
+							<p class="font-weight-bold">Đơn vị vận chuyển: <span>Viettelpost</span></p>
+							<p class="font-weight-bold">Mã vận đơn: <span class="text-danger">abc123xyz</span></p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="order-total-amount mb-3 p-3">
+							<div class="d-flex justify-content-between mb-3">
+								<span class="font-weight-bold text-secondary">Tạm tính: </span>
+								<span class="font-weight-bold">9.999.999đ</span>
+							</div>
+							<div class="d-flex justify-content-between mb-3">
+								<span class="font-weight-bold text-secondary">Phí vận chuyển: </span>
+								<span class="font-weight-bold">25.000đ</span>
+							</div>
+							<div class="d-flex justify-content-between mb-3">
+								<span class="font-weight-bold text-secondary">Thành tiền: </span>
+								<span class="font-weight-bold">9.999.999đ</span>
+							</div>
+							<div class="d-flex justify-content-between pt-3 border-top border-secondary">
+								<span class="font-weight-bold">Cần thanh toán: </span>
+								<span class="font-weight-bold text-danger" style="font-size: 18px;">9.999.999đ</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="order-note p-3">
+							<h5>Ghi chú:</h5>
+							<textarea class="w-100 p-2" style="min-height: 150px;" disabled>Nhà đối diện trường tiểu học Tân Phú 1, cổng màu đen</textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
