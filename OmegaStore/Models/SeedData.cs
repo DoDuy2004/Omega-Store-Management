@@ -14,7 +14,7 @@ namespace OmegaStore.Models
                 {
                     context.Database.Migrate();
                 }
-             
+
 
                 if (!context.Roles.Any())
                 {

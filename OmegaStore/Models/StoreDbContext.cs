@@ -394,6 +394,7 @@ public partial class StoreDbContext : DbContext
                 .HasColumnName("price");
 
             entity.Property(e => e.DiscountRate)
+                .IsRequired()
                 .HasColumnType("decimal(4,2)")
                 .HasColumnName("discount_rate");
 
@@ -599,6 +600,11 @@ public partial class StoreDbContext : DbContext
             entity.Property(e => e.Email)
                 .HasColumnName("email")
                 .HasMaxLength(50);
+
+            // Cấu hình thuộc tính Fullname
+            entity.Property(e => e.Fullname)
+                .HasColumnName("fullname")
+                .HasMaxLength(100);
 
             // Cấu hình thuộc tính Rating
             entity.Property(e => e.Rating)

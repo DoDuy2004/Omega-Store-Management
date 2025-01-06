@@ -1,0 +1,18 @@
+.ratting input {
+    display: none;
+}
+
+.ratting label {
+    margin-right: 6px;
+    color: #a5a5a5;
+    transition: all 0.2s ease;
+}
+
+.ratting input:not(:checked) ~ label:hover,
+.ratting input:not(:checked) ~ label:hover ~ label {
+    color: #f3ce12;
+}
+
+.ratting input:checked ~ label {
+    color: #f3ce12;
+}
