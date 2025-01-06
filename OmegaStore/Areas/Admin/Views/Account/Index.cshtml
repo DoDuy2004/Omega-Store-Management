@@ -1,4 +1,7 @@
-﻿@{
+﻿<!-- Xác định kiểu dữ liệu được truyền từ controller -->
+@model IEnumerable<OmegaStore.Models.Account>;
+<!-- Xác định kiểu dữ liệu được truyền từ controller -->
+@{
     ViewData["Title"] = "Danh Sách Tài Khoản";
 }
 
@@ -37,16 +40,22 @@
                     </li>
                 </ul>
             </div>
-            <!-- all-category -->
+            <!-- all -->
             <div class="wg-box">
+
+                <!--Tài khoản theo vai trò-->
                 <div class="flex items-center gap10">
                     <a href="#" class="fw-bold btn btn-info btn-lg">Khách hàng</a>
                     <a href="#" class="fw-bold btn btn-outline-info btn-lg">Quản lý bán hàng</a>
                     <a href="#" class="fw-bold btn btn-outline-info btn-lg">Quản lý kho</a>
                     <a href="#" class="fw-bold btn btn-outline-info btn-lg">Quản trị viên</a>                                  
                 </div>
+                <!--Tài khoản theo vai trò-->
+
                 <div class="flex items-center justify-between gap10 flex-wrap">
                     <div class="wg-filter flex-grow">
+
+                        <!--Số lượng hiển thị mỗi trang-->
                         <div class="show">
                             <div class="text-tiny">Hiển thị</div>
                             <div class="select">
@@ -58,6 +67,9 @@
                             </div>
                                                
                         </div>
+                        <!--Số lượng hiển thị mỗi trang-->
+
+                        <!--Form tìm kiếm-->
                         <form class="form-search">
                             <fieldset class="name">
                                 <input type="text" placeholder="Tìm kiếm" class="" name="name" tabindex="2" value="" aria-required="true" required="">
@@ -66,6 +78,9 @@
                                 <button class="" type="submit"><i class="icon-search"></i></button>
                             </div>
                         </form>
+                        <!--Form tìm kiếm-->
+    
+                        <!--Lọc tạng thái-->
                         <div class="">                                        
                             <div class="select" style="width: 130px;">
                                 <select class="">
@@ -75,10 +90,19 @@
                                 </select>
                             </div>                                               
                         </div>
+                        <!--Lọc tạng thái-->
+
                     </div>
+
+                    <!--Nút thêm mới-->
                     <a class="tf-button style-1 w208" href="new-account.html"><i class="icon-plus"></i>Thêm mới</a>
+                    <!--Nút thêm mới-->
+
                 </div>
+
+                <!--Danh sách tài khoản-->
                 <div class="wg-table table-all-category" style="min-width: 1100px;">
+                    <!---->
                     <ul class="table-title flex gap20 mb-14">
                         <li style="width: 200px;">
                             <div class="body-title" style="width: 200px;">Tên tài khoản</div>
@@ -99,58 +123,43 @@
                             <div class="body-title">Hành động</div>
                         </li>
                     </ul>
+                    <!---->
+
                     <ul class="flex flex-column">
-                        <li class="product-item gap14">                                                
-                            <div class="flex items-center justify-between gap20 flex-grow">
-                                <div class="body-text" style="width: 200px;">username012@@</div>
-                                <div class="body-text">0909455678</div>                                                    
-                                <div class="body-text">20/11/2022</div>        
-                                <div class="body-text">Khách hàng</div>
-                                <div class="body-text"><button type="button" class="btn btn-lg btn-danger" style="border-radius: 20px;" disabled>Bị khóa</button></div>
-                                <div class="list-icon-function">    
-                                    <a href="account-detail.html">
-                                        <div class="item eye">
-                                            <i class="icon-eye"></i> 
-                                        </div>  
-                                    </a>
-                                    <a href="account-edit.html">                                               
-                                        <div class="item edit">
-                                            <i class="icon-edit-3"></i>
+                        @foreach (var account in Model)
+                        {
+                            <li class="product-item gap14">                                                
+                                <div class="flex items-center justify-between gap20 flex-grow">
+                                    <div class="body-text" style="width: 200px;">@account.Username</div>
+                                    <div class="body-text">@account.Phone</div>                                                    
+                                    <div class="body-text">@account.CreatedAt</div>        
+                                    <div class="body-text">@account.Role</div>
+                                    <div class="body-text"><button type="button" class="btn btn-lg btn-danger" style="border-radius: 20px;" disabled>Bị khóa</button></div>
+                                    <div class="list-icon-function">    
+                                        <a href="account-detail.html">
+                                            <div class="item eye">
+                                                <i class="icon-eye"></i> 
+                                            </div>  
+                                        </a>
+                                        <a href="account-edit.html">                                               
+                                            <div class="item edit">
+                                                <i class="icon-edit-3"></i>
+                                            </div>
+                                        </a>  
+                                        <div class="item trash">
+                                            <i class="icon-lock"></i>
                                         </div>
-                                    </a>  
-                                    <div class="item trash">
-                                        <i class="icon-lock"></i>
                                     </div>
                                 </div>
-                            </div>
-                        </li>  
-                        <li class="product-item gap14">                                                
-                            <div class="flex items-center justify-between gap20 flex-grow">
-                                <div class="body-text" style="width: 200px;">username012@@</div>
-                                <div class="body-text">0909455678</div>                                                    
-                                <div class="body-text">20/11/2022</div>        
-                                <div class="body-text">Khách hàng</div>
-                                <div class="body-text"><button type="button" class="btn btn-lg btn-success" style="border-radius: 20px;" disabled>Hoạt động</button></div>
-                                <div class="list-icon-function">     
-                                    <a href="account-detail.html">
-                                        <div class="item eye">
-                                            <i class="icon-eye"></i> 
-                                        </div>  
-                                    </a>
-                                    <a href="account-edit.html">                                               
-                                        <div class="item edit">
-                                            <i class="icon-edit-3"></i>
-                                        </div>
-                                    </a>  
-                                    <div class="item trash">
-                                        <i class="icon-lock"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>                                            
+                            </li>
+                        }                                          
                     </ul>
                 </div>
+                <!--Danh sách tài khoản-->
+
                 <div class="divider"></div>
+
+                <!--Phân trang-->
                 <div class="flex items-center justify-between flex-wrap gap10">
                     <div class="text-tiny">Showing 10 entries</div>
                     <ul class="wg-pagination">
@@ -171,6 +180,8 @@
                         </li>
                     </ul>
                 </div>
+                <!--Phân trang-->
+
             </div>
             <!-- /all-category -->
         </div>

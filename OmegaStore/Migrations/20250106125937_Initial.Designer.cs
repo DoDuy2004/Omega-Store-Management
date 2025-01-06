@@ -12,7 +12,7 @@ using OmegaStore.Models;
 namespace OmegaStore.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20250106075540_Initial")]
+    [Migration("20250106125937_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

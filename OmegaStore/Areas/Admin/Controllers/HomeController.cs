@@ -1,10 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OmegaStore.Models;
 
 namespace OmegaStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class HomeController : Controller
     {
+        private readonly StoreDbContext _context;
+
+        public HomeController(StoreDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             return View();
@@ -12,7 +19,8 @@ namespace OmegaStore.Areas.Admin.Controllers
 
         public IActionResult Roles()
         {
-            return View();
+            var roles = _context.Roles.ToList(); // Lấy tất cả các danh mục từ cơ sở dữ liệu
+            return View(roles); // Truyền danh sách danh mục vào View
         }
 
         public IActionResult Report()
