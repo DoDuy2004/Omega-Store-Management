@@ -260,6 +260,12 @@ h2 {
   background: #00d2d3;
 }
 
+.nav .dropdown-menu.popup-login {
+    left: -140px;
+    background: #fff;
+    min-width: 290px;
+}
+
 .nav .dropdown-menu a.active {
   color: #353535;
   background: #f8f9fa;
@@ -1209,11 +1215,11 @@ h2 {
 }
 
 .product-detail .product-content .price p {
-  display: inline-block;
-  color: #00d2d3;
-  font-size: 30px;
-  font-weight: 700;
-  margin: 0;
+    display: inline-block;
+    color: #FB0202;
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0;
 }
 
 .product-detail .product-content .price span {
