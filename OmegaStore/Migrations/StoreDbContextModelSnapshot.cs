@@ -317,7 +317,7 @@ namespace OmegaStore.Migrations
                         .HasColumnType("ntext")
                         .HasColumnName("description");
 
-                    b.Property<decimal?>("DiscountRate")
+                    b.Property<decimal>("DiscountRate")
                         .HasColumnType("decimal(4,2)")
                         .HasColumnName("discount_rate");
 
@@ -399,6 +399,12 @@ namespace OmegaStore.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2")
                         .HasColumnName("created_at");
+
+                    b.Property<string>("Fullname")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("fullname");
 
                     b.Property<int>("Rating")
                         .ValueGeneratedOnAdd()

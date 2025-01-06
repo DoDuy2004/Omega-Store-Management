@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OmegaStore.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -113,7 +113,7 @@ namespace OmegaStore.Migrations
                     name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     thumbnail = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     price = table.Column<decimal>(type: "decimal(12,2)", nullable: false),
-                    discount_rate = table.Column<decimal>(type: "decimal(4,2)", nullable: true),
+                    discount_rate = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
                     slug = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     stock = table.Column<int>(type: "int", nullable: false),
                     description = table.Column<string>(type: "ntext", nullable: true),
@@ -182,6 +182,7 @@ namespace OmegaStore.Migrations
                 {
                     product_id = table.Column<int>(type: "int", nullable: false),
                     email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    fullname = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     rating = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
                     comment = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     created_at = table.Column<DateTime>(type: "datetime2", nullable: true)

@@ -12,8 +12,8 @@ using OmegaStore.Models;
 namespace OmegaStore.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20250106075540_Initial")]
-    partial class Initial
+    [Migration("20250106172953_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -320,7 +320,7 @@ namespace OmegaStore.Migrations
                         .HasColumnType("ntext")
                         .HasColumnName("description");
 
-                    b.Property<decimal?>("DiscountRate")
+                    b.Property<decimal>("DiscountRate")
                         .HasColumnType("decimal(4,2)")
                         .HasColumnName("discount_rate");
 
@@ -402,6 +402,12 @@ namespace OmegaStore.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2")
                         .HasColumnName("created_at");
+
+                    b.Property<string>("Fullname")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("fullname");
 
                     b.Property<int>("Rating")
                         .ValueGeneratedOnAdd()
