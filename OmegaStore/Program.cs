@@ -1,7 +1,14 @@
+﻿using Microsoft.EntityFrameworkCore;
+using OmegaStore.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Thêm dịch vụ DbContext vào DI container và đọc chuỗi kết nối từ appsettings.json
+builder.Services.AddDbContext<StoreDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("OmegaShopConnection")));
 
 var app = builder.Build();
 
