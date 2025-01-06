@@ -1,4 +1,7 @@
-﻿@{
+﻿<!-- Xác định kiểu dữ liệu được truyền từ controller -->
+@model IEnumerable<OmegaStore.Models.Category>;
+<!-- Xác định kiểu dữ liệu được truyền từ controller -->
+@{
     ViewData["Title"] = "Danh Sách Danh Mục";
 }
 
@@ -45,6 +48,8 @@
             <div class="wg-box">
                 <div class="flex items-center justify-between gap10 flex-wrap">
                     <div class="wg-filter flex-grow">
+
+                        <!--Số lượng hiện thị mỗi trang-->
                         <div class="show">
                             <div class="text-tiny">Hiển thị</div>
                             <div class="select">
@@ -56,6 +61,9 @@
                             </div>
 
                         </div>
+                        <!--Số lượng hiện thị mỗi trang-->
+
+                        <!--Form tìm kiếm-->
                         <form class="form-search">
                             <fieldset class="name">
                                 <input type="text" placeholder="Tìm kiếm" class="" name="name"
@@ -65,14 +73,22 @@
                                 <button class="" type="submit"><i class="icon-search"></i></button>
                             </div>
                         </form>
+                        <!--Form tìm kiếm-->
+
                     </div>
+
+                    <!--Nút thêm danh mục mới-->
                     <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="tf-button style-1 w208"
                        style="background-color: #1dd1a1; color: #fff;">
                         <i class="icon-plus"></i>Thêm danh mục
                     </a>
+                    <!--Nút thêm danh mục mới-->
+
                 </div>
 
                 <div class="wg-table table-all-category">
+                    
+                    <!---->
                     <ul class="table-title flex gap20 mb-14">
                         <li style="width: 200px;">
                             <div class="body-title">ID</div>
@@ -90,31 +106,37 @@
                             <div class="body-title">Hành động</div>
                         </li>
                     </ul>
+                    <!---->
+
                     <ul class="flex flex-column">
-                        <li class="product-item gap14">
-                            <div class="flex items-center justify-between gap20 flex-grow">
-                                <div class="body-text" style="width: 200px;">DM001</div>
-                                <div class="name">
-                                    <a class="body-title-2">
-                                        Đồ chơi mô
-                                        hình
-                                    </a>
-                                </div>
-                                <div class="body-text">do-choi-mo-hinh</div>
-                                <div class="body-text">Lorem, ipsum dolor sit amet.</div>
-                                <div class="list-icon-function">
-                                    <div class="item edit">
-                                        <a asp-area="Admin" asp-controller="Category" asp-action="Edit"><i class="icon-edit-3"></i></a>
+                        @foreach (var category in Model)
+                        {
+                            <li class="product-item gap14">
+                                <div class="flex items-center justify-between gap20 flex-grow">
+                                    <div class="body-text" style="width: 200px;">@category.Id</div>
+                                    <div class="name">
+                                        <a class="body-title-2">
+                                            @category.Name
+                                        </a>
                                     </div>
-                                    <div class="item trash">
-                                        <i class="icon-trash-2"></i>
+                                    <div class="body-text">@category.Slug</div>
+                                    <div class="body-text">@category.Description</div>
+                                    <div class="list-icon-function">
+                                        <div class="item edit">
+                                            <a asp-area="Admin" asp-controller="Category" asp-action="Edit"><i class="icon-edit-3"></i></a>
+                                        </div>
+                                        <div class="item trash">
+                                            <i class="icon-trash-2"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <div class="divider"></div>
+
+                <!--Phân trang-->
                 <div class="flex items-center justify-between flex-wrap gap10">
                     <div class="text-tiny">Showing 10 entries</div>
                     <ul class="wg-pagination">
@@ -135,6 +157,8 @@
                         </li>
                     </ul>
                 </div>
+                <!--Phân trang-->
+
             </div>
             <!-- /all-category -->
         </div>

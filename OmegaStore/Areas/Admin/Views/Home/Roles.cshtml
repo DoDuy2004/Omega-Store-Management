@@ -1,4 +1,8 @@
-﻿@section Styles {
+﻿<!-- Xác định kiểu dữ liệu được truyền từ controller -->
+@model IEnumerable<OmegaStore.Models.Role>;
+<!-- Xác định kiểu dữ liệu được truyền từ controller -->
+
+@section Styles {
     <link rel="stylesheet" type="text/css" href="~/admin/css/Custum.css">
 }
 
@@ -41,6 +45,8 @@
             </div>
             <!-- all-roles -->
             <div class="wg-box">
+
+                <!--Form tìm kiếm-->
                 <div class="flex items-center justify-between gap10 flex-wrap">
                     <div class="wg-filter flex-grow">
                         <form class="form-search">
@@ -54,7 +60,10 @@
                         </form>
                     </div>
                 </div>
+                <!--Form tìm kiếm-->
+
                 <div class="wg-table table-all-roles">
+                    <!---->
                     <ul class="table-title flex gap20 mb-14">
                         <li>
                             <div class="body-title">Mã</div>
@@ -66,70 +75,26 @@
                             <div class="body-title">Mô tả</div>
                         </li>
                     </ul>
+                    <!---->
+
+                    <!--Danh sách vai trò-->
                     <ul class="flex flex-column">
-                        <li class="roles-item">
-                            <div class="body-text">01</div>
-                            <div class="body-text">Guy Hawkins</div>
-                            <div class="body-text">May 31, 2023</div>
-
-                        </li>
-                        <li class="roles-item">
-                            <div class="body-text">02</div>
-                            <div class="body-text">Bessie Cooper</div>
-                            <div class="body-text">December 2, 2023</div>
-
-                        </li>
-                        <li class="roles-item">
-                            <div class="body-text">03</div>
-                            <div class="body-text">Wade Warren</div>
-                            <div class="body-text">February 28, 2023</div>
-
-                        </li>
-                        <li class="roles-item">
-                            <div class="body-text">04</div>
-                            <div class="body-text">Ralph Edwards</div>
-                            <div class="body-text">December 19, 2023</div>
-
-                        </li>
-                        <li class="roles-item">
-                            <div class="body-text">05</div>
-                            <div class="body-text">Devon Lane</div>
-                            <div class="body-text">December 29, 2023</div>
-
-                        </li>
-                        <li class="roles-item">
-                            <div class="body-text">06</div>
-                            <div class="body-text">Courtney Henry</div>
-                            <div class="body-text">August 24, 2023</div>
-
-                        </li>
-                        <li class="roles-item">
-                            <div class="body-text">07</div>
-                            <div class="body-text">Savannah Nguyen</div>
-                            <div class="body-text">September 24, 2023</div>
-
-                        </li>
-                        <li class="roles-item">
-                            <div class="body-text">08</div>
-                            <div class="body-text">Jane Cooper</div>
-                            <div class="body-text">November 28, 2023</div>
-
-                        </li>
-                        <li class="roles-item">
-                            <div class="body-text">09</div>
-                            <div class="body-text">Esther Howard</div>
-                            <div class="body-text">February 9, 2023</div>
-
-                        </li>
-                        <li class="roles-item">
-                            <div class="body-text">10</div>
-                            <div class="body-text">Cameron Williamson</div>
-                            <div class="body-text">August 7, 2023</div>
-
-                        </li>
+                        @foreach (var role in Model)
+                        {
+                            <li class="roles-item">
+                                <div class="body-text">@role.Id</div>
+                                <div class="body-text">@role.Name</div>
+                                <div class="body-text">@role.Description</div>
+                            </li>
+                        }
                     </ul>
+                    <!--Danh sách vai trò-->
+
                 </div>
+
                 <div class="divider"></div>
+
+                <!--Phân trang-->
                 <div class="flex items-center justify-between flex-wrap gap10">
                     <div class="text-tiny">Hiển thị 10 / 10</div>
                     <ul class="wg-pagination">
@@ -150,6 +115,8 @@
                         </li>
                     </ul>
                 </div>
+                <!--Phân trang-->
+
             </div>
             <!-- /all-roles -->
         </div>
