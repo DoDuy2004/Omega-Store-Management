@@ -15,6 +15,7 @@ namespace OmegaStore.Models
                     context.Database.Migrate();
                 }
 
+
                 if (!context.Roles.Any())
                 {
                     context.Roles.AddRange(
@@ -315,7 +316,6 @@ namespace OmegaStore.Models
                             CategoryId = 3,
                             Status = 1
                         },
-
                         new Product
                         {
                             ProductCode = "SP012",
@@ -329,7 +329,6 @@ namespace OmegaStore.Models
                             CategoryId = 4,
                             Status = 1
                         },
-
                         new Product
                         {
                             ProductCode = "SP014",

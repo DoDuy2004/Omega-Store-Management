@@ -38,5 +38,4 @@ app.MapControllerRoute(
 
 SeedData.Initialize(app.Services);
 
-
 app.Run();
