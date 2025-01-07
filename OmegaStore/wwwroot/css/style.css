@@ -768,19 +768,25 @@ h2 {
   padding: 6px;
   background-color: #ffffff;
   /* height: 400px; */
+  width: 100%;
 }
 
 .product-item .product-title {
-  padding: 10px;
-  text-align: center;
-  transition: all 0.3s;
+    padding: 10px;
+    text-align: center;
+    transition: all 0.3s;
 }
 
 .product-item .product-title a {
-  display: block;
-  margin-bottom: 15px;
-  color: black;
-  font-size: 18px;
+    display: block;
+    margin-bottom: 15px;
+    color: black;
+    font-size: 18px;
+    display: -webkit-box; /* Để sử dụng tính năng 'line-clamp' */
+    -webkit-box-orient: vertical; /* Hướng của box là theo chiều dọc */
+    -webkit-line-clamp: 2; /* Số dòng hiển thị */
+    overflow: hidden; /* Ẩn nội dung vượt quá */
+    text-overflow: ellipsis; /* Hiển thị dấu ba chấm */
 }
 
 .product-item .product-content .price span {
