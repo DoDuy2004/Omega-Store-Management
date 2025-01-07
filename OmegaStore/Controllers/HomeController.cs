@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using OmegaStore.Models;
+using OmegaStore.Services;
 using System.Diagnostics;
 
 namespace OmegaStore.Controllers
@@ -7,15 +8,18 @@ namespace OmegaStore.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductService _productService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductService productService)
         {
             _logger = logger;
+            _productService = productService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var products = await  _productService.GetProducts();
+            return View(products);
         }
 
         public IActionResult Contact()
