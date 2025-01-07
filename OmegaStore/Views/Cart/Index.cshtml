@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OmegaStore.Models.CartItem>
+﻿@model OmegaStore.Models.ViewModels.CartViewModel
 @{
     ViewData["Title"] = "Giỏ hàng";
 }
@@ -35,7 +35,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!Model.Any())
+                            @if(!Model.CartItems.Any())
                             {
                                 <tr>
                                     <td colspan="6" class="text-center">
@@ -45,7 +45,7 @@
                             }
                             else
                             {
-                                foreach (var item in Model)
+                                foreach (var item in Model.CartItems)
                                 {
                                     var price = item.Product.Price - item.Product.Price * (item.Product.DiscountRate / 100);
                                     <tr>
@@ -59,7 +59,7 @@
                                                 @item.Product.Name
                                             </a>
                                         </td>
-                                        <td style="font-size: .9rem">@price.ToString("0")đ</td>
+                                        <td style="font-size: .9rem">@price.ToString("N0")đ</td>
                                         <td>
                                             <div class="qty border border-secondary rounded-lg d-flex justify-content-between">
                                                 <button class="btn-minus rounded-left"><i class="fa fa-minus"></i></button>
@@ -67,7 +67,7 @@
                                                 <button class="btn-plus rounded-right"><i class="fa fa-plus"></i></button>
                                             </div>
                                         </td>
-                                        <td style="font-size: .9rem">@((price * item.Quantity).ToString("0"))đ</td>
+                                        <td style="font-size: .9rem">@((price * item.Quantity).ToString("N0"))đ</td>
                                         <td>
                                             <a href="#confirmDeleteModal" class="btn btn-danger" data-bs-toggle="modal"
                                                data-bs-target="#confirmDeleteModal">
@@ -103,9 +103,9 @@
                 <div class="cart-summary">
                     <div class="cart-content">
                         <h1>Giỏ hàng rút gọn</h1>
-                        <p>Tổng tiền hàng:<span>100.000đ</span></p>
-                        <p>Phí vận chuyển:<span>25.000đ</span></p>
-                        <h2>Thành tiền:<span>100.000đ</span></h2>
+                        <p>Tổng tiền hàng:<span>@Model.TotalPrice.ToString("N0") đ</span></p>
+                        <p>Phí vận chuyển:<span>@Model.ShippingFee.ToString("N0") đ</span></p>
+                        <h2>Thành tiền:<span>@((Model.TotalPrice + Model.ShippingFee).ToString("N0")) đ</span></h2>
                     </div>
                     <div class="d-flex justify-content-between p-4">
                         <a asp-controller="" asp-action="" class="btn btn-info py-2 px-3">Cập nhật giỏ hàng</a>

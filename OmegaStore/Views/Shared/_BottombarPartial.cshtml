@@ -17,17 +17,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="col-md-3 text-right">
-				<div class="user d-inline-block">
-					<a asp-controller="Cart" asp-action="Index" class="btn btn-cart cart d-flex align-items-center justify-content-center">
-						<i class="fa fa-shopping-cart"></i>
-						<div class="text-left ml-3">
-							<p class="m-0" style="font-size: 14px;">Sản phẩm: <span>0</span></p>
-							<p class="m-0" style="font-size: 14px;">Thanh toán: <span>300.000đ</span></p>
-						</div>
-					</a>
-				</div>
-			</div>
+			@await Component.InvokeAsync("CartSummary")
 		</div>
 	</div>
 </div>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OmegaStore.Models.ViewModels;
 using OmegaStore.Services;
 
 namespace OmegaStore.Controllers
@@ -14,8 +15,14 @@ namespace OmegaStore.Controllers
         }
 		public IActionResult Index()
         {
-            var cart = _cartService.GetCartItems();
-            return View(cart.CartItems);
+            var cartVM = new CartViewModel
+            { 
+                CartItems = _cartService.GetCartItems().CartItems,
+                TotalPrice = _cartService.GetTotalPrice(),
+                ShippingFee = 25000
+			};
+
+            return View(cartVM);
         }
 
         [HttpPost]
