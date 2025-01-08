@@ -50,27 +50,26 @@
                                     var price = item.Product.Price - item.Product.Price * (item.Product.DiscountRate / 100);
                                     <tr>
                                         <td>
-                                            <a asp-controller="Product" asp-action="Detail" class="d-block" style="width: 60px;">
+                                            <a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Product.Slug" class="d-block" style="width: 60px;">
                                                 <img class="img-fluid" src="~/img/@item.Product.Thumbnail" alt="">
                                             </a>
                                         </td>
                                         <td style="font-size: .9rem">
-                                            <a asp-controller="Product" asp-action="Detail" class="ellipsis">
+                                            <a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Product.Slug" class="ellipsis">
                                                 @item.Product.Name
                                             </a>
                                         </td>
-                                        <td style="font-size: .9rem">@price.ToString("N0")đ</td>
+                                        <td style="font-size: .9rem">@price.ToString("N0") đ</td>
                                         <td>
                                             <div class="qty border border-secondary rounded-lg d-flex justify-content-between">
                                                 <button class="btn-minus rounded-left"><i class="fa fa-minus"></i></button>
                                                 <input type="text" value="@item.Quantity">
                                                 <button class="btn-plus rounded-right"><i class="fa fa-plus"></i></button>
-                                            </div>
+                                            </div>  
                                         </td>
-                                        <td style="font-size: .9rem">@((price * item.Quantity).ToString("N0"))đ</td>
+                                        <td style="font-size: .9rem">@((price * item.Quantity).ToString("N0")) đ</td>
                                         <td>
-                                            <a href="#confirmDeleteModal" class="btn btn-danger" data-bs-toggle="modal"
-                                               data-bs-target="#confirmDeleteModal">
+                                            <a asp-controller="Cart" asp-action="RemoveItem" asp-route-productId="@item.Product.Id" class="btn btn-danger" >
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </td>

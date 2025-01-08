@@ -26,14 +26,15 @@ namespace OmegaStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int productId)
+        public async Task<IActionResult> AddToCart(int productId, int quantity = 1)
         {
             var product = await _productService.GetProduct(productId);
 
-            _cartService.AddToCart(product, 1);
+            _cartService.AddToCart(product, quantity);
 
             return RedirectToAction("Index");
         }
+
 
         public async Task<IActionResult> RemoveItem(int productId)
         {
@@ -44,7 +45,7 @@ namespace OmegaStore.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> ClearCart()
+        public IActionResult ClearCart()
         {
             _cartService.ClearCart();
 
