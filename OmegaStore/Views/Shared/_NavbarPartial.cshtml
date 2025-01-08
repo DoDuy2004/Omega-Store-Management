@@ -17,40 +17,71 @@
 					<a asp-controller="Home" asp-action="Contact" class="nav-item nav-link font-weight-bold" style="padding:12px;">Liên Hệ</a>
 				</div>
 				<div class="navbar-nav ml-auto">
-					<div class="nav-item dropdown">
-						<a asp-route="@Url.Action("Index", "Account")" class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown"
-						   style="padding:12px;">Tài Khoản</a>
-						<div class="dropdown-menu popup-login border border-secondary">
-							<form>
-								<div class="col-md-12 mb-3 text-center">
-									<h3 class="font-weight-bold">Đăng nhập</h3>
-								</div>
-								<div class="col-md-12">
-									<label class="font-weight-bold">Email hoặc tên đăng nhập <span class="text-danger">*</span></label>
-									<input class="form-control" type="text" placeholder="Vui lòng nhập email hoặc tên đăng nhập" style="font-size: 13px;" />
-								</div>
-								<div class="col-md-12">
-									<label class="font-weight-bold">Mật khẩu <span class="text-danger">*</span></label>
-									<input class="form-control" type="text" placeholder="Vui lòng nhập mật khẩu" style="font-size: 13px;" />
-								</div>
-								<div class="col-md-12 d-flex justify-content-between">
-									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="newaccount" />
-										<label class="custom-control-label" for="newaccount">Ghi nhớ</label>
+					<div class="nav-item dropdown">				
+						@if (Context.Session.GetString("Username") == null)
+						{
+							<a class="nav-link dropdown-toggle font-weight-bold" id="toggleDivBtn"
+							   style="padding:12px;cursor:pointer">Tài Khoản</a>
+							<div class="dropdown-menu popup-login border border-secondary" id="myDiv">
+								<form id="loginForm">
+									<div class="col-md-12 mb-3 text-center">
+										<h3 class="font-weight-bold">Đăng nhập</h3>
+										<span id="errorMessage" style="color:red"></span>
 									</div>
-									<a asp-controller="Account" asp-action="ForgotPassword" class="text-primary font-weight-bold" style="font-size: 13px;">Quên mật khẩu</a>
-								</div>
-								<div class="col-md-12">
-									<button class="btn btn-success w-100 h-100" style="font-size: 18px;">Đăng nhập</button>
-								</div>
-								<div class="col-md-12 text-center">
-									<a asp-controller="Account" asp-action="Register" id="btn-register" class="d-inline-block pt-2 text-primary font-weight-bold" style="font-size: 13px;">Tạo tài khoản mới</a>
-								</div>
-							</form>
-						</div>
+									<div class="col-md-12">
+										<label class="font-weight-bold">Email hoặc tên đăng nhập <span class="text-danger">*</span></label>
+										<input class="form-control" type="text" id="username" name="username" placeholder="Vui lòng nhập email hoặc tên đăng nhập" style="font-size: 13px;" />
+									</div>
+									<div class="col-md-12">
+										<label class="font-weight-bold">Mật khẩu <span class="text-danger">*</span></label>
+										<input class="form-control" type="password" id="password" name="password" placeholder="Vui lòng nhập mật khẩu" style="font-size: 13px;" />
+									</div>
+									<div class="col-md-12 d-flex justify-content-between">
+										<div class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" id="newaccount" />
+											<label class="custom-control-label" for="newaccount">Ghi nhớ</label>
+										</div>
+										<a asp-controller="Account" asp-action="ForgotPassword" class="text-primary font-weight-bold" style="font-size: 13px;">Quên mật khẩu</a>
+									</div>
+									<div class="col-md-12">
+										<button class="btn btn-success w-100 h-100" style="font-size: 18px;">Đăng nhập</button>
+									</div>
+									<div class="col-md-12 text-center">
+										<a asp-controller="Account" asp-action="Register" id="btn-register" class="d-inline-block pt-2 text-primary font-weight-bold" style="font-size: 13px;">Tạo tài khoản mới</a>
+									</div>
+								</form>
+							</div>
+						}
+						else
+						{
+							<a asp-controller="Account" asp-action="index" class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown"
+							   style="padding:12px;">@Context.Session.GetString("Username")</a>
+							<div class="dropdown-menu border border-secondary">
+								<a asp-controller="Account" asp-action="Index" class="dropdown-item font-weight-bold">Tài khoản cá nhân</a>
+								<div class="dropdown-divider"></div>
+								<a id="logoutButton" class="dropdown-item font-weight-bold">Đăng xuất</a>
+							</div>
+						}
 					</div>
 				</div>
 			</div>
 		</nav>
 	</div>
 </div>
+<script>
+	// Lắng nghe sự kiện click vào liên kết
+	document.getElementById('toggleDivBtn').addEventListener('click', function (event) {
+		event.preventDefault(); // Ngăn không cho thực hiện hành động mặc định
+
+		// Tìm thẻ div bằng ID 'myDiv'
+		var div = document.getElementById('myDiv');
+
+		if (div.classList.contains('show')) {
+			div.classList.remove('show'); // Bỏ class 'show' nếu có
+		} else {
+			div.classList.add('show'); // Thêm class 'show' nếu chưa có
+		}
+	});
+
+
+</script>
