@@ -18,8 +18,7 @@ namespace OmegaStore.Controllers
             return View();
         }
 
-        [HttpGet]
-        [Route("[controller]/{slug}", Name = "ProductDetail")]
+        [HttpGet("[controller]/{slug}")]
         public IActionResult Detail(string slug)
         {
             var products = _context.Products;
@@ -35,20 +34,71 @@ namespace OmegaStore.Controllers
                     .Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id).ToList();
 
             return View();
+
+            //return Content(slug);
         }
 
-        [HttpPost]
-        public IActionResult Comment(Review review, int rating)
+        [HttpPost("[controller]/Comment")]
+        public JsonResult Comment(Review review, int Rating)
         {
             var reviews = _context.Reviews;
-            review.Rating = rating;
-            reviews.Add(review);
-
+            var orders = _context.Orders;
+            var detailOrders = _context.DetailOrders;
             var product = _context.Products.First(p => p.Id == review.ProductId);
 
-            _context.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                var result = orders.Join(detailOrders, o => o.Id, d => d.OrderId,
+                    (o, d) => new
+                    {
+                        Email = o.Email,
+                        ProductId = d.ProductId
+                    });
 
-            return RedirectToRoute("ProductDetail", new { slug = product.Slug });
+                var isPurchased = result
+                    .FirstOrDefault(o => o.Email == review.Email && o.ProductId == review.ProductId);
+
+                if (isPurchased == null)
+                    return Json(new
+                    {
+                        success = false,
+                        title = "Ôii..!",
+                        text = "Bạn chưa thực hiện mua sản phẩm này >.<"
+                    });
+
+                var isCommented = reviews
+                    .FirstOrDefault(r => r.Email == review.Email && r.ProductId == review.ProductId);
+
+                if (isCommented != null)
+                    return Json(new
+                    {
+                        success = false,
+                        title = "Ohh...",
+                        text = "Bạn đã đánh giá sản phẩm này rồi ^_^"
+                    });
+
+                review.Rating = Rating;
+                review.Comment = review.Comment ?? "";
+                reviews.Add(review);
+
+                _context.SaveChanges();
+
+                return Json(new { success = true, text = "Đánh giá sản phẩm thành công!!" });
+            }
+
+            return Json(new
+            {
+                success = false,
+                title = "Hmmm...",
+                text = "Vui lòng điền đầy đủ vào biểu mẫu đánh giá ~~"
+            });
+        }
+
+        [HttpGet("[controller]/LoadReviews/{ProductId}")]
+        public JsonResult LoadReviews(int ProductId)
+        {
+            var reviews = _context.Reviews.Where(r => r.ProductId == ProductId);
+            return Json(new { reviews = reviews });
         }
     }
 }

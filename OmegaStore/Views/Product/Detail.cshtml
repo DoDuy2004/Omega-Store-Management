@@ -10,6 +10,99 @@
     <link rel="stylesheet" href="~/css/product-detail.css">
 }
 
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        function renderReviews() {
+            $.ajax({
+                url: "/Product/LoadReviews/@product.Id",
+                method: "GET",
+                success: function (res) {
+                    $("#reviews-count").text(res.reviews.length);
+
+                    let reviewsHTML = "<p>Hiện tại sản phẩm này chưa có đánh giá nào</p>";
+
+                    if (res.reviews.length > 0) {
+                        reviewsHTML = $.map(res.reviews, function (r) {
+                            let starHTML = "";
+
+                            for (let i = 1; i <= r.rating; i++) {
+                                starHTML += "<i class='fa fa-star'></i>";
+                            }
+
+                            for (let i = 1; i <= 5 - r.rating; i++) {
+                                starHTML += "<i class='far fa-star'></i>"
+                            }
+
+                            return `
+                                <div class="reviewer">${r.fullname} - <span>${new Date(r.createdAt).toLocaleString("vi-VN")}</span></div>
+                                <p>
+                                    ${r.comment}
+                                </p>
+                                <div class="ratting">
+                                    ${starHTML}
+                                </div>
+                            `;
+                        }).join('');
+                    }
+
+                    $("#reviews > .reviews-submitted").html(reviewsHTML);
+                },
+                error: function (error) {
+                    alert(`Lỗi: ${error}`);
+                }
+            });
+        }
+
+        renderReviews();
+
+        $(document).ready(function () {
+            $("#review-form").on("submit", function (e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: "Xác nhận gửi đánh giá?",
+                    text: "Đánh giá của bạn sẽ được gửi đi",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Xác nhận",
+                    cancelButtonText: "Hủy"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/Product/Comment",
+                            method: "POST",
+                            data: $(this).serialize(),
+                            success: function (res) {
+                                if (res.success) {
+                                    Swal.fire({
+                                        title: "Thành công",
+                                        text: "Đánh giá của bạn đã được cập nhật",
+                                        icon: "success"
+                                    });
+                                    $("#review-form")[0].reset();
+                                    renderReviews();
+                                } else {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: res.title,
+                                        text: res.text
+                                    });
+                                }
+                            },
+                            error: function (error) {
+                                alert(`Lỗi: ${error}`);
+                            }
+                        });
+                    }
+                });
+            })
+        });
+    </script>
+}
+
 <!-- Breadcrumb Start -->
 <div class="breadcrumb-wrap">
     <div class="container">
@@ -98,7 +191,7 @@
                                 <a class="nav-link active" data-toggle="pill" href="#description">Mô tả</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="pill" href="#reviews">Đánh giá (@product.Reviews.Count)</a>
+                                <a class="nav-link" data-toggle="pill" href="#reviews">Đánh giá (<span id="reviews-count"></span>)</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -107,7 +200,7 @@
                             </div>
                             <div id="reviews" class="container tab-pane fade">
                                 <div class="reviews-submitted overflow-auto" style="max-height: 250px;">
-                                    @if (product.Reviews.Count == 0)
+                                    @*@if (product.Reviews.Count == 0)
                                     {
                                         <p>Hiện tại sản phẩm này chưa có đánh giá nào</p>
                                     }
@@ -131,33 +224,31 @@
                                                 }
                                             </div>
                                         }
-                                    }
+                                    }*@
                                 </div>
-                                <form method="post" asp-controller="Product" asp-action="Comment">
+                                <form id="review-form" method="post">
                                     <input type="hidden" name="ProductId" value="@product.Id" />
                                     <div class="reviews-submit">
                                         <h4>Đánh giá của bạn:</h4>
                                         <div class="ratting d-flex justify-content-end flex-row-reverse">
-                                            <input type="radio" name="rating" value="5" id="rate-5" />
-                                            <label for="rate-5" class="fas fa-star"></label>
-                                            <input type="radio" name="rating" value="4" id="rate-4" />
-                                            <label for="rate-4" class="fas fa-star"></label>
-                                            <input type="radio" name="rating" value="3" id="rate-3" />
-                                            <label for="rate-3" class="fas fa-star"></label>
-                                            <input type="radio" name="rating" value="2" id="rate-2" />
-                                            <label for="rate-2" class="fas fa-star"></label>
-                                            <input type="radio" name="rating" value="1" id="rate-1" />
-                                            <label for="rate-1" class="fas fa-star"></label>
+                                            @for (var i = 5; i >= 1; i--)
+                                            {
+                                                <input type="radio" name="Rating" value="@i" id="rate-@i" @(i == 5 ? "checked" : "") />
+                                                <label for="rate-@i" class="fas fa-star"></label>
+                                            }
                                         </div>
                                         <div class="row form">
                                             <div class="col-sm-6">
                                                 <input asp-for="Fullname" type="text" placeholder="Họ tên">
+                                                <span asp-validation-for="Fullname" class="text-danger"></span>
                                             </div>
                                             <div class="col-sm-6">
                                                 <input asp-for="Email" type="email" placeholder="Email">
+                                                <span asp-validation-for="Email" class="text-danger"></span>
                                             </div>
                                             <div class="col-sm-12">
                                                 <textarea asp-for="Comment" placeholder="Nội dung đánh giá"></textarea>
+                                                <span asp-validation-for="Comment" class="text-danger"></span>
                                             </div>
                                             <div class="col-sm-12">
                                                 <button class="btn btn-outline-info">Đánh giá</button>
