@@ -6,8 +6,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSession();
+//Thêm dịch vụ Session
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true; // Bảo vệ Session khỏi XSS
+    options.Cookie.IsEssential = true; // Yêu cầu cookie luôn được lưu
+});
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 

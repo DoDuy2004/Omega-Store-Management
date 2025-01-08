@@ -1,4 +1,5 @@
-﻿    <!-- Breadcrumb Start -->
+﻿@model OmegaStore.Models.Account
+    <!-- Breadcrumb Start -->
 <div class="breadcrumb-wrap">
     <div class="container">
         <ul class="breadcrumb">
@@ -8,671 +9,678 @@
     </div>
 </div>
 <!-- Breadcrumb End -->
-<!-- My Account Start -->
-<div class="my-account pt-2">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="nav flex-column nav-pills"
-                     role="tablist"
-                     aria-orientation="vertical">
-                    <a class="nav-link active"
-                       id="dashboard-nav"
-                       data-toggle="pill"
-                       href="#accounts-tab"
-                       role="tab"><i class="fa fa-id-card"></i>Thông tin tài khoản</a>
-                    <a class="nav-link"
-                       id="orders-nav"
-                       data-toggle="pill"
-                       href="#orders-tab"
-                       role="tab"><i class="fa fa-shopping-bag"></i>Đơn hàng</a>
-                    <a class="nav-link"
-                       id="address-nav"
-                       data-toggle="pill"
-                       href="#address-tab"
-                       role="tab"><i class="fa fa-map-marker-alt"></i>Địa chỉ</a>
-                    <a class="nav-link"
-                       id="wishlist-nav"
-                       data-toggle="pill"
-                       href="#wishlist-tab"
-                       role="tab"><i class="fa fa-heart"></i>Danh sách yêu thích</a>
-                    <a class="nav-link"
-                       id="commented-nav"
-                       data-toggle="pill"
-                       href="#commented-tab"
-                       role="tab"><i class="fa fa-comment-alt"></i>Sản phẩm đã đánh giá</a>
-                    <a class="nav-link"
-                       id="account-nav"
-                       data-toggle="pill"
-                       href="#changepassword-tab"
-                       role="tab"><i class="fa fa-user"></i>Đổi mật khẩu</a>
-                    <a class="nav-link" href="index.html"><i class="fa fa-sign-out-alt"></i>Logout</a>
+@if (Model != null)
+{
+    <!-- My Account Start -->
+    <div class="my-account pt-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="nav flex-column nav-pills"
+                         role="tablist"
+                         aria-orientation="vertical">
+                        <a class="nav-link active"
+                           id="dashboard-nav"
+                           data-toggle="pill"
+                           href="#accounts-tab"
+                           role="tab"><i class="fa fa-id-card"></i>Thông tin tài khoản</a>
+                        <a class="nav-link"
+                           id="orders-nav"
+                           data-toggle="pill"
+                           href="#orders-tab"
+                           role="tab"><i class="fa fa-shopping-bag"></i>Đơn hàng</a>
+                        <a class="nav-link"
+                           id="address-nav"
+                           data-toggle="pill"
+                           href="#address-tab"
+                           role="tab"><i class="fa fa-map-marker-alt"></i>Địa chỉ</a>
+                        <a class="nav-link"
+                           id="wishlist-nav"
+                           data-toggle="pill"
+                           href="#wishlist-tab"
+                           role="tab"><i class="fa fa-heart"></i>Danh sách yêu thích</a>
+                        <a class="nav-link"
+                           id="commented-nav"
+                           data-toggle="pill"
+                           href="#commented-tab"
+                           role="tab"><i class="fa fa-comment-alt"></i>Sản phẩm đã đánh giá</a>
+                        <a class="nav-link"
+                           id="account-nav"
+                           data-toggle="pill"
+                           href="#changepassword-tab"
+                           role="tab"><i class="fa fa-user"></i>Đổi mật khẩu</a>
+                        <a class="nav-link" asp-controller="Account" , asp-action="Logout"><i class="fa fa-sign-out-alt"></i>Logout</a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-9">
-                <div class="tab-content">
-                    <div class="tab-pane fade show active"
-                         id="accounts-tab"
-                         role="tabpanel"
-                         aria-labelledby="account-tab">
-                        <h4 class="text-uppercase mb-3">Thông tin tài khoản</h4>
-                        <p><span class="font-weight-bold">Họ tên:</span> Do Duy</p>
-                        <p>
-                            <span class="font-weight-bold">Email:</span>
-                            duy2004.gi@gmail.com
-                        </p>
-                        <p>
-                            <span class="font-weight-bold">Điện thoại:</span> 0918557317
-                        </p>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active"
+                             id="accounts-tab"
+                             role="tabpanel"
+                             aria-labelledby="account-tab">
+                            <h4 class="text-uppercase mb-3">Thông tin tài khoản</h4>
+                            <p><span class="font-weight-bold">Họ tên:</span> @Model.Fullname</p>
+                            <p>
+                                <span class="font-weight-bold">Email:</span>
+                                @Model.Email
+                            </p>
+                            <p>
+                                <span class="font-weight-bold">Điện thoại:</span> @Model.Phone
+                            </p>
 
-                        <div class="btn-update">
-                            <a id="updateinfo-nav"
-                               data-toggle="pill"
-                               href="#changeinfo-tab"
-                               role="tab"><button>Thay đổi</button></a>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade"
-                         id="orders-tab"
-                         role="tabpanel"
-                         aria-labelledby="orders-nav">
-                        <div class="table-responsive">
-                            <h4 class="text-uppercase mb-3">Đơn hàng của bạn</h4>
-                            <form action="#" class="col-lg-6">
-                                <select name="status" id="order-status" class="form-control">
-                                    <option value="">--Chọn trạng thái--</option>
-                                    <option value="">Chờ xác nhận</option>
-                                    <option value="">Đang giao</option>
-                                    <option value="">Đã giao</option>
-                                    <option value="">Đã hủy</option>
-                                </select>
-                            </form>
-                            <table class="table">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Mã đơn hàng</th>
-                                        <th>Ngày đặt</th>
-                                        <th>Tổng tiền</th>
-                                        <th>Trạng thái</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>DH011224004</td>
-                                        <td>22/12/2024</td>
-                                        <td>299.000đ</td>
-                                        <td>Chờ xác nhận</td>
-                                        <td>
-                                            <a asp-controller="Order" asp-action="Index"><i class="fa fa-eye text-dark"></i></a>
-                                        </td>
-                                        <td>
-                                            <button class="btn border-danger text-danger">
-                                                Hủy đơn
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>DH011224004</td>
-                                        <td>22/12/2024</td>
-                                        <td>299.000đ</td>
-                                        <td>Chờ xác nhận</td>
-                                        <td>
-                                            <a asp-controller="Order" asp-action="Index"><i class="fa fa-eye text-dark"></i></a>
-                                        </td>
-                                        <td>
-                                            <button class="btn border-danger text-danger">
-                                                Hủy đơn
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>DH011224004</td>
-                                        <td>22/12/2024</td>
-                                        <td>299.000đ</td>
-                                        <td>Chờ xác nhận</td>
-                                        <td>
-                                            <a asp-controller="Order" asp-action="Index"><i class="fa fa-eye text-dark"></i></a>
-                                        </td>
-                                        <td>
-                                            <button class="btn border-danger text-danger">
-                                                Hủy đơn
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- Pagination Start -->
-                            <div class="col-md-12 mt-3">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
-                                        </li>
-                                        <li class="page-item active">
-                                            <a class="page-link" asp-controller="" asp-action="">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" asp-controller="" asp-action="">2</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" asp-controller="" asp-action="">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" asp-controller="" asp-action="">Sau</a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                            <div class="btn-update">
+                                <a id="updateinfo-nav"
+                                   data-toggle="pill"
+                                   href="#changeinfo-tab"
+                                   role="tab"><button>Thay đổi</button></a>
                             </div>
-                            <!-- Pagination Start -->
                         </div>
-                    </div>
-                    <div class="tab-pane fade"
-                         id="address-tab"
-                         role="tabpanel"
-                         aria-labelledby="address-nav">
-                        <h4 class="text-uppercase mb-3">Địa chỉ của bạn</h4>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h5>Địa chỉ giao hàng</h5>
-                                <p>65 Huỳnh Thúc Kháng, P Bến Nghé, Q.1</p>
-                                <p>Mobile: 012-345-6789</p>
-                                <div class="btn-update">
-                                    <a id="updateaddress-nav"
-                                       data-toggle="pill"
-                                       href="#changeaddress-tab"
-                                       role="tab"><button>Thay đổi</button></a>
+                        <div class="tab-pane fade"
+                             id="orders-tab"
+                             role="tabpanel"
+                             aria-labelledby="orders-nav">
+                            <div class="table-responsive">
+                                <h4 class="text-uppercase mb-3">Đơn hàng của bạn</h4>
+                                <form action="#" class="col-lg-6">
+                                    <select name="status" id="order-status" class="form-control">
+                                        <option value="">--Chọn trạng thái--</option>
+                                        <option value="">Chờ xác nhận</option>
+                                        <option value="">Đang giao</option>
+                                        <option value="">Đã giao</option>
+                                        <option value="">Đã hủy</option>
+                                    </select>
+                                </form>
+                                <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Mã đơn hàng</th>
+                                            <th>Ngày đặt</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Trạng thái</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>DH011224004</td>
+                                            <td>22/12/2024</td>
+                                            <td>299.000đ</td>
+                                            <td>Chờ xác nhận</td>
+                                            <td>
+                                                <a asp-controller="Order" asp-action="Index"><i class="fa fa-eye text-dark"></i></a>
+                                            </td>
+                                            <td>
+                                                <button class="btn border-danger text-danger">
+                                                    Hủy đơn
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>DH011224004</td>
+                                            <td>22/12/2024</td>
+                                            <td>299.000đ</td>
+                                            <td>Chờ xác nhận</td>
+                                            <td>
+                                                <a asp-controller="Order" asp-action="Index"><i class="fa fa-eye text-dark"></i></a>
+                                            </td>
+                                            <td>
+                                                <button class="btn border-danger text-danger">
+                                                    Hủy đơn
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>DH011224004</td>
+                                            <td>22/12/2024</td>
+                                            <td>299.000đ</td>
+                                            <td>Chờ xác nhận</td>
+                                            <td>
+                                                <a asp-controller="Order" asp-action="Index"><i class="fa fa-eye text-dark"></i></a>
+                                            </td>
+                                            <td>
+                                                <button class="btn border-danger text-danger">
+                                                    Hủy đơn
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- Pagination Start -->
+                                <div class="col-md-12 mt-3">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
+                                            </li>
+                                            <li class="page-item active">
+                                                <a class="page-link" asp-controller="" asp-action="">1</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" asp-controller="" asp-action="">2</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" asp-controller="" asp-action="">3</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" asp-controller="" asp-action="">Sau</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
                                 </div>
+                                <!-- Pagination Start -->
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane fade"
-                         id="changeinfo-tab"
-                         role="tabpanel"
-                         aria-labelledby="account-nav">
-                        <h4>Cập nhập thông tin</h4>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input class="form-control"
-                                       type="text"
-                                       name="lname"
-                                       placeholder="Họ" />
-                            </div>
-                            <div class="col-md-6">
-                                <input class="form-control"
-                                       type="text"
-                                       name="fname"
-                                       placeholder="Tên" />
-                            </div>
-                            <div class="col-md-6">
-                                <input class="form-control"
-                                       type="text"
-                                       name="phone"
-                                       placeholder="Số điện thoại" />
-                            </div>
-                            <div class="col-md-6">
-                                <input class="form-control"
-                                       type="text"
-                                       name="email"
-                                       placeholder="Email" />
-                            </div>
-                            <div class="col-md-12">
-                                <button class="btn">Lưu thay đổi</button>
-                                <br /><br />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade"
-                         id="changeaddress-tab"
-                         role="tabpanel"
-                         aria-labelledby="account-nav">
-                        <h4>Cập nhập địa chỉ</h4>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input class="form-control"
-                                       type="text"
-                                       name="phone"
-                                       placeholder="Số điện thoại" />
-                            </div>
-                            <div class="col-md-12">
-                                <input class="form-control"
-                                       type="text"
-                                       name="address"
-                                       placeholder="Địa chỉ của bạn" />
-                            </div>
-                            <div class="col-md-12">
-                                <button class="btn">Lưu thay đổi</button>
-                                <br /><br />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade"
-                         id="changepassword-tab"
-                         role="tabpanel"
-                         aria-labelledby="account-nav">
-                        <h4 class="text-uppercase mb-3">Đổi mật khẩu</h4>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input class="form-control"
-                                       type="password"
-                                       placeholder="Mật khẩu hiện tại" />
-                            </div>
-                            <div class="col-md-6">
-                                <input class="form-control"
-                                       type="text"
-                                       placeholder="Mật khẩu mới" />
-                            </div>
-                            <div class="col-md-6">
-                                <input class="form-control"
-                                       type="text"
-                                       placeholder="Xác nhận mật khẩu mới" />
-                            </div>
-                            <div class="col-md-12">
-                                <button class="btn">Lưu thay đổi</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade"
-                         id="wishlist-tab"
-                         role="tabpanel"
-                         aria-labelledby="account-nav">
-                        <h4 class="text-uppercase mb-3">Danh sách yêu thích</h4>
-                        <div class="col-lg-12">
+                        <div class="tab-pane fade"
+                             id="address-tab"
+                             role="tabpanel"
+                             aria-labelledby="address-nav">
+                            <h4 class="text-uppercase mb-3">Địa chỉ của bạn</h4>
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <div class="product-image">
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
-                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
-                                        </div>
-                                        <div class="product-title">
-                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
-                                        </div>
-                                        <div class="product-price">
-                                            <p class="price-discount"><span>300.000đ</span></p>
-                                            <p class="price"><span>359.000đ</span></p>
-                                        </div>
-                                        <div class="view-rating">
-                                            <span class="view">23<i class="fa fa-eye"></i></span>
-                                            <span class="rating">
-                                                4.7/5<i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <div class="wish-action">
-                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
-                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <div class="product-image">
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
-                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-title">
-                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
-                                        </div>
-                                        <div class="product-price">
-                                            <p class="price-discount"><span>300.000đ</span></p>
-                                            <p class="price"><span>359.000đ</span></p>
-                                        </div>
-                                        <div class="view-rating">
-                                            <span class="view">23<i class="fa fa-eye"></i></span>
-                                            <span class="rating">
-                                                4.7/5<i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <div class="wish-action">
-                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
-                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <div class="product-image">
-                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-title">
-                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
-                                        </div>
-                                        <div class="product-price">
-                                            <p class="price-discount"><span>300.000đ</span></p>
-                                            <p class="price"><span>359.000đ</span></p>
-                                        </div>
-                                        <div class="view-rating">
-                                            <span class="view">23<i class="fa fa-eye"></i></span>
-                                            <span class="rating">
-                                                4.7/5<i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <div class="wish-action">
-                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
-                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <div class="product-image">
-                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-title">
-                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
-                                        </div>
-                                        <div class="product-price">
-                                            <p class="price-discount"><span>300.000đ</span></p>
-                                            <p class="price"><span>359.000đ</span></p>
-                                        </div>
-                                        <div class="view-rating">
-                                            <span class="view">23<i class="fa fa-eye"></i></span>
-                                            <span class="rating">
-                                                4.7/5<i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <div class="wish-action">
-                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
-                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <div class="product-image">
-                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-title">
-                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
-                                        </div>
-                                        <div class="product-price">
-                                            <p class="price-discount"><span>300.000đ</span></p>
-                                            <p class="price"><span>359.000đ</span></p>
-                                        </div>
-                                        <div class="view-rating">
-                                            <span class="view">23<i class="fa fa-eye"></i></span>
-                                            <span class="rating">
-                                                4.7/5<i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <div class="wish-action">
-                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
-                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <div class="product-image">
-                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-title">
-                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
-                                        </div>
-                                        <div class="product-price">
-                                            <p class="price-discount"><span>300.000đ</span></p>
-                                            <p class="price"><span>359.000đ</span></p>
-                                        </div>
-                                        <div class="view-rating">
-                                            <span class="view">23<i class="fa fa-eye"></i></span>
-                                            <span class="rating">
-                                                4.7/5<i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <div class="wish-action">
-                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
-                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
-                                        </div>
+                                <div class="col-md-12">
+                                    <h5>Địa chỉ giao hàng</h5>
+                                    <p>@Model.Address</p>
+                                    <p>Điện thoại: @Model.Phone</p>
+                                    <div class="btn-update">
+                                        <a id="updateaddress-nav"
+                                           data-toggle="pill"
+                                           href="#changeaddress-tab"
+                                           role="tab"><button>Thay đổi</button></a>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Pagination Start -->
-                            <div class="col-md-12">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
-                                        </li>
-                                        <li class="page-item active">
-                                            <a class="page-link" asp-controller="" asp-action="">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" asp-controller="" asp-action="">2</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" asp-controller="" asp-action="">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" asp-controller="" asp-action="">Sau</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <!-- Pagination Start -->
                         </div>
-                    </div>
-
-                    <div class="tab-pane fade"
-                         id="commented-tab"
-                         role="tabpanel"
-                         aria-labelledby="account-nav">
-                        <h4 class="text-uppercase mb-3">Sản phẩm đã đánh giá</h4>
-                        <div class="col-lg-12">
+                        <div class="tab-pane fade"
+                             id="changeinfo-tab"
+                             role="tabpanel"
+                             aria-labelledby="account-nav">
+                            <h4>Cập nhập thông tin</h4>
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <div class="product-image">
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
-                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
-                                        </div>
-                                        <div class="product-title">
-                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
-                                        </div>
-                                        <div class="product-price">
-                                            <p class="price-discount"><span>300.000đ</span></p>
-                                            <p class="price"><span>359.000đ</span></p>
-                                        </div>
-                                        <div class="view-rating">
-                                            <span class="view">23<i class="fa fa-eye"></i></span>
-                                            <span class="rating">
-                                                4.7/5<i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <div class="wish-action">
-                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
-                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6">
+                                    <input class="form-control"
+                                           type="text"
+                                           name="lname"
+                                           value=""
+                                           placeholder="Họ" />
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <div class="product-image">
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
-                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
-                                        </div>
-                                        <div class="product-title">
-                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
-                                        </div>
-                                        <div class="product-price">
-                                            <p class="price-discount"><span>300.000đ</span></p>
-                                            <p class="price"><span>359.000đ</span></p>
-                                        </div>
-                                        <div class="view-rating">
-                                            <span class="view">23<i class="fa fa-eye"></i></span>
-                                            <span class="rating">
-                                                4.7/5<i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <div class="wish-action">
-                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
-                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6">
+                                    <input class="form-control"
+                                           type="text"
+                                           name="fname"
+                                           value=""
+                                           placeholder="Tên" />
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <div class="product-image">
-                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-title">
-                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
-                                        </div>
-                                        <div class="product-price">
-                                            <p class="price-discount"><span>300.000đ</span></p>
-                                            <p class="price"><span>359.000đ</span></p>
-                                        </div>
-                                        <div class="view-rating">
-                                            <span class="view">23<i class="fa fa-eye"></i></span>
-                                            <span class="rating">
-                                                4.7/5<i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <div class="wish-action">
-                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
-                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6">
+                                    <input class="form-control"
+                                           type="text"
+                                           name="phone"
+                                           value="@Model.Phone"
+                                           placeholder="Số điện thoại" />
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <div class="product-image">
-                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-title">
-                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
-                                        </div>
-                                        <div class="product-price">
-                                            <p class="price-discount"><span>300.000đ</span></p>
-                                            <p class="price"><span>359.000đ</span></p>
-                                        </div>
-                                        <div class="view-rating">
-                                            <span class="view">23<i class="fa fa-eye"></i></span>
-                                            <span class="rating">
-                                                4.7/5<i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <div class="wish-action">
-                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
-                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6">
+                                    <input class="form-control"
+                                           type="text"
+                                           name="email"
+                                           value="@Model.Email"
+                                           placeholder="Email" />
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <div class="product-image">
-                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-title">
-                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
-                                        </div>
-                                        <div class="product-price">
-                                            <p class="price-discount"><span>300.000đ</span></p>
-                                            <p class="price"><span>359.000đ</span></p>
-                                        </div>
-                                        <div class="view-rating">
-                                            <span class="view">23<i class="fa fa-eye"></i></span>
-                                            <span class="rating">
-                                                4.7/5<i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <div class="wish-action">
-                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
-                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <div class="product-image">
-                                            <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
-                                            <div class="discount-per">
-                                                <span>18%</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-title">
-                                            <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
-                                        </div>
-                                        <div class="product-price">
-                                            <p class="price-discount"><span>300.000đ</span></p>
-                                            <p class="price"><span>359.000đ</span></p>
-                                        </div>
-                                        <div class="view-rating">
-                                            <span class="view">23<i class="fa fa-eye"></i></span>
-                                            <span class="rating">
-                                                4.7/5<i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-                                        <div class="wish-action">
-                                            <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
-                                            <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
+                                <div class="col-md-12">
+                                    <button class="btn">Lưu thay đổi</button>
+                                    <br /><br />
                                 </div>
                             </div>
+                        </div>
+                        <div class="tab-pane fade"
+                             id="changeaddress-tab"
+                             role="tabpanel"
+                             aria-labelledby="account-nav">
+                            <h4>Cập nhập địa chỉ</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input class="form-control"
+                                           type="text"
+                                           name="phone"
+                                           value="@Model.Phone"
+                                           placeholder="Số điện thoại" />
+                                </div>
+                                <div class="col-md-12">
+                                    <input class="form-control"
+                                           type="text"
+                                           name="address"
+                                           value="@Model.Address"
+                                           placeholder="Địa chỉ của bạn" />
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn">Lưu thay đổi</button>
+                                    <br /><br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade"
+                             id="changepassword-tab"
+                             role="tabpanel"
+                             aria-labelledby="account-nav">
+                            <h4 class="text-uppercase mb-3">Đổi mật khẩu</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input class="form-control"
+                                           type="password"
+                                           placeholder="Mật khẩu hiện tại" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control"
+                                           type="text"
+                                           placeholder="Mật khẩu mới" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control"
+                                           type="text"
+                                           placeholder="Xác nhận mật khẩu mới" />
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn">Lưu thay đổi</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade"
+                             id="wishlist-tab"
+                             role="tabpanel"
+                             aria-labelledby="account-nav">
+                            <h4 class="text-uppercase mb-3">Danh sách yêu thích</h4>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="product-item">
+                                            <div class="product-image">
+                                                <div class="discount-per">
+                                                    <span>18%</span>
+                                                </div>
+                                                <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
+                                            </div>
+                                            <div class="product-title">
+                                                <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <p class="price-discount"><span>300.000đ</span></p>
+                                                <p class="price"><span>359.000đ</span></p>
+                                            </div>
+                                            <div class="view-rating">
+                                                <span class="view">23<i class="fa fa-eye"></i></span>
+                                                <span class="rating">
+                                                    4.7/5<i class="fa fa-star"></i>
+                                                </span>
+                                            </div>
+                                            <div class="wish-action">
+                                                <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                                <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="product-item">
+                                            <div class="product-image">
+                                                <div class="discount-per">
+                                                    <span>18%</span>
+                                                </div>
+                                                <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
+                                                <div class="discount-per">
+                                                    <span>18%</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-title">
+                                                <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <p class="price-discount"><span>300.000đ</span></p>
+                                                <p class="price"><span>359.000đ</span></p>
+                                            </div>
+                                            <div class="view-rating">
+                                                <span class="view">23<i class="fa fa-eye"></i></span>
+                                                <span class="rating">
+                                                    4.7/5<i class="fa fa-star"></i>
+                                                </span>
+                                            </div>
+                                            <div class="wish-action">
+                                                <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                                <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="product-item">
+                                            <div class="product-image">
+                                                <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
+                                                <div class="discount-per">
+                                                    <span>18%</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-title">
+                                                <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <p class="price-discount"><span>300.000đ</span></p>
+                                                <p class="price"><span>359.000đ</span></p>
+                                            </div>
+                                            <div class="view-rating">
+                                                <span class="view">23<i class="fa fa-eye"></i></span>
+                                                <span class="rating">
+                                                    4.7/5<i class="fa fa-star"></i>
+                                                </span>
+                                            </div>
+                                            <div class="wish-action">
+                                                <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                                <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="product-item">
+                                            <div class="product-image">
+                                                <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
+                                                <div class="discount-per">
+                                                    <span>18%</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-title">
+                                                <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <p class="price-discount"><span>300.000đ</span></p>
+                                                <p class="price"><span>359.000đ</span></p>
+                                            </div>
+                                            <div class="view-rating">
+                                                <span class="view">23<i class="fa fa-eye"></i></span>
+                                                <span class="rating">
+                                                    4.7/5<i class="fa fa-star"></i>
+                                                </span>
+                                            </div>
+                                            <div class="wish-action">
+                                                <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                                <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="product-item">
+                                            <div class="product-image">
+                                                <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
+                                                <div class="discount-per">
+                                                    <span>18%</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-title">
+                                                <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <p class="price-discount"><span>300.000đ</span></p>
+                                                <p class="price"><span>359.000đ</span></p>
+                                            </div>
+                                            <div class="view-rating">
+                                                <span class="view">23<i class="fa fa-eye"></i></span>
+                                                <span class="rating">
+                                                    4.7/5<i class="fa fa-star"></i>
+                                                </span>
+                                            </div>
+                                            <div class="wish-action">
+                                                <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                                <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="product-item">
+                                            <div class="product-image">
+                                                <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
+                                                <div class="discount-per">
+                                                    <span>18%</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-title">
+                                                <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <p class="price-discount"><span>300.000đ</span></p>
+                                                <p class="price"><span>359.000đ</span></p>
+                                            </div>
+                                            <div class="view-rating">
+                                                <span class="view">23<i class="fa fa-eye"></i></span>
+                                                <span class="rating">
+                                                    4.7/5<i class="fa fa-star"></i>
+                                                </span>
+                                            </div>
+                                            <div class="wish-action">
+                                                <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                                <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <!-- Pagination Start -->
-                            <div class="col-md-12">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
-                                        </li>
-                                        <li class="page-item active">
-                                            <a class="page-link" asp-controller="" asp-action="">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" asp-controller="" asp-action="">2</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" asp-controller="" asp-action="">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" asp-controller="" asp-action="">Sau</a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                <!-- Pagination Start -->
+                                <div class="col-md-12">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
+                                            </li>
+                                            <li class="page-item active">
+                                                <a class="page-link" asp-controller="" asp-action="">1</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" asp-controller="" asp-action="">2</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" asp-controller="" asp-action="">3</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" asp-controller="" asp-action="">Sau</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!-- Pagination Start -->
                             </div>
-                            <!-- Pagination Start -->
+                        </div>
+                        <div class="tab-pane fade"
+                             id="commented-tab"
+                             role="tabpanel"
+                             aria-labelledby="account-nav">
+                            <h4 class="text-uppercase mb-3">Sản phẩm đã đánh giá</h4>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="product-item">
+                                            <div class="product-image">
+                                                <div class="discount-per">
+                                                    <span>18%</span>
+                                                </div>
+                                                <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
+                                            </div>
+                                            <div class="product-title">
+                                                <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <p class="price-discount"><span>300.000đ</span></p>
+                                                <p class="price"><span>359.000đ</span></p>
+                                            </div>
+                                            <div class="view-rating">
+                                                <span class="view">23<i class="fa fa-eye"></i></span>
+                                                <span class="rating">
+                                                    4.7/5<i class="fa fa-star"></i>
+                                                </span>
+                                            </div>
+                                            <div class="wish-action">
+                                                <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                                <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="product-item">
+                                            <div class="product-image">
+                                                <div class="discount-per">
+                                                    <span>18%</span>
+                                                </div>
+                                                <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
+                                            </div>
+                                            <div class="product-title">
+                                                <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <p class="price-discount"><span>300.000đ</span></p>
+                                                <p class="price"><span>359.000đ</span></p>
+                                            </div>
+                                            <div class="view-rating">
+                                                <span class="view">23<i class="fa fa-eye"></i></span>
+                                                <span class="rating">
+                                                    4.7/5<i class="fa fa-star"></i>
+                                                </span>
+                                            </div>
+                                            <div class="wish-action">
+                                                <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                                <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="product-item">
+                                            <div class="product-image">
+                                                <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
+                                                <div class="discount-per">
+                                                    <span>18%</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-title">
+                                                <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <p class="price-discount"><span>300.000đ</span></p>
+                                                <p class="price"><span>359.000đ</span></p>
+                                            </div>
+                                            <div class="view-rating">
+                                                <span class="view">23<i class="fa fa-eye"></i></span>
+                                                <span class="rating">
+                                                    4.7/5<i class="fa fa-star"></i>
+                                                </span>
+                                            </div>
+                                            <div class="wish-action">
+                                                <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                                <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="product-item">
+                                            <div class="product-image">
+                                                <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
+                                                <div class="discount-per">
+                                                    <span>18%</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-title">
+                                                <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <p class="price-discount"><span>300.000đ</span></p>
+                                                <p class="price"><span>359.000đ</span></p>
+                                            </div>
+                                            <div class="view-rating">
+                                                <span class="view">23<i class="fa fa-eye"></i></span>
+                                                <span class="rating">
+                                                    4.7/5<i class="fa fa-star"></i>
+                                                </span>
+                                            </div>
+                                            <div class="wish-action">
+                                                <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                                <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="product-item">
+                                            <div class="product-image">
+                                                <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
+                                                <div class="discount-per">
+                                                    <span>18%</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-title">
+                                                <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <p class="price-discount"><span>300.000đ</span></p>
+                                                <p class="price"><span>359.000đ</span></p>
+                                            </div>
+                                            <div class="view-rating">
+                                                <span class="view">23<i class="fa fa-eye"></i></span>
+                                                <span class="rating">
+                                                    4.7/5<i class="fa fa-star"></i>
+                                                </span>
+                                            </div>
+                                            <div class="wish-action">
+                                                <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                                <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="product-item">
+                                            <div class="product-image">
+                                                <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
+                                                <div class="discount-per">
+                                                    <span>18%</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-title">
+                                                <a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <p class="price-discount"><span>300.000đ</span></p>
+                                                <p class="price"><span>359.000đ</span></p>
+                                            </div>
+                                            <div class="view-rating">
+                                                <span class="view">23<i class="fa fa-eye"></i></span>
+                                                <span class="rating">
+                                                    4.7/5<i class="fa fa-star"></i>
+                                                </span>
+                                            </div>
+                                            <div class="wish-action">
+                                                <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i></a>
+                                                <a asp-controller="" asp-action=""><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Pagination Start -->
+                                <div class="col-md-12">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
+                                            </li>
+                                            <li class="page-item active">
+                                                <a class="page-link" asp-controller="" asp-action="">1</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" asp-controller="" asp-action="">2</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" asp-controller="" asp-action="">3</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" asp-controller="" asp-action="">Sau</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!-- Pagination Start -->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- My Account End -->
+    <!-- My Account End -->
+}

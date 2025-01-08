@@ -6,6 +6,15 @@
             <li class="breadcrumb-item active">Đăng nhập</li>
         </ul>
     </div>
+    <div class="container" style="margin-top:10px">
+        <h2 style="text-align:center;color:red">
+            @if (TempData["ErrorMessage"] != null)
+            {
+                @TempData["ErrorMessage"]
+                ;
+            }
+        </h2>
+    </div>
 </div>
 <!-- Breadcrumb End -->
 <!-- Login Start -->
@@ -15,15 +24,19 @@
             <div class="col-lg-6 m-auto" id="login">
                 <div class="login-form pt-0">
                     <h2 class="mb-3">Đăng nhập</h2>
-                    <form>
+                    <form action="/Account/Login" method="post">
                         <div class="row">
                             <div class="col-md-12">
                                 <label class="font-weight-bold">Email hoặc tên đăng nhập <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" placeholder="Vui lòng nhập email hoặc tên đăng nhập" />
+                                <input class="form-control" value="@if (TempData["Username"] != null)
+                                {
+                                    @TempData["Username"]
+                                }"
+                                       type="text" name="username" placeholder="Vui lòng nhập email hoặc tên đăng nhập" />
                             </div>
                             <div class="col-md-12">
                                 <label class="font-weight-bold">Mật khẩu <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" placeholder="Vui lòng nhập mật khẩu" />
+                                <input class="form-control" type="password" name="password" placeholder="Vui lòng nhập mật khẩu" />
                             </div>
                             <div class="col-md-12">
                                 <div class="custom-control custom-checkbox">
