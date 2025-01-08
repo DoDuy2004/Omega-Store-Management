@@ -18,12 +18,14 @@
                 url: "/Product/LoadReviews/@product.Id",
                 method: "GET",
                 success: function (res) {
+                    // Hiển thị số lượng đánh giá
                     $("#reviews-count").text(res.reviews.length);
 
                     let reviewsHTML = "<p>Hiện tại sản phẩm này chưa có đánh giá nào</p>";
 
                     if (res.reviews.length > 0) {
                         reviewsHTML = $.map(res.reviews, function (r) {
+                            // Tạo số sao theo bài đánh giá
                             let starHTML = "";
 
                             for (let i = 1; i <= r.rating; i++) {
@@ -34,6 +36,7 @@
                                 starHTML += "<i class='far fa-star'></i>"
                             }
 
+                            // Trả về chuỗi html các bài đánh giá
                             return `
                                 <div class="reviewer">${r.fullname} - <span>${new Date(r.createdAt).toLocaleString("vi-VN")}</span></div>
                                 <p>
@@ -46,6 +49,7 @@
                         }).join('');
                     }
 
+                    // Chèn vào <div> chứa các bài đánh giá
                     $("#reviews > .reviews-submitted").html(reviewsHTML);
                 },
                 error: function (error) {
@@ -82,7 +86,9 @@
                                         text: "Đánh giá của bạn đã được cập nhật",
                                         icon: "success"
                                     });
+                                    // Xóa hết dữ liệu vừa nhập trong form
                                     $("#review-form")[0].reset();
+                                    // Hiển thị lại danh sách các đánh giá
                                     renderReviews();
                                 } else {
                                     Swal.fire({
