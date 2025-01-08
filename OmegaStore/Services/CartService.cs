@@ -64,14 +64,14 @@ namespace OmegaStore.Services
         public int GetTotalQuantity()
         {
             Cart cart = GetCartItems();
-            return cart.CartItems.Sum(p => p.Quantity);
+            return cart.CartItems.Count();
         }
             
 
         public decimal GetTotalPrice()
         {
             Cart cart = GetCartItems();
-            return cart.CartItems.Sum(p => p.Quantity * p.Product.Price);
+            return cart.CartItems.Sum(p => p.Quantity * (p.Product.Price - (p.Product.Price * p.Product.DiscountRate / 100)));
         }
     }
 }

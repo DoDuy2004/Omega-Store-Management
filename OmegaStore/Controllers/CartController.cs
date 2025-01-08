@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OmegaStore.Models.ViewModels;
 using OmegaStore.Services;
 
 namespace OmegaStore.Controllers
@@ -14,19 +15,26 @@ namespace OmegaStore.Controllers
         }
 		public IActionResult Index()
         {
-            var cart = _cartService.GetCartItems();
-            return View(cart.CartItems);
+            var cartVM = new CartViewModel
+            { 
+                CartItems = _cartService.GetCartItems().CartItems,
+                TotalPrice = _cartService.GetTotalPrice(),
+                ShippingFee = 25000
+			};
+
+            return View(cartVM);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int productId)
+        public async Task<IActionResult> AddToCart(int productId, int quantity = 1)
         {
             var product = await _productService.GetProduct(productId);
 
-            _cartService.AddToCart(product, 1);
+            _cartService.AddToCart(product, quantity);
 
             return RedirectToAction("Index");
         }
+
 
         public async Task<IActionResult> RemoveItem(int productId)
         {
@@ -37,7 +45,7 @@ namespace OmegaStore.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> ClearCart()
+        public IActionResult ClearCart()
         {
             _cartService.ClearCart();
 
