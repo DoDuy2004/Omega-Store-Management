@@ -412,7 +412,7 @@ public partial class StoreDbContext : DbContext
 
             entity.Property(e => e.DiscountRate)
                 .IsRequired()
-                .HasColumnType("decimal(4,2)")
+                .HasColumnType("int")
                 .HasColumnName("discount_rate");
 
             entity.Property(e => e.Slug)
