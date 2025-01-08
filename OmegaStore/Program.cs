@@ -1,10 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OmegaStore.Models;
+using OmegaStore.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//Thêm dịch vụ Session
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true; // Bảo vệ Session khỏi XSS
+    options.Cookie.IsEssential = true; // Yêu cầu cookie luôn được lưu
+});
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 // Thêm dịch vụ DbContext vào DI container và đọc chuỗi kết nối từ appsettings.json
 builder.Services.AddDbContext<StoreDbContext>(options =>
@@ -27,6 +38,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseSession();
+
 app.MapControllerRoute(
       name: "areas",
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
@@ -36,6 +49,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-SeedData.Initialize(app.Services);
+//SeedData.Initialize(app.Services);
 
 app.Run();

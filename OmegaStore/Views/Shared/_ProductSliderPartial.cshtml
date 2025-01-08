@@ -1,112 +1,35 @@
-﻿<div class="row align-items-center product-slider product-slider-4">
-	<div class="col-lg-3">
-		<div class="product-item">
-			<div class="product-image">
-				<div class="discount-per">
-					<span>18%</span>
+﻿@model IEnumerable<OmegaStore.Models.Product>
+@{
+	var sliderClass = Model.Count() >= 4 ? "product-slider-4" : "";
+}
+<div class="row align-items-center justify-content-center product-slider @sliderClass">
+	@foreach (var item in Model)
+	{
+		<div class="col-lg-3">
+			<div class="product-item">
+				<div class="product-image">
+					<div class="discount-per">
+						<span>@item.DiscountRate %</span>
+					</div>
+					<a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Slug"><img src="~/img/@item.Thumbnail" alt=""></a>
 				</div>
-				<a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt=""></a>
-			</div>
-			<div class="product-title"><a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a></div>
-			<div class="product-price">
-				<p class="price-discount"><span>300.000đ</span></p>
-				<p class="price"><span>359.000đ</span></p>
-			</div>
-			<div class="view-rating">
-				<span class="view">23<i class="fa fa-eye"></i></span>
-				<span class="rating">4.7/5<i class="fa fa-star"></i></span>
-			</div>
-			<div class="btn-add-cart">
-				<button>Thêm vào giỏ hàng</button>
+				<div class="product-title"><a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Slug">@item.Name</a></div>
+				<div class="product-price">
+					<p class="price-discount"><span>@((item.Price - item.Price * (item.DiscountRate/100)).ToString("0"))đ</span></p>
+					<p class="price"><span>@item.Price đ</span></p>
+				</div>
+				<div class="view-rating">
+					<span class="view">23<i class="fa fa-eye"></i></span>
+					<span class="rating">4.7/5<i class="fa fa-star"></i></span>
+				</div>
+				<form asp-controller="Cart" asp-action="AddToCart" method="post">
+					<input type="hidden" name="productId" value="@item.Id" />
+					<div class="btn-add-cart">
+						<button>Thêm vào giỏ hàng</button>
+					</div>
+				</form>
+				
 			</div>
 		</div>
-	</div>
-	<div class="col-lg-3">
-		<div class="product-item">
-			<div class="product-image">
-				<div class="discount-per">
-					<span>18%</span>
-				</div>
-				<a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt=""></a>
-			</div>
-			<div class="product-title"><a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a></div>
-			<div class="product-price">
-				<p class="price-discount"><span>300.000đ</span></p>
-				<p class="price"><span>359.000đ</span></p>
-			</div>
-			<div class="view-rating">
-				<span class="view">23<i class="fa fa-eye"></i></span>
-				<span class="rating">4.7/5<i class="fa fa-star"></i></span>
-			</div>
-			<div class="btn-add-cart">
-				<button>Thêm vào giỏ hàng</button>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-3">
-		<div class="product-item">
-			<div class="product-image">
-				<div class="discount-per">
-					<span>18%</span>
-				</div>
-				<a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt=""></a>
-			</div>
-			<div class="product-title"><a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a></div>
-			<div class="product-price">
-				<p class="price-discount"><span>300.000đ</span></p>
-				<p class="price"><span>359.000đ</span></p>
-			</div>
-			<div class="view-rating">
-				<span class="view">23<i class="fa fa-eye"></i></span>
-				<span class="rating">4.7/5<i class="fa fa-star"></i></span>
-			</div>
-			<div class="btn-add-cart">
-				<button>Thêm vào giỏ hàng</button>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-3">
-		<div class="product-item">
-			<div class="product-image">
-				<div class="discount-per">
-					<span>18%</span>
-				</div>
-				<a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt=""></a>
-			</div>
-			<div class="product-title"><a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a></div>
-			<div class="product-price">
-				<p class="price-discount"><span>300.000đ</span></p>
-				<p class="price"><span>359.000đ</span></p>
-			</div>
-			<div class="view-rating">
-				<span class="view">23<i class="fa fa-eye"></i></span>
-				<span class="rating">4.7/5<i class="fa fa-star"></i></span>
-			</div>
-			<div class="btn-add-cart">
-				<button>Thêm vào giỏ hàng</button>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-3">
-		<div class="product-item">
-			<div class="product-image">
-				<div class="discount-per">
-					<span>18%</span>
-				</div>
-				<a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt=""></a>
-			</div>
-			<div class="product-title"><a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a></div>
-			<div class="product-price">
-				<p class="price-discount"><span>300.000đ</span></p>
-				<p class="price"><span>359.000đ</span></p>
-			</div>
-			<div class="view-rating">
-				<span class="view">23<i class="fa fa-eye"></i></span>
-				<span class="rating">4.7/5<i class="fa fa-star"></i></span>
-			</div>
-			<div class="btn-add-cart">
-				<button>Thêm vào giỏ hàng</button>
-			</div>
-		</div>
-	</div>
+	}
 </div>
