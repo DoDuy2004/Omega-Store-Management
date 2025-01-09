@@ -52,11 +52,14 @@ namespace OmegaStore.Controllers
                     (o, d) => new
                     {
                         Email = o.Email,
-                        ProductId = d.ProductId
+                        ProductId = d.ProductId,
+                        Status = o.Status
                     });
 
                 var isPurchased = result
-                    .FirstOrDefault(o => o.Email == review.Email && o.ProductId == review.ProductId);
+                    .FirstOrDefault(o => o.Email == review.Email 
+                    && o.ProductId == review.ProductId
+                    && o.Status == 4);
 
                 if (isPurchased == null)
                     return Json(new
@@ -90,7 +93,7 @@ namespace OmegaStore.Controllers
             {
                 success = false,
                 title = "Hmmm...",
-                text = "Vui lòng điền đầy đủ vào biểu mẫu đánh giá ~~"
+                text = "Vui lòng kiểm tra lại biểu mẫu đánh giá ~~"
             });
         }
 
