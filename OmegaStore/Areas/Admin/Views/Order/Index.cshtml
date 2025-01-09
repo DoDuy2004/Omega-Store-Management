@@ -216,26 +216,6 @@
                             var NextStatus = (Status + 1) === 2 ? "Xác nhận" : (Status + 1) === 3 ? "Đang giao" : (Status + 1) === 4 ? "Hoàn thành":"Đã hủy";
                             var CurrentStatus = Status === 1 ? "Chờ xác nhận" : Status === 2 ? "Xác nhận" : Status === 3 ? "Đang giao" : Status === 4 ?"Hoàn thành":"Đã hủy";
                       
-                            // if (Status === valueButton) {
-                            //     btn.prop("disabled", true);
-                            //     Swal.fire({
-                            //          title: "Đơn hàng hiện đang ở trạng thái này!",
-                            //          text: "Không thể cập nhật trạng thái đơn hàng trùng với trạng thái hiện tại của đơn hàng",
-                            //          icon: "error",
-                            //          confirmButtonText: "Đã hiểu",
-                            //     });
-                            //     return;
-                            // }
-                            // if (valueButton < Status || valueButton > Status + 1) {
-                            //     btn.prop("disabled", true);
-                            //     Swal.fire({
-                            //         title: "Không thể thay đổi trạng thái !",
-                            //         text: "Trạng thái đơn hàng phải được cập nhật theo thứ tự và không được cập nhật lại trạng thái trước đó.",
-                            //         icon: "error", Biểu tượng thông báo (error, warning, info, success)
-                            //         confirmButtonText: "Đã hiểu", Nút xác nhận
-                            //     });
-                            //     return;
-                            // }
                             Swal.fire({
                                 title:"Cập nhật trạng thái đơn hàng",
                                 text: `Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng có mã đơn hàng là ${OrderId} từ "${CurrentStatus}" thành "${NextStatus}" không?`,
@@ -281,15 +261,11 @@
                                     });
                                 
                                 }
-                                // rowId.find(`.btn-confirm[data-status="${Status}"]`).attr("data-status", status);
+                            
                             });
                            
 
-                            // var PopUpConfirm = confirm(`Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng ${OrderId} từ ${CurrentStatus} thành "${NextStatus}" không?`);
-                            // if (PopUpConfirm) {
-
-                              
-                            // }
+                      
                         });
 
 
@@ -399,7 +375,7 @@
                                         });
 
                                     }
-                                    // rowId.find(`.btn-confirm[data-status="${Status}"]`).attr("data-status", status);
+                                   
                                 });
                             }
                             else {
