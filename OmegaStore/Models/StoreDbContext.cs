@@ -143,6 +143,11 @@ public partial class StoreDbContext : DbContext
             entity.Property(e => e.Id)
                   .HasColumnName("id")
                   .ValueGeneratedOnAdd(); // Tương đương [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+            // Thuộc tính Author
+            entity.Property(e => e.Author)
+                  .IsRequired()
+                  .HasMaxLength(255)
+                  .HasColumnName("author");
 
             // Thuộc tính Title
             entity.Property(e => e.Title)
@@ -162,8 +167,20 @@ public partial class StoreDbContext : DbContext
                   .HasMaxLength(255)
                   .HasColumnName("slug");
 
-            // Thuộc tính Content
-            entity.Property(e => e.Content)
+			// Thuộc tính Thumbnail
+			entity.Property(e => e.ListContent)
+				  .IsRequired()
+				  .HasColumnType("ntext") // Nếu cần kiểu dữ liệu ntext
+				  .HasColumnName("listcontent");
+
+			// Thuộc tính Thumbnail
+			entity.Property(e => e.ShortContent)
+				  .IsRequired()
+                  .HasColumnType("ntext") // Nếu cần kiểu dữ liệu ntext
+				  .HasColumnName("shortcontent");
+
+			// Thuộc tính Content
+			entity.Property(e => e.Content)
                   .IsRequired()
                   .HasColumnType("ntext") // Nếu cần kiểu dữ liệu ntext
                   .HasColumnName("content");
@@ -395,7 +412,7 @@ public partial class StoreDbContext : DbContext
 
             entity.Property(e => e.DiscountRate)
                 .IsRequired()
-                .HasColumnType("decimal(4,2)")
+                .HasColumnType("int")
                 .HasColumnName("discount_rate");
 
             entity.Property(e => e.Slug)

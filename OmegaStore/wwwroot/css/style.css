@@ -925,8 +925,8 @@ h2 {
 }
 
 .product-item .btn-add-cart:hover button {
-  color: #fff;
-  background: #00d2d3;
+    color: #fff;
+    background: #00d2d3;
 }
 
 /**********************************/
@@ -2515,8 +2515,8 @@ h2 {
   height: 1.7rem;
   color: #fff;
   border: 2px solid #fff;
-  top: 40%;
-  left: 0;
+  top: 50%;
+  left: -15px;
   transform: translateY(-50%);
   font-size: 0.8rem;
 }
@@ -2541,7 +2541,7 @@ h2 {
 
 .post-list .card-content .card-meta .date::before, .post-detail .meta .date::before {
   position: absolute;
-  content: ".";
+  content: "";
   top: -30%;
   left: -25%;
   font-size: 3rem;
