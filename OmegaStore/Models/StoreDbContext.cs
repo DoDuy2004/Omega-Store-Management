@@ -39,6 +39,8 @@ public partial class StoreDbContext : DbContext
 
     public virtual DbSet<WebsiteInfo> WebsiteInfos { get; set; }
 
+    public virtual DbSet<Wishlist> Wishlist { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=OmegaShopConnection");
 

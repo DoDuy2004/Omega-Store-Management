@@ -18,6 +18,22 @@
                 url: "/Product/LoadReviews/@product.Id",
                 method: "GET",
                 success: function (res) {
+                    // Hiển thị số lượt bán
+                    $("#sale-count").text(@ViewBag.saleCount);
+
+                    // Hiển thị số lượt yêu thích
+                    $("#likes").text("(@ViewBag.likes)");
+
+                    // Hiển thị tỉ lệ 5 sao
+                    let fiveStarRate = 0;
+                    for (let r of res.reviews) {
+                        fiveStarRate += r.rating;
+                    }
+
+                    fiveStarRate = (res.reviews.length > 0) 
+                        ? fiveStarRate / res.reviews.length : res.reviews.length;
+                    $(".info .ratting > span").text(`(${fiveStarRate.toFixed(1)})`);
+
                     // Hiển thị số lượng đánh giá
                     $("#reviews-count").text(res.reviews.length);
 
@@ -218,15 +234,19 @@
                                     <p id="error" class="text-danger"></p>
                                 </div>
                                 <div class="d-flex justify-content-between font-weight-bold mb-4">
-                                    <div class="flex-grow-1">Lượt bán: <span>20</span></div>
+                                    <div class="flex-grow-1">Lượt bán: <span id="sale-count"></span></div>
                                     <div class="flex-grow-1">
                                         <i class="fa fa-heart text-danger"></i>
-                                        <span>(1121)</span>
+                                        <span id="likes"></span>
                                     </div>
                                     <div class="info flex-grow-1">
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
-                                            <span>(1000)</span>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <span></span>
                                         </div>
                                     </div>
                                 </div>
@@ -263,31 +283,7 @@
                             </div>
                             <div id="reviews" class="container tab-pane fade">
                                 <div class="reviews-submitted overflow-auto" style="max-height: 250px;">
-                                    @*@if (product.Reviews.Count == 0)
-                                    {
-                                        <p>Hiện tại sản phẩm này chưa có đánh giá nào</p>
-                                    }
-                                    else
-                                    {
-                                        @foreach (var r in product.Reviews)
-                                        {
-                                            <div class="reviewer">@r.Fullname - <span>@r.CreatedAt</span></div>
-                                            <p>
-                                                @r.Comment
-                                            </p>
-                                            <div class="ratting">
-                                                @for (var i = 1; i <= r.Rating; i++)
-                                                {
-                                                    <i class="fa fa-star"></i>
-                                                }
-
-                                                @for (var i = 1; i <= 5 - r.Rating; i++)
-                                                {
-                                                    <i class="far fa-star"></i>
-                                                }
-                                            </div>
-                                        }
-                                    }*@
+                                    
                                 </div>
                                 <form id="review-form" method="post">
                                     <input type="hidden" name="ProductId" value="@product.Id" />
