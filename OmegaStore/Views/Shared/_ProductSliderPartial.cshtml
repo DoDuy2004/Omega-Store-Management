@@ -22,13 +22,15 @@
 					<span class="view">23<i class="fa fa-eye"></i></span>
 					<span class="rating">4.7/5<i class="fa fa-star"></i></span>
 				</div>
-				<form asp-controller="Cart" asp-action="AddToCart" method="post">
+				@* <form asp-controller="Cart" asp-action="AddToCart" method="post">
 					<input type="hidden" name="productId" value="@item.Id" />
 					<div class="btn-add-cart">
 						<button>Thêm vào giỏ hàng</button>
 					</div>
-				</form>
-				
+				</form> *@
+					<div class="btn-add-cart">
+						<button id="btn-add-cart" data-id="@item.Id">Thêm vào giỏ hàng</button>
+					</div>
 			</div>
 		</div>
 	}

@@ -5,9 +5,9 @@ namespace OmegaStore.Services
     public interface ICartService
     {
         Cart GetCartItems();
-        void AddToCart(Product product, int quantity);
+        bool AddToCart(Product product, int quantity);
         void RemoveFromCart(Product product);
-        void ClearCart();
+        bool ClearCart();
         int GetTotalQuantity();
         decimal GetTotalPrice();
     }

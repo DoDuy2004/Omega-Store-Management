@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OmegaStore.Models;
 using OmegaStore.Models.ViewModels;
 using OmegaStore.Services;
 
@@ -15,14 +16,21 @@ namespace OmegaStore.Controllers
         }
 		public IActionResult Index()
         {
-            var cartVM = new CartViewModel
-            { 
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetCart()
+        {
+            var cartViewModel = new CartViewModel
+            {
                 CartItems = _cartService.GetCartItems().CartItems,
                 TotalPrice = _cartService.GetTotalPrice(),
-                ShippingFee = 25000
-			};
+                ShippingFee = 25000,
+                TotalQuantity = _cartService.GetTotalQuantity()
+            };
 
-            return View(cartVM);
+            return Json(cartViewModel);
         }
 
         [HttpPost]
@@ -30,26 +38,46 @@ namespace OmegaStore.Controllers
         {
             var product = await _productService.GetProduct(productId);
 
-            _cartService.AddToCart(product, quantity);
+            bool isAddToCart = _cartService.AddToCart(product, quantity);
 
-            return RedirectToAction("Index");
+            if (!isAddToCart)
+            {
+                return Json(new { success = false });
+            }
+            var cartViewModel = new CartViewModel
+            {
+                CartItems = _cartService.GetCartItems().CartItems,
+                TotalPrice = _cartService.GetTotalPrice(),
+                ShippingFee = 25000,
+                TotalQuantity = _cartService.GetTotalQuantity()
+            };
+
+            return Json(new { success = true, cartViewModel = cartViewModel });
         }
 
-
+        [HttpPost]
         public async Task<IActionResult> RemoveItem(int productId)
         {
             var product = await _productService.GetProduct(productId);
+            
+            if(product != null)
+            {
+                _cartService.RemoveFromCart(product);
 
-            _cartService.RemoveFromCart(product);
+                return Json(new { success = true, newTotalPrice = _cartService.GetTotalPrice() });
+            }
 
-            return RedirectToAction("Index");
+            return Json(new { success = false, message = "Sản phẩm không tồn tại trong giỏ hàng." });
         }
 
         public IActionResult ClearCart()
         {
-            _cartService.ClearCart();
+            bool isClearCart = _cartService.ClearCart();
 
-            return RedirectToAction("Index");
+            if(!isClearCart) {
+                return Json(new { success = false });
+            }
+            return Json(new { success = true });
         }
 
         public IActionResult Checkout() 
