@@ -55,24 +55,48 @@
                 <div class="order-state">
                     <div class="d-flex justify-content-around">
                         <!-- Button 1: Nền xanh da trời, chữ trắng, bo góc, kích thước lớn -->
-                        <button class="btn btn-primary text-white border border-primary rounded btn-lg">
-                            Chờ xác
-                            nhận
-                        </button>
+                        <form method="get" asp-controller="Order" asp-action="Index">
+                            <input type="hidden" name="status" value="" />
+                            <button class="btn  @(ViewBag.Status==null?@ViewBag.Btn:"") border border-primary rounded btn-lg">
+                               Tất cả
+                            </button>
+                        </form>
+                        <form method="get" asp-controller="Order" asp-action="Index">
+                            <input type="hidden" name="status" value="1" />
+                            <button class="btn  @(ViewBag.Status==1?@ViewBag.Btn:"") border border-primary rounded btn-lg">
+                                Chờ xác nhận
+                            </button>
+                        </form>
+                        <form method="get" asp-controller="Order" asp-action="Index">
+                            <input type="hidden" name="status" value="2" />
+                            <button class="btn  @(ViewBag.Status==2?@ViewBag.Btn:"") primary border-primary rounded btn-lg">Xác nhận</button>
+                        </form>
+                        <form method="get" asp-controller="Order" asp-action="Index">
+                            <input type="hidden" name="status" value="3" />
+                            <button class="btn  @(ViewBag.Status==3?@ViewBag.Btn:"") primary border-primary rounded btn-lg">
+                                Đang
+                                giao
+                            </button>
+                        </form>
+                        <form method="get" asp-controller="Order" asp-action="Index">
+                            <input type="hidden" name="status" value="4" />
+                            <button class="btn  @(ViewBag.Status==4?@ViewBag.Btn:"") primary border-primary rounded btn-lg">Đã giao</button>
+                        </form>
+                        <form method="get" asp-controller="Order" asp-action="Index">
+                            <input type="hidden" name="status" value="5" />
+                            <button class="btn  @(ViewBag.Status==5?@ViewBag.Btn:"") primary border-primary rounded btn-lg">Đã hủy</button>
+                        </form>
 
                         <!-- Button 2 -->
-                        <button class="btn btn-outline-primary primary border-primary rounded btn-lg">Xác nhận</button>
+                
 
                         <!-- Button 3 -->
-                        <button class="btn btn-outline-primary primary border-primary rounded btn-lg">
-                            Chuyển
-                            giao
-                        </button>
+                    
 
                         <!-- Button 4 -->
-                        <button class="btn btn-outline-primary primary border-primary rounded btn-lg">Đã giao</button>
+                  
                         <!-- Button 5 -->
-                        <button class="btn btn-outline-primary primary border-primary rounded btn-lg">Đã hủy</button>
+                    
                     </div>
                 </div>
                 <div class="flex items-center justify-between gap10 flex-wrap">
@@ -87,9 +111,9 @@
                                 </select>
                             </div>
                         </div>
-                        <form class="form-search">
+                        <form class="form-search" method="get" asp-controller="Order" asp-action="Index">
                             <fieldset class="name">
-                                <input type="text" placeholder="Tìm kiếm" class="" name="name" tabindex="2" value=""
+                                <input type="text" placeholder="Tìm kiếm" name="search" tabindex="2" value=""
                                        aria-required="true" required="">
                             </fieldset>
                             <div class="button-submit">
@@ -189,7 +213,7 @@
                                         </div>
                                     
                                         <div class="item eye">
-                                            <a asp-area="Admin" asp-controller="Order" asp-action="Detail"><i class="icon-eye"></i></a>
+                                            <a asp-area="Admin" asp-controller="Order" asp-action="Detail" asp-route-id="@or.Id"><i class="icon-eye"></i></a>
                                         </div>
                                         <div class="item edit">
                                             <button class="btn btn-delete-order btn-danger white  rounded btn-lg"
@@ -279,8 +303,8 @@
                             if (Status == 1) {
 
                                 Swal.fire({
-                                    title: "Bạn chắc không?",
-                                    text: "Xóa không thể phục hồi được!",
+                                    title: "Hủy đơn hàng !",
+                                    text: `Bạn có chắc muốn hủy đơn hàng có mã đơn hàng là ${OrderId} không!`,
                                     icon: "warning", // biểu tượng: 'warning', 'error', 'success', 'info', 'question'
                                     showCancelButton: true,
                                     confirmButtonText: "Xóa", // nút xác nhận xóa
@@ -382,10 +406,14 @@
                                 Swal.fire("Xóa đơn hàng thất bại", `Chỉ xóa được đơn hàng ở trạng thái "Đả hủy" hoặc "Hoàn thành"`, "error");
 
                             }
-
-
                         });
 
+                        //Lọc đơn hàng theo trạng thái
+
+                        $(document).on("click", ".btn-1", function () {
+                            
+                        
+                        });
                     </script>
                 </div>
                 <div class="divider"></div>
