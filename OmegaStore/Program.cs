@@ -17,6 +17,7 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
+
 // Thêm dịch vụ DbContext vào DI container và đọc chuỗi kết nối từ appsettings.json
 builder.Services.AddDbContext<StoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("OmegaShopConnection")));

@@ -1,0 +1,179 @@
+﻿@model List<OmegaStore.Models.Product>
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm theo danh mục";
+}
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap mb-0">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Danh sách sản phẩm</li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Product List Start -->
+<div class="product-view pt-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10"></div>
+            <div class="col-lg-2">
+                <div class="product-short mb-3">
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown">
+                            Sắp xếp theo
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a asp-controller="" asp-action="" class="dropdown-item">Mới nhất</a>
+                            <a asp-controller="" asp-action="" class="dropdown-item">Cũ nhất</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Side Bar Start -->
+            <div class="col-lg-4 sidebar">
+                <div class="sidebar-widget category">
+                    <h2 class="title">Danh Mục</h2>
+                    <nav class="navbar bg-light">
+                        <ul class="navbar-nav">
+                            <!-- Danh mục 1 -->
+                            <li class="nav-item dropdown position-relative">
+                                <a class="nav-link dropdown-toggle"
+                                   asp-controller="" asp-action=""
+                                   id="navbarDropdown1"
+                                   role="button"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Danh mục 1
+                                </a>
+                                <div style="border: none"
+                                     class="dropdown-menu"
+                                     aria-labelledby="navbarDropdown1">
+                                    <a class="dropdown-item" asp-controller="" asp-action="">Danh mục 1.1</a>
+                                    <a class="dropdown-item" asp-controller="" asp-action="">Danh mục 1.2</a>
+                                </div>
+                            </li>
+                            <!-- Danh mục 2 -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle"
+                                   asp-controller="" asp-action=""
+                                   id="navbarDropdown2"
+                                   role="button"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Danh mục 2
+                                </a>
+                                <div style="border: none"
+                                     class="dropdown-menu"
+                                     aria-labelledby="navbarDropdown2">
+                                    <a class="dropdown-item" asp-controller="" asp-action="">Danh mục 2.1</a>
+                                    <a class="dropdown-item" asp-controller="" asp-action="">Danh mục 2.2</a>
+                                </div>
+                            </li>
+                            <!-- Danh mục 3 -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle"
+                                   asp-controller="" asp-action=""
+                                   id="navbarDropdown3"
+                                   role="button"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Danh mục 3
+                                </a>
+                                <div style="border: none"
+                                     class="dropdown-menu"
+                                     aria-labelledby="navbarDropdown3">
+                                    <a class="dropdown-item" asp-controller="" asp-action="">Danh mục 3.1</a>
+                                    <a class="dropdown-item" asp-controller="" asp-action="">Danh mục 3.2</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <form class="price-filter-form mt-0">
+                    <h2 class="title">Lọc theo giá</h2>
+                    <div class="price-filter-fields">
+                        <div class="price-field">
+                            <label for="min-price" class="price-label">Giá thấp nhất:</label>
+                            <input type="number"
+                                   id="min-price"
+                                   name="min_price"
+                                   class="price-input"
+                                   placeholder="0"
+                                   min="0" />
+                        </div>
+                        <div class="price-field">
+                            <label for="max-price" class="price-label">Giá cao nhất:</label>
+                            <input type="number"
+                                   id="max-price"
+                                   name="max_price"
+                                   class="price-input"
+                                   placeholder="100000"
+                                   min="0" />
+                        </div>
+                    </div>
+                    <button type="submit" class="filter-button">Áp dụng</button>
+                </form>
+
+
+            </div>
+            <!-- Side Bar End -->
+            <div class="col-lg-8">
+                <div class="row">
+                    @foreach (var ls in ViewBag.ListProd)
+                    {
+
+
+                        <div class="col-md-4">
+                            <div class="product-item">
+                                <div class="product-image">
+                                    <div class="discount-per">
+                                        <span>@ls.DiscountRate %</span>
+                                    </div>
+                                    <a asp-controller="Product" asp-action="Detail"><img src="~/img/@ls.ProductsImages" alt="" /></a>
+                                </div>
+                                <div class="product-title"><a asp-controller="Product" asp-action="Detail">@ls.Name</a></div>
+                                <div class="product-price">
+                                    <p class="price-discount"><span>@ls.Price-((@ls.DiscountRate/100)*@ls.Price)</span></p>
+                                    <p class="price"><span>@ls.Price</span></p>
+                                </div>
+                                <div class="view-rating">
+                                    <span class="view">23<i class="fa fa-eye"></i></span>
+                                    <span class="rating">4.7/5<i class="fa fa-star"></i></span>
+                                </div>
+                                <div class="btn-add-cart">
+                                    <button>Thêm vào giỏ hàng</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!-- Pagination Start -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
+                        </li>
+                        <li class="page-item active">
+                            <a class="page-link" asp-controller="" asp-action="">1</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" asp-controller="" asp-action="">2</a></li>
+                        <li class="page-item"><a class="page-link" asp-controller="" asp-action="">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" asp-controller="" asp-action="">Sau</a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Pagination Start -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Product List End -->
