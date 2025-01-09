@@ -1,5 +1,69 @@
-﻿@{
+﻿@model IEnumerable<OmegaStore.Models.Blog>
+
+@{
     ViewData["Title"] = "Danh sách bài viết";
+    var recentBlogs = ViewBag.recentBlogs as List<Blog> ?? new List<Blog>();
+}
+
+@section Scripts{
+    <script>
+        let currentSearchQuery = ''; // Lưu lại giá trị tìm kiếm hiện tại
+
+        $(document).ready(function () {
+
+            // Hàm tải dữ liệu blog với phân trang và tìm kiếm
+            function loadBlogs(page = 1) {
+                $.ajax({
+                    url: '/Post/List',
+                    method: 'GET',
+                    data: { page: page, searchQuery: currentSearchQuery },
+                    success: function (result) {
+                        $('#blog-container').html(result);
+                    },
+                    error: function () {
+                        alert("Đã xảy ra lỗi khi tải dữ liệu!");
+                    }
+                });
+            }
+            // Gọi dữ liệu trang đầu tiên khi tới trang bài viết
+            $(document).ready(function () {
+                loadBlogs();
+            });
+
+            // Sự kiện nhấn nút xóa tìm kiếm
+            $(document).on("click", "#searchResult", function () {
+                $('#search-query').val(''); // Gán giá trị rỗng cho input có id="search-query
+                currentSearchQuery = '';
+                loadBlogs(); // Tải lại blog từ trang đầu
+            });
+
+            // Sự kiện nhấn nút tìm kiếm
+            $(document).on("click", "#search-btn", function () {
+                currentSearchQuery = $('#search-query').val();
+                loadBlogs(); // Tải lại blog từ trang đầu
+            });
+            // Phân trang
+            $(document).on("click", ".link", function () {
+                const page = $(this).data("page");
+                loadBlogs(page);
+            });
+
+            // Sự kiện khi nhấn Enter trong ô tìm kiếm
+            $('#search-query').on('keypress', function (e) {
+                if (e.which === 13) {
+                    currentSearchQuery = $(this).val();// Lưu giá trị tìm kiếm
+                    
+                    loadBlogs(); // Tải lại blog từ trang đầu
+                }
+            });
+
+            // Ngăn hành vi gửi form khi seach
+            document.getElementById("myForm").addEventListener("submit", function (event) {
+                event.preventDefault(); // Ngăn hành vi gửi form
+            });
+        });
+
+    </script>
 }
 
 <!-- Breadcrumb Start -->
@@ -15,253 +79,39 @@
 <!-- Post list Start -->
 <div class="post-list">
     <div class="container">
-        <form action="#">
+        <form id="myForm">
             <input type="text"
+                   id="search-query"
                    class="form-control w-50 m-auto"
                    placeholder="Nhập từ khóa liên quan để tìm bài viết" />
-            <button><i class="fas fa-search"></i></button>
+            <button id="search-btn"><i class="fas fa-search"></i></button>
         </form>
+        
         <div class="row mt-3">
-            <div class="col-lg-9">
-                <h5 class="mb-3 font-weight-bold">Bài viết</h5>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card-img">
-                            <a asp-controller="Post" asp-action="Detail">
-                                <img class="d-block w-100" src="~/img/banner-tet.jpg" alt="" />
-                            </a>
-                        </div>
-                        <div class="card-content p-2">
-                            <p class="title text-capitalize font-weight-bold mb-2">
-                                <a asp-controller="Post" asp-action="Detail">Nhân đôi ưu đãi - mừng xuân giáp thìn</a>
-                            </p>
-                            <p class="entry-content mb-2">
-                                Gấp đôi ưu đãi tặng Chậu Hoa Nhỏ, Thiên Ngữ Hạc hoặc Lân
-                                Phát Tài Mini mừng Xuân Giáp Thìn. Khuyến mãi diễn ra từ
-                                20.1 đến 2.2 với hoá đơn từ 599k và miễn phí giao hàng tận
-                                nơi
-                            </p>
-                            <div class="card-meta d-flex justify-content-between">
-                                <p class="author">bởi: Đỗ Duy</p>
-                                <p class="date">01 tháng 01, 2025</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card-img">
-                            <a asp-controller="Post" asp-action="Detail">
-                                <img class="d-block w-100" src="~/img/banner-tet.jpg" alt="" />
-                            </a>
-                        </div>
-                        <div class="card-content p-2">
-                            <p class="title text-capitalize font-weight-bold mb-2">
-                                <a asp-controller="Post" asp-action="Detail">Nhân đôi ưu đãi - mừng xuân giáp thìn</a>
-                            </p>
-                            <p class="entry-content mb-2">
-                                Gấp đôi ưu đãi tặng Chậu Hoa Nhỏ, Thiên Ngữ Hạc hoặc Lân
-                                Phát Tài Mini mừng Xuân Giáp Thìn. Khuyến mãi diễn ra từ
-                                20.1 đến 2.2 với hoá đơn từ 599k và miễn phí giao hàng tận
-                                nơi
-                            </p>
-                            <div class="card-meta d-flex justify-content-between">
-                                <p class="author">bởi: Đỗ Duy</p>
-                                <p class="date">01 tháng 01, 2025</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card-img">
-                            <a asp-controller="Post" asp-action="Detail">
-                                <img class="d-block w-100" src="~/img/banner-tet.jpg" alt="" />
-                            </a>
-                        </div>
-                        <div class="card-content p-2">
-                            <p class="title text-capitalize font-weight-bold mb-2">
-                                <a asp-controller="Post" asp-action="Detail">Nhân đôi ưu đãi - mừng xuân giáp thìn</a>
-                            </p>
-                            <p class="entry-content mb-2">
-                                Gấp đôi ưu đãi tặng Chậu Hoa Nhỏ, Thiên Ngữ Hạc hoặc Lân
-                                Phát Tài Mini mừng Xuân Giáp Thìn. Khuyến mãi diễn ra từ
-                                20.1 đến 2.2 với hoá đơn từ 599k và miễn phí giao hàng tận
-                                nơi
-                            </p>
-                            <div class="card-meta d-flex justify-content-between">
-                                <p class="author">bởi: Đỗ Duy</p>
-                                <p class="date">01 tháng 01, 2025</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-5">
-                    <div class="col-md-4">
-                        <div class="card-img">
-                            <a asp-controller="Post" asp-action="Detail">
-                                <img class="d-block w-100" src="~/img/banner-tet.jpg" alt="" />
-                            </a>
-                        </div>
-                        <div class="card-content p-2">
-                            <p class="title text-capitalize font-weight-bold mb-2">
-                                <a asp-controller="Post" asp-action="Detail">Nhân đôi ưu đãi - mừng xuân giáp thìn</a>
-                            </p>
-                            <p class="entry-content mb-2">
-                                Gấp đôi ưu đãi tặng Chậu Hoa Nhỏ, Thiên Ngữ Hạc hoặc Lân
-                                Phát Tài Mini mừng Xuân Giáp Thìn. Khuyến mãi diễn ra từ
-                                20.1 đến 2.2 với hoá đơn từ 599k và miễn phí giao hàng tận
-                                nơi
-                            </p>
-                            <div class="card-meta d-flex justify-content-between">
-                                <p class="author">bởi: Đỗ Duy</p>
-                                <p class="date">01 tháng 01, 2025</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card-img">
-                            <a asp-controller="Post" asp-action="Detail">
-                                <img class="d-block w-100" src="~/img/banner-tet.jpg" alt="" />
-                            </a>
-                        </div>
-                        <div class="card-content p-2">
-                            <p class="title text-capitalize font-weight-bold mb-2">
-                                <a asp-controller="Post" asp-action="Detail">Nhân đôi ưu đãi - mừng xuân giáp thìn</a>
-                            </p>
-                            <p class="entry-content mb-2">
-                                Gấp đôi ưu đãi tặng Chậu Hoa Nhỏ, Thiên Ngữ Hạc hoặc Lân
-                                Phát Tài Mini mừng Xuân Giáp Thìn. Khuyến mãi diễn ra từ
-                                20.1 đến 2.2 với hoá đơn từ 599k và miễn phí giao hàng tận
-                                nơi
-                            </p>
-                            <div class="card-meta d-flex justify-content-between">
-                                <p class="author">bởi: Đỗ Duy</p>
-                                <p class="date">01 tháng 01, 2025</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card-img">
-                            <a asp-controller="Post" asp-action="Detail">
-                                <img class="d-block w-100" src="~/img/banner-tet.jpg" alt="" />
-                            </a>
-                        </div>
-                        <div class="card-content p-2">
-                            <p class="title text-capitalize font-weight-bold mb-2">
-                                <a asp-controller="Post" asp-action="Detail">Nhân đôi ưu đãi - mừng xuân giáp thìn</a>
-                            </p>
-                            <p class="entry-content mb-2">
-                                Gấp đôi ưu đãi tặng Chậu Hoa Nhỏ, Thiên Ngữ Hạc hoặc Lân
-                                Phát Tài Mini mừng Xuân Giáp Thìn. Khuyến mãi diễn ra từ
-                                20.1 đến 2.2 với hoá đơn từ 599k và miễn phí giao hàng tận
-                                nơi
-                            </p>
-                            <div class="card-meta d-flex justify-content-between">
-                                <p class="author">bởi: Đỗ Duy</p>
-                                <p class="date">01 tháng 01, 2025</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 mt-3">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" asp-controller="" asp-action="">1</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" asp-controller="" asp-action="">2</a></li>
-                            <li class="page-item"><a class="page-link" asp-controller="" asp-action="">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" asp-controller="" asp-action="">Sau</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <!-- Pagination Start -->
+            <div class="col-lg-9" id="blog-container">
             </div>
             <div class="col-lg-3 right pl-4">
                 <h6 class="font-weight-bold">Bài viết gần đây</h6>
                 <div class="row list-blogs">
-                    <div class="col-md-12 item mb-3 d-flex justify-content-between position-relative">
-                        <div class="num bg-warning position-absolute d-flex justify-content-center align-items-center">
-                            <span class="d-block">1</span>
+                    @for (int i = 0; i < recentBlogs.Count; i++)
+                    {
+                        <div class="col-md-12 item mb-3 d-flex justify-content-between">
+                            <div class="item-img w-50">
+                                <a href="@Url.Action("Detail", "Post", new { slug = recentBlogs[i].Slug })" class="position-relative">
+                                    <img class="d-block w-100" src="~/img/blogs/@recentBlogs[i].Thumbnail" alt="" />
+                                    <div class="num bg-warning position-absolute d-flex justify-content-center align-items-center">
+                                        <span class="d-block">@(i + 1)</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item-content w-50">
+                                <p class="title text-capitalize mb-2">
+                                    <a href="@Url.Action("Detail", "Post", new { slug = recentBlogs[i].Slug })">@recentBlogs[i].Title</a>
+                                </p>
+                                <p>Tin tức - <span class="text-primary">@recentBlogs[i].CreatedAt</span></p>
+                            </div>
                         </div>
-                        <div class="item-img w-50">
-                            <a asp-controller="Post" asp-action="Detail">
-                                <img class="d-block w-100" src="~/img/banner-tet.jpg" alt="" />
-                            </a>
-                        </div>
-                        <div class="item-content w-50">
-                            <p class="title text-capitalize mb-2">
-                                <a asp-controller="Post" asp-action="Detail">Nhân đôi ưu đãi - mừng xuân giáp thìn</a>
-                            </p>
-                            <p>Tin tức - <span class="text-primary">02.01.2025</span></p>
-                        </div>
-                    </div>
-                    <div class="col-md-12 item mb-3 d-flex justify-content-between">
-                        <div class="num bg-warning position-absolute d-flex justify-content-center align-items-center">
-                            <span class="d-block">2</span>
-                        </div>
-                        <div class="item-img w-50">
-                            <a asp-controller="Post" asp-action="Detail">
-                                <img class="d-block w-100" src="~/img/banner-tet.jpg" alt="" />
-                            </a>
-                        </div>
-                        <div class="item-content w-50">
-                            <p class="title text-capitalize mb-2">
-                                <a asp-controller="Post" asp-action="Detail">Nhân đôi ưu đãi - mừng xuân giáp thìn</a>
-                            </p>
-                            <p>Tin tức - <span class="text-primary">02.01.2025</span></p>
-                        </div>
-                    </div>
-                    <div class="col-md-12 item mb-3 d-flex justify-content-between">
-                        <div class="num bg-warning position-absolute d-flex justify-content-center align-items-center">
-                            <span class="d-block">3</span>
-                        </div>
-                        <div class="item-img w-50">
-                            <a asp-controller="Post" asp-action="Detail">
-                                <img class="d-block w-100" src="~/img/banner-tet.jpg" alt="" />
-                            </a>
-                        </div>
-                        <div class="item-content w-50">
-                            <p class="title text-capitalize mb-2">
-                                <a asp-controller="Post" asp-action="Detail">Nhân đôi ưu đãi - mừng xuân giáp thìn</a>
-                            </p>
-                            <p>Tin tức - <span class="text-primary">02.01.2025</span></p>
-                        </div>
-                    </div>
-                    <div class="col-md-12 item mb-3 d-flex justify-content-between">
-                        <div class="num bg-warning position-absolute d-flex justify-content-center align-items-center">
-                            <span class="d-block">4</span>
-                        </div>
-                        <div class="item-img w-50">
-                            <a asp-controller="Post" asp-action="Detail">
-                                <img class="d-block w-100" src="~/img/banner-tet.jpg" alt="" />
-                            </a>
-                        </div>
-                        <div class="item-content w-50">
-                            <p class="title text-capitalize mb-2">
-                                <a asp-controller="Post" asp-action="Detail">Nhân đôi ưu đãi - mừng xuân giáp thìn</a>
-                            </p>
-                            <p>Tin tức - <span class="text-primary">02.01.2025</span></p>
-                        </div>
-                    </div>
-                    <div class="col-md-12 item mb-3 d-flex justify-content-between">
-                        <div class="num bg-warning position-absolute d-flex justify-content-center align-items-center">
-                            <span class="d-block">5</span>
-                        </div>
-                        <div class="item-img w-50">
-                            <a asp-controller="Post" asp-action="Detail">
-                                <img class="d-block w-100" src="~/img/banner-tet.jpg" alt="" />
-                            </a>
-                        </div>
-                        <div class="item-content w-50">
-                            <p class="title text-capitalize mb-2">
-                                <a asp-controller="Post" asp-action="Detail">Nhân đôi ưu đãi - mừng xuân giáp thìn</a>
-                            </p>
-                            <p>Tin tức - <span class="text-primary">02.01.2025</span></p>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

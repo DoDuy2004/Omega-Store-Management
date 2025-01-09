@@ -5,6 +5,7 @@
 
 @section Styles {
     <link rel="stylesheet" type="text/css" href="~/admin/css/Custum.css">
+    <script src="https://kit.fontawesome.com/ffa90392e4.js" crossorigin="anonymous"></script>
 }
 
 @section Scripts {
@@ -126,7 +127,7 @@
 
 
                     <ul class="flex flex-column">
-                        @foreach (var or in Model)
+                        @foreach (var or in ViewBag.Order)
                         {
                             
                             <li class="product-item gap14" data-rowId="@or.Id">
@@ -183,11 +184,19 @@
                                                     data-valuebutton="5"
                                             @((or.Status!=1) ? "disabled" : "")>
                                             
-                                                Đã hủy
+                                                Hủy đơn
                                             </button>
                                         </div>
+                                    
                                         <div class="item eye">
                                             <a asp-area="Admin" asp-controller="Order" asp-action="Detail"><i class="icon-eye"></i></a>
+                                        </div>
+                                        <div class="item edit">
+                                            <button class="btn btn-delete-order btn-danger white  rounded btn-lg"
+                                                    data-orderid="@or.Id"
+                                                    data-status="@or.Status">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -207,29 +216,9 @@
                             var NextStatus = (Status + 1) === 2 ? "Xác nhận" : (Status + 1) === 3 ? "Đang giao" : (Status + 1) === 4 ? "Hoàn thành":"Đã hủy";
                             var CurrentStatus = Status === 1 ? "Chờ xác nhận" : Status === 2 ? "Xác nhận" : Status === 3 ? "Đang giao" : Status === 4 ?"Hoàn thành":"Đã hủy";
                       
-                            // if (Status === valueButton) {
-                            //     btn.prop("disabled", true);
-                            //     Swal.fire({
-                            //          title: "Đơn hàng hiện đang ở trạng thái này!",
-                            //          text: "Không thể cập nhật trạng thái đơn hàng trùng với trạng thái hiện tại của đơn hàng",
-                            //          icon: "error",
-                            //          confirmButtonText: "Đã hiểu",
-                            //     });
-                            //     return;
-                            // }
-                            // if (valueButton < Status || valueButton > Status + 1) {
-                            //     btn.prop("disabled", true);
-                            //     Swal.fire({
-                            //         title: "Không thể thay đổi trạng thái !",
-                            //         text: "Trạng thái đơn hàng phải được cập nhật theo thứ tự và không được cập nhật lại trạng thái trước đó.",
-                            //         icon: "error", Biểu tượng thông báo (error, warning, info, success)
-                            //         confirmButtonText: "Đã hiểu", Nút xác nhận
-                            //     });
-                            //     return;
-                            // }
                             Swal.fire({
                                 title:"Cập nhật trạng thái đơn hàng",
-                                text:`Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng ${OrderId} từ ${CurrentStatus} thành "${NextStatus}" không?`,
+                                text: `Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng có mã đơn hàng là ${OrderId} từ "${CurrentStatus}" thành "${NextStatus}" không?`,
                                 icon: "success",
                                 showCancelButton: true,
                                 confirmButtonText: "Có",
@@ -249,15 +238,22 @@
                                                 var rowId = $(`li[data-rowId='${OrderId}']`);
                                                 rowId.find(".btn-currentStatus").text(NextStatus);
                                                 rowId.find(".btn-currentStatus").attr("status", response.st);
-                                                location.reload(true);
-                                                    alert(response.message);
-                                              
+                                                Swal.fire({
+                                                    title: "Cập nhật đơn hàng thành công",
+                                                    text: `Đã cập nhật trạng thái đơn hàng có mã đơn hàng là ${OrderId} từ "${CurrentStatus}" thành "${NextStatus}"`,
+                                                    icon: "success"
+                                                }).then(() => {
+                                                    location.reload(true);       //load trang sau khi thông bao của đơn hàng đóng lại
+                                                });
+                                               
+
 
 
 
                                             } else {
                                                 alert("Lỗi: " + response.message);
                                             }
+                                          
                                         },
                                         error: function () {
                                             alert("Đã xảy ra lỗi khi cập nhật trạng thái.");
@@ -265,22 +261,12 @@
                                     });
                                 
                                 }
-                                // rowId.find(`.btn-confirm[data-status="${Status}"]`).attr("data-status", status);
+                            
                             });
+                           
 
-                            // var PopUpConfirm = confirm(`Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng ${OrderId} từ ${CurrentStatus} thành "${NextStatus}" không?`);
-                            // if (PopUpConfirm) {
-
-                              
-                            // }
+                      
                         });
-
-
-
-                   
-
-
-
 
 
                         // Hủy đơn
@@ -303,7 +289,7 @@
                                     //khi nút xóa được nhấn
                                     if (result.isConfirmed) {
                                         $.ajax({
-                                            url: '/Admin/Order/DeleteOrder',
+                                            url: '/Admin/Order/CancelOrder',
                                             type: 'POST',
                                             data: {
                                                 orderid: OrderId,
@@ -315,21 +301,21 @@
                                                     rowId.find(".btn-currentStatus").text("Hủy đơn");
                                                     rowId.find(".btn-cancel-order").data("status", 5);
                                                     location.reload(true);
-                                                    alert(response.message);
+                                                    Swal.fire("Hủy đơn hàng", `Đã hủy đơn hàng có mã đơn hàng là ${OrderId}`, "success");
                                                    
 
 
                                                 } else {
-                                                    alert("Lỗi: " + response.message);
+                                                    Swal.fire("Lỗi hủy đơn", `Đã có lỗi xảy ra khi Hủy đơn hàng có mã đơn hàng là ${OrderId}`, "error");
                                                 }
                                             },
 
                                         });
 
 
-                                    } else {
-
                                     }
+
+                                    
                                 });
                             }   
                             else {
@@ -349,6 +335,57 @@
 
 
                         });
+                        //Xóa đơn hàng
+
+                        $(document).on("click", ".btn-delete-order", function (){
+                         
+                            var OrderId = $(this).data("orderid");                    
+                            var btn = $(this);
+                            var Status = $(this).data("status");
+                            if (Status == 4 || Status == 5) {
+
+                                Swal.fire({
+                                    title: `Xóa đơn hàng`,
+                                    text: `Bạn có chắc muốn xóa đơn hàng này không ?`,
+                                    icon: "success",
+                                    showCancelButton: true,
+                                    confirmButtonText: "Có",
+                                    cancelButtonText: "Không",
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $.ajax({
+                                            url: '/Admin/Order/RemoveOrder',
+                                            type: 'POST',
+                                            data: {
+                                                orderid: OrderId,
+                                                status: 0
+                                            },
+                                            success: function (response) {
+                                                if (response.success) {             
+                                                    var rowId = $(`li[data-rowId='${OrderId}']`);
+                                                    rowId.remove();
+                                                    Swal.fire("Xóa đơn hàng thành công", `Đã xóa đơn hàng có mã đơn hàng là ${OrderId}`, "success");
+                                                } else {
+                                                    alert("Lỗi: " + response.message);
+                                                }
+                                            },
+                                            error: function () {
+                                                Swal.fire("Lỗi cập nhật trạng thái", `Đã có lỗi xảy ra khi cập nhật trạng thái có mã đơn hàng là ${OrderId}`, "error");
+                                            }
+                                        });
+
+                                    }
+                                   
+                                });
+                            }
+                            else {
+                                Swal.fire("Xóa đơn hàng thất bại", `Chỉ xóa được đơn hàng ở trạng thái "Đả hủy" hoặc "Hoàn thành"`, "error");
+
+                            }
+
+
+                        });
+
                     </script>
                 </div>
                 <div class="divider"></div>

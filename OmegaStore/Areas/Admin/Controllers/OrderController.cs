@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OmegaStore.Models;
 
 namespace OmegaStore.Areas.Admin.Controllers
@@ -15,7 +16,10 @@ namespace OmegaStore.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+
             var Order = _Context.Orders.ToList();
+            var OrderList=_Context.Orders.Where(o=>o.Status!=0).ToList();
+            ViewBag.Order = OrderList;
             return View(Order);
         }
         [HttpPost]
@@ -28,22 +32,22 @@ namespace OmegaStore.Areas.Admin.Controllers
                 var order = _Context.Orders.FirstOrDefault(o => o.Id == orderid);
                 if (order == null)
                 {
-                    return Json(new { success = false, message = "Đơn hàng không tồn tại" });
+                    return Json(new { success = false});
                 }
                 int st = status;
                 order.Status = status;
                 _Context.SaveChanges();
     
 
-                return Json(new { success = true, message = $"Trạng thái đơn hàng {orderid} đã được cập nhật.", st = st });
+                return Json(new { success = true, st = st });
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = "Có lỗi xảy ra: " + ex.Message });
+                return Json(new { success = false});
             }
         }
         [HttpPost]
-        public IActionResult DeleteOrder(int orderid, int status)
+        public IActionResult CancelOrder(int orderid, int status)
         {
 
             try
@@ -51,17 +55,42 @@ namespace OmegaStore.Areas.Admin.Controllers
                 var order = _Context.Orders.FirstOrDefault(o => o.Id == orderid);
                 if (order == null)
                 {
-                    return Json(new { success = false, message = "Hủy đơn hàng không thành công" });
+                    return Json(new { success = false });
                 }
 
                 order.Status = status;
                 _Context.SaveChanges();
 
-                return Json(new { success = true, message = $"Đã hủy đơn hàng {orderid}." });
+                return Json(new { success = true });
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = "Có lỗi xảy ra: " + ex.Message });
+                return Json(new { success = false });
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> RemoveOrder(int orderid, int status)
+        {
+
+            try
+            {
+                var order = await _Context.Orders.FirstOrDefaultAsync(o => o.Id == orderid);
+          
+                if (order == null)
+                {
+                    return Json(new { success = false});
+                }
+            
+                order.Status = status;
+                _Context.Orders.Update(order);
+                _Context.SaveChangesAsync();
+          
+           
+                return Json(new { success = true});
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false });
             }
         }
         public IActionResult Detail()

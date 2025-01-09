@@ -12,7 +12,7 @@ public partial class Product
     public string Name { get; set; } = null!;
     public string Thumbnail { get; set; } = null!;
     public decimal Price { get; set; }
-    public decimal DiscountRate { get; set; }
+    public int DiscountRate { get; set; }
     public string Slug { get; set; } = null!;
     public int Stock { get; set; }
     public string? Description { get; set; }
