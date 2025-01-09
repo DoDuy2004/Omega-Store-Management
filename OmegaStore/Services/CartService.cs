@@ -25,25 +25,31 @@ namespace OmegaStore.Services
                 : JsonConvert.DeserializeObject<Cart>(cartSession) ?? new Cart();
         }
 
-        public void AddToCart(Product product, int quantity)
+        public bool AddToCart(Product product, int quantity)
         {
             Cart cart = GetCartItems();
             CartItem cartItem = cart.CartItems.FirstOrDefault(p => p.Product.Id == product.Id)!;
 
             if (cartItem == null) 
             {
-                cart.CartItems.Add(new CartItem
+                cartItem = new CartItem
                 {
                     Product = product,
                     Quantity = quantity
-                });
+                };
+                cart.CartItems.Add(cartItem);    
             }
             else
             {
                 cartItem.Quantity += quantity;
-            }
 
+                if(cartItem.Quantity > product.Stock) {
+                    return false;
+                }
+            }
             SaveCartToSession(cart);
+
+            return true;
         }
 
         public void RemoveFromCart(Product product)
@@ -54,11 +60,17 @@ namespace OmegaStore.Services
             SaveCartToSession(cart);
         }
 
-        public void ClearCart()
+        public bool ClearCart()
         {
             Cart cart = GetCartItems();
+
+            if(cart.CartItems.Count() == 0) {
+                return false;
+            }
+            
             cart.CartItems.Clear();
             SaveCartToSession(cart);
+            return true;
         }
 
         public int GetTotalQuantity()

@@ -14,8 +14,6 @@ namespace OmegaStore.Components
 
         public IViewComponentResult Invoke()
         {
-            ViewBag.TotalQuantity = _cartService.GetTotalQuantity();
-            ViewBag.TotalPrice = _cartService.GetTotalPrice();
             return View();
         }
     }

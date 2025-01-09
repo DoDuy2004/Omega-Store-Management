@@ -1,0 +1,91 @@
+﻿@{
+    Layout = "";
+}
+@model IEnumerable<OmegaStore.Models.Blog>
+
+<div style="display:flex; justify-content:space-between">
+    <h5 class="mb-3 font-weight-bold">Bài viết</h5>
+    @if (!string.IsNullOrEmpty(ViewBag.SearchQuery))
+    {
+       
+        <div>
+            <p class="mb-3 font-weight-bold">Bạn đang tìm: @ViewBag.SearchQuery <button id="searchResult" style="background:none;color:red;border:none;outline: none;cursor: pointer; "><i class="fa fa-times" aria-hidden="true"></i></button></p>
+        </div>
+        <div>
+            <p class="mb-3 font-weight-bold">Kết quả tìm thấy: @ViewBag.result</p>
+        </div>
+    }
+    else
+    {
+        <div>
+            <p class="mb-3 font-weight-bold">Tổng: @ViewBag.result</p>
+        </div>
+    }
+</div>
+<div class="row">
+        @foreach (var b in Model)
+        {
+            <div class="col-md-4">
+                <div class="card-img">
+                    <a asp-controller="Post" asp-action="Detail" asp-route-slug="@b.Slug">
+                        <img class="d-block w-100" src="~/img/blogs/@b.Thumbnail" alt="" />
+                    </a>
+                </div>
+                <div class="card-content p-2">
+                    <p class="title text-capitalize font-weight-bold mb-2">
+                        <a asp-controller="Post" asp-action="Detail" asp-route-slug="@b.Slug">@b.Title</a>
+                    </p>
+                    <p class="entry-content mb-2">
+                        @b.ShortContent
+                    </p>
+                    <div class="card-meta d-flex justify-content-between">
+                        <p class="author">bởi: @b.Author</p>
+                        <p class="date">@b.CreatedAt</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="row justify-content-center">
+    <div class="col-md-4 py-3" style="display:flex;justify-content: center;">
+        @if (ViewBag.TotalPages > 1)
+        {
+            <!-- Nút trang đầu nếu cách xa trang hiện tại hơn 3 trang -->
+            @if (ViewBag.CurrentPage > 2)
+            {
+                <button class="link page-link" data-page="1">1</button>
+                if (ViewBag.CurrentPage > 3)
+                {
+                    <span class="page-link">...</span>
+                }
+                
+            }
+
+            <!-- Nút cho trang trước, trang hiện tại và trang sau -->
+            @for (int i = ViewBag.CurrentPage - 1; i <= ViewBag.CurrentPage + 1; i++)
+            {
+                if (i > 0 && i <= ViewBag.TotalPages)
+                {
+                    if (i == ViewBag.CurrentPage)
+                    {
+                        <button class="link page-link " data-page="@i" disabled style="color:black;background-color:#dee2e6">@i</button>
+                    }else{
+                        <button class="link page-link " data-page="@i">@i</button>
+                    }
+                    
+                }
+            }
+
+            <!-- Nút trang cuối nếu cách xa trang hiện tại hơn 3 trang -->
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages - 1)
+            {
+                if (ViewBag.CurrentPage < ViewBag.TotalPages - 2)
+                {
+                    <span class="page-link">...</span>
+                }
+                
+                <button class="link page-link " data-page="@ViewBag.TotalPages">@ViewBag.TotalPages</button>
+            }
+        }
+    </div>
