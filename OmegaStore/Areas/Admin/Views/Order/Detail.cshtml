@@ -1,4 +1,5 @@
-﻿@{
+﻿@model OmegaStore.Models.ViewModels.OrderDetail
+@{
     ViewData["Title"] = "Chi Tiết Đơn Hàng";
 }
 
@@ -24,41 +25,42 @@
     <div class="main-content-inner">
         <!-- main-content-wrap -->
         <div class="main-content-wrap">
-            <div class="flex items-center flex-wrap justify-between gap20 mb-27">
-                <h3>Đơn hàng #123783</h3>
-                <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
-                    <li>
-                        <a href="index.html">
-                            <div class="text-tiny">Quản lý</div>
-                        </a>
-                    </li>
-                    <li>
-                        <i class="icon-chevron-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div class="text-tiny">Đơn hàng</div>
-                        </a>
-                    </li>
-                    <li>
-                        <i class="icon-chevron-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div class="text-tiny">Chi tiết</div>
-                        </a>
-                    </li>
-                    <li>
-                        <i class="icon-chevron-right"></i>
-                    </li>
-                    <li>
-                        <div class="text-tiny">Đơn hàng #123783</div>
-                    </li>
-                </ul>
-            </div>
-            <!-- order-detail -->
-            <div class="wg-order-detail">
-                <div class="left flex-grow">
+           
+                <div class="flex items-center flex-wrap justify-between gap20 mb-27">
+                    <h3>Đơn hàng #123783</h3>
+                    <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+                        <li>
+                            <a href="index.html">
+                                <div class="text-tiny">Quản lý</div>
+                            </a>
+                        </li>
+                        <li>
+                            <i class="icon-chevron-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="text-tiny">Đơn hàng</div>
+                            </a>
+                        </li>
+                        <li>
+                            <i class="icon-chevron-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="text-tiny">Chi tiết</div>
+                            </a>
+                        </li>
+                        <li>
+                            <i class="icon-chevron-right"></i>
+                        </li>
+                        <li>
+                            <div class="text-tiny">Đơn hàng @Model.Id</div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- order-detail -->
+                <div class="wg-order-detail">
+                    <div class="left flex-grow">
                     <div class="wg-box mb-20">
                         <div class="wg-table table-order-detail">
                             <ul class="table-title flex items-center justify-between gap20 mb-24">
@@ -91,23 +93,22 @@
                             <ul class="flex flex-column">
                                 <li class="product-item gap14">
                                     <div class="image no-bg">
-                                        <img src="~/admin/images/products/41.png" alt="">
+                                        <img src="~/admin/images/products/@Model.Img" alt="">
                                     </div>
                                     <div class="flex items-center justify-between gap40 flex-grow">
                                         <div class="name">
                                             <div class="text-tiny mb-1">Tên sản phẩm</div>
                                             <a href="product-list.html" class="body-title-2">
-                                                Kristin
-                                                Watson
+                                                @Model.Name
                                             </a>
                                         </div>
                                         <div class="name">
                                             <div class="text-tiny mb-1">Số lượng</div>
-                                            <div class="body-title-2">1</div>
+                                            <div class="body-title-2">@Model.Quantity</div>
                                         </div>
                                         <div class="name">
                                             <div class="text-tiny mb-1">Đơn giá</div>
-                                            <div class="body-title-2">$50.47</div>
+                                            <div class="body-title-2">@(String.Format("{0:N0}",Model.Price)) VNĐ</div>
                                         </div>
                                     </div>
                                 </li>
@@ -127,17 +128,19 @@
                             <ul class="flex flex-column gap14">
                                 <li class="cart-totals-item">
                                     <span class="body-text">Tạm tính:</span>
-                                    <span class="body-title-2">100.000VNĐ</span>
+                                    <span class="body-title-2">
+                                        @(String.Format("{0:N0}",Model.Total)) VNĐ
+                                    </span>
                                 </li>
                                 <li class="divider"></li>
                                 <li class="cart-totals-item">
                                     <span class="body-text">Phí vận chuyển:</span>
-                                    <span class="body-title-2">10.000VNĐ</span>
+                                    <span class="body-title-2">25.000 VNĐ</span>
                                 </li>
                                 <li class="divider"></li>
                                 <li class="cart-totals-item">
                                     <span class="body-title">Tổng tiền</span>
-                                    <span class="body-title tf-color-1">110.000VNĐ</span>
+                                    <span class="body-title tf-color-1">@(String.Format("{0:N0}",Math.Round(Model.Total +25000,0) )) VNĐ</span>
                                 </li>
 
                             </ul>
@@ -149,31 +152,35 @@
                         <div class="body-title">Tóm tắt:</div>
                         <div class="summary-item">
                             <div class="body-text">Mã đơn hàng</div>
-                            <div class="body-title-2">#192847</div>
+                            <div class="body-title-2">@Model.Id</div>
                         </div>
                         <div class="summary-item">
                             <div class="body-text">Ngày:</div>
-                            <div class="body-title-2">01/10/2024</div>
+                            <div class="body-title-2">@Model.CreatedAt</div>
                         </div>
                         <div class="summary-item">
                             <div class="body-text">Tổng tiền:</div>
-                            <div class="body-title-2 tf-color-1">200.000.000VNĐ</div>
+                            <div class="body-title-2 tf-color-1">@(String.Format("{0:N0}", Math.Round(Model.Total + 25000, 0))) VNĐ</div>
                         </div>
                     </div>
                     <div class="wg-box mb-20 gap10">
                         <div class="body-title">Địa chỉ giao hàng</div>
                         <div class="body-text">
-                            123 Huỳnh Thúc Khánh, Phường Bến Nghé, Quận 1, TPHCM
+                           @Model.Address
                         </div>
                     </div>
                     <div class="wg-box mb-20 gap10">
                         <div class="body-title">Phương thức thanh toán</div>
-                        <div class="body-text">Thanh toán khi nhận hàng.</div>
+                        <div class="body-text">@((Model.PaymentMethod==true)?"Thanh toán khi nhận hàng":"Thanh toán qua MOMO")</div>
                     </div>
                 </div>
             </div>
+           
+
+
             <!-- /order-detail -->
         </div>
+
         <!-- /main-content-wrap -->
     </div>
     <!-- /main-content-wrap -->
