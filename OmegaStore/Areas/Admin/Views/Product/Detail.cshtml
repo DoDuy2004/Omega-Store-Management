@@ -91,27 +91,27 @@
             <form class="w-100">
                 <div class="wg-box">
                     <div class="back-list">
-                        <a href=""><i class="fa-solid fa-circle-arrow-left"></i>Quay Lại Danh Sách</a>
+                        <a asp-area="Admin" asp-controller="Product" asp-action="Index"><i class="fa-solid fa-circle-arrow-left"></i>Quay Lại Danh Sách</a>
                     </div>
                     <fieldset class="">
                         <div class="detail-product-section">
 
                             <div class="box-detail mb-16 mt-3 col-md-5">
                                 <div class="item-image-avatar product-slider-single normal-slider mt-3">
+                                    @foreach(var img in Model.ProductsImages)
+                                    {
+                                        <img src="~/img/products/@img.Image" alt="Product Image">
+                                    }
+                                   
 
-                                    <img src="~/admin/images/luffy.png" alt="Product Image">
-                                    <img src="~/admin/images/rua.jpg" alt="Product Image">
-                                    <img src="~/admin/images/mabu.jpg" alt="Product Image">
-                                    <img src="~/admin/images/ruaxanh.webp" alt="Product Image">
-                                    <img src="~/admin/images/thap.jpg" alt="Product Image">
                                 </div>
                                 <div>
                                     <div class="image-list-product product-slider-single-nav mt-3">
-                                        <div class="box-image-item mt-2 slider-nav-img "><img src="~/admin/images/luffy.png" alt="Product Image" class=" product-image-details "></div>
-                                        <div class="box-image-item mt-2 slider-nav-img "><img src="~/admin/images/rua.jpg" alt="Product Image" class=" product-image-details "></div>
-                                        <div class="box-image-item mt-2 slider-nav-img "><img src="~/admin/images/mabu.jpg" alt="Product Image" class=" product-image-details "></div>
-                                        <div class="box-image-item mt-2 slider-nav-img "><img src="~/admin/images/ruaxanh.webp" alt="Product Image" class=" product-image-details "></div>
-                                        <div class="box-image-item mt-2 slider-nav-img "><img src="~/admin/images/thap.jpg" alt="Product Image" class=" product-image-details "></div>
+                                        
+                                        @foreach (var img in Model.ProductsImages)
+                                        {
+                                            <div class="box-image-item mt-2 slider-nav-img "><img src="~/img/products/@img.Image" alt="Product Image" class=" product-image-details "></div>
+                                        }
                                     </div>
                                     <div class="chevron-item">
                                         <span class="chevron-left"><i class=" fa-solid fa-chevron-left"></i></span>
@@ -122,23 +122,23 @@
                             <div class="box-info-product">
                                 <div class="info-product">
                                     <div class="product-name">
-                                        <h4>Tên sản phẩm</h4>
+                                        <h4>@Model.Name</h4>
                                     </div>
                                     <div class="product-code">
-                                        <span>Mã sản phẩm: SP071224001</span>
+                                        <span>Mã sản phẩm: @Model.ProductCode</span>
                                     </div>
                                     <div class="product-category">
                                         <span>Loại sản phẩm: Mô hình nhựa</span>
                                     </div>
                                     <div class="product-price-detail">
-                                        <span>Giá: <strong class="text-danger">300.00đ</strong></span>
-                                        <span class="original-price">359.000đ</span>
+                                        <span>Giá: <strong class="text-danger">@Math.Truncate(Model.Price * (1 - (decimal)Model.DiscountRate / 100))đ</strong></span>
+                                        <span class="original-price">@Math.Truncate(Model.Price)đ</span>
                                     </div>
                                     <div class="product-stock">
-                                        <span>Số lượng tồn kho: 9999</span>
+                                        <span>Số lượng tồn kho: @Model.Stock</span>
                                     </div>
                                     <div class="product-slug">
-                                        <span>Slug: ten-san-pham-1</span>
+                                        <span>Slug: @Model.Slug</span>
                                     </div>
                                     <div class="bottom-info-product">
                                         <div>
@@ -146,7 +146,7 @@
                                                 <span>Lượt bán: 20</span>
                                             </div>
                                             <div class="product-status">
-                                                <span>Trạng thái: <span class="status-active">hoạt động</span></span>
+                                                <span>Trạng thái: <span class="status-active">@(Model.Stock > 0 ? "còn hàng" : "hết hàng")</span></span>
                                             </div>
                                         </div>
                                         <div class="view-item">
@@ -179,17 +179,7 @@
 
             <div class="wg-box tabcontent" id="description">
                 <div class=" box-comment col-lg-12">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium similique deserunt tempore enim quo, veniam eius rem sapiente atque harum soluta earum voluptatibus,
-                        incidunt fuga ut modi quibusdam nobis velit optio consequuntur mollitia officiis eum! Tenetur a assumenda molestias repellendus. Illo libero mollitia quisquam ex rerum
-                        possimus quidem ipsa molestiae magnam iusto deleniti ab nobis facilis fuga maxime eligendi in cumque, minima esse. Exercitationem corporis dolore tempora harum fuga
-                        quas sed unde eaque dolor neque. Ex error ad repudiandae. Mollitia expedita id corrupti aut, perspiciatis dolorum magnam iste voluptates? Adipisci exercitationem cupiditate
-                        nulla eius harum illo atque culpa illum impedit aperiam quaerat numquam aliquid accusantium explicabo, officia repellat labore a optio nobis veniam ratione nesciunt doloribus
-                        cum mollitia? Odit saepe dolor nostrum quod debitis. Nulla fugiat ipsum perferendis ullam facilis aspernatur quasi numquam animi, cum libero, velit quia et praesentium. Nobis
-                        iure quasi ipsum quos veniam exercitationem mollitia perferendis maxime necessitatibus quisquam impedit explicabo culpa at recusandae facere incidunt delectus dolor porro sit,
-                        eum asperiores odit. Expedita, ea eum sed temporibus beatae non officiis consequatur ullam nihil aliquid nec
-                        essitatibus repellat inventore! Natus sequi quia nam, repellendus voluptatum ipsam et dolorem, tempore, qui quaerat quis debitis distinctio tenetur nihil beatae maxime.
-                    </p>
+                    @Html.Raw(Model.Description)
                 </div>
             </div>
 
