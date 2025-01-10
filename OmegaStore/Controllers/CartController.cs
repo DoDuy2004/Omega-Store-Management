@@ -9,6 +9,7 @@ namespace OmegaStore.Controllers
     {
 		private readonly IProductService _productService;
         private readonly ICartService _cartService;
+        private readonly int pageSize = 4;
         public CartController (IProductService productService, ICartService cartService)
         {
             _cartService = cartService;
@@ -20,14 +21,18 @@ namespace OmegaStore.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCart()
+        public IActionResult GetCart(int currentPage = 1)
         {
             var cartViewModel = new CartViewModel
             {
-                CartItems = _cartService.GetCartItems().CartItems,
+                CartItems = _cartService.GetCart().CartItems
+                    .Skip((currentPage - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList(),
                 TotalPrice = _cartService.GetTotalPrice(),
                 ShippingFee = 25000,
-                TotalQuantity = _cartService.GetTotalQuantity()
+                TotalQuantity = _cartService.GetTotalQuantity(),
+                TotalItems = _cartService.GetTotalItems()
             };
 
             return Json(cartViewModel);
@@ -46,10 +51,11 @@ namespace OmegaStore.Controllers
             }
             var cartViewModel = new CartViewModel
             {
-                CartItems = _cartService.GetCartItems().CartItems,
+                CartItems = _cartService.GetCart().CartItems,
                 TotalPrice = _cartService.GetTotalPrice(),
                 ShippingFee = 25000,
-                TotalQuantity = _cartService.GetTotalQuantity()
+                TotalQuantity = _cartService.GetTotalQuantity(),
+                TotalItems = _cartService.GetTotalItems()
             };
 
             return Json(new { success = true, cartViewModel = cartViewModel });
@@ -90,10 +96,11 @@ namespace OmegaStore.Controllers
 
             var cartViewModel = new CartViewModel
             {
-                CartItems = _cartService.GetCartItems().CartItems,
+                CartItems = _cartService.GetCart().CartItems,
                 TotalPrice = _cartService.GetTotalPrice(),
                 ShippingFee = 25000,
-                TotalQuantity = _cartService.GetTotalQuantity()
+                TotalQuantity = _cartService.GetTotalQuantity(),
+                TotalItems = _cartService.GetTotalItems()
             };
             return Json(new { success = true, cartViewModel = cartViewModel });
         }
@@ -105,10 +112,11 @@ namespace OmegaStore.Controllers
             }
             var cartViewModel = new CartViewModel
             {
-                CartItems = _cartService.GetCartItems().CartItems,
+                CartItems = _cartService.GetCart().CartItems,
                 TotalPrice = _cartService.GetTotalPrice(),
                 ShippingFee = 25000,
-                TotalQuantity = _cartService.GetTotalQuantity()
+                TotalQuantity = _cartService.GetTotalQuantity(),
+                TotalItems = _cartService.GetTotalItems()
             };
             return Json(new { success = true, cartViewModel = cartViewModel });
         }
@@ -120,10 +128,11 @@ namespace OmegaStore.Controllers
             }
             var cartViewModel = new CartViewModel
             {
-                CartItems = _cartService.GetCartItems().CartItems,
+                CartItems = _cartService.GetCart().CartItems,
                 TotalPrice = _cartService.GetTotalPrice(),
                 ShippingFee = 25000,
-                TotalQuantity = _cartService.GetTotalQuantity()
+                TotalQuantity = _cartService.GetTotalQuantity(),
+                TotalItems = _cartService.GetTotalItems()
             };
             return Json(new { success = true, cartViewModel = cartViewModel });
         }
