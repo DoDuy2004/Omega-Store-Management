@@ -5,6 +5,6 @@
         public List<Product> Products { get; set; }
         public List<CategoryProductListViewModel> CategoryProducts { get; set; }
 
-        
+       
     }
 }

@@ -165,7 +165,7 @@
                                     <div class="body-text">@or.Fullname</div>
                                     <div class="body-text">@or.CreatedAt</div>
                                     <div class="body-text">@or.Email</div>
-                                    <div class="body-text">@or.TotalAmount</div>
+                                    <div class="body-text">@(String.Format(("{0:N0}"),or.TotalAmount+25000)) VNĐ</div>
                                     <div>
                                         <button class="btn  btn-currentStatus btn-lg"
                                                 data-orderid="@or.Id"

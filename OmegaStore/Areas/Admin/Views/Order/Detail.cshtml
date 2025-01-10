@@ -1,4 +1,4 @@
-﻿@model OmegaStore.Models.ViewModels.OrderDetail
+﻿@model OmegaStore.Models.ViewModels.ProductOrderViewModel
 @{
     ViewData["Title"] = "Chi Tiết Đơn Hàng";
 }
@@ -27,7 +27,7 @@
         <div class="main-content-wrap">
            
                 <div class="flex items-center flex-wrap justify-between gap20 mb-27">
-                    <h3>Đơn hàng #123783</h3>
+                <h3>Đơn hàng @Model.OrderDetail.Id</h3>
                     <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                         <li>
                             <a href="index.html">
@@ -54,7 +54,7 @@
                             <i class="icon-chevron-right"></i>
                         </li>
                         <li>
-                            <div class="text-tiny">Đơn hàng @Model.Id</div>
+                        <div class="text-tiny">Đơn hàng @Model.OrderDetail.Id</div>
                         </li>
                     </ul>
                 </div>
@@ -91,27 +91,30 @@
                                 </li>
                             </ul>
                             <ul class="flex flex-column">
+                                @foreach (var pr in Model.ProductDetails)
+                                {
                                 <li class="product-item gap14">
                                     <div class="image no-bg">
-                                        <img src="~/admin/images/products/@Model.Img" alt="">
+                                            <img src="~/img/products/@pr.Img" alt="">
                                     </div>
                                     <div class="flex items-center justify-between gap40 flex-grow">
                                         <div class="name">
                                             <div class="text-tiny mb-1">Tên sản phẩm</div>
                                             <a href="product-list.html" class="body-title-2">
-                                                @Model.Name
+                                                    @pr.Name
                                             </a>
                                         </div>
                                         <div class="name">
                                             <div class="text-tiny mb-1">Số lượng</div>
-                                            <div class="body-title-2">@Model.Quantity</div>
+                                                <div class="body-title-2">@pr.Quantity</div>
                                         </div>
                                         <div class="name">
                                             <div class="text-tiny mb-1">Đơn giá</div>
-                                            <div class="body-title-2">@(String.Format("{0:N0}",Model.Price)) VNĐ</div>
+                                                <div class="body-title-2">@(String.Format("{0:N0}", pr.Price)) VNĐ</div>
                                         </div>
                                     </div>
                                 </li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -129,7 +132,7 @@
                                 <li class="cart-totals-item">
                                     <span class="body-text">Tạm tính:</span>
                                     <span class="body-title-2">
-                                        @(String.Format("{0:N0}",Model.Total)) VNĐ
+                                        @(String.Format("{0:N0}", Model.OrderDetail.Total)) VNĐ
                                     </span>
                                 </li>
                                 <li class="divider"></li>
@@ -140,7 +143,7 @@
                                 <li class="divider"></li>
                                 <li class="cart-totals-item">
                                     <span class="body-title">Tổng tiền</span>
-                                    <span class="body-title tf-color-1">@(String.Format("{0:N0}",Math.Round(Model.Total +25000,0) )) VNĐ</span>
+                                    <span class="body-title tf-color-1">@(String.Format("{0:N0}", Math.Round(Model.OrderDetail.Total + 25000, 0))) VNĐ</span>
                                 </li>
 
                             </ul>
@@ -152,26 +155,26 @@
                         <div class="body-title">Tóm tắt:</div>
                         <div class="summary-item">
                             <div class="body-text">Mã đơn hàng</div>
-                            <div class="body-title-2">@Model.Id</div>
+                            <div class="body-title-2">@Model.OrderDetail.Id</div>
                         </div>
                         <div class="summary-item">
                             <div class="body-text">Ngày:</div>
-                            <div class="body-title-2">@Model.CreatedAt</div>
+                            <div class="body-title-2">@Model.OrderDetail.CreatedAt</div>
                         </div>
                         <div class="summary-item">
                             <div class="body-text">Tổng tiền:</div>
-                            <div class="body-title-2 tf-color-1">@(String.Format("{0:N0}", Math.Round(Model.Total + 25000, 0))) VNĐ</div>
+                            <div class="body-title-2 tf-color-1">@(String.Format("{0:N0}", Math.Round(Model.OrderDetail.Total + 25000, 0))) VNĐ</div>
                         </div>
                     </div>
                     <div class="wg-box mb-20 gap10">
                         <div class="body-title">Địa chỉ giao hàng</div>
                         <div class="body-text">
-                           @Model.Address
+                            @Model.OrderDetail.Address
                         </div>
                     </div>
                     <div class="wg-box mb-20 gap10">
                         <div class="body-title">Phương thức thanh toán</div>
-                        <div class="body-text">@((Model.PaymentMethod==true)?"Thanh toán khi nhận hàng":"Thanh toán qua MOMO")</div>
+                        <div class="body-text">@((Model.OrderDetail.PaymentMethod == true) ? "Thanh toán khi nhận hàng" : "Thanh toán qua MOMO")</div>
                     </div>
                 </div>
             </div>
