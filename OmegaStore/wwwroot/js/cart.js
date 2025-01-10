@@ -2,10 +2,10 @@ function loadCart() {
   $.ajax({
     url: "/Cart/GetCart",
     method: "GET",
-    success: function (response) {
+    success: function (res) {
       $("#cart-body").empty();
 
-      if (response.cartItems.length === 0) {
+      if (res.cartItems.length === 0) {
         $("#cart-body").append(`
                     <tr>
                         <td colspan="6" class="text-center">
@@ -15,7 +15,7 @@ function loadCart() {
                     </tr>
                 `);
       } else {
-        const rows = response.cartItems
+        const rows = res.cartItems
           .map((item) => {
             const price =
               item.product.price -
@@ -38,17 +38,17 @@ function loadCart() {
                                     ${item.product.name}
                                 </a>
                             </td>
-                            <td style="font-size: .9rem">${price.toLocaleString()} đ</td>
+                            <td style="font-size: .9rem" id="product-price-${item.cartItemId}" data-price="${price}">${price.toLocaleString()} đ</td>
                             <td>
                                 <div class="qty border border-secondary rounded-lg d-flex justify-content-between">
-                                    <button class="btn-minus rounded-left"><i class="fa fa-minus"></i></button>
-                                    <input type="text" class="quantity" value="${
+                                    <button class="btn-minus rounded-left" data-id="${item.cartItemId}"><i class="fa fa-minus"></i></button>
+                                    <input type="text" class="quantity" id="product-quantity-${item.cartItemId}" data-id="${item.cartItemId}" value="${
                                       item.quantity
                                     }">
-                                    <button class="btn-plus rounded-right"><i class="fa fa-plus"></i></button>
+                                    <button class="btn-plus rounded-right" data-id="${item.cartItemId}"><i class="fa fa-plus"></i></button>
                                 </div>
                             </td>
-                            <td style="font-size: .9rem">${(
+                            <td id="total-${item.cartItemId}" style="font-size: .9rem">${(
                               price * item.quantity
                             ).toLocaleString()} đ</td>
                             <td>
@@ -67,88 +67,204 @@ function loadCart() {
 
       $(".cart-content").html(`
                 <h1>Giỏ hàng rút gọn</h1>
-                <p>Tổng tiền hàng:<span>${response.totalPrice.toLocaleString()} đ</span></p>
-                <p>Phí vận chuyển:<span>${response.shippingFee.toLocaleString()} đ</span></p>
+                <p>Tổng tiền hàng:<span>${res.totalPrice.toLocaleString()} đ</span></p>
+                <p>Phí vận chuyển:<span>${res.shippingFee.toLocaleString()} đ</span></p>
                 <h2>Thành tiền:<span>${(
-                  response.totalPrice + response.shippingFee
+                  res.totalPrice + res.shippingFee
                 ).toLocaleString()} đ</span></h2>
             `);
 
       $("#cart-summary-content").html(`
                 <p class="m-0" style="font-size: 14px;">Sản phẩm: <span>${
-                  response.totalQuantity
+                  res.totalQuantity
                 }</span></p>
-                <p class="m-0" style="font-size: 14px;">Thanh toán: <span>${response.totalPrice.toLocaleString()} đ</span></p>
+                <p class="m-0" style="font-size: 14px;">Thanh toán: <span>${res.totalPrice.toLocaleString()} đ</span></p>
             `);
     },
-    error: function (xhr, status, error) {
-      console.error("Có lỗi xảy ra khi lấy giỏ hàng: ", error);
+    error: function (err) {
+      console.error(err);
     },
   });
 }
 
 // ready đảm bảo ràng mã jquery chỉ được chạy khi toàn bộ DOM đã được tải xong
-$(document).ready(function () {
-  loadCart();
-  // Dùng jquery không cần phải duyệt qua từng nút
-  $("#cart-body").on("click", ".btn-danger", function () {
-    const productId = $(this).data("id");
+$(function () {
+    loadCart();
+    // Dùng jquery không cần phải duyệt qua từng nút
+    $("#cart-body").on("click", ".btn-danger", function () {
+        const productId = $(this).data("id");
 
-    Swal.fire({
-      icon: "question",
-      title: "Bạn có chắc chắn muốn xóa sản phẩm này?",
-      showCancelButton: true,
-      confirmButtonText: "Đồng ý",
-      cancelButtonText: "Hủy bỏ",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        $.ajax({
-          url: "/Cart/RemoveItem",
-          method: "POST",
-          data: { productId: productId },
-          success: function (response) {
-            if (response.success) {
-              Swal.fire({
-                title: "Thành công",
-                text: "Xóa sản phẩm khỏi giỏ hàng thành công",
-                icon: "success",
-              });
-              loadCart();
-            } else {
-              Swal.fire({
-                title: "Lỗi",
-                text: response.message,
-                icon: "error",
-              });
+        Swal.fire({
+            icon: "question",
+            title: "Bạn có chắc chắn muốn xóa sản phẩm này?",
+            showCancelButton: true,
+            confirmButtonText: "Đồng ý",
+            cancelButtonText: "Hủy bỏ",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/Cart/RemoveItem",
+                    method: "POST",
+                    data: { productId: productId },
+                    success: function (res) {
+                        if (res.success) {
+                            Swal.fire({
+                                title: "Thành công",
+                                text: "Xóa sản phẩm khỏi giỏ hàng thành công",
+                                icon: "success",
+                            });
+                            loadCart();
+                        } else {
+                            Swal.fire({
+                                title: "Lỗi",
+                                text: res.message,
+                                icon: "error",
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    },
+                });
             }
-          },
-          error: function (xhr, status, error) {
-            Swal.fire({
-              title: "Lỗi",
-              text: "Có lỗi xảy ra khi xóa sản phẩm.",
-              icon: "error",
-            });
-          },
         });
-      }
     });
-  });
-
-  $("#cart-body").on("click", ".btn-minus", function () {
-    const quantityInput = $(this).closest("tr").find(".quantity");
-    let quantity = quantityInput.val();
-    if (quantity === 1) {
-      alert("CC");
-      $(this).prop("disabled", true);
-    }
-  });
-
-  $("#cart-body").on("click", ".btn-plus", function () {
-    alert("duy");
-  });
 });
 
-$(document).ready(function () {
+$("#cart-body").on("click", ".btn-minus", function () {
+    var cartItemId = $(this).data("id");
+    var quantity = $(`#product-quantity-${cartItemId}`).val();
+    var price = parseFloat($(`#product-price-${cartItemId}`).data("price"));
+
+    $.ajax({
+        url: "/cart/decreasequantity",
+        method: "POST",
+        data: { cartItemId: cartItemId },
+        success: function (res) {
+            //alert(price);
+            if (res.success) {
+                $(`#product-quantity-${cartItemId}`).val(--quantity);
+
+                $(`#total-${cartItemId}`).text(`${(price * parseInt(quantity)).toLocaleString() } đ`);
+
+                $(".cart-content").html(`
+                    <h1>Giỏ hàng rút gọn</h1>
+                    <p>Tổng tiền hàng:<span>${res.cartViewModel.totalPrice.toLocaleString()} đ</span></p>
+                    <p>Phí vận chuyển:<span>${res.cartViewModel.shippingFee.toLocaleString()} đ</span></p>
+                    <h2>Thành tiền:<span>${(
+                    res.cartViewModel.totalPrice + res.cartViewModel.shippingFee
+                    ).toLocaleString()} đ</span></h2>
+                `);
+
+                $("#cart-summary-content").html(`
+                    <p class="m-0" style="font-size: 14px;">Sản phẩm: <span>${res.cartViewModel.totalQuantity
+                        }</span></p>
+                    <p class="m-0" style="font-size: 14px;">Thanh toán: <span>${res.cartViewModel.totalPrice.toLocaleString()} đ</span></p>
+                `);
+            }
+            else {
+                Swal.fire({
+                    title: "Thông báo",
+                    text: "Số lượng nhỏ nhất là 1",
+                    icon: "info",
+                });
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+});
+
+$("#cart-body").on("click", ".btn-plus", function () {
+    var cartItemId = $(this).data("id");
+    var quantity = $(`#product-quantity-${cartItemId}`).val();
+    var price = parseFloat($(`#product-price-${cartItemId}`).data("price"));
+
+    $.ajax({
+        url: "/cart/increasequantity",
+        method: "POST",
+        data: { cartItemId: cartItemId },
+        success: function (res) {
+            if (res.success) {
+                $(`#product-quantity-${cartItemId}`).val(++quantity);
+                $(`#total-${cartItemId}`).text(`${(price * parseInt(quantity)).toLocaleString()} đ`);
+                $(".cart-content").html(`
+                    <h1>Giỏ hàng rút gọn</h1>
+                    <p>Tổng tiền hàng:<span>${res.cartViewModel.totalPrice.toLocaleString()} đ</span></p>
+                    <p>Phí vận chuyển:<span>${res.cartViewModel.shippingFee.toLocaleString()} đ</span></p>
+                    <h2>Thành tiền:<span>${(
+                    res.cartViewModel.totalPrice + res.cartViewModel.shippingFee
+                    ).toLocaleString()} đ</span></h2>
+                `);
+
+                $("#cart-summary-content").html(`
+                    <p class="m-0" style="font-size: 14px;">Sản phẩm: <span>${res.cartViewModel.totalQuantity
+                    }</span></p>
+                    <p class="m-0" style="font-size: 14px;">Thanh toán: <span>${res.cartViewModel.totalPrice.toLocaleString()} đ</span></p>
+                `);
+            }
+            else {
+                Swal.fire({
+                    title: "Thông báo",
+                    text: "không thể tiếp tục thêm vì số lượng đã vượt quá giới hạn tồn kho",
+                    icon: "info",
+                });
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+});
+
+$("#cart-body").on("change", ".quantity", function () {
+    var cartItemId = $(this).data("id");
+    var quantity = $(this).val();
+    var price = parseFloat($(`#product-price-${cartItemId}`).data("price"));
+
+    //alert(cartItemId);
+    //alert(quantity);
+
+    $.ajax({
+        url: "/cart/updatequantity",
+        method: "POST",
+        data: { cartItemId: cartItemId, quantity: quantity },
+        success: function (res) {
+            if (res.success)
+            {
+                $(this).val(quantity);
+                $(`#total-${cartItemId}`).text(`${(price * parseInt(quantity)).toLocaleString()} đ`);
+                $(".cart-content").html(`
+                    <h1>Giỏ hàng rút gọn</h1>
+                    <p>Tổng tiền hàng:<span>${res.cartViewModel.totalPrice.toLocaleString()} đ</span></p>
+                    <p>Phí vận chuyển:<span>${res.cartViewModel.shippingFee.toLocaleString()} đ</span></p>
+                    <h2>Thành tiền:<span>${(
+                    res.cartViewModel.totalPrice + res.cartViewModel.shippingFee
+                    ).toLocaleString()} đ</span></h2>
+                `);
+
+                $("#cart-summary-content").html(`
+                    <p class="m-0" style="font-size: 14px;">Sản phẩm: <span>${res.cartViewModel.totalQuantity}</span></p>
+                    <p class="m-0" style="font-size: 14px;">Thanh toán: <span>${res.cartViewModel.totalPrice.toLocaleString()} đ</span></p>
+                `);
+            }
+            else {
+                Swal.fire({
+                    title: "Thông báo",
+                    text: "không thể tiếp tục thêm vì số lượng đã vượt quá giới hạn tồn kho",
+                    icon: "info",
+                });
+            }
+        },
+        error: function (err) {
+
+            console.log(err);
+        }
+    });
+});
+
+$(function () {
   $(document).on("click", "#btn-add-cart", function () {
     var productId = $(this).data("id");
     var quantity = $("#product-quantity").val() || 1;
@@ -183,19 +299,19 @@ $(document).ready(function () {
       },
       error: function (err) {
         console.log(err);
-      },
+      }
     });
   });
 });
 
-$(document).ready(function () {
+$(function () {
   $(document).on("click", "#btn-clear-cart", function () {
     Swal.fire({
       icon: "question",
       title: "Bạn có chắc chắn muốn xóa toàn bộ giỏ hàng?",
       showCancelButton: true,
       confirmButtonText: "Đồng ý",
-      cancelButtonText: "Hủy bỏ",
+      cancelButtonText: "Hủy bỏ"
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
@@ -206,20 +322,20 @@ $(document).ready(function () {
               Swal.fire({
                 title: "Thành công",
                 text: "Xóa giỏ hàng thành công",
-                icon: "success",
+                icon: "success"
               });
               loadCart();
             } else {
               Swal.fire({
                 title: "Lỗi",
                 text: "Giỏ hàng đang trống!",
-                icon: "error",
+                icon: "error"
               });
             }
           },
           error: function (err) {
             console.log(err);
-          },
+          }
         });
       }
     });

@@ -70,6 +70,7 @@ namespace OmegaStore.Controllers
             return Json(new { success = false, message = "Sản phẩm không tồn tại trong giỏ hàng." });
         }
 
+        [HttpPost]
         public IActionResult ClearCart()
         {
             bool isClearCart = _cartService.ClearCart();
@@ -80,6 +81,52 @@ namespace OmegaStore.Controllers
             return Json(new { success = true });
         }
 
+        public IActionResult IncreaseQuantity(int cartItemId)
+        {
+            if(!_cartService.IncreaseQuantity(cartItemId))
+            {
+                return Json(new { success = false });
+            }
+
+            var cartViewModel = new CartViewModel
+            {
+                CartItems = _cartService.GetCartItems().CartItems,
+                TotalPrice = _cartService.GetTotalPrice(),
+                ShippingFee = 25000,
+                TotalQuantity = _cartService.GetTotalQuantity()
+            };
+            return Json(new { success = true, cartViewModel = cartViewModel });
+        }
+        public IActionResult DecreaseQuantity(int cartItemId)
+        {
+            if(!_cartService.DecreaseQuantity(cartItemId))
+            {
+                return Json(new { success = false });
+            }
+            var cartViewModel = new CartViewModel
+            {
+                CartItems = _cartService.GetCartItems().CartItems,
+                TotalPrice = _cartService.GetTotalPrice(),
+                ShippingFee = 25000,
+                TotalQuantity = _cartService.GetTotalQuantity()
+            };
+            return Json(new { success = true, cartViewModel = cartViewModel });
+        }
+        public IActionResult UpdateQuantity(int cartItemId, int quantity)
+        {
+            if(!_cartService.UpdateQuantity(cartItemId, quantity))
+            {
+                return Json(new { success = false });
+            }
+            var cartViewModel = new CartViewModel
+            {
+                CartItems = _cartService.GetCartItems().CartItems,
+                TotalPrice = _cartService.GetTotalPrice(),
+                ShippingFee = 25000,
+                TotalQuantity = _cartService.GetTotalQuantity()
+            };
+            return Json(new { success = true, cartViewModel = cartViewModel });
+        }
         public IActionResult Checkout() 
         { 
             return View(); 
