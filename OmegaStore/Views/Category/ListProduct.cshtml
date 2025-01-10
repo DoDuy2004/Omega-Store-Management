@@ -97,17 +97,14 @@
                             <div class="product-item">
                                 <div class="product-image">
                                     <div class="discount-per">
-                                        <span>@ls.DiscountRate %</span>
+                                        <span>-@ls.DiscountRate %</span>
                                     </div>
-                                    <a><img src="~/img/products/@ls.Img" alt="" /></a>
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-slug="@ls.Slug"><img src="~/img/products/@ls.Img" alt="" /></a>
                                 </div>
-                                <div class="product-title"><a asp-controller="Product" asp-action="Detail">@ls.Name</a></div>
+                                <div class="product-title"><a asp-controller="Product" asp-action="Detail" asp-route-slug="@ls.Slug">@ls.Name</a></div>
                                 <div class="product-price">
-                                    <p class="price-discount"><span> @(
-                                        String.Format("{0:N0}",
-                                            Math.Abs((ls.Price-ls.DiscountRate/100*ls.Price)))
-                                                                    )</span></p>
-                                    <p class="price"><span>@(String.Format("{0:N0}",ls.Price))</span></p>
+                                    <p class="price-discount"><span>@(String.Format("{0:N0}", Math.Truncate((ls.Price - (ls.Price * ls.DiscountRate) / 100))))đ</span></p>
+                                    <p class="price"><span>@(String.Format("{0:N0}",ls.Price))đ</span></p>
                                 </div>
                                 <div class="view-rating">
                                     <span class="view">@ls.Views<i class="fa fa-eye"></i></span>
