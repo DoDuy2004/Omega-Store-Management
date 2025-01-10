@@ -222,12 +222,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/asp/DoAn10_01/Omega-Store-Management/OmegaStore/Views/Post/DeliveryService.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFxEZWxpdmVyeVNlcnZpY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/asp/DoAn10_01/Omega-Store-Management/OmegaStore/Views/Post/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFxEZXRhaWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/asp/DoAn10_01/Omega-Store-Management/OmegaStore/Views/Post/FastReturns.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFxGYXN0UmV0dXJucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/asp/DoAn10_01/Omega-Store-Management/OmegaStore/Views/Post/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/asp/DoAn10_01/Omega-Store-Management/OmegaStore/Views/Post/PaymentServices.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFxQYXltZW50U2VydmljZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/asp/DoAn10_01/Omega-Store-Management/OmegaStore/Views/Post/Support.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFxTdXBwb3J0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/asp/DoAn10_01/Omega-Store-Management/OmegaStore/Views/Post/_PostListPartial.cshtml]
