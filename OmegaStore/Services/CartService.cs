@@ -24,7 +24,6 @@ namespace OmegaStore.Services
                 ? new Cart()
                 : JsonConvert.DeserializeObject<Cart>(cartSession) ?? new Cart();
         }
-
         public bool AddToCart(Product product, int quantity)
         {
             Cart cart = GetCartItems();
@@ -34,6 +33,7 @@ namespace OmegaStore.Services
             {
                 cartItem = new CartItem
                 {
+                    CartItemId = cart.CartItems.Count() + 1,
                     Product = product,
                     Quantity = quantity
                 };
@@ -84,6 +84,48 @@ namespace OmegaStore.Services
         {
             Cart cart = GetCartItems();
             return cart.CartItems.Sum(p => p.Quantity * (p.Product.Price - (p.Product.Price * p.Product.DiscountRate / 100)));
+        }
+
+        public bool IncreaseQuantity(int cartItemId)
+        {
+            Cart cart = GetCartItems();
+            CartItem cartItem = cart.CartItems.FirstOrDefault(item => item.CartItemId == cartItemId) ?? new CartItem();
+
+            if (cartItem.Quantity >= cartItem.Product.Stock)
+            {
+                return false;
+            }
+            cartItem.Quantity++;
+            SaveCartToSession(cart);
+            return true;
+        }
+
+        public bool DecreaseQuantity(int cartItemId)
+        {
+            Cart cart = GetCartItems();
+            CartItem cartItem = cart.CartItems.FirstOrDefault(item => item.CartItemId == cartItemId) ?? new CartItem();
+
+            if (cartItem.Quantity <= 1)
+            {
+                return false;
+            }
+            cartItem.Quantity--;
+            SaveCartToSession(cart);
+            return true;
+        }
+
+        public bool UpdateQuantity(int cartItemId, int quantity)
+        {
+            Cart cart = GetCartItems();
+            CartItem cartItem = cart.CartItems.FirstOrDefault(item => item.CartItemId == cartItemId) ?? new CartItem();
+
+            if (cartItem.Quantity > cartItem.Product.Stock)
+            {
+                return false;
+            }
+            cartItem.Quantity = quantity;
+            SaveCartToSession(cart);
+            return true;
         }
     }
 }

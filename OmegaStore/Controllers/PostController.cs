@@ -99,5 +99,13 @@ namespace OmegaStore.Controllers
             //Trả về kết quả,bỏ tất cả khoảng trắng, viết thường.
             return input.Replace(" ","").ToLower();
         }
+        public IActionResult PaymentServices()
+        {
+            return View();
+        }
+        public IActionResult DeliveryService()
+        {
+            return View();
+        }
     }
 }

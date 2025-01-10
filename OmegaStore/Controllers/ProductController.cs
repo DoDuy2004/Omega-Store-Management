@@ -30,8 +30,20 @@ namespace OmegaStore.Controllers
             ViewBag.product = product;
 
             if (product != null)
+            {
                 ViewBag.relatedProducts = products
                     .Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id).ToList();
+
+                ViewBag.saleCount = _context.Orders
+                    .Join(_context.DetailOrders,
+                          o => o.Id,
+                          d => d.OrderId,
+                          (o, d) => new { o.Id, d.ProductId, o.Status })
+                    .Where(o => o.Status == 4 && o.ProductId == product.Id).Count();
+
+                ViewBag.likes = _context.Wishlist
+                    .Where(l => l.ProductId == product.Id).Count();
+            }
 
             return View();
 
