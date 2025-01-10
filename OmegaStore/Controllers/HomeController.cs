@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using Microsoft.EntityFrameworkCore;
 using OmegaStore.Models;
 using OmegaStore.Services;
 using System.Diagnostics;
@@ -9,24 +11,35 @@ namespace OmegaStore.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
-
-        public HomeController(ILogger<HomeController> logger, IProductService productService)
+        private readonly StoreDbContext _context;
+        public HomeController(ILogger<HomeController> logger, IProductService productService, StoreDbContext context)
         {
             _logger = logger;
             _productService = productService;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            var products = await  _productService.GetProducts();
+            var products = await _productService.GetProducts();
             return View(products);
         }
-
         public IActionResult Contact()
         {
             return View();
         }
-
+        [HttpPost]
+        public IActionResult CreateRequest(Contact request)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Contacts.Add(request);
+                _context.SaveChanges();
+                TempData["PopupMessage"] = "Gửi yêu cầu thành công!";
+                return RedirectToAction("Index");
+            }
+            return View(request);
+        }
         public IActionResult About()
         {
             return View();

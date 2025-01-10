@@ -1478,7 +1478,7 @@ a:focus {
   background: #f8fafc;
   color: #95989d;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .block-tracking {
@@ -1490,8 +1490,8 @@ a:focus {
   align-items: center;
   justify-content: center;
   width: max-content;
-  height: 30px;
-  padding: 2px 19px;
+  height: 24px;
+  padding: 2px 8px;
   gap: 10px;
   border-radius: 4px;
   background: #ecf3ff;
@@ -1516,9 +1516,8 @@ a:focus {
   background: #ecf3ff;
   color: #2275fc;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 700;
 }
-
 .block-warning {
   display: -webkit-box;
   display: -moz-box;
@@ -1526,14 +1525,18 @@ a:focus {
   display: -webkit-flex;
   display: flex;
   align-items: center;
-  justify-content: start;
-  width: fit-content;
-  padding: 13px 15px;
+  justify-content: center;
+  width: max-content;
+  height: 24px;
+  padding: 2px 8px;
   gap: 10px;
-  border-radius: 12px;
+  border-radius: 4px;
   background: #fff2ed;
   color: #ff5200;
+  font-size: 12px;
+  font-weight: 700;
 }
+
 .block-warning i {
   font-size: 24px;
 }
