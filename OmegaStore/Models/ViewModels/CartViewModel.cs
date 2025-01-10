@@ -7,6 +7,7 @@ namespace OmegaStore.Models.ViewModels
         public List<CartItem> CartItems { get; set; } = new List<CartItem>();
         public decimal TotalPrice { get; set; }
         public int TotalQuantity { get; set; }
+        public int TotalItems { get; set; }
         public decimal ShippingFee { get; set; }
     }
 }

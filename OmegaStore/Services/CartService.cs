@@ -16,7 +16,7 @@ namespace OmegaStore.Services
         {
             _contextAccessor.HttpContext!.Session.SetString(cartSessionKey, JsonConvert.SerializeObject(cart));
         }
-        public Cart GetCartItems()
+        public Cart GetCart()
         {
             var cartSession = _contextAccessor.HttpContext!.Session.GetString(cartSessionKey);
 
@@ -26,7 +26,7 @@ namespace OmegaStore.Services
         }
         public bool AddToCart(Product product, int quantity)
         {
-            Cart cart = GetCartItems();
+            Cart cart = GetCart();
             CartItem cartItem = cart.CartItems.FirstOrDefault(p => p.Product.Id == product.Id)!;
 
             if (cartItem == null) 
@@ -54,7 +54,7 @@ namespace OmegaStore.Services
 
         public void RemoveFromCart(Product product)
         {
-            Cart cart = GetCartItems();
+            Cart cart = GetCart();
             cart.CartItems.Remove(cart.CartItems.FirstOrDefault(p => p.Product.Id == product.Id)!);
 
             SaveCartToSession(cart);
@@ -62,7 +62,7 @@ namespace OmegaStore.Services
 
         public bool ClearCart()
         {
-            Cart cart = GetCartItems();
+            Cart cart = GetCart();
 
             if(cart.CartItems.Count() == 0) {
                 return false;
@@ -75,20 +75,24 @@ namespace OmegaStore.Services
 
         public int GetTotalQuantity()
         {
-            Cart cart = GetCartItems();
+            Cart cart = GetCart();
+            return cart.CartItems.Sum(p => p.Quantity);
+        }
+
+        public int GetTotalItems()
+        {
+            Cart cart = GetCart();
             return cart.CartItems.Count();
         }
-            
-
         public decimal GetTotalPrice()
         {
-            Cart cart = GetCartItems();
+            Cart cart = GetCart();
             return cart.CartItems.Sum(p => p.Quantity * (p.Product.Price - (p.Product.Price * p.Product.DiscountRate / 100)));
         }
 
         public bool IncreaseQuantity(int cartItemId)
         {
-            Cart cart = GetCartItems();
+            Cart cart = GetCart();
             CartItem cartItem = cart.CartItems.FirstOrDefault(item => item.CartItemId == cartItemId) ?? new CartItem();
 
             if (cartItem.Quantity >= cartItem.Product.Stock)
@@ -102,7 +106,7 @@ namespace OmegaStore.Services
 
         public bool DecreaseQuantity(int cartItemId)
         {
-            Cart cart = GetCartItems();
+            Cart cart = GetCart();
             CartItem cartItem = cart.CartItems.FirstOrDefault(item => item.CartItemId == cartItemId) ?? new CartItem();
 
             if (cartItem.Quantity <= 1)
@@ -116,7 +120,7 @@ namespace OmegaStore.Services
 
         public bool UpdateQuantity(int cartItemId, int quantity)
         {
-            Cart cart = GetCartItems();
+            Cart cart = GetCart();
             CartItem cartItem = cart.CartItems.FirstOrDefault(item => item.CartItemId == cartItemId) ?? new CartItem();
 
             if (cartItem.Quantity > cartItem.Product.Stock)
