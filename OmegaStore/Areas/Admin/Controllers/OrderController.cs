@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using OmegaStore.Models;
 
 namespace OmegaStore.Areas.Admin.Controllers
@@ -14,13 +15,23 @@ namespace OmegaStore.Areas.Admin.Controllers
 
             _Context = StoreDbContext;
         }
-        public IActionResult Index()
+        public async Task<IActionResult>Index(int ? status,string ? search)
         {
 
-            var Order = _Context.Orders.ToList();
-            var OrderList=_Context.Orders.Where(o=>o.Status!=0).ToList();
+            var GetStatus = status;
+            var OrderList=status.HasValue ? await _Context.Orders.Where(o=>o.Status==status).ToListAsync() :await _Context.Orders.Where(o=>o.Status!=0).ToListAsync();
+            if (!search.IsNullOrEmpty())
+            {
+                var searchQuery = await _Context.Orders.Where(o => o.Fullname.Contains(search) && o.Status !=0).ToListAsync();
+                ViewBag.Order = searchQuery;
+                ViewBag.Status = GetStatus;
+                ViewBag.Btn = "btn-primary btn-outline";
+                return View();
+            }
             ViewBag.Order = OrderList;
-            return View(Order);
+            ViewBag.Status = GetStatus;
+            ViewBag.Btn = "btn-primary btn-outline";
+            return View();
         }
         [HttpPost]
         public IActionResult UpdateStatus(int orderid, int status)
@@ -83,7 +94,7 @@ namespace OmegaStore.Areas.Admin.Controllers
             
                 order.Status = status;
                 _Context.Orders.Update(order);
-                _Context.SaveChangesAsync();
+               await _Context.SaveChangesAsync();
           
            
                 return Json(new { success = true});
