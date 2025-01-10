@@ -1,0 +1,55 @@
+<div id="popup-notification" style="display: none;">
+    <div class="popup-content">
+        <span id="popup-message"></span>
+        <button id="popup-close">Đóng</button>
+    </div>
+</div>
+
+<style>
+    #popup-notification {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #4caf50;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+    }
+
+    .popup-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #popup-close {
+        margin-top: 15px;
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #popup-close:hover {
+        background-color: #d32f2f;
+    }
+</style>
+<script>
+    // Hiển thị popup với message
+    function showPopup(message) {
+        $('#popup-message').text(message);
+        $('#popup-notification').fadeIn();
+    }
+
+    // Ẩn popup khi nhấn nút "Đóng"
+    $(document).ready(function () {
+        $('#popup-close').click(function () {
+            $('#popup-notification').fadeOut();
+        });
+    });
+</script>

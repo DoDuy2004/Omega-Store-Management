@@ -169,20 +169,20 @@ public partial class StoreDbContext : DbContext
                   .HasMaxLength(255)
                   .HasColumnName("slug");
 
-			// Thuộc tính Thumbnail
-			entity.Property(e => e.ListContent)
-				  .IsRequired()
-				  .HasColumnType("ntext") // Nếu cần kiểu dữ liệu ntext
-				  .HasColumnName("listcontent");
-
-			// Thuộc tính Thumbnail
-			entity.Property(e => e.ShortContent)
-				  .IsRequired()
+            // Thuộc tính Thumbnail
+            entity.Property(e => e.ListContent)
+                  .IsRequired()
                   .HasColumnType("ntext") // Nếu cần kiểu dữ liệu ntext
-				  .HasColumnName("shortcontent");
+                  .HasColumnName("listcontent");
 
-			// Thuộc tính Content
-			entity.Property(e => e.Content)
+            // Thuộc tính Thumbnail
+            entity.Property(e => e.ShortContent)
+                  .IsRequired()
+                  .HasColumnType("ntext") // Nếu cần kiểu dữ liệu ntext
+                  .HasColumnName("shortcontent");
+
+            // Thuộc tính Content
+            entity.Property(e => e.Content)
                   .IsRequired()
                   .HasColumnType("ntext") // Nếu cần kiểu dữ liệu ntext
                   .HasColumnName("content");
@@ -235,46 +235,48 @@ public partial class StoreDbContext : DbContext
         });// Đã sửa
 
         modelBuilder.Entity<Contact>(entity =>
-        {
-            // Tên bảng
-            entity.ToTable("contacts");
+{
+    // Tên bảng
+    entity.ToTable("contacts");
 
-            // Khóa chính (Email là khóa chính)
-            entity.HasKey(e => e.Email);
-            entity.Property(e => e.Email)
-                  .HasMaxLength(50)
-                  .IsRequired()  // Tương đương [Required]
-                  .HasColumnName("email");
+    // Khóa chính (ContactId)
+    entity.HasKey(e => e.ContactId); // Đảm bảo ContactId là khóa chính
 
-            // Thuộc tính Fullname
-            entity.Property(e => e.Fullname)
-                  .IsRequired()  // Tương đương [Required]
-                  .HasMaxLength(100)
-                  .HasColumnName("fullname");
+    // Cột Email
+    entity.Property(e => e.Email)
+          .HasMaxLength(50)
+          .IsRequired()  // Bắt buộc nhập
+          .HasColumnName("email");
 
-            // Thuộc tính Subject
-            entity.Property(e => e.Subject)
-                  .IsRequired()  // Tương đương [Required]
-                  .HasMaxLength(100)
-                  .HasColumnName("subject");
+    // Cột Fullname
+    entity.Property(e => e.Fullname)
+          .IsRequired()
+          .HasMaxLength(100)
+          .HasColumnName("fullname");
 
-            // Thuộc tính Message
-            entity.Property(e => e.Message)
-                  .IsRequired()  // Tương đương [Required]
-                  .HasMaxLength(500)
-                  .HasColumnName("message");
+    // Cột Subject
+    entity.Property(e => e.Subject)
+          .IsRequired()
+          .HasMaxLength(100)
+          .HasColumnName("subject");
 
-            // Thuộc tính CreatedAt
-            entity.Property(e => e.CreatedAt)
-                  .HasDefaultValueSql("(getdate())") // Đặt giá trị mặc định là ngày giờ hiện tại
-                  .HasColumnType("datetime")
-                  .HasColumnName("created_at");
+    // Cột Message
+    entity.Property(e => e.Message)
+          .HasMaxLength(500) // Message có thể không bắt buộc
+          .HasColumnName("message");
 
-            // Thuộc tính Status
-            entity.Property(e => e.Status)
-                  .IsRequired()  // Tương đương [Required]
-                  .HasColumnName("status");
-        });// Đã sửa
+    // Cột CreatedAt
+    entity.Property(e => e.CreatedAt)
+          .HasDefaultValueSql("(getdate())") // Đặt giá trị mặc định là ngày giờ hiện tại
+          .HasColumnType("datetime")
+          .HasColumnName("created_at");
+
+    // Cột Status
+    entity.Property(e => e.Status)
+          .IsRequired()  // Bắt buộc nhập
+          .HasColumnName("status");
+});
+
 
         modelBuilder.Entity<DetailOrder>(entity =>
         {
