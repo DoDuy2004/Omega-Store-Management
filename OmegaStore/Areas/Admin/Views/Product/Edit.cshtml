@@ -1,4 +1,5 @@
-﻿@{
+﻿@model OmegaStore.Models.Product
+@{
     ViewData["Title"] = "Sửa Thông Tin Sản Phẩm";
 }
 
@@ -58,65 +59,36 @@
                 <div class="wg-box">
                     <fieldset class="name">
                         <div class="body-title mb-10">Tên sản phẩm <span class="tf-color-1"></span></div>
-                        <input class="inputContent mb-10" type="text" name="text" tabindex="0" value="Mô Hình Luffy gear 5 dáng đứng tay cầm sét Đế Trong Cao 24cm Nặng 400gr Box màu" aria-required="true" required="">
+                        <input class="inputContent mb-10" asp-for="Name" type="text" tabindex="0"  aria-required="true" required="">
                         <!-- <div class="text-tiny">Do not exceed 20 characters when entering the product name.</div> -->
                     </fieldset>
                     <div class="gap22 cols">
                         <fieldset class="category">
                             <div class="body-title mb-10">Loại sản phẩm <span class="tf-color-1"></span></div>
                             <div class="select">
-                                <select class="">
-                                    <option>Mô hình nhựa</option>
-                                    <!-- <option>Shop</option>
-                                    <option>Product</option> -->
+                                <select class="" asp-for="CategoryId" asp-items="@ViewBag.Categories">
                                 </select>
                             </div>
                         </fieldset>
                     </div>
-                    <fieldset class="male">
-                        <div class="body-title mb-10">Nhà cung cấp <span class="tf-color-1"></span></div>
-                        <div class="select">
-                            <select class="">
-                                <option>VECTO</option>
-                                <!-- <option>Female</option>
-                                <option>Other</option> -->
-                            </select>
-                        </div>
-                    </fieldset>
-                    <fieldset class="brand">
-                        <div class="body-title mb-10">Thương hiệu <span class="tf-color-1"></span></div>
-                        <div class="select">
-                            <select class="">
-                                <option>VECTO</option>
-                                <!-- <option>Shop</option>
-                                <option>Product</option> -->
-                            </select>
-                        </div>
-                    </fieldset>
                     <fieldset class="name">
                         <div class="body-title mb-10">Giá sản phẩm <span class="tf-color-1"></span></div>
-                        <input class="inputContent mb-10" type="text" name="text" tabindex="0" value="300.000đ" aria-required="true" required="">
+                        <input class="inputContent mb-10" asp-for="Price" type="text"  tabindex="0"  aria-required="true" required="">
                         <!-- <div class="text-tiny">Do not exceed 20 characters when entering the product name.</div> -->
                     </fieldset>
                     <fieldset class="name">
                         <div class="body-title mb-10">Phần trăm giảm giá <span class="tf-color-1"></span></div>
-                        <input class="inputContent mb-10" type="text" name="text" tabindex="0" value="18%" aria-required="true" required="">
+                        <input class="inputContent mb-10" asp-for="DiscountRate" type="text"  tabindex="0"  aria-required="true" required="">
                         <!-- <div class="text-tiny">Do not exceed 20 characters when entering the product name.</div> -->
                     </fieldset>
                     <fieldset class="name">
                         <div class="body-title mb-10">Slug<span class="tf-color-1"></span></div>
-                        <input class="inputContent mb-10" type="text" name="text" tabindex="0" value="mo-hinh-luffy-gear-5-dang-dung-tay-cam-set-de-trong–cao-24cm-nang-400gr–box-mau" aria-required="true" required="" disabled>
+                        <input class="inputContent mb-10" asp-for="Slug" type="text"  tabindex="0"  aria-required="true" required="" disabled>
                         <!-- <div class="text-tiny">Do not exceed 20 characters when entering the product name.</div> -->
                     </fieldset>
                     <fieldset class="description mb-24">
                         <div class="body-title mb-10">Mô tả sản phẩm <span class="number"></span></div>
-                        <textarea class="inputContent" type="text" name="area">
-Chất liệu: PVC
-Tình trạng: Còn mới
-Mục đích: Trang trí văn phòng, bàn làm việc, sưu tầm, trưng bày, quà tặng,…
-Kiểu giao hàng: Giao ngay/order
-Kiểu: cố định, không thể cử động
-Sản xuất:Hàng nội địa Trung Quốc
+                        <textarea class="inputContent" type="text" name="area" asp-for="Description">
 
                         </textarea>
                         <!-- <textarea class="" name="description" placeholder="Description" tabindex="0" aria-required="true" required=""></textarea> -->
