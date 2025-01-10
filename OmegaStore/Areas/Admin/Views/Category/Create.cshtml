@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Category
+@{
     ViewData["Title"] = "Tạo Danh Mục";
 }
 
@@ -10,6 +11,9 @@
     <script src="~/admin/js/zoom.js"></script>
     <script src="~/admin/js/switcher.js"></script>
     <script src="~/admin/js/theme-settings.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
 
 <div class="main-content">
@@ -43,48 +47,25 @@
             </div>
             <!-- new-category -->
             <div class="wg-box col-lg-12">
-                <form class="col-md-12">
-                    <div class="row mb-10">
-                        <div class="col-md-6">
-                            <label for="exampleInputEmail1"
-                                   class="mb-10 fs-5 fw-bold">Danh mục cha</label>
-                            <select name="parent-category" id="parent-category">
-                                <option value="">--Chọn danh mục--</option>
-                                <option value="">Đồ gỗ 3D</option>
-                                <option value="">Mô hình annime</option>
-                            </select>
-                        </div>
-                    </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger fs-3"></div>
+                <form method="post" asp-action="Create" class="col-md-12">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="exampleInputEmail1"
-                                   class="mb-10 fs-5 fw-bold">Tên danh mục</label>
-                            <input type="email"
+                            <label class="mb-10 fs-5 fw-bold">Tên danh mục</label>
+                            <input type="text"
                                    class="form-control mb-10"
-                                   id="exampleInputEmail1"
-                                   aria-describedby="emailHelp"
-                                   value="Duy Dep Trai"
+                                   asp-for="Name"
                                    placeholder="" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="exampleInputEmail1"
-                                   class="mb-10 fs-5 fw-bold">Slug</label>
-                            <input style="background-color: #d9d9d9"
-                                   type="email"
-                                   class="form-control mb-10 text-dark"
-                                   id="exampleInputEmail1"
-                                   aria-describedby="emailHelp"
-                                   placeholder="Slug"
-                                   value="duy-dep-trai"
-                                   disabled />
-                        </div>
+
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1"
-                               class="mb-10 mt-4 fs-5 fw-bold">Mô tả</label>
+                        <label class="mb-10 mt-4 fs-5 fw-bold">Mô tả</label>
                         <textarea class="form-control"
-                                  id="exampleFormControlTextarea1"
+                                  asp-for="Description"
                                   rows="3"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                     <div class="bot mt-5 w-100">
                         <button class="w-100 fw-bold"
