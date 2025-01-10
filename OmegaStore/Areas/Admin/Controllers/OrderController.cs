@@ -94,7 +94,7 @@ namespace OmegaStore.Areas.Admin.Controllers
             
                 order.Status = status;
                 _Context.Orders.Update(order);
-                _Context.SaveChangesAsync();
+               await _Context.SaveChangesAsync();
           
            
                 return Json(new { success = true});

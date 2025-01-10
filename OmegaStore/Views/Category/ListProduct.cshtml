@@ -1,4 +1,4 @@
-﻿@model List<OmegaStore.Models.Product>
+﻿@model OmegaStore.Models.ViewModels.ProductCategoryModel
 
 @{
     ViewData["Title"] = "Danh sách sản phẩm theo danh mục";
@@ -40,59 +40,22 @@
                     <nav class="navbar bg-light">
                         <ul class="navbar-nav">
                             <!-- Danh mục 1 -->
-                            <li class="nav-item dropdown position-relative">
-                                <a class="nav-link dropdown-toggle"
-                                   asp-controller="" asp-action=""
-                                   id="navbarDropdown1"
-                                   role="button"
-                                   data-toggle="dropdown"
-                                   aria-haspopup="true"
-                                   aria-expanded="false">
-                                    Danh mục 1
-                                </a>
-                                <div style="border: none"
-                                     class="dropdown-menu"
-                                     aria-labelledby="navbarDropdown1">
-                                    <a class="dropdown-item" asp-controller="" asp-action="">Danh mục 1.1</a>
-                                    <a class="dropdown-item" asp-controller="" asp-action="">Danh mục 1.2</a>
-                                </div>
-                            </li>
-                            <!-- Danh mục 2 -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle"
-                                   asp-controller="" asp-action=""
-                                   id="navbarDropdown2"
-                                   role="button"
-                                   data-toggle="dropdown"
-                                   aria-haspopup="true"
-                                   aria-expanded="false">
-                                    Danh mục 2
-                                </a>
-                                <div style="border: none"
-                                     class="dropdown-menu"
-                                     aria-labelledby="navbarDropdown2">
-                                    <a class="dropdown-item" asp-controller="" asp-action="">Danh mục 2.1</a>
-                                    <a class="dropdown-item" asp-controller="" asp-action="">Danh mục 2.2</a>
-                                </div>
-                            </li>
-                            <!-- Danh mục 3 -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle"
-                                   asp-controller="" asp-action=""
-                                   id="navbarDropdown3"
-                                   role="button"
-                                   data-toggle="dropdown"
-                                   aria-haspopup="true"
-                                   aria-expanded="false">
-                                    Danh mục 3
-                                </a>
-                                <div style="border: none"
-                                     class="dropdown-menu"
-                                     aria-labelledby="navbarDropdown3">
-                                    <a class="dropdown-item" asp-controller="" asp-action="">Danh mục 3.1</a>
-                                    <a class="dropdown-item" asp-controller="" asp-action="">Danh mục 3.2</a>
-                                </div>
-                            </li>
+                                @foreach (var cate in ViewBag.ListCate)
+                            {
+                                <li class="nav-item dropdown position-relative">
+                                    <a class="nav-link"
+                                       asp-controller="Category" asp-action="ListProduct" asp-route-slug="@cate.Slug"
+                                       id="navbarDropdown1"
+                                       role="button"
+                                       >
+                                       @cate.Name
+                                    </a>
+                            
+                                   
+                                </li>
+                            }
+                            
+                          
                         </ul>
                     </nav>
                 </div>
@@ -127,26 +90,28 @@
             <!-- Side Bar End -->
             <div class="col-lg-8">
                 <div class="row">
-                    @foreach (var ls in ViewBag.ListProd)
+                    @foreach (var ls in Model.CategoryProducts)
                     {
-
-
+                        
                         <div class="col-md-4">
                             <div class="product-item">
                                 <div class="product-image">
                                     <div class="discount-per">
                                         <span>@ls.DiscountRate %</span>
                                     </div>
-                                    <a asp-controller="Product" asp-action="Detail"><img src="~/img/@ls.ProductsImages" alt="" /></a>
+                                    <a><img src="~/img/products/@ls.Img" alt="" /></a>
                                 </div>
                                 <div class="product-title"><a asp-controller="Product" asp-action="Detail">@ls.Name</a></div>
                                 <div class="product-price">
-                                    <p class="price-discount"><span>@ls.Price-((@ls.DiscountRate/100)*@ls.Price)</span></p>
-                                    <p class="price"><span>@ls.Price</span></p>
+                                    <p class="price-discount"><span> @(
+                                        String.Format("{0:N0}",
+                                            Math.Abs((ls.Price-ls.DiscountRate/100*ls.Price)))
+                                                                    )</span></p>
+                                    <p class="price"><span>@(String.Format("{0:N0}",ls.Price))</span></p>
                                 </div>
                                 <div class="view-rating">
-                                    <span class="view">23<i class="fa fa-eye"></i></span>
-                                    <span class="rating">4.7/5<i class="fa fa-star"></i></span>
+                                    <span class="view">@ls.Views<i class="fa fa-eye"></i></span>
+                                    <span class="rating">@ls.Rating<i class="fa fa-star"></i></span>
                                 </div>
                                 <div class="btn-add-cart">
                                     <button>Thêm vào giỏ hàng</button>
@@ -156,7 +121,7 @@
                     }
                 </div>
                 <!-- Pagination Start -->
-                <nav aria-label="Page navigation example">
+               @* <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                         <li class="page-item disabled">
                             <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
@@ -171,6 +136,7 @@
                         </li>
                     </ul>
                 </nav>
+                *@
                 <!-- Pagination Start -->
             </div>
         </div>
