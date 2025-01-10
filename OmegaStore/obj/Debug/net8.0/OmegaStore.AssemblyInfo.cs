@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OmegaStore")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+060781f8c9bb867a6476a20b55197bac1432c421")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b36a59c3f0caef870aede7c6c8b3745c7a99932e")]
 [assembly: System.Reflection.AssemblyProductAttribute("OmegaStore")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OmegaStore")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
