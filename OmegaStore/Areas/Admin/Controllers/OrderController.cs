@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OmegaStore.Models;
+using OmegaStore.Models.ViewModels;
 
 namespace OmegaStore.Areas.Admin.Controllers
 {
@@ -19,7 +20,8 @@ namespace OmegaStore.Areas.Admin.Controllers
         {
 
             var GetStatus = status;
-            var OrderList=status.HasValue ? await _Context.Orders.Where(o=>o.Status==status).ToListAsync() :await _Context.Orders.Where(o=>o.Status!=0).ToListAsync();
+
+            var OrderList =status.HasValue ? await _Context.Orders.Where(o=>o.Status==status).ToListAsync() :await _Context.Orders.Where(o=>o.Status!=0).ToListAsync();
             if (!search.IsNullOrEmpty())
             {
                 var searchQuery = await _Context.Orders.Where(o => o.Fullname.Contains(search) && o.Status !=0).ToListAsync();
@@ -104,9 +106,49 @@ namespace OmegaStore.Areas.Admin.Controllers
                 return Json(new { success = false });
             }
         }
-        public IActionResult Detail()
+        public IActionResult Detail(int id)
         {
-            return View();
+
+            var productsDetail = _Context.DetailOrders
+               .Include(p => p.Product) // Bao gồm thông tin sản phẩm
+               .Where(p => p.OrderId == id) // Lọc theo OrderId
+               .Select(p => new ProductDetailViewModel
+               {
+                   Id = p.Product.Id,
+                   Name = p.Product.Name,
+                   Quantity = p.Quantity,
+                   Price = p.Product.Price,
+                   Img = p.Product.Thumbnail
+               })
+               .ToList();
+
+            ViewBag.Products = productsDetail;
+
+            var DetailOrder = _Context.DetailOrders
+            .Include(p => p.Product) // Lấy hình ảnh liên quan
+            .Include(p => p.Order)
+            .Where(p => p.OrderId == id).Select(p=>new OrderDetail { 
+                Id=p.Order.OrderCode,
+                Name=p.Product.Name,
+                Img=p.Product.Thumbnail,
+                Quantity=p.Quantity,
+                Price=p.Product.Price,
+                CreatedAt=p.Order.CreatedAt,
+                Total=p.Order.TotalAmount,
+                Address=p.Order.Address,
+                PaymentMethod=p.Order.PaymentMethod,
+
+
+
+            }).FirstOrDefault();
+
+            var ModelProductOrder = new ProductOrderViewModel
+            {
+                OrderDetail = DetailOrder,
+                ProductDetails=productsDetail
+            };
+
+            return View(ModelProductOrder);
         }
     }
 }

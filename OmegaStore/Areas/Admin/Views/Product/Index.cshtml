@@ -116,11 +116,11 @@
                         {
                             <li class="product-item gap14">
                                 <div class="image no-bg">
-                                    <img src="~/admin/images/products/41.png" alt="">
+                                    <img src="~/img/products/@product.Thumbnail" alt="">
                                 </div>
                                 <div class="flex items-center justify-between gap20 flex-grow">
                                     <div class="name">
-                                        <a href="product-list.html" class="body-title-2">
+                                        <a asp-area="Admin" asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Slug" class="body-title-2">
                                             @product.Name
                                         </a>
                                     </div>
@@ -131,10 +131,10 @@
 
                                     <div class="list-icon-function">
                                         <div class="item eye">
-                                            <a asp-area="Admin" asp-controller="Product" asp-action="Detail" ><i class="icon-eye"></i></a>
+                                            <a asp-area="Admin" asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Slug" ><i class="icon-eye"></i></a>
                                         </div>
                                         <div class="item edit">
-                                            <a asp-area="Admin" asp-controller="Product" asp-action="Edit"><i class="icon-edit-3"></i></a>
+                                            <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id"><i class="icon-edit-3"></i></a>
                                         </div>
                                         <div class="item trash">
                                             <i class="icon-trash-2"></i>

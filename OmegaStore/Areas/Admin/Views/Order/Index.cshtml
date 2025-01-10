@@ -102,7 +102,7 @@
                 <div class="flex items-center justify-between gap10 flex-wrap">
                     <div class="wg-filter flex-grow">
                         <div class="show">
-                            <div class="text-tiny">Hiển thị</div>
+                          @* <div class="text-tiny">Hiển thị</div>
                             <div class="select">
                                 <select class="">
                                     <option>10</option>
@@ -110,6 +110,7 @@
                                     <option>30</option>
                                 </select>
                             </div>
+                            *@
                         </div>
                         <form class="form-search" method="get" asp-controller="Order" asp-action="Index">
                             <fieldset class="name">
@@ -121,13 +122,16 @@
                             </div>
                         </form>
                     </div>
-                    <a class="tf-button style-1 w208" href="oder-detail.html"><i class="icon-file-text"></i>Xuất hóa đơn</a>
+                   @* <a class="tf-button style-1 w208" href="oder-detail.html"><i class="icon-file-text"></i>Xuất hóa đơn</a> *@
                 </div>
                 <div class="wg-table table-all-category">
                     <ul class="table-title flex gap20 mb-14 order-title-custum">
 
                         <li>
                             <div class="body-title">Mã đơn hàng</div>
+                        </li>
+                        <li>
+                            <div class="body-title">Họ tên</div>
                         </li>
                         <li>
                             <div class="body-title">Ngày lập</div>
@@ -159,9 +163,10 @@
                                 <div class="flex order-item-custum items-center justify-between gap20 flex-grow">
 
                                     <div class="body-text">@or.Id</div>
+                                    <div class="body-text">@or.Fullname</div>
                                     <div class="body-text">@or.CreatedAt</div>
                                     <div class="body-text">@or.Email</div>
-                                    <div class="body-text">@or.TotalAmount</div>
+                                    <div class="body-text">@(String.Format(("{0:N0}"),or.TotalAmount+25000)) VNĐ</div>
                                     <div>
                                         <button class="btn  btn-currentStatus btn-lg"
                                                 data-orderid="@or.Id"
@@ -419,7 +424,7 @@
                 <div class="divider"></div>
                 <div class="flex items-center justify-between flex-wrap gap10">
                     <div class="text-tiny">Showing 10 entries</div>
-                    <ul class="wg-pagination">
+                  @*  <ul class="wg-pagination">
                         <li>
                             <a href="#"><i class="icon-chevron-left"></i></a>
                         </li>
@@ -436,6 +441,7 @@
                             <a href="#"><i class="icon-chevron-right"></i></a>
                         </li>
                     </ul>
+                    *@
                 </div>
             </div>
             <!-- /order-list -->
