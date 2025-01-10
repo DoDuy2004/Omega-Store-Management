@@ -116,6 +116,7 @@ namespace OmegaStore.Areas.Admin.Controllers
                {
                    Id = p.Product.Id,
                    Name = p.Product.Name,
+                   Discount_Rate=p.Product.DiscountRate,
                    Quantity = p.Quantity,
                    Price = p.Product.Price,
                    Img = p.Product.Thumbnail

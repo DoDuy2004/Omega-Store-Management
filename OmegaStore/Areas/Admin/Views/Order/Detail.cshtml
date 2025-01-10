@@ -111,7 +111,10 @@
                                         </div>
                                         <div class="name">
                                             <div class="text-tiny mb-1">Đơn giá</div>
-                                                <div class="body-title-2">@(String.Format("{0:N0}", pr.Price)) VNĐ</div>
+                                                <div class="body-title-2">
+                                                    @(String.Format("{0:N0}", Math.Truncate((pr.Price - (pr.Price * pr.Discount_Rate) / 100)))) VNĐ
+                                                    
+                                                </div>
                                         </div>
                                     </div>
                                 </li>
@@ -133,7 +136,7 @@
                                 <li class="cart-totals-item">
                                     <span class="body-text">Tạm tính:</span>
                                     <span class="body-title-2">
-                                        @(String.Format("{0:N0}", Model.OrderDetail.Total)) VNĐ
+                                        @(String.Format("{0:N0}",Math.Truncate(Model.OrderDetail.Total))) VNĐ
                                     </span>
                                 </li>
                                 <li class="divider"></li>
@@ -144,7 +147,7 @@
                                 <li class="divider"></li>
                                 <li class="cart-totals-item">
                                     <span class="body-title">Tổng tiền</span>
-                                    <span class="body-title tf-color-1">@(String.Format("{0:N0}", Math.Round(Model.OrderDetail.Total + 25000, 0))) VNĐ</span>
+                                    <span class="body-title tf-color-1">@(String.Format("{0:N0}", Math.Truncate(Model.OrderDetail.Total + 25000))) VNĐ</span>
                                 </li>
 
                             </ul>
