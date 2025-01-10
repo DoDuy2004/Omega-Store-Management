@@ -3,40 +3,40 @@
   "WorkspaceRootPath": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\areas\\admin\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\areas\\admin\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\views\\post\\deliveryservice.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\views\\post\\deliveryservice.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\areas\\admin\\views\\product\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\areas\\admin\\views\\product\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\areas\\admin\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\areas\\admin\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\areas\\admin\\views\\category\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\areas\\admin\\views\\category\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\models\\review.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\models\\review.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\views\\post\\support.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\views\\post\\support.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\areas\\admin\\views\\shared\\_notificationpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\areas\\admin\\views\\shared\\_notificationpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\areas\\admin\\views\\category\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\areas\\admin\\views\\category\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\areas\\admin\\views\\category\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\areas\\admin\\views\\category\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\areas\\admin\\views\\category\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|solutionrelative:omegastore\\areas\\admin\\views\\category\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B8B5DD8C-FF04-4B01-8FA2-309424DA02DE}|OmegaStore\\OmegaStore.csproj|d:\\asp\\doan10_01\\omega-store-management\\omegastore\\migrations\\20250110091836_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,102 +50,88 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "OmegaStore\\Views\\Home\\Index.cshtml",
-              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "OmegaStore\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAADIAAAAAAAAAAAAWwEUAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-10T09:56:34.615Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DeliveryService.cshtml",
-              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Views\\Post\\DeliveryService.cshtml",
-              "RelativeDocumentMoniker": "OmegaStore\\Views\\Post\\DeliveryService.cshtml",
-              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Views\\Post\\DeliveryService.cshtml",
-              "RelativeToolTip": "OmegaStore\\Views\\Post\\DeliveryService.cshtml",
-              "ViewState": "AgIAAHgAAAAAAAAAAAAmwJIAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-10T09:53:22.749Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PostController.cs",
-              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Controllers\\PostController.cs",
-              "RelativeDocumentMoniker": "OmegaStore\\Controllers\\PostController.cs",
-              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Controllers\\PostController.cs",
-              "RelativeToolTip": "OmegaStore\\Controllers\\PostController.cs",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAowGkAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-10T09:46:23Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Category.cs",
-              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Models\\Category.cs",
-              "RelativeDocumentMoniker": "OmegaStore\\Models\\Category.cs",
-              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Models\\Category.cs",
-              "RelativeToolTip": "OmegaStore\\Models\\Category.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAASAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "OmegaStore\\Areas\\Admin\\Controllers\\CategoryController.cs",
+              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "OmegaStore\\Areas\\Admin\\Controllers\\CategoryController.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAkwGAAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-10T09:32:30.529Z"
+              "WhenOpened": "2025-01-10T11:07:35.79Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Review.cs",
+              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Models\\Review.cs",
+              "RelativeDocumentMoniker": "OmegaStore\\Models\\Review.cs",
+              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Models\\Review.cs",
+              "RelativeToolTip": "OmegaStore\\Models\\Review.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-10T10:58:23.259Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Detail.cshtml",
+              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Views\\Product\\Detail.cshtml",
+              "RelativeDocumentMoniker": "OmegaStore\\Areas\\Admin\\Views\\Product\\Detail.cshtml",
+              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Views\\Product\\Detail.cshtml",
+              "RelativeToolTip": "OmegaStore\\Areas\\Admin\\Views\\Product\\Detail.cshtml",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAD4AAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-10T10:39:23.949Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "OmegaStore\\Areas\\Admin\\Controllers\\ProductController.cs",
+              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "OmegaStore\\Areas\\Admin\\Controllers\\ProductController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAUwDwAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-10T10:31:28.429Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "_NotificationPartial.cshtml",
-              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Views\\Shared\\_NotificationPartial.cshtml",
-              "RelativeDocumentMoniker": "OmegaStore\\Areas\\Admin\\Views\\Shared\\_NotificationPartial.cshtml",
-              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Views\\Shared\\_NotificationPartial.cshtml",
-              "RelativeToolTip": "OmegaStore\\Areas\\Admin\\Views\\Shared\\_NotificationPartial.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "OmegaStore\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "OmegaStore\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAWwE4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-10T09:29:13.894Z"
+              "WhenOpened": "2025-01-10T09:56:34.615Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Views\\Category\\Index.cshtml",
-              "RelativeDocumentMoniker": "OmegaStore\\Areas\\Admin\\Views\\Category\\Index.cshtml",
-              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Views\\Category\\Index.cshtml",
-              "RelativeToolTip": "OmegaStore\\Areas\\Admin\\Views\\Category\\Index.cshtml",
-              "ViewState": "AgIAAEIAAAAAAAAAAADwv7IAAAAAAAAAAAAAAA==",
+              "Title": "Support.cshtml",
+              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Views\\Post\\Support.cshtml",
+              "RelativeDocumentMoniker": "OmegaStore\\Views\\Post\\Support.cshtml",
+              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Views\\Post\\Support.cshtml",
+              "RelativeToolTip": "OmegaStore\\Views\\Post\\Support.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-10T09:27:50.246Z"
+              "WhenOpened": "2025-01-10T10:01:44.96Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Views\\Category\\Edit.cshtml",
-              "RelativeDocumentMoniker": "OmegaStore\\Areas\\Admin\\Views\\Category\\Edit.cshtml",
-              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Views\\Category\\Edit.cshtml",
-              "RelativeToolTip": "OmegaStore\\Areas\\Admin\\Views\\Category\\Edit.cshtml",
-              "ViewState": "AgIAAEoAAAAAAAAAAADwv2YAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-10T09:27:41.758Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 3,
               "Title": "Create.cshtml",
               "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Views\\Category\\Create.cshtml",
               "RelativeDocumentMoniker": "OmegaStore\\Areas\\Admin\\Views\\Category\\Create.cshtml",
@@ -157,16 +143,27 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CategoryController.cs",
-              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Controllers\\CategoryController.cs",
-              "RelativeDocumentMoniker": "OmegaStore\\Areas\\Admin\\Controllers\\CategoryController.cs",
-              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Controllers\\CategoryController.cs",
-              "RelativeToolTip": "OmegaStore\\Areas\\Admin\\Controllers\\CategoryController.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAA9wGEAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-10T09:26:57.187Z",
-              "EditorCaption": ""
+              "DocumentIndex": 7,
+              "Title": "_NotificationPartial.cshtml",
+              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Views\\Shared\\_NotificationPartial.cshtml",
+              "RelativeDocumentMoniker": "OmegaStore\\Areas\\Admin\\Views\\Shared\\_NotificationPartial.cshtml",
+              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Views\\Shared\\_NotificationPartial.cshtml",
+              "RelativeToolTip": "OmegaStore\\Areas\\Admin\\Views\\Shared\\_NotificationPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-10T09:29:13.894Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Views\\Category\\Edit.cshtml",
+              "RelativeDocumentMoniker": "OmegaStore\\Areas\\Admin\\Views\\Category\\Edit.cshtml",
+              "ToolTip": "D:\\asp\\DoAn10_01\\Omega-Store-Management\\OmegaStore\\Areas\\Admin\\Views\\Category\\Edit.cshtml",
+              "RelativeToolTip": "OmegaStore\\Areas\\Admin\\Views\\Category\\Edit.cshtml",
+              "ViewState": "AgIAAEoAAAAAAAAAAADwv2YAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-10T09:27:41.758Z"
             },
             {
               "$type": "Document",

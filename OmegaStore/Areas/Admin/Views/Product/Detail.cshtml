@@ -4,6 +4,7 @@
 
 @{
     ViewData["Title"] = "Chi Tiết Sản Phẩm";
+    var reviews = ViewBag.Reviews;
 }
 
 @section Styles {
@@ -56,6 +57,19 @@
             document.querySelector('.description-button').classList.add('active');
         });
     </script>
+
+    <script>
+        function confirmDelete(link) {
+            if (confirm("Bạn có chắc chắn muốn xóa đánh giá này không?")) {
+                // Nếu người dùng chọn "OK", tiếp tục hành động xóa
+                return true;
+            } else {
+                // Nếu người dùng chọn "Cancel", ngăn chặn hành động xóa
+                return false;
+            }
+        }
+    </script>
+
 }
 
 <div class="main-content">
@@ -63,6 +77,7 @@
     <div class="main-content-inner">
         <!-- main-content-wrap -->
         <div class="main-content-wrap">
+            @Html.Partial("_NotificationPartial")
             <div class="flex items-center flex-wrap justify-between gap20 mb-27">
                 <h3>Chi tiết sản phẩm</h3>
                 <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
@@ -195,112 +210,43 @@
 
             <div class="wg-box tabcontent" id="specification">
                 <div class=" box-comment col-lg-12">
-                    <div class="comment-section">
-                        <div class="filter-newest-comments">
-                            <fieldset class="male">
-                                <div class="select">
-                                    <select class="">
-                                        <option>VECTO</option>
-                                        <!-- <option>Female</option>
-                                        <option>Other</option> -->
-                                    </select>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <div class="comment">
-                            <div class="comment-header">
-                                <span class="comment-author">Putin Capnuwng -</span>
-                                <span class="comment-date">2024-12-28</span>
-                                <span class="comment-delete">
-                                    <button class="delete-btn">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </span>
+                    <div class="filter-newest-comments">
+                        <fieldset class="male">
+                            <div class="select">
+                                <select class="">
+                                    <option>VECTO</option>
+                                    <!-- <option>Female</option>
+                                    <option>Other</option> -->
+                                </select>
                             </div>
-                            <div class="comment-body">
-                                <p class="comment-text">Sản phẩm rất tốt và đáng mua,mô hình này giá cả hợp lý mà còn đẹp nữa,mua về mình ưng quá chừng kk.</p>
-                                <div class="comment-rating">
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9734;</span> <!-- Ngôi sao rỗng -->
-                                </div>
-                            </div>
-                        </div>
+                        </fieldset>
                     </div>
-
-                    <div class="comment-section">
-                        <div class="comment">
-                            <div class="comment-header">
-                                <span class="comment-author">Putin Capnuwng -</span>
-                                <span class="comment-date">2024-12-28</span>
-                                <span class="comment-delete">
-                                    <button class="delete-btn">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </span>
-                            </div>
-                            <div class="comment-body">
-                                <p class="comment-text">Sản phẩm rất tốt và đáng mua,mô hình này giá cả hợp lý mà còn đẹp nữa,mua về mình ưng quá chừng kk.</p>
-                                <div class="comment-rating">
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9734;</span> <!-- Ngôi sao rỗng -->
+                    @foreach (var review in reviews)
+                    {
+                        <div class="comment-section">
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <span class="comment-author">@review.Fullname</span>
+                                    <span class="comment-date">@review.CreatedAt</span>
+                                    <span class="comment-delete">
+                                        <a asp-controller="Product" asp-action="DeleteReview" asp-route-email="@review.Email" asp-route-id="@review.ProductId" class="delete-btn" onclick="return confirmDelete(this);">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="comment-body">
+                                    <p class="comment-text">@review.Comment</p>
+                                    <div class="comment-rating">
+                                        <span class="star">&#9733;</span>
+                                        <span class="star">&#9733;</span>
+                                        <span class="star">&#9733;</span>
+                                        <span class="star">&#9733;</span>
+                                        <span class="star">&#9734;</span> <!-- Ngôi sao rỗng -->
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="comment-section">
-                        <div class="comment">
-                            <div class="comment-header">
-                                <span class="comment-author">Putin Capnuwng -</span>
-                                <span class="comment-date">2024-12-28</span>
-                                <span class="comment-delete">
-                                    <button class="delete-btn">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </span>
-                            </div>
-                            <div class="comment-body">
-                                <p class="comment-text">Sản phẩm rất tốt và đáng mua,mô hình này giá cả hợp lý mà còn đẹp nữa,mua về mình ưng quá chừng kk.</p>
-                                <div class="comment-rating">
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9734;</span> <!-- Ngôi sao rỗng -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="comment-section">
-                        <div class="comment">
-                            <div class="comment-header">
-                                <span class="comment-author">Putin Capnuwng -</span>
-                                <span class="comment-date">2024-12-28</span>
-                                <span class="comment-delete">
-                                    <button class="delete-btn">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </span>
-                            </div>
-                            <div class="comment-body">
-                                <p class="comment-text">Sản phẩm rất tốt và đáng mua,mô hình này giá cả hợp lý mà còn đẹp nữa,mua về mình ưng quá chừng kk.</p>
-                                <div class="comment-rating">
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9734;</span> <!-- Ngôi sao rỗng -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        </div>                        
+                    }
                 </div>
             </div>
 
