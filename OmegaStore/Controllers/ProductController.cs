@@ -13,11 +13,6 @@ namespace OmegaStore.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet("[controller]/{slug}")]
         public IActionResult Detail(string slug)
         {

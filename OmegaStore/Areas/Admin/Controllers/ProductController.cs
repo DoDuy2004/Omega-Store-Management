@@ -37,7 +37,7 @@ namespace OmegaStore.Areas.Admin.Controllers
                 .Include(p => p.Reviews)
                 .FirstOrDefault(p => p.Slug == slug);
             
-            List<Review> reviews = _context.Reviews.Where(p => p.ProductId == id).ToList();
+            List<Review> reviews = _context.Reviews.Where(p => p.ProductId == product.Id).ToList();
             if (product == null)
             {
                 return NotFound(); // Nếu sản phẩm không tồn tại, trả về 404
@@ -238,7 +238,7 @@ namespace OmegaStore.Areas.Admin.Controllers
 
             List<Review> reviews = _context.Reviews.Where(p => p.ProductId == id).ToList();
             ViewBag.Reviews = reviews;
-            return View("Detail", product); // Truyền sản phẩm vào View            
+            return View("Detail", product); // Truyền sản phẩm vào View
         }
     }
 }

@@ -21,7 +21,7 @@ namespace OmegaStore.Controllers
 
 			return PartialView("_NavbarPartial", categories);
 		}
-		[HttpGet("[controller]/ListProduct/{slug}")]
+		[HttpGet("[controller]/{slug}")]
 		public IActionResult ListProduct(string slug)
 		{
 			var cate = _context.Categories.ToList();
