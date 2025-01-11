@@ -20,6 +20,15 @@ namespace OmegaStore.Controllers
         }
         public IActionResult Index()
         {
+            // Kiểm tra username trong session
+            var username = HttpContext.Session.GetString("Username");
+
+            // Nếu session không tồn tại nhưng cookie "RememberMe" có giá trị
+            if (string.IsNullOrEmpty(username) && Request.Cookies["RememberMe"] != null)
+            {
+                username = Request.Cookies["RememberMe"];
+                HttpContext.Session.SetString("Username", username);
+            }
             var products = _context.Products.Include(p => p.Reviews);
             return View(products);
         }

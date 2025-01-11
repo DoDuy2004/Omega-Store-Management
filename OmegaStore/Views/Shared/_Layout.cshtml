@@ -70,6 +70,7 @@
                 });
             }
         });
+
         $(document).ready(function () {
             // Xử lý form đăng nhập
             $('#loginForm').submit(function (e) {
@@ -77,18 +78,29 @@
 
                 var username = $('#username').val();
                 var password = $('#password').val();
+                const rememberMe = document.getElementById("rememberMe").checked;
 
                 $.ajax({
                     url: '/Account/LoginPopup',  // URL của action đăng nhập
                     type: 'POST',
                     data: {
                         username: username,
-                        password: password
+                        password: password,
+                        rememberMe: rememberMe
                     },
                     success: function (response) {
                         if (response.success) {
-                            // Nếu đăng nhập thành công, reload trang hiện tại
-                            window.location.reload();  // Tải lại trang
+                            // Nếu đăng nhập thành công, hiển thị username trong thông báo
+                            Swal.fire({
+                                title: 'Đăng nhập thành công!',
+                                text: `Chào mừng bạn, ${response.username}!`,
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.reload(); // Tải lại trang khi bấm OK
+                                }
+                            });
                         } else {
                             // Hiển thị thông báo lỗi nếu đăng nhập thất bại
                             $('#errorMessage').text(response.message);
