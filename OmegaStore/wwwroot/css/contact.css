@@ -1,8 +1,11 @@
 .validation-message {
-    font-size: 13px; /* Thay đổi kích thước font */
-    margin-top: 20px; /* Tạo khoảng cách giữa input và thông báo lỗi */
-  }
-input.form-control{
-    
-    margin-bottom:3px;
+    font-size: 12px;
+    /* Thay đổi kích thước font */
+    margin-top: 20px;
+    /* Tạo khoảng cách giữa input và thông báo lỗi */
+}
+
+input.form-control {
+
+    margin-bottom: 3px;
 }

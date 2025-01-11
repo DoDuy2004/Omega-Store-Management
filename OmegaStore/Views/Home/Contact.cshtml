@@ -2,6 +2,9 @@
 @section Styles {
     <link rel="stylesheet" href="~/css/contact.css">
 }
+
+
+
 <!-- Breadcrumb Start -->
 <div class="breadcrumb-wrap mb-3">
     <div class="container">
@@ -27,7 +30,7 @@
             <div class="col-lg-6">
                 <div class="contact-form">
                     <h2>Thông tin liên hệ</h2>
-                    <form method="post" asp-controller="Home" asp-action="CreateRequest">
+                    <form id="formId" method="post">
 
                         <div class="form-group">
                             <input asp-for="@Model.Fullname" class="form-control" placeholder="Họ tên"
@@ -64,7 +67,55 @@
         </div>
     </div>
 </div>
+
 <!-- Contact End -->
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function () {
+            $("#formId").on("submit", function (e) {
+                e.preventDefault(); 
+
+                var formData = $(this).serialize(); 
+
+              
+                $.ajax({
+                    url: "/Home/CreateRequest", 
+                    type: "POST",
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Gửi thành công',
+                                text: response.message,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                allowOutsideClick: false,
+                            }).then(() => {
+                                window.location.href = "/Home/Index";
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi',
+                                text: response.message,
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Lỗi:", error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi hệ thống',
+                            text: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+                        });
+                    },
+                });
+            });
+        });
+
+    </script>
+
 }
