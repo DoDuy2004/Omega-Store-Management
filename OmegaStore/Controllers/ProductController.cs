@@ -33,8 +33,9 @@ namespace OmegaStore.Controllers
                     .Join(_context.DetailOrders,
                           o => o.Id,
                           d => d.OrderId,
-                          (o, d) => new { o.Id, d.ProductId, o.Status })
-                    .Where(o => o.Status == 4 && o.ProductId == product.Id).Count();
+                          (o, d) => new { d.Quantity, d.ProductId, o.Status })
+                    .Where(od => od.Status == 4 && od.ProductId == product.Id)
+                    .Sum(od => od.Quantity);
 
                 ViewBag.likes = _context.Wishlist
                     .Where(l => l.ProductId == product.Id).Count();

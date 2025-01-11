@@ -1,9 +1,36 @@
 ﻿@model IEnumerable<OmegaStore.Models.Product>
 
 @{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
+<script>
+	$(document).ready(function () {
+		// Lấy giá trị TempData["SuccessMessage"] từ server
+		var successMessage = '@TempData["SuccessMessage"]';
 
+		// Kiểm tra nếu có thông báo, hiển thị popup
+		if (successMessage) {
+			$("<div>")
+				.text(successMessage)
+				.css({
+					"background-color": "#4caf50", // Màu nền xanh
+					"color": "#fff",              // Màu chữ trắng
+					"padding": "15px",
+					"border-radius": "5px",
+					"position": "fixed",
+					"top": "20px",
+					"right": "20px",
+					"z-index": "9999",
+					"box-shadow": "0 4px 8px rgba(0, 0, 0, 0.2)"
+				})
+				.appendTo("body")
+				.delay(3000) // Hiển thị trong 3 giây
+				.fadeOut(500, function () {
+					$(this).remove(); // Xóa popup sau khi ẩn
+				});
+		}
+	});
+</script>
 @section Slider {
 	<div class="header">
 		<div class="container">

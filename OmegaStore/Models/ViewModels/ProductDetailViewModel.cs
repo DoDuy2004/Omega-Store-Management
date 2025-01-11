@@ -3,6 +3,7 @@
     public class ProductDetailViewModel
     {
         public int Id { get; set; }
+        public decimal Discount_Rate { get; set; }
         public string Name { get; set; }
         public string Img { get; set; }
         public int Quantity { get; set; }

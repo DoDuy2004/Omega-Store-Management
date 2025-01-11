@@ -1,9 +1,12 @@
-﻿@{
+﻿@model Contact
+@{
     ViewData["Title"] = "Chi Tiết Thư Liên Hệ";
 }
 
 @section Styles {
     <link rel="stylesheet" href="~/admin/css/All.css">
+    <link rel="stylesheet" href="~/admin/css/contact.css">
+
 }
 
 @section Scripts {
@@ -16,6 +19,7 @@
 
 <div class="main-content">
     <!-- main-content-wrap -->
+    using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
     <div class="main-content-inner">
         <!-- main-content-wrap -->
         <div class="main-content-wrap">
@@ -32,7 +36,7 @@
                     </li>
                     <li>
                         <a href="#">
-                            <div class="text-tiny">Liên hệ</div>
+                            <div class="text-tiny">Yêu cầu hỗ trợ</div>
                         </a>
                     </li>
                     <li>
@@ -44,7 +48,7 @@
                 </ul>
             </div>
             <!-- new-page-wrap -->
-            <form class="form-new-page">
+            <form class="form-new-page" asp-area="Admin" asp-controller="Contact"asp-action="SendResponseEmail" asp-route-ContactId=@Model.ContactId>
                 <div class="new-page-wrap">
                     <div class="left">
                         <div class="wg-box">
@@ -53,25 +57,49 @@
                                     <div class="widget-content-inner active">
                                         <div class="box-response">
                                             <div>
-                                                <div class="block-response">Chờ xử lý</div>
+                                                @{
+                                                    var status = "";
+                                                    var content = "";
+                                                    if (Model != null)
+                                                    {
+                                                        @if (Model.Status == RequestStatus.Resolved)
+                                                        {
+                                                            status = "status-done";
+                                                            content = "Đã xử lý";
+                                                        }
+                                                        else if (Model.Status == RequestStatus.Unresolved)
+                                                        {
+                                                            status = "status-pending";
+                                                            content = "Chưa xử lý";
+                                                        }
+                                                        else
+                                                        {
+                                                            status = "status-processing";
+                                                            content = "Chờ xử lý";
+                                                        }
+                                                    }
+
+                                                }
+                                                <div class="status @status status-detail">@content</div>
                                             </div>
                                         </div>
                                         <fieldset class="name mb-24">
                                             <div class="body-title mb-10">
                                                 Email yêu cầu: <span class="number">
-                                                    hoanganh@gmail.com
+                                                    @Model.Email
                                                 </span>
                                             </div>
                                             <!-- <input class="" type="text" placeholder="Name" name="text" tabindex="0" value="" aria-required="true" required=""> -->
                                         </fieldset>
                                         <fieldset class="text mb-24">
                                             <div class="body-title mb-10">
-                                                Tiêu đề: <span class="number">Giao hàng quá chậm</span>
+                                                Tiêu đề: <span class="number">@Model.Subject</span>
                                             </div>
                                             <!-- <input class="" type="text" placeholder="https://themeforest.net/user/themesflat" name="text" tabindex="0" value="" aria-required="true" required=""> -->
                                         </fieldset>
                                         <fieldset class="description mb-24">
-                                            <div class="body-title mb-10">Mã vận đơn (nếu có): <span class="number"></span></div>
+                                            <div class="body-title mb-10">Mã vận đơn: <span
+                                                    class="number">@Model.OderCode</span></div>
                                             <!-- <textarea class="" name="description" placeholder="Description" tabindex="0" aria-required="true" required=""></textarea> -->
                                         </fieldset>
                                         <fieldset class="content" style="margin-bottom: 80px;">
@@ -79,19 +107,17 @@
                                             <!-- <input type="text"> -->
                                             <!-- <h4>Lorem ipsum dolor sit amet</h4> -->
                                             <!-- <div class="body-text"></div> -->
-                                            <textarea type="text" name="area"> Đơn hàng 3 tháng chưa giao.</textarea>
+                                            <textarea disabled="true" type="text">@Model.Message</textarea>
                                         </fieldset>
                                         <fieldset class="content">
-                                            <div class="body-title mb-10">Phản hồi:</div>
-                                            <!-- <input type="text"> -->
-                                            <!-- <h4>Lorem ipsum dolor sit amet</h4> -->
-                                            <!-- <div class="body-text"></div> -->
-                                            <textarea type="text" name="area" placeholder="Nội dung phản hồi"></textarea>
+                                                <div class="body-title mb-10">Phản hồi:</div>
 
+                                                <textarea type="text" name="ResponseMessage"
+                                                    placeholder="Nội dung phản hồi"></textarea>
+                                                <div class="box-response">
+                                                    <button type="submit" class="block-response" style="font-size: 14px;">Gửi phản hồi</button>
+                                                </div>
                                         </fieldset>
-                                        <div class="box-response">
-                                            <button class="block-response">Gửi phản hồi</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

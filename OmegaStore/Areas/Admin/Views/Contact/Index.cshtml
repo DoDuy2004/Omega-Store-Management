@@ -1,9 +1,12 @@
-﻿@{
+﻿@model ICollection<Contact>
+@{
     ViewData["Title"] = "Danh Sách Thư Liên Hệ";
 }
 
 @section Styles {
     <link rel="stylesheet" href="~/admin/css/All.css">
+    <link rel="stylesheet" href="~/admin/css/contact.css">
+
 }
 
 @section Scripts {
@@ -47,7 +50,8 @@
                     <div class="wg-filter flex-grow">
                         <form class="form-search">
                             <fieldset class="name">
-                                <input type="text" placeholder="Tìm kiếm..." class="" name="name" tabindex="2" value="" aria-required="true" required="">
+                                <input type="text" placeholder="Tìm kiếm..." class="" name="name" tabindex="2" value=""
+                                    aria-required="true" required="">
                             </fieldset>
                             <div class="button-submit">
                                 <button class="" type="submit"><i class="icon-search"></i></button>
@@ -57,109 +61,55 @@
                     <!-- <a class="tf-button style-1 w208" href="oder-detail.html"><i class="icon-file-text"></i>Export all order</a> -->
                 </div>
                 <div class="wg-table table-all-category w-100 " style="min-width:1005px ;">
-                    <ul class="table-title flex gap20 mb-14 ">
-                        <li>
-                            <div class="body-title" style="padding-left: 55px;">STT</div>
-                        </li>
-                        <li>
-                            <div class="body-title">Tiêu Đề</div>
-                        </li>
-                        <li>
-                            <div class="body-title">Mã Vận Đơn</div>
-                        </li>
-                        <li>
-                            <div class="body-title">Trạng Thái</div>
-                        </li>
+                    <table class="status-table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tiêu Đề</th>
+                                <th>Mã Vận Đơn</th>
+                                <th>Trạng Thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                var stt = 0;
+                                foreach (var item in Model)
+                                {
+                                    stt++;
+                                    <tr>
+                                        <td colspan="4">
+                                            <a asp-area="Admin" asp-controller="Contact" asp-action="Detail"
+                                                asp-route-id="@item.ContactId">
+                                                <div class="row">
+                                                    <div class="col">@stt</div>
+                                                    <div class="col">@item.Subject</div>
+                                                    <div class="col">@item.OderCode</div>
+                                                    <div class="col">
+                                                        @if (item.Status == RequestStatus.Resolved)
+                                                        {
+                                                            <span class="status status-done">Đã xử lý</span>
+                                                        }
+                                                        @if (item.Status == RequestStatus.Unresolved)
+                                                        {
+                                                            <span class="status status-pending">Chưa xử lý</span>
+                                                        }
+                                                        @if (item.Status == RequestStatus.Pending)
+                                                        {
+                                                            <span class="status status-processing">Đang xử lý</span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
 
-                    </ul>
-                    <ul class="flex flex-column">
-                        <li class="product-item gap14">
-                            <div class="image no-bg">
-                                <img src="images/products/51.png" alt="">
-                            </div>
-                            <div class="flex items-center justify-between gap20 flex-grow">
-                                <div class="name">
-                                    <a href="product-list.html" class="body-title-2">1</a>
-                                </div>
-                                <div class="body-text">Giao hàng quá chậm</div>
-                                <div class="body-text">DH001</div>
-                                <div class="list-icon-function">
-                                    <div>
-                                        <div class="block-pending">Chờ xử lý</div>
-                                    </div>
-                                    <div>
-                                        <div class="block-tracking">Đã xử lý</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product-item gap14">
-                            <div class="image no-bg">
-                                <img src="images/products/52.png" alt="">
-                            </div>
-                            <div class="flex items-center justify-between gap20 flex-grow">
-                                <div class="name">
-                                    <a href="product-list.html" class="body-title-2">2</a>
-                                </div>
-                                <div class="body-text">Bán giá cắt cổ</div>
-                                <div class="body-text">DH003</div>
+                    </table>
 
-                                <div class="list-icon-function">
-                                    <div>
-                                        <div class="block-pending">Chờ xử lý</div>
-                                    </div>
-                                    <div>
-                                        <div class="block-tracking">Đã xử lý</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product-item gap14">
-                            <div class="image no-bg">
-                                <img src="images/products/53.png" alt="">
-                            </div>
-                            <div class="flex items-center justify-between gap20 flex-grow">
-                                <div class="name">
-                                    <a href="product-list.html" class="body-title-2">3</a>
-                                </div>
-                                <div class="body-text">Thái độ nhân viên</div>
-                                <div class="body-text">DH004</div>
-
-                                <div class="list-icon-function">
-                                    <div>
-                                        <div class="block-pending">Chờ xử lý</div>
-                                    </div>
-                                    <div>
-                                        <div class="block-tracking">Đã xử lý</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product-item gap14">
-                            <div class="image no-bg">
-                                <img src="images/products/53.png" alt="">
-                            </div>
-                            <div class="flex items-center justify-between gap20 flex-grow">
-                                <div class="name">
-                                    <a href="product-list.html" class="body-title-2">4</a>
-                                </div>
-                                <div class="body-text">Xin info nhân viên</div>
-                                <div class="body-text">DH005</div>
-
-                                <div class="list-icon-function">
-                                    <div>
-                                        <div class="block-pending">Chờ xử lý</div>
-                                    </div>
-                                    <div>
-                                        <div class="block-tracking">Đã xử lý</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                    </ul>
                 </div>
-                <div class="divider"></div>
                 <div class="flex items-center justify-content-between flex-wrap gap10">
                     <div class="text-tiny">Hiển thị 10 mục</div>
                     <ul class="wg-pagination">
@@ -190,7 +140,8 @@
     <div class="bottom-page">
         <div class="body-text">Copyright © 2024 Remos. Design with</div>
         <i class="icon-heart"></i>
-        <div class="body-text">by <a href="https://themeforest.net/user/themesflat/portfolio">Themesflat</a> All rights reserved.</div>
+        <div class="body-text">by <a href="https://themeforest.net/user/themesflat/portfolio">Themesflat</a> All rights
+            reserved.</div>
     </div>
     <!-- /bottom-page -->
 </div>
