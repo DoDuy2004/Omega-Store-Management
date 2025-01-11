@@ -18,10 +18,9 @@ namespace OmegaStore.Controllers
             _productService = productService;
             _context = context;
         }
-
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var products = await _productService.GetProducts();
+            var products = _context.Products.Include(p => p.Reviews);
             return View(products);
         }
         public IActionResult Contact()

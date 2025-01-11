@@ -2,6 +2,8 @@
 @{
 	var sliderClass = Model.Count() >= 4 ? "product-slider-4" : "";
 	var centerClass = Model.Count() >= 4 ? "justify-content-center" : "";
+
+	decimal salesCount = 0;
 }
 <div class="row align-items-center @centerClass product-slider @sliderClass">
 	@foreach (var item in Model)
@@ -21,7 +23,15 @@
 				</div>
 				<div class="view-rating">
 					<span class="view">23<i class="fa fa-eye"></i></span>
-					<span class="rating">4.7/5<i class="fa fa-star"></i></span>
+					<span class="rating">
+						
+						@foreach (var r in item.Reviews)
+						{
+							salesCount += r.Rating;
+						}
+						@(item.Reviews.Count > 0 ? Math.Round(salesCount / item.Reviews.Count, 1) : "0.0")@("/5")
+						<i class="fa fa-star"></i>
+					</span>
 				</div>
 				@* <form asp-controller="Cart" asp-action="AddToCart" method="post">
 					<input type="hidden" name="productId" value="@item.Id" />
