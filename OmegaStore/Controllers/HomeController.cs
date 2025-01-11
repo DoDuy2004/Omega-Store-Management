@@ -43,11 +43,11 @@ namespace OmegaStore.Controllers
             {
                 _context.Contacts.Add(request);
                 _context.SaveChanges();
-                TempData["PopupMessage"] = "Gửi yêu cầu thành công!";
-                return RedirectToAction("Index");
+                return Json(new { success = true, message = "Gửi yêu cầu thành công!" });
             }
-            return View(request);
+            return Json(new { success = false, message = "Dữ liệu không hợp lệ, vui lòng kiểm tra lại." });
         }
+
         public IActionResult About()
         {
             return View();
