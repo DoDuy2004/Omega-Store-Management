@@ -7,13 +7,21 @@
         </ul>
     </div>
     <div class="container" style="margin-top:10px">
-        <h2 style="text-align:center;color:red">
-            @if (TempData["ErrorMessage"] != null)
-            {
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
                 @TempData["ErrorMessage"]
-                ;
-            }
-        </h2>
+            </div>
+        }
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["Success"]
+            </div>
+
+        }
+
     </div>
 </div>
 <!-- Breadcrumb End -->

@@ -53,7 +53,7 @@
             <!-- order-list -->
             <div class="wg-box">
                 <div class="order-state">
-                    <div class="d-flex justify-content-around">
+                    <div class="d-flex justify-content-around" style="width:500px;">
                         <!-- Button 1: Nền xanh da trời, chữ trắng, bo góc, kích thước lớn -->
                         <form method="get" asp-controller="Order" asp-action="Index">
                             <input type="hidden" name="status" value="" />
@@ -80,7 +80,7 @@
                         </form>
                         <form method="get" asp-controller="Order" asp-action="Index">
                             <input type="hidden" name="status" value="4" />
-                            <button class="btn  @(ViewBag.Status==4?@ViewBag.Btn:"") primary border-primary rounded btn-lg">Đã giao</button>
+                            <button class="btn  @(ViewBag.Status==4?@ViewBag.Btn:"") primary border-primary rounded btn-lg">Hoàn thành</button>
                         </form>
                         <form method="get" asp-controller="Order" asp-action="Index">
                             <input type="hidden" name="status" value="5" />
@@ -115,7 +115,7 @@
                         <form class="form-search" method="get" asp-controller="Order" asp-action="Index">
                             <fieldset class="name">
                                 <input type="text" placeholder="Tìm kiếm" name="search" tabindex="2" value=""
-                                       aria-required="true" required="">
+                                       aria-required="true" >
                             </fieldset>
                             <div class="button-submit">
                                 <button class="" type="submit"><i class="icon-search"></i></button>
@@ -162,7 +162,7 @@
 
                                 <div class="flex order-item-custum items-center justify-between gap20 flex-grow">
 
-                                    <div class="body-text">@or.Id</div>
+                                    <div class="body-text">@or.OrderCode</div>
                                     <div class="body-text">@or.Fullname</div>
                                     <div class="body-text">@or.CreatedAt</div>
                                     <div class="body-text">@or.Email</div>

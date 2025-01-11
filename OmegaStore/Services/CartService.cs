@@ -123,7 +123,7 @@ namespace OmegaStore.Services
             Cart cart = GetCart();
             CartItem cartItem = cart.CartItems.FirstOrDefault(item => item.CartItemId == cartItemId) ?? new CartItem();
 
-            if (cartItem.Quantity > cartItem.Product.Stock)
+            if (quantity > cartItem.Product.Stock || quantity < 1)
             {
                 return false;
             }
