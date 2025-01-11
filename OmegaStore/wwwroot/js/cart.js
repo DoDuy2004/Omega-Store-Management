@@ -229,10 +229,17 @@ $("#cart-body").on("click", ".btn-plus", function () {
     });
 });
 
+
+let preQuantity;
+$("#cart-body").on("focus", ".quantity", function () {
+    preQuantity = $(this).val();
+});
+
 $("#cart-body").on("change", ".quantity", function () {
     var cartItemId = $(this).data("id");
     var quantity = $(this).val();
     var price = parseFloat($(`#product-price-${cartItemId}`).data("price"));
+    var inputQuantity = $(this);
 
     //alert(cartItemId);
     //alert(quantity);
@@ -250,9 +257,10 @@ $("#cart-body").on("change", ".quantity", function () {
                 renderCartMiniSummary(res.cartViewModel);
             }
             else {
+                inputQuantity.val(preQuantity);
                 Swal.fire({
                     title: "Thông báo",
-                    text: "không thể tiếp tục thêm vì số lượng đã vượt quá giới hạn tồn kho",
+                    text: "Số lượng không hợp lệ hoặc đã vượt quá giới hạn tồn kho",
                     icon: "info",
                 });
             }
