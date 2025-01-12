@@ -115,7 +115,7 @@ namespace OmegaStore.Controllers
 
             if (_accountService.IsAccountLocked(username))
             {
-                return Json(new { success = false, message = "Tài khoản này đã bị khóa!", });
+                return Json(new { success = false, message = "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ với cửa hàng để được hỗ trợ", });
             }
             if (rememberMe)
             {

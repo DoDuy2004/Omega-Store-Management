@@ -171,13 +171,13 @@ public partial class StoreDbContext : DbContext
 
             // Thuộc tính Thumbnail
             entity.Property(e => e.ListContent)
-                  .IsRequired()
+                  .IsRequired(false)
                   .HasColumnType("ntext") // Nếu cần kiểu dữ liệu ntext
                   .HasColumnName("listcontent");
 
             // Thuộc tính Thumbnail
             entity.Property(e => e.ShortContent)
-                  .IsRequired()
+                  .IsRequired(false)
                   .HasColumnType("ntext") // Nếu cần kiểu dữ liệu ntext
                   .HasColumnName("shortcontent");
 
@@ -235,47 +235,52 @@ public partial class StoreDbContext : DbContext
         });// Đã sửa
 
         modelBuilder.Entity<Contact>(entity =>
-{
-    // Tên bảng
-    entity.ToTable("contacts");
+        {
+            // Tên bảng
+            entity.ToTable("contacts");
 
-    // Khóa chính (ContactId)
-    entity.HasKey(e => e.ContactId); // Đảm bảo ContactId là khóa chính
+            // Khóa chính (ContactId)
+            entity.HasKey(e => e.ContactId); // Đảm bảo ContactId là khóa chính
 
-    // Cột Email
-    entity.Property(e => e.Email)
-          .HasMaxLength(50)
-          .IsRequired()  // Bắt buộc nhập
-          .HasColumnName("email");
+            // Cột Email
+            entity.Property(e => e.Email)
+                  .HasMaxLength(50)
+                  .IsRequired()  // Bắt buộc nhập
+                  .HasColumnName("email");
 
-    // Cột Fullname
-    entity.Property(e => e.Fullname)
-          .IsRequired()
-          .HasMaxLength(100)
-          .HasColumnName("fullname");
+            // Cột Fullname
+            entity.Property(e => e.Fullname)
+                  .IsRequired()
+                  .HasMaxLength(100)
+                  .HasColumnName("fullname");
 
-    // Cột Subject
-    entity.Property(e => e.Subject)
-          .IsRequired()
-          .HasMaxLength(100)
-          .HasColumnName("subject");
+            // Cột Subject
+            entity.Property(e => e.Subject)
+                  .IsRequired()
+                  .HasMaxLength(100)
+                  .HasColumnName("subject");
 
-    // Cột Message
-    entity.Property(e => e.Message)
-          .HasMaxLength(500) // Message có thể không bắt buộc
-          .HasColumnName("message");
+            // Cột Message
+            entity.Property(e => e.Message)
+                  .HasMaxLength(500) // Message có thể không bắt buộc
+                  .HasColumnName("message");
 
-    // Cột CreatedAt
-    entity.Property(e => e.CreatedAt)
-          .HasDefaultValueSql("(getdate())") // Đặt giá trị mặc định là ngày giờ hiện tại
-          .HasColumnType("datetime")
-          .HasColumnName("created_at");
+            // Cột CreatedAt
+            entity.Property(e => e.CreatedAt)
+                  .HasDefaultValueSql("(getdate())") // Đặt giá trị mặc định là ngày giờ hiện tại
+                  .HasColumnType("datetime")
+                  .HasColumnName("created_at");
 
-    // Cột Status
-    entity.Property(e => e.Status)
-          .IsRequired()  // Bắt buộc nhập
-          .HasColumnName("status");
-});
+            // Cột Status
+            entity.Property(e => e.Status)
+                  .IsRequired()  // Bắt buộc nhập
+                  .HasColumnName("status");
+
+            entity.Property(e => e.OrderCode)
+                    .IsRequired(false)
+                    .HasMaxLength(50)
+                    .HasColumnName("order_code");
+        });
 
 
         modelBuilder.Entity<DetailOrder>(entity =>
@@ -375,7 +380,8 @@ public partial class StoreDbContext : DbContext
             entity.HasOne(o => o.Account)  // Mỗi Order thuộc về một Account
                 .WithMany(a => a.Orders)  // Một Account có thể có nhiều Order
                 .HasForeignKey(o => o.AccountId)  // Khóa ngoại trỏ đến AccountId trong Order
-                .OnDelete(DeleteBehavior.Cascade);  // Nếu xóa Account, xóa các Order liên quan
+                .OnDelete(DeleteBehavior.Cascade)  // Nếu xóa Account, xóa các Order liên quan
+                .IsRequired(false);
 
             // Mối quan hệ với bảng DetailOrder (một Order có thể có nhiều DetailOrder)
             entity.HasMany(e => e.DetailOrders)

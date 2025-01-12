@@ -23,7 +23,7 @@
 							<a class="nav-link dropdown-toggle font-weight-bold" id="toggleDivBtn"
 							   style="padding:12px;cursor:pointer">Tài Khoản</a>
 							<div class="dropdown-menu popup-login border border-secondary" id="myDiv">
-								<form id="loginForm">
+								<form id="loginForm" asp-controller="Account" asp-action="LoginPopup">
 									<div class="col-md-12 mb-3 text-center">
 										<h3 class="font-weight-bold">Đăng nhập</h3>
 										<span id="errorMessage" style="color:red"></span>

@@ -30,6 +30,8 @@ namespace OmegaStore.Controllers
                 HttpContext.Session.SetString("Username", username);
             }
             var products = _context.Products.Include(p => p.Reviews);
+            ViewBag.categories = _context.Categories.ToList();
+
             return View(products);
         }
         public IActionResult Contact()

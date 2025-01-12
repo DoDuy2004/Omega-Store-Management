@@ -238,7 +238,7 @@ namespace OmegaStore.Areas.Admin.Controllers
 
             List<Review> reviews = _context.Reviews.Where(p => p.ProductId == id).ToList();
             ViewBag.Reviews = reviews;
-            return View("Detail", product); // Truyền sản phẩm vào View
+            return RedirectToAction("Detail", new {slug = product.Slug }); // Truyền sản phẩm vào View
         }
     }
 }

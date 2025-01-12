@@ -94,7 +94,7 @@ namespace OmegaStore.Controllers
 
                 _context.SaveChanges();
 
-                return Json(new { success = true, text = "Đánh giá sản phẩm thành công!!" });
+                return Json(new { success = true, text = "Đánh giá đã được gửi thành công!!" });
             }
 
             return Json(new

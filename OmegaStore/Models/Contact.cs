@@ -21,7 +21,7 @@ public partial class Contact
     public string? Message { get; set; } = null!;
     public DateTime? CreatedAt { get; set; } = DateTime.Now;
     public RequestStatus Status { get; set; } = RequestStatus.Unresolved;
-    public string OderCode { get; set; } = null!;
+    public string? OrderCode { get; set; }
 }
 
 public enum RequestStatus

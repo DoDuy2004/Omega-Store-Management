@@ -23,7 +23,7 @@ namespace OmegaStore.Controllers
             return View();
         }
 
-        public IActionResult List(string searchQuery = "", int page = 1, int pageSize = 4)
+        public IActionResult List(string searchQuery = "", int page = 1, int pageSize = 9)
         {
             var query = _context.Blogs.ToList();
             var normalQuery = searchQuery;
@@ -99,13 +99,5 @@ namespace OmegaStore.Controllers
             //Trả về kết quả,bỏ tất cả khoảng trắng, viết thường.
             return input.Replace(" ","").ToLower();
         }
-        public IActionResult PaymentServices()
-        {
-            return View();
-        }
-        public IActionResult DeliveryService()
-        {
-            return View();
-        }
-    }
+	}
 }

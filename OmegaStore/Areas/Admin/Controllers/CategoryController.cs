@@ -100,7 +100,7 @@ namespace OmegaStore.Areas.Admin.Controllers
             }
             else
             {
-                TempData["error"] = "Model Error";
+                //TempData["error"] = "Model Error";
                 List<string> errors = new List<string>();
                 foreach (var value in ModelState.Values)
                 {
@@ -142,7 +142,7 @@ namespace OmegaStore.Areas.Admin.Controllers
             }
             else
             {
-                TempData["error"] = "Model Error";
+                //TempData["error"] = "Model Error";
                 List<string> errors = new List<string>();
                 foreach (var value in ModelState.Values)
                 {
