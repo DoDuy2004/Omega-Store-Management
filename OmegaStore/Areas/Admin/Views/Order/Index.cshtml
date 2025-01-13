@@ -170,6 +170,7 @@
                                     <div>
                                         <button class="btn  btn-currentStatus btn-lg"
                                                 data-orderid="@or.Id"
+                                                data-ordercode="@or.OrderCode"
                                                 data-status="@or.Status">
                                             @(or.Status == 1 ? "Chờ xác nhận" :
                                                 or.Status == 2 ? "Xác nhận" : or.Status == 3 ? "Đang giao" :or.Status ==4 ? "Hoàn thành":"Đã hủy")
@@ -179,6 +180,7 @@
                                         <div class="item edit">
                                             <button class="btn btn-confirm  btn-warning text-white  rounded btn-lg"
                                                     data-orderid="@or.Id"
+                                                    data-ordercode="@or.OrderCode"
                                                     data-status="@or.Status"
                                                     data-valuebutton="2"
                                             @((or.Status != 1) ? "disabled" : "")>
@@ -189,6 +191,7 @@
                                         <div class="item-edit">
                                             <button class="btn btn-confirm  btn-primary rounded btn-lg"
                                                     data-orderid="@or.Id"
+                                                    data-ordercode="@or.OrderCode"
                                                     data-status="@or.Status"
                                                     data-valuebutton="3"
                                             @((or.Status != 2) ? "disabled" :"")>
@@ -198,6 +201,7 @@
                                         <div class="item edit">
                                             <button class="btn btn-confirm  btn-success white  rounded btn-lg"
                                                     data-orderid="@or.Id"
+                                                    data-ordercode="@or.OrderCode"
                                                     data-status="@or.Status"
                                                     data-valuebutton="4"
                                             @((or.Status !=3) ? "disabled" : "")>
@@ -209,6 +213,7 @@
                                         <div class="item edit">
                                             <button class="btn btn-cancel-order btn-danger white  rounded btn-lg"
                                                     data-orderid="@or.Id"
+                                                    data-ordercode="@or.OrderCode"
                                                     data-status="@or.Status"
                                                     data-valuebutton="5"
                                             @((or.Status!=1) ? "disabled" : "")>
@@ -239,6 +244,7 @@
                         $(document).on("click", ".btn-confirm", function () {
 
                             var OrderId = $(this).data("orderid");
+                            var Ordercode = $(this).data("ordercode");
                             var valueButton = $(this).data("valuebutton");
                             var btn = $(this);
                             var Status = $(this).data("status");
@@ -247,7 +253,7 @@
                       
                             Swal.fire({
                                 title:"Cập nhật trạng thái đơn hàng",
-                                text: `Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng có mã đơn hàng là ${OrderId} từ "${CurrentStatus}" thành "${NextStatus}" không?`,
+                                text: `Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng có mã đơn hàng là ${Ordercode} từ "${CurrentStatus}" thành "${NextStatus}" không?`,
                                 icon: "success",
                                 showCancelButton: true,
                                 confirmButtonText: "Có",
@@ -269,7 +275,7 @@
                                                 rowId.find(".btn-currentStatus").attr("status", response.st);
                                                 Swal.fire({
                                                     title: "Cập nhật đơn hàng thành công",
-                                                    text: `Đã cập nhật trạng thái đơn hàng có mã đơn hàng là ${OrderId} từ "${CurrentStatus}" thành "${NextStatus}"`,
+                                                    text: `Đã cập nhật trạng thái đơn hàng có mã đơn hàng là ${Ordercode} từ "${CurrentStatus}" thành "${NextStatus}"`,
                                                     icon: "success"
                                                 }).then(() => {
                                                     location.reload(true);       //load trang sau khi thông bao của đơn hàng đóng lại
@@ -301,6 +307,7 @@
                         // Hủy đơn
                         $(document).on("click", ".btn-cancel-order", function () {
                             var OrderId = $(this).data("orderid");
+                            var Ordercode = $(this).data("ordercode");
                             var valueButton = $(this).data("valuebutton");
                             var btn = $(this);
                             var Status = $(this).data("status");
@@ -309,7 +316,7 @@
 
                                 Swal.fire({
                                     title: "Hủy đơn hàng !",
-                                    text: `Bạn có chắc muốn hủy đơn hàng có mã đơn hàng là ${OrderId} không!`,
+                                    text: `Bạn có chắc muốn hủy đơn hàng có mã đơn hàng là ${Ordercode} không!`,
                                     icon: "warning", // biểu tượng: 'warning', 'error', 'success', 'info', 'question'
                                     showCancelButton: true,
                                     confirmButtonText: "Xóa", // nút xác nhận xóa
@@ -330,12 +337,12 @@
                                                     rowId.find(".btn-currentStatus").text("Hủy đơn");
                                                     rowId.find(".btn-cancel-order").data("status", 5);
                                                     location.reload(true);
-                                                    Swal.fire("Hủy đơn hàng", `Đã hủy đơn hàng có mã đơn hàng là ${OrderId}`, "success");
+                                                    Swal.fire("Hủy đơn hàng", `Đã hủy đơn hàng có mã đơn hàng là ${Ordercode}`, "success");
                                                    
 
 
                                                 } else {
-                                                    Swal.fire("Lỗi hủy đơn", `Đã có lỗi xảy ra khi Hủy đơn hàng có mã đơn hàng là ${OrderId}`, "error");
+                                                    Swal.fire("Lỗi hủy đơn", `Đã có lỗi xảy ra khi Hủy đơn hàng có mã đơn hàng là ${Ordercode}`, "error");
                                                 }
                                             },
 
@@ -367,7 +374,7 @@
                         //Xóa đơn hàng
 
                         $(document).on("click", ".btn-delete-order", function (){
-                         
+                            var Ordercode = $(this).data("ordercode");
                             var OrderId = $(this).data("orderid");                    
                             var btn = $(this);
                             var Status = $(this).data("status");
@@ -393,13 +400,13 @@
                                                 if (response.success) {             
                                                     var rowId = $(`li[data-rowId='${OrderId}']`);
                                                     rowId.remove();
-                                                    Swal.fire("Xóa đơn hàng thành công", `Đã xóa đơn hàng có mã đơn hàng là ${OrderId}`, "success");
+                                                    Swal.fire("Xóa đơn hàng thành công", `Đã xóa đơn hàng có mã đơn hàng là ${Ordercode}`, "success");
                                                 } else {
                                                     alert("Lỗi: " + response.message);
                                                 }
                                             },
                                             error: function () {
-                                                Swal.fire("Lỗi cập nhật trạng thái", `Đã có lỗi xảy ra khi cập nhật trạng thái có mã đơn hàng là ${OrderId}`, "error");
+                                                Swal.fire("Lỗi cập nhật trạng thái", `Đã có lỗi xảy ra khi cập nhật trạng thái có mã đơn hàng là ${Ordercode}`, "error");
                                             }
                                         });
 
@@ -413,12 +420,6 @@
                             }
                         });
 
-                        //Lọc đơn hàng theo trạng thái
-
-                        $(document).on("click", ".btn-1", function () {
-                            
-                        
-                        });
                     </script>
                 </div>
                 <div class="divider"></div>
