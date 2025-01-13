@@ -22,9 +22,33 @@ namespace OmegaStore.Areas.Admin.Controllers
         //Trang Danh sách sản phẩm
         public IActionResult Index()
         {
-            var products = _context.Products
-                .ToList(); // Lấy tất cả các sản phẩm từ cơ sở dữ liệu
-            return View(products); // Truyền danh sách sản phẩm vào View
+            return View(); // Truyền danh sách sản phẩm vào View
+        }
+
+        public IActionResult List(string searchQuery = "", int page = 1,int Status = 1, int pageSize = 6)
+        {
+            var query = _context.Products.Where(p => p.Status == Status).ToList();
+            var normalQuery = searchQuery;
+            // Lọc theo từ khóa tìm kiếm
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                searchQuery = CreateUnaccentedTextSearch(searchQuery);
+                query = query.Where(b => CreateUnaccentedTextSearch(b.Name).Contains(searchQuery)).ToList();
+            }
+
+            // Phân trang
+            var totalItems = query.Count();
+            var products = query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+            ViewBag.CurrentPage = page;
+            ViewBag.SearchQuery = normalQuery;
+            ViewBag.result = totalItems;
+            ViewBag.status = Status;
+            return PartialView("_ProductListPartial", products);
         }
 
         //Trang Chi tiết sản phẩm
@@ -65,6 +89,43 @@ namespace OmegaStore.Areas.Admin.Controllers
             // Tạo SelectList từ danh sách Categories
             ViewBag.Categories = new SelectList(categories, "Id", "Name");
             return View();
+        }
+        //Xóa sản phẩm
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var product = await _context.Products.FindAsync(id);//Tìm sản phẩm có trùng id
+                if (product == null)
+                {
+                    return NotFound(new
+                    {
+                        success = false,
+                        message = "Sản phẩm không tồn tại"
+                    });
+                }
+
+                // Thay đổi trạng thái sản phẩm (0 = đã xóa)
+                product.Status = 0;
+                await _context.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Sản phẩm đã được xóa.",
+                    productId = product.Id,
+                    newStatus = product.Status
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Có lỗi trong quá trình xử lý!",
+                    details = ex.Message
+                });
+            }
         }
 
         public IActionResult AddProduct(Product product, IEnumerable<IFormFile> images, IFormFile Thumbnail)
@@ -206,6 +267,42 @@ namespace OmegaStore.Areas.Admin.Controllers
             }
             //Trả về kết quả,bỏ tất cả khoảng trắng, viết thường.
             return input.Replace(" ", "-").ToLower();
+        }
+
+        public static string CreateUnaccentedTextSearch(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return string.Empty;
+            //Hàng đầu tiên là chữ không dấu, các hàng sau là chữ có dấu, sắp xếp đúng theo thứ tự của hàng đầu
+            string[] vietnamese = new string[]
+            {
+                "aAeEoOuUiIdDyY",
+                "áàạảãâấầậẩẫăắằặẳẵ",
+                "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+                "éèẹẻẽêếềệểễ",
+                "ÉÈẸẺẼÊẾỀỆỂỄ",
+                "óòọỏõôốồộổỗơớờợởỡ",
+                "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+                "úùụủũưứừựửữ",
+                "ÚÙỤỦŨƯỨỪỰỬỮ",
+                "íìịỉĩ",
+                "ÍÌỊỈĨ",
+                "đ",
+                "Đ",
+                "ýỳỵỷỹ",
+                "ÝỲỴỶỸ"
+            };
+
+            // Thay thế các ký tự có dấu thành không dấu
+            for (int i = 1; i < vietnamese.Length; i++)
+            {
+                foreach (var c in vietnamese[i])
+                {
+                    input = input.Replace(c, vietnamese[0][i - 1]);
+                }
+            }
+            //Trả về kết quả,bỏ tất cả khoảng trắng, viết thường.
+            return input.Replace(" ", "").ToLower();
         }
         public static string RemoveExtraSpaces(string input)
         {
