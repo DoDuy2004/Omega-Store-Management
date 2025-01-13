@@ -9,10 +9,12 @@ namespace OmegaStore.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
+        private readonly StoreDbContext _context;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, StoreDbContext context)
         {
             _accountService = accountService;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -28,6 +30,26 @@ namespace OmegaStore.Controllers
             {
                 return RedirectToAction("LoginView"); // Chuyển hướng nếu không tìm thấy tài khoản
             }
+
+
+
+            var OrderAccount = _context.Orders.Include(o => o.Account).Include(o => o.DetailOrders).Where(o => o.AccountId == account.Id).Select(o => new
+            {
+                OrderId = o.Id,
+                AccountId = o.Account.Id,
+                Ordercode = o.OrderCode,
+                Create_at = o.CreatedAt,
+                Total = o.TotalAmount,
+                Statuss = o.Status,
+
+            }).ToList();
+            ViewBag.OrderAccount = OrderAccount;
+
+
+
+
+
+
             ViewBag.Username = username;
             return View(account);
         }//Trang chi tiết tài khoản
@@ -192,6 +214,68 @@ namespace OmegaStore.Controllers
             TempData["ErrorMessage"] = "Lỗi tạo tài khoản!";
             return View("Register", account);
         }
+
+        [HttpGet]
+        public JsonResult OrderStatus(int? status, int id)
+        {
+
+
+            if (status.HasValue)
+            {
+                var OrderStatus = _context.Orders.Include(o => o.Account).Include(o => o.DetailOrders).Where(o => o.AccountId == id && o.Status == status).Select(o => new
+                {
+                    OrderId = o.Id,
+                    AccountId = o.Account.Id,
+                    Ordercode = o.OrderCode,
+                    Create_at = o.CreatedAt,
+                    Total = o.TotalAmount,
+                    Statuss = o.Status,
+
+                }).ToList();
+                return Json(OrderStatus);
+            }
+            else
+            {
+                var OrderStatus = _context.Orders.Include(o => o.Account).Include(o => o.DetailOrders).Where(o => o.AccountId == id && o.Status != 0).Select(o => new
+                {
+                    OrderId = o.Id,
+                    AccountId = o.Account.Id,
+                    Ordercode = o.OrderCode,
+                    Create_at = o.CreatedAt,
+                    Total = o.TotalAmount,
+                    Statuss = o.Status,
+
+                }).ToList();
+                return Json(OrderStatus);
+            }
+
+
+
+
+        }
+        [HttpPost]
+        public IActionResult CancelOrder(int orderid, int status)
+        {
+
+            try
+            {
+                var order = _context.Orders.FirstOrDefault(o => o.Id == orderid);
+                if (order == null)
+                {
+                    return Json(new { success = false });
+                }
+
+                order.Status = status;
+                _context.SaveChanges();
+                var Getstatus = status;
+                return Json(new { success = true, Getstatus });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false });
+            }
+        }
+
 
     }
 
