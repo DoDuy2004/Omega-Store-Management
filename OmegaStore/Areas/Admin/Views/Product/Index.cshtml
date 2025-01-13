@@ -8,6 +8,13 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/admin/css/Custum.css">
+    <style>
+        .btn.active {
+            background-color: #007bff; /* Màu nền xanh lam */
+            color: white; /* Màu chữ trắng */
+            border-color: #0056b3; /* Đậm hơn khi active */
+        }
+    </style>
 }
 
 @section Scripts {
@@ -21,6 +28,9 @@
     <script src="~/admin/js/apexcharts/line-chart-6.js"></script>
     <script src="~/admin/js/switcher.js"></script>
     <script src="~/admin/js/theme-settings.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/admin/js/Product.js"></script>
 }
 
 <div class="main-content">
@@ -51,123 +61,10 @@
                         <div class="text-tiny">Danh sách</div>
                     </li>
                 </ul>
-            </div>
+            </div> 
             <!-- product-list --> 
             <div class="wg-box">
-                <div class="flex items-center justify-between gap10 flex-wrap">
-                    <div class="wg-filter flex-grow">
-
-                        <!--Số lượng sản phẩm hiển thị cho từng trang-->
-                        <div class="show">
-                            <div class="text-tiny">Hiển thị</div>
-                            <div class="select">
-                                <select class="">
-                                    <option>10</option>
-                                    <option>20</option>
-                                    <option>30</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!--Số lượng sản phẩm hiển thị cho từng trang-->
-
-                        <!--Form để tìm kiếm sản phẩm-->
-                        <form class="form-search">
-                            <fieldset class="name">
-                                <input type="text" placeholder="Tìm kiếm" class="" name="name"
-                                       tabindex="2" value="" aria-required="true" required="">
-                            </fieldset>
-                            <div class="button-submit">
-                                <button class="" type="submit"><i class="icon-search"></i></button>
-                            </div>
-                        </form>
-                        <!--Form để tìm kiếm sản phẩm-->
-
-                    </div>
-                    <!--Nút để thêm sản phẩm mới-->
-                    <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="tf-button style-1 w208"><i class="icon-plus"></i>Thêm mới</a>
-                    <!--Nút để thêm sản phẩm mới-->
-                </div>
-                <div class="wg-table table-product-list">
-                    <!---->
-                    <ul class="table-title flex gap20 mb-14">
-                        <li>
-                            <div class="body-title">Sản phẩm</div>
-                        </li>
-                        <li>
-                            <div class="body-title">Mã sản phẩm</div>
-                        </li>
-                        <li>
-                            <div class="body-title">Giá</div>
-                        </li>
-                        <li>
-                            <div class="body-title">Số lượng</div>
-                        </li>
-                        <li>
-                            <div class="body-title">Giảm giá</div>
-                        </li>
-                        <li>
-                            <div class="body-title">Hành động</div>
-                        </li>
-                    </ul>
-                    <!---->
-
-                    <ul class="flex flex-column">
-                        @foreach (var product in Model)
-                        {
-                            <li class="product-item gap14">
-                                <div class="image no-bg">
-                                    <img src="~/img/products/@product.Thumbnail" alt="">
-                                </div>
-                                <div class="flex items-center justify-between gap20 flex-grow">
-                                    <div class="name">
-                                        <a asp-area="Admin" asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Slug" class="body-title-2">
-                                            @product.Name
-                                        </a>
-                                    </div>
-                                    <div class="body-text">@product.ProductCode</div>
-                                    <div class="body-text">@product.Price</div>
-                                    <div class="body-text">@product.Stock</div>
-                                    <div class="body-text">@product.DiscountRate</div>
-
-                                    <div class="list-icon-function">
-                                        <div class="item eye">
-                                            <a asp-area="Admin" asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Slug" ><i class="icon-eye"></i></a>
-                                        </div>
-                                        <div class="item edit">
-                                            <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id"><i class="icon-edit-3"></i></a>
-                                        </div>
-                                        <div class="item trash">
-                                            <i class="icon-trash-2"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                    </ul>
-                </div>
-                <div class="divider"></div>
-                <!--Phân trang-->
-                <div class="flex items-center justify-between flex-wrap gap10">
-                    <div class="text-tiny">Hiển thị: 10 sản phẩm</div>
-                    <ul class="wg-pagination">
-                        <li>
-                            <a href="#"><i class="icon-chevron-left"></i></a>
-                        </li>
-                        <li>
-                            <a href="#">1</a>
-                        </li>
-                        <li class="active">
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="icon-chevron-right"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <!--Phân trang-->
+                
 
             </div>
             <!-- /product-list -->
