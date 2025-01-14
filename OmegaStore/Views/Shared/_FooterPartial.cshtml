@@ -2,52 +2,7 @@
 <div class="footer">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-3 col-md-6">
-				<div class="footer-widget">
-					<h2>Thông Tin Liên Hệ</h2>
-					<div class="contact-info">
-						<p><i class="fa fa-map-marker-alt"></i>60 Đ. Huỳnh Thúc Kháng, Bến Nghé, Quận 1</p>
-						<p><i class="fa fa-envelope"></i>mohinhOmega@gmail.com</p>
-						<p><i class="fa fa-phone-alt"></i>0123.456.789</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-md-6">
-				<div class="footer-widget">
-					<h2>Công Ty</h2>
-					<ul>
-						<li><a href="#">Giới thiệu</a></li>
-						<li><a href="#">Omega Group</a></li>
-						<li><a href="#">Hợp tác</a></li>
-						<li><a href="#">Điều khoản và điều kiện</a></li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-md-6">
-				<div class="footer-widget">
-					<h2>Chính Sách</h2>
-					<ul>
-						<li><a href="#">Chính sách thanh toán</a></li>
-						<li><a href="#">Chính sách giao hàng</a></li>
-						<li><a href="#">Chính sách hoàn trả</a></li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-md-6">
-				<div class="footer-widget">
-					<h2>Trang Cộng Đồng</h2>
-					<div class="fb-page" data-href="https://www.facebook.com/cntt.caothang.edu.vn" data-tabs="" data-width=""
-						 data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false"
-						 data-show-facepile="true">
-						<blockquote cite="https://www.facebook.com/cntt.caothang.edu.vn" class="fb-xfbml-parse-ignore">
-							<a href="https://www.facebook.com/cntt.caothang.edu.vn">Information Technology Cao Thang</a>
-						</blockquote>
-					</div>
-				</div>
-			</div>
+			@await Component.InvokeAsync("WebsiteInfo")
 		</div>
 	</div>
 </div>
