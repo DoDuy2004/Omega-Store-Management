@@ -13,13 +13,7 @@ public partial class Order
 
     [Required(ErrorMessage = "Họ và tên không được bỏ trống.")]
     public string Fullname { get; set; } = null!;
-
-    [EmailAddress(ErrorMessage = "Email không hợp lệ.")]
     public string? Email { get; set; }
-
-    [Required(ErrorMessage = "Số điện thoại không được bỏ trống.")]
-    [RegularExpression(@"^(0[1-9]{1}[0-9]{8}|0[1-9]{2}[0-9]{7})$",
-        ErrorMessage = "Số điện thoại không hợp lệ.")]
     public string Phone { get; set; } = null!;
 
     [Required(ErrorMessage = "Địa chỉ không được bỏ trống.")]

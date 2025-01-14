@@ -21,10 +21,10 @@ namespace OmegaStore.Areas.Admin.Controllers
 
             var GetStatus = status;
 
-            var OrderList =status.HasValue ? await _Context.Orders.Where(o=>o.Status==status).ToListAsync() :await _Context.Orders.Where(o=>o.Status!=0).ToListAsync();
+            var OrderList =status.HasValue ? await _Context.Orders.Where(o=>o.Status==status).OrderByDescending(o=>o.CreatedAt).ToListAsync() :await _Context.Orders.Where(o=>o.Status!=0).OrderByDescending(o => o.CreatedAt).ToListAsync();
             if (!search.IsNullOrEmpty())
             {
-                var searchQuery = await _Context.Orders.Where(o => o.Fullname.Contains(search) && o.Status !=0).ToListAsync();
+                var searchQuery = await _Context.Orders.Where(o => o.Fullname.Contains(search) && o.Status !=0).OrderByDescending(o => o.CreatedAt).ToListAsync();
                 ViewBag.Order = searchQuery;
                 ViewBag.Status = GetStatus;
                 ViewBag.Btn = "btn-primary btn-outline";

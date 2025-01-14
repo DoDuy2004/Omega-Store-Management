@@ -48,44 +48,51 @@
 
     </div>
     <div class="row justify-content-center">
-    <div class="col-md-4 py-3" style="display:flex;justify-content: center;">
-        @if (ViewBag.TotalPages > 1)
+        @if (ViewBag.TotalPages == 0)
         {
-            <!-- Nút trang đầu nếu cách xa trang hiện tại hơn 3 trang -->
-            @if (ViewBag.CurrentPage > 2)
-            {
-                <button class="link page-link" data-page="1">1</button>
-                if (ViewBag.CurrentPage > 3)
-                {
-                    <span class="page-link">...</span>
-                }
-                
-            }
-
-            <!-- Nút cho trang trước, trang hiện tại và trang sau -->
-            @for (int i = ViewBag.CurrentPage - 1; i <= ViewBag.CurrentPage + 1; i++)
-            {
-                if (i > 0 && i <= ViewBag.TotalPages)
-                {
-                    if (i == ViewBag.CurrentPage)
-                    {
-                        <button class="link page-link " data-page="@i" disabled style="color:black;background-color:#dee2e6">@i</button>
-                    }else{
-                        <button class="link page-link " data-page="@i">@i</button>
-                    }
-                    
-                }
-            }
-
-            <!-- Nút trang cuối nếu cách xa trang hiện tại hơn 3 trang -->
-            @if (ViewBag.CurrentPage < ViewBag.TotalPages - 1)
-            {
-                if (ViewBag.CurrentPage < ViewBag.TotalPages - 2)
-                {
-                    <span class="page-link">...</span>
-                }
-                
-                <button class="link page-link " data-page="@ViewBag.TotalPages">@ViewBag.TotalPages</button>
-            }
+            <h4>Không tìm thấy bài viết phù hợp</h4>
         }
+        <div class="col-md-4 py-3" style="display:flex;justify-content: center;">
+            @if (ViewBag.TotalPages > 1)
+            {
+                <!-- Nút trang đầu nếu cách xa trang hiện tại hơn 3 trang -->
+                @if (ViewBag.CurrentPage > 2)
+                {
+                    <button class="link page-link" data-page="1">1</button>
+                    if (ViewBag.CurrentPage > 3)
+                    {
+                        <span class="page-link">...</span>
+                    }
+
+                }
+
+                <!-- Nút cho trang trước, trang hiện tại và trang sau -->
+                @for (int i = ViewBag.CurrentPage - 1; i <= ViewBag.CurrentPage + 1; i++)
+                {
+                    if (i > 0 && i <= ViewBag.TotalPages)
+                    {
+                        if (i == ViewBag.CurrentPage)
+                        {
+                            <button class="link page-link " data-page="@i" disabled style="color:black;background-color:#dee2e6">@i</button>
+                        }
+                        else
+                        {
+                            <button class="link page-link " data-page="@i">@i</button>
+                        }
+
+                    }
+                }
+
+                <!-- Nút trang cuối nếu cách xa trang hiện tại hơn 3 trang -->
+                @if (ViewBag.CurrentPage < ViewBag.TotalPages - 1)
+                {
+                    if (ViewBag.CurrentPage < ViewBag.TotalPages - 2)
+                    {
+                        <span class="page-link">...</span>
+                    }
+
+                    <button class="link page-link " data-page="@ViewBag.TotalPages">@ViewBag.TotalPages</button>
+                }
+            }
+        </div>
     </div>

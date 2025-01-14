@@ -13,7 +13,10 @@ namespace OmegaStore.Services
 
         public Account? Authenticate(string username, string password)
         {
-            return _context.Accounts.FirstOrDefault(u => u.Username == username && u.Password == password);
+            return _context.Accounts.FirstOrDefault(u =>
+            (u.Username == username || u.Email == username) &&
+            u.Password == password &&
+            u.RoleId == 3);
         }
 
         public bool Register(Account account)
@@ -40,12 +43,23 @@ namespace OmegaStore.Services
             var account = GetAccountByUsername(username);
             return account != null && account.Status == 0;
         }
-
-        public int GetAccountId(string? username)
+        public bool CheckFieldExists(string field, string value)
         {
-            int id = _context.Accounts.FirstOrDefault(a => a.Username == username)!.Id;
+            if (string.IsNullOrEmpty(field) || string.IsNullOrEmpty(value))
+            {
+                return false;
+            }
 
-            return id;
+            if (field.ToLower() == "username")
+            {
+                return _context.Accounts.Any(a => a.Username == value);
+            }
+            else if (field.ToLower() == "email")
+            {
+                return _context.Accounts.Any(a => a.Email == value);
+            }
+
+            return false;
         }
     }
 

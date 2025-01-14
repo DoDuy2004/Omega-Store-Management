@@ -84,7 +84,7 @@
                                                 <div class="row">
                                                     <div class="col">@stt</div>
                                                     <div class="col">@item.Subject</div>
-                                                    <div class="col">@item.OderCode</div>
+                                                    <div class="col">@item.OrderCode</div>
                                                     <div class="col">
                                                         @if (item.Status == RequestStatus.Resolved)
                                                         {
@@ -93,10 +93,6 @@
                                                         @if (item.Status == RequestStatus.Unresolved)
                                                         {
                                                             <span class="status status-pending">Chưa xử lý</span>
-                                                        }
-                                                        @if (item.Status == RequestStatus.Pending)
-                                                        {
-                                                            <span class="status status-processing">Đang xử lý</span>
                                                         }
                                                     </div>
                                                 </div>

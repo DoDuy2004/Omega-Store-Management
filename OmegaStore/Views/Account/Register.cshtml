@@ -1,4 +1,51 @@
-﻿    <!-- Breadcrumb Start -->
+﻿@{
+    ViewData["Title"] = "Đăng ký";
+}
+
+@model OmegaStore.Models.Account
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordInput = document.getElementById('ipassword');
+            const repasswordInput = document.getElementById('repassword');
+            const passwordError = document.getElementById('passwordError');
+            const submitBtn = document.getElementById('submitBtn');
+
+            function checkPasswordsMatch() {
+                // Loại bỏ khoảng trắng đầu và cuối
+                const passwordValue = passwordInput.value.trim();
+                const repasswordValue = repasswordInput.value.trim();
+
+                if (passwordValue === "" || repasswordValue === "") {
+                    passwordError.style.display = "none";
+                    submitBtn.disabled = false;  // Bật lại nút submit nếu rỗng
+                    return;
+                }
+
+                if (passwordValue !== repasswordValue) {
+                    passwordError.style.display = "inline";
+                    submitBtn.disabled = true;  // Tắt nút submit
+                } else {
+                    passwordError.style.display = "none";
+                    submitBtn.disabled = false;  // Bật lại nút submit
+                }
+            }
+
+            document.getElementById('registerForm').addEventListener('submit', function (e) {
+                checkPasswordsMatch();
+                if (passwordError.style.display === "inline") {
+                    e.preventDefault();  // Ngừng form submit nếu có lỗi
+                }
+            });
+
+            repasswordInput.addEventListener('input', checkPasswordsMatch);
+        });
+
+    </script>
+}
+<!-- Breadcrumb Start -->
 <div class="breadcrumb-wrap mb-3">
     <div class="container">
         <ul class="breadcrumb">
@@ -6,6 +53,14 @@
             <li class="breadcrumb-item active">Đăng nhập</li>
         </ul>
     </div>
+</div>
+<div>
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
 </div>
 <!-- Breadcrumb End -->
 <!-- Login Start -->
@@ -15,63 +70,70 @@
             <div class="col-lg-8 m-auto" id="register">
                 <div class="register-form">
                     <h2 class="mb-3">Đăng ký tài khoản</h2>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="font-weight-bold">Họ tên<span class="text-danger">*</span></label>
-                            <input class="form-control" name="fullname" type="text" placeholder="Họ và tên" />
-                        </div>
-                        <div class="col-md-12">
-                            <label class="font-weight-bold">Tên đăng nhập <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" placeholder="Tên đăng nhập" />
-                        </div>
-                        <div class="col-md-12">
-                            <label class="font-weight-bold">E-mail <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" placeholder="Email" />
-                        </div>
-                        <div class="col-md-12">
-                            <label class="font-weight-bold">Số điện thoại <span class="text-danger">*</span></label>
-                            <input class="form-control"
-                                   type="text"
-                                   placeholder="Số điện thoại" />
-                        </div>
-                        <div class="col-md-12">
-                            <label class="font-weight-bold mb-0">Giới tính <span class="text-danger">*</span></label>
-                            <div class="d-flex mt-3 mb-3">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="genderMale" value="Nam">
-                                    <label class="form-check-label" for="genderMale">Nam</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="Nữ">
-                                    <label class="form-check-label" for="genderFemale">Nữ</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="genderOther" value="Khác">
-                                    <label class="form-check-label" for="genderOther">Khác</label>
+                    <form asp-controller="Account" asp-action="CreateAccount" id="registerForm" method="post">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="font-weight-bold">Họ tên<span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="Fullname" type="text" placeholder="Họ và tên" />
+                                <span asp-validation-for="Fullname" style="color:red"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="font-weight-bold">Tên đăng nhập <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text" asp-for="Username" placeholder="Tên đăng nhập" />
+                                <span asp-validation-for="Username" style="color:red"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="font-weight-bold">E-mail <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text" asp-for="Email" placeholder="Email" />
+                                <span asp-validation-for="Email" style="color:red"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="font-weight-bold">Số điện thoại <span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="Phone"
+                                       type="text"
+                                       placeholder="Số điện thoại" />
+                                <span asp-validation-for="Phone" style="color:red"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="font-weight-bold mb-0">Giới tính <span class="text-danger">*</span></label>
+                                <div class="d-flex mt-3 mb-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="genderMale" value="True" checked>
+                                        <label class="form-check-label" for="genderMale">Nam</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="False">
+                                        <label class="form-check-label" for="genderFemale">Nữ</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <div class="col-md-12">
-                            <label class="font-weight-bold">Password <span class="text-danger">*</span></label>
-                            <input class="form-control"
-                                   type="text"
-                                   placeholder="Mật khẩu" />
+                            <div class="col-md-12">
+                                <label class="font-weight-bold">Password <span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="Password"
+                                       type="password"
+                                       id="ipassword"
+                                       placeholder="Mật khẩu" />
+                                <span asp-validation-for="Password" style="color:red"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="font-weight-bold">Confirm Password <span class="text-danger">*</span></label>
+                                <input class="form-control"
+                                       type="password"
+                                       id="repassword"
+                                       placeholder="Xác nhận mật khẩu" />
+                                <span asp-validation-for="Password" style="color:red"></span>
+                                <span id="passwordError" style="color:red; font-size:medium; display: none;">Mật khẩu không khớp.</span>
+                            </div>
+                            <div class="col-md-12 mb-3 d-flex justify-content-between align-items-center">
+                                <a asp-controller="Account" asp-action="Loginview" class="text-primary font-weight-bold">Bạn đã có tài khoản? Nhấn vào đây để đăng nhập</a>
+                            </div>
+                            <div class="col-md-12">
+                                <button class="btn btn-success w-100 font-size h-100" type="submit" id="submitBtn">Đăng ký</button>
+                            </div>
                         </div>
-                        <div class="col-md-12">
-                            <label class="font-weight-bold">Confirm Password <span class="text-danger">*</span></label>
-                            <input class="form-control"
-                                   type="text"
-                                   placeholder="Xác nhận mật khẩu" />
-                        </div>
-                        <div class="col-md-12 mb-3 d-flex justify-content-between align-items-center">
-                            <a asp-controller="Account" asp-action="Loginview" class="text-primary font-weight-bold">Bạn đã có tài khoản? Nhấn vào đây để đăng nhập</a>
-                        </div>
-                        <div class="col-md-12">
-                            <button class="btn btn-success w-100 font-size h-100">Đăng ký</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

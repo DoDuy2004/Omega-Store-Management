@@ -20,11 +20,23 @@ namespace OmegaStore.Controllers
         }
         public IActionResult Index()
         {
+            // Kiểm tra username trong session
+            var username = HttpContext.Session.GetString("Username");
+
+            // Nếu session không tồn tại nhưng cookie "RememberMe" có giá trị
+            if (string.IsNullOrEmpty(username) && Request.Cookies["RememberMe"] != null)
+            {
+                username = Request.Cookies["RememberMe"];
+                HttpContext.Session.SetString("Username", username);
+            }
             var products = _context.Products.Include(p => p.Reviews);
+            ViewBag.categories = _context.Categories.ToList();
+
             return View(products);
         }
         public IActionResult Contact()
         {
+            ViewBag.WebsiteInfo = _context.WebsiteInfos.First(w => w.Id == 1);
             return View();
         }
         [HttpPost]
@@ -34,11 +46,11 @@ namespace OmegaStore.Controllers
             {
                 _context.Contacts.Add(request);
                 _context.SaveChanges();
-                TempData["PopupMessage"] = "Gửi yêu cầu thành công!";
-                return RedirectToAction("Index");
+                return Json(new { success = true, message = "Gửi yêu cầu thành công!" });
             }
-            return View(request);
+            return Json(new { success = false, message = "Dữ liệu không hợp lệ, vui lòng kiểm tra lại." });
         }
+
         public IActionResult About()
         {
             return View();

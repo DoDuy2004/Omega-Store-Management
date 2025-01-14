@@ -23,7 +23,7 @@
 							<a class="nav-link dropdown-toggle font-weight-bold" id="toggleDivBtn"
 							   style="padding:12px;cursor:pointer">Tài Khoản</a>
 							<div class="dropdown-menu popup-login border border-secondary" id="myDiv">
-								<form id="loginForm">
+								<form id="loginForm" asp-controller="Account" asp-action="LoginPopup">
 									<div class="col-md-12 mb-3 text-center">
 										<h3 class="font-weight-bold">Đăng nhập</h3>
 										<span id="errorMessage" style="color:red"></span>
@@ -38,8 +38,8 @@
 									</div>
 									<div class="col-md-12 d-flex justify-content-between">
 										<div class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" id="newaccount" />
-											<label class="custom-control-label" for="newaccount">Ghi nhớ</label>
+											<input type="checkbox" style="cursor:pointer" class="custom-control-input" id="rememberMe" />
+											<label class="custom-control-label" for="rememberMe">Ghi nhớ</label>
 										</div>
 										<a asp-controller="Account" asp-action="ForgotPassword" class="text-primary font-weight-bold" style="font-size: 13px;">Quên mật khẩu</a>
 									</div>
@@ -54,12 +54,12 @@
 						}
 						else
 						{
-							<a asp-controller="Account" asp-action="index" class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown"
+							<a asp-controller="Account" id="toggleDivBtn" asp-action="index" class="nav-link dropdown-toggle font-weight-bold"
 							   style="padding:12px;">@Context.Session.GetString("Username")</a>
-							<div class="dropdown-menu border border-secondary">
+							<div class="dropdown-menu border border-secondary" id="myDiv">
 								<a asp-controller="Account" asp-action="Index" class="dropdown-item font-weight-bold">Tài khoản cá nhân</a>
 								<div class="dropdown-divider"></div>
-								<a id="logoutButton" class="dropdown-item font-weight-bold">Đăng xuất</a>
+								<a id="logoutButton" class="dropdown-item font-weight-bold" style="cursor:pointer">Đăng xuất</a>
 							</div>
 						}
 					</div>

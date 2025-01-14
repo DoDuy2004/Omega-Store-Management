@@ -235,47 +235,47 @@ public partial class StoreDbContext : DbContext
         });// Đã sửa
 
         modelBuilder.Entity<Contact>(entity =>
-{
-    // Tên bảng
-    entity.ToTable("contacts");
+        {
+            // Tên bảng
+            entity.ToTable("contacts");
 
-    // Khóa chính (ContactId)
-    entity.HasKey(e => e.ContactId); // Đảm bảo ContactId là khóa chính
+            // Khóa chính (ContactId)
+            entity.HasKey(e => e.ContactId); // Đảm bảo ContactId là khóa chính
 
-    // Cột Email
-    entity.Property(e => e.Email)
-          .HasMaxLength(50)
-          .IsRequired()  // Bắt buộc nhập
-          .HasColumnName("email");
+            // Cột Email
+            entity.Property(e => e.Email)
+                  .HasMaxLength(50)
+                  .IsRequired()  // Bắt buộc nhập
+                  .HasColumnName("email");
 
-    // Cột Fullname
-    entity.Property(e => e.Fullname)
-          .IsRequired()
-          .HasMaxLength(100)
-          .HasColumnName("fullname");
+            // Cột Fullname
+            entity.Property(e => e.Fullname)
+                  .IsRequired()
+                  .HasMaxLength(100)
+                  .HasColumnName("fullname");
 
-    // Cột Subject
-    entity.Property(e => e.Subject)
-          .IsRequired()
-          .HasMaxLength(100)
-          .HasColumnName("subject");
+            // Cột Subject
+            entity.Property(e => e.Subject)
+                  .IsRequired()
+                  .HasMaxLength(100)
+                  .HasColumnName("subject");
 
-    // Cột Message
-    entity.Property(e => e.Message)
-          .HasMaxLength(500) // Message có thể không bắt buộc
-          .HasColumnName("message");
+            // Cột Message
+            entity.Property(e => e.Message)
+                  .HasMaxLength(500) // Message có thể không bắt buộc
+                  .HasColumnName("message");
 
-    // Cột CreatedAt
-    entity.Property(e => e.CreatedAt)
-          .HasDefaultValueSql("(getdate())") // Đặt giá trị mặc định là ngày giờ hiện tại
-          .HasColumnType("datetime")
-          .HasColumnName("created_at");
+            // Cột CreatedAt
+            entity.Property(e => e.CreatedAt)
+                  .HasDefaultValueSql("(getdate())") // Đặt giá trị mặc định là ngày giờ hiện tại
+                  .HasColumnType("datetime")
+                  .HasColumnName("created_at");
 
-    // Cột Status
-    entity.Property(e => e.Status)
-          .IsRequired()  // Bắt buộc nhập
-          .HasColumnName("status");
-});
+            // Cột Status
+            entity.Property(e => e.Status)
+                  .IsRequired()  // Bắt buộc nhập
+                  .HasColumnName("status");
+        });
 
 
         modelBuilder.Entity<DetailOrder>(entity =>
@@ -606,7 +606,11 @@ public partial class StoreDbContext : DbContext
             // Cấu hình thuộc tính Fanpage
             entity.Property(e => e.Fanpage)
                 .HasColumnName("fanpage");
-        });// Đã sửa
+
+			// Cấu hình thuộc tính Logo
+			entity.Property(e => e.Logo)
+				.HasColumnName("logo");
+		});// Đã sửa
 
         modelBuilder.Entity<Review>(entity =>
         {

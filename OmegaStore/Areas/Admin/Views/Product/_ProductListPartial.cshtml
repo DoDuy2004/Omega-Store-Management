@@ -1,0 +1,182 @@
+﻿@{
+    Layout = "";
+}
+@model IEnumerable<OmegaStore.Models.Product>
+
+
+<div class="flex items-center justify-between gap10 flex-wrap">
+    <div class="wg-filter flex-grow">
+        <button id="btn-normal"
+                class="btn border border-primary rounded btn-lg @(ViewBag.status == 1 ? "active" : "")"
+                data-status="1">
+            Bình thường
+        </button>
+
+        <button id="btn-deleted"
+                class="btn border border-primary rounded btn-lg @(ViewBag.status == 0 ? "active" : "")"
+                data-status="0">
+            Đã xóa
+        </button>
+
+       
+        <!--Số lượng sản phẩm hiển thị cho từng trang-->
+        <!--Form để tìm kiếm sản phẩm-->
+        <form class="form-search" id="myForm">
+            <fieldset class="name">
+                <input type="text" placeholder="Tìm kiếm" id="search-query" value="@ViewBag.SearchQuery"
+                       tabindex="2">
+            </fieldset>
+            <div class="button-submit">
+                <button id="search-btn" type="submit"><i class="icon-search"></i></button>
+            </div>
+        </form>
+        <!--Form để tìm kiếm sản phẩm-->
+
+    </div>
+    <!--Nút để thêm sản phẩm mới-->
+    <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="tf-button style-1 w208"><i class="icon-plus"></i>Thêm mới</a>
+    <!--Nút để thêm sản phẩm mới-->
+</div>
+<div style="display:flex; justify-content:space-between;">
+    @if (!string.IsNullOrEmpty(ViewBag.SearchQuery))
+    {
+
+        <div>
+            <h5 class="mb-3 font-weight-bold">Bạn đang tìm: @ViewBag.SearchQuery <button id="searchResult" style="background:none;color:red;border:none;outline: none;cursor: pointer; ">X</button></h5>
+        </div>
+        <div>
+            <h5 class="mb-3 font-weight-bold">Kết quả tìm thấy: @ViewBag.result</h5>
+        </div>
+    }
+    else
+    {
+        <div>
+            <h5 class="mb-3 font-weight-bold">Tổng: @ViewBag.result</h5>
+        </div>
+    }
+</div>
+<div class="wg-table table-product-list">
+    
+    <!---->
+    <ul class="table-title flex gap20 mb-14">
+        <li>
+            <div class="body-title">Sản phẩm</div>
+        </li>
+        <li>
+            <div class="body-title">Mã sản phẩm</div>
+        </li>
+        <li>
+            <div class="body-title">Giá</div>
+        </li>
+        <li>
+            <div class="body-title">Số lượng</div>
+        </li>
+        <li>
+            <div class="body-title">Giảm giá</div>
+        </li>
+        <li>
+            <div class="body-title">Hành động</div>
+        </li>
+    </ul>
+    <!---->
+
+    <ul class="flex flex-column">
+        @foreach (var product in Model)
+        {
+            <li class="product-item gap14">
+                <div class="image no-bg">
+                    <img src="~/img/products/@product.Thumbnail" alt="">
+                </div>
+                <div class="flex items-center justify-between gap20 flex-grow">
+                    <div class="name">
+                        <a asp-area="Admin" asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Slug" class="body-title-2">
+                            @product.Name
+                        </a>
+                    </div>
+                    <div class="body-text">@product.ProductCode</div>
+                    <div class="body-text">@product.Price</div>
+                    <div class="body-text">@product.Stock</div>
+                    <div class="body-text">@product.DiscountRate</div>
+
+                    <div class="list-icon-function">
+                        <div class="item eye">
+                            <a asp-area="Admin" asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Slug"><i class="icon-eye"></i></a>
+                        </div>
+                        <div class="item edit">
+                            <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id"><i class="icon-edit-3"></i></a>
+                        </div>
+                        @if(product.Status == 1){
+                            <div class="item trash" data-id="@product.Id">
+                            <i class="icon-trash-2"></i>
+                        </div>
+                        }
+                        
+                    </div>
+                </div>
+            </li>
+        }
+        @if (ViewBag.TotalPages == 0)
+        {
+            <h4 style="text-align:center">Không tìm thấy sản phẩm phù hợp</h4>
+        }
+    </ul>
+</div>
+<div class="divider"></div>
+<!--Phân trang-->
+<div class="flex items-center justify-between flex-wrap gap10">
+    <div class="text-tiny">Hiển thị: 10 sản phẩm</div>
+    <div class="col-md-4 py-3" style="display:flex;justify-content: center;">
+        @if (ViewBag.TotalPages > 1)
+        {
+            <ul class="wg-pagination">
+                <!-- Nút trang đầu nếu cách xa trang hiện tại hơn 3 trang -->
+                @if (ViewBag.CurrentPage > 2)
+                {
+                    <li><a href="#" class="link page-link" data-page="1">1</a></li>
+                    if (ViewBag.CurrentPage > 3)
+                    {
+                        <li><span class="page-link">...</span></li>
+                    }
+                }
+
+                <!-- Nút cho trang trước, trang hiện tại và trang sau -->
+                @for (int i = ViewBag.CurrentPage - 1; i <= ViewBag.CurrentPage + 1; i++)
+                {
+                    if (i > 0 && i <= ViewBag.TotalPages)
+                    {
+                        if (i == ViewBag.CurrentPage)
+                        {
+                            <li><a href="#" class="link page-link" data-page="@i" disabled style="color:black;background-color:#dee2e6">@i</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="#" class="link page-link" data-page="@i">@i</a></li>
+                        }
+                    }
+                }
+
+                <!-- Nút trang cuối nếu cách xa trang hiện tại hơn 3 trang -->
+                @if (ViewBag.CurrentPage < ViewBag.TotalPages - 1)
+                {
+                    if (ViewBag.CurrentPage < ViewBag.TotalPages - 2)
+                    {
+                        <li><span class="page-link">...</span></li>
+                    }
+
+                    <li><a href="#" class="link page-link" data-page="@ViewBag.TotalPages">@ViewBag.TotalPages</a></li>
+                }
+            </ul>
+        }
+    </div>
+
+</div>
+<!--Phân trang-->
+<script>
+    document.getElementById("myForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Ngăn hành vi gửi form
+    });
+
+</script>
+        
+
+   

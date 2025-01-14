@@ -1,5 +1,9 @@
-﻿@model OmegaStore.Models.Account
-    <!-- Breadcrumb Start -->
+﻿@{
+    ViewData["Title"] = "Thông tin tài khoản";
+}
+
+@model OmegaStore.Models.Account
+<!-- Breadcrumb Start -->
 <div class="breadcrumb-wrap">
     <div class="container">
         <ul class="breadcrumb">
@@ -25,7 +29,6 @@
                            href="#accounts-tab"
                            role="tab"><i class="fa fa-id-card"></i>Thông tin tài khoản</a>
                         <a class="nav-link"
-                           id="orders-nav"
                            data-toggle="pill"
                            href="#orders-tab"
                            role="tab"><i class="fa fa-shopping-bag"></i>Đơn hàng</a>
@@ -79,97 +82,95 @@
                              id="orders-tab"
                              role="tabpanel"
                              aria-labelledby="orders-nav">
-                            <div class="table-responsive">
-                                <h4 class="text-uppercase mb-3">Đơn hàng của bạn</h4>
-                                <form action="#" class="col-lg-6">
-                                    <select name="status" id="order-status" class="form-control">
-                                        <option value="">--Chọn trạng thái--</option>
-                                        <option value="">Chờ xác nhận</option>
-                                        <option value="">Đang giao</option>
-                                        <option value="">Đã giao</option>
-                                        <option value="">Đã hủy</option>
-                                    </select>
-                                </form>
-                                <table class="table">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>Mã đơn hàng</th>
-                                            <th>Ngày đặt</th>
-                                            <th>Tổng tiền</th>
-                                            <th>Trạng thái</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>DH011224004</td>
-                                            <td>22/12/2024</td>
-                                            <td>299.000đ</td>
-                                            <td>Chờ xác nhận</td>
-                                            <td>
-                                                <a asp-controller="Order" asp-action="Index"><i class="fa fa-eye text-dark"></i></a>
-                                            </td>
-                                            <td>
-                                                <button class="btn border-danger text-danger">
-                                                    Hủy đơn
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>DH011224004</td>
-                                            <td>22/12/2024</td>
-                                            <td>299.000đ</td>
-                                            <td>Chờ xác nhận</td>
-                                            <td>
-                                                <a asp-controller="Order" asp-action="Index"><i class="fa fa-eye text-dark"></i></a>
-                                            </td>
-                                            <td>
-                                                <button class="btn border-danger text-danger">
-                                                    Hủy đơn
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>DH011224004</td>
-                                            <td>22/12/2024</td>
-                                            <td>299.000đ</td>
-                                            <td>Chờ xác nhận</td>
-                                            <td>
-                                                <a asp-controller="Order" asp-action="Index"><i class="fa fa-eye text-dark"></i></a>
-                                            </td>
-                                            <td>
-                                                <button class="btn border-danger text-danger">
-                                                    Hủy đơn
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- Pagination Start -->
-                                <div class="col-md-12 mt-3">
-                                    <nav aria-label="Page navigation example">
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
-                                            </li>
-                                            <li class="page-item active">
-                                                <a class="page-link" asp-controller="" asp-action="">1</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" asp-controller="" asp-action="">2</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" asp-controller="" asp-action="">3</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" asp-controller="" asp-action="">Sau</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
+
+                         
+
+
+                                <div class="table-responsive">
+                                    <h4 class="text-uppercase mb-3">Đơn hàng của bạn</h4>
+                                <form class="col-lg-6">
+                                    <select name="status" id="order-status" id="statusSelect" class="form-control" onchange="OrderStatus()">
+                                            <option>--Chọn trạng thái--</option>
+                                            <option value="">Tất cả</option>
+                                            <option value="1">Chờ xác nhận</option>
+                                            <option value="2">Xác nhận</option>
+                                            <option value="3">Đang giao</option>
+                                        <option value="4">Hoàn thành</option>
+                                            <option value="5">Đã hủy</option>
+                                        </select>
+                                    </form>
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Mã đơn hàng</th>
+                                                <th>Ngày đặt</th>
+                                                <th>Tổng tiền</th>
+                                                <th>Trạng thái</th>
+                                               
+                                            </tr>
+                                        </thead>
+                                    <tbody id="order-list">
+                                        @if(ViewBag.OrderAccount !=null)
+                                        {
+                                            @foreach (var ls in ViewBag.OrderAccount)
+                                            {
+                                                <tr data-rowId="@ls.OrderId">
+                                                    <td>@ls.Ordercode</td>
+                                                    <td>@ls.Create_at</td>
+                                                    <td>@(String.Format("{0:N0}",ls.Total)) VNĐ</td>
+                                                    <td class="btn-currentStatus">
+                                                        @(ls.Statuss ==1?"Chờ xác nhận":ls.Statuss==2?"Xác nhận":ls.Statuss==3?"Đang giao":ls.Statuss==4?"Hoàn thành":"Đã hủy")
+                                                    </td>
+                                                    <td>
+                                                        <a asp-controller="Order" asp-action="Index"><i class="fa fa-eye text-dark"></i></a>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-cancel-order btn-danger white  rounded btn-lg"
+                                                                
+                                                                data-orderid="@ls.OrderId"
+                                                                data-ordercode="@ls.Ordercode"
+                                                                data-status="@ls.Statuss"
+                                                                data-valuebutton="5"
+                                                        @((ls.Statuss != 1) ? "disabled": "")
+                                                
+                                                        >
+                                                            Hủy đơn
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                        else{
+                                            <span>Không có đơn hàng nào trong tài khoản</span>
+                                        }
+
+                                        </tbody>
+                                    </table>
+                                    <!-- Pagination Start -->
+                                    <div class="col-md-12 mt-3">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-center">
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
+                                                </li>
+                                                <li class="page-item active">
+                                                    <a class="page-link" asp-controller="" asp-action="">1</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" asp-controller="" asp-action="">2</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" asp-controller="" asp-action="">3</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" asp-controller="" asp-action="">Sau</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <!-- Pagination Start -->
                                 </div>
-                                <!-- Pagination Start -->
-                            </div>
+                        
                         </div>
                         <div class="tab-pane fade"
                              id="address-tab"
@@ -683,4 +684,178 @@
         </div>
     </div>
     <!-- My Account End -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        //lọc trạng thái đơn hàng
+        function OrderStatus() {
+            var status = document.getElementById("order-status").value;
+
+            const DetailOrder = '@Url.Action("Index", "Order")';
+            // Gửi yêu cầu AJAX
+            $.ajax({
+                url: '/Account/OrderStatus', // Đường dẫn đến action trong Controller
+                type: 'GET',
+                data: { status: status,
+                        id:'@Model.Id'
+                
+                }, // Gửi trạng thái đã chọn
+                success: function (OrderStatus) {
+                    var tbody = '';
+                    if (OrderStatus.length > 0) {
+                
+                        OrderStatus.forEach(function (OrderStatus) {
+                            let rawDate = OrderStatus.create_at; // "2024-12-23T23:33:11.153"
+                            let date = new Date(rawDate);
+
+                            // Định dạng ngày theo kiểu "ngày/tháng/năm"
+                            let day = date.toLocaleString("vi-VN", {
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit"
+                            });
+
+                            // Định dạng giờ theo kiểu "giờ :phút:giây"
+                            let time = date.toLocaleString("vi-VN", {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                second: "2-digit",
+                                hour12: true // Để sử dụng AM/PM
+                            });
+
+                            // Thay thế AM/PM thành SA/CH
+                            time = time.replace("AM", "SA").replace("PM", "CH");
+
+                            // Kết hợp ngày và giờ theo
+                            let create = `${day} ${time} `;
+                            tbody += `<tr data-rowId="${OrderStatus.orderId}">
+                                <td>${OrderStatus.ordercode}</td>
+                                <td>${create}</td>
+                                <td>${new Intl.NumberFormat('vi-VN', { style: 'decimal' }).format(OrderStatus.total)} VNĐ</td>
+                                <td class="btn-currentStatus">
+                                    ${OrderStatus.statuss == 1 ? "Chờ xác nhận" : OrderStatus.statuss == 2 ? "Xác nhận" : OrderStatus.statuss == 3 ? "Đang giao" : OrderStatus.statuss == 4 ? "Hoàn thành" : "Đã hủy"}
+                                </td>
+                                <td>
+                                    <a href="${DetailOrder}"><i class="fa fa-eye text-dark"></i></a>
+
+                                </td>
+                                <td>
+                                    <button class="btn btn-cancel-order btn-danger white rounded btn-lg"
+                                            data-orderid="${OrderStatus.orderId}"
+                                            data-ordercode="${OrderStatus.ordercode}"
+                                            data-status="${OrderStatus.statuss}"
+                                            data-valuebutton="5"
+                                            ${(OrderStatus.statuss != 1) ? "disabled" : ""}>
+                                        Hủy đơn
+                                    </button>
+                                </td>
+                            </tr>`;
+                        });
+                    } else {
+                        tbody = '<tr><td colspan="4">Không có đơn hàng nào khớp với trạng thái.</td></tr>';
+                    }
+                    // Cập nhật nội dung trong tbody
+                    $("#order-list").html(tbody);
+                },
+                error: function () {
+                    alert("Đã xảy ra lỗi khi lọc đơn hàng.");
+                }
+            });
+        }
+        //load lại trang hay rời khỏi trang reset lại selectoption về lúc chưa chọn trạng thái
+        $(document).ready(function () {
+            // Reset select khi người dùng rời khỏi trang hoặc reload
+            $(window).on('beforeunload', function () {
+                $('#statusSelect').val('');
+            });
+
+            //  reset select khi reload trang:
+            $('#statusSelect').val('');
+        });
+        // Hủy đơn
+        $(document).on("click", ".btn-cancel-order", function () {
+            var OrderId = $(this).data("orderid");
+            var OrderCode = $(this).data("ordercode");
+            var valueButton = $(this).data("valuebutton");
+            var btn = $(this);
+            var Status = $(this).data("status");
+            var rowItem = $(this).closest(".product-item").data("rowId");
+            if (Status == 1) {
+
+                Swal.fire({
+                    title: "Hủy đơn hàng !",
+                    text: `Bạn có chắc muốn hủy đơn hàng có mã đơn hàng là ${OrderCode} không!`,
+                    icon: "warning", // biểu tượng: 'warning', 'error', 'success', 'info', 'question'
+                    showCancelButton: true,
+                    confirmButtonText: "Có", 
+                    cancelButtonText: "Không", 
+                }).then((result) => {
+                    //khi nút xóa được nhấn
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/Account/CancelOrder',
+                            type: 'POST',
+                            data: {
+                                orderid: OrderId,
+                                status: 5
+                            },
+                            success: function (response) {
+                                if (response.success) {
+                                    var rowId = $(`tr[data-rowId='${OrderId}']`);
+                                    rowId.find(".btn-currentStatus").text("Hủy đơn");
+                                    rowId.find(".btn-cancel-order").data("status", 5);
+
+                                    Swal.fire("Hủy đơn hàng", `Đã hủy đơn hàng có mã đơn hàng là ${OrderCode}`, "success");
+
+                                    var cancelButton = rowId.find(".btn-cancel-order");
+                                    cancelButton.data("status", 5);
+                                    cancelButton.attr("disabled", true);
+                               
+
+                                } else {
+                                    Swal.fire("Lỗi hủy đơn", `Đã có lỗi xảy ra khi Hủy đơn hàng có mã đơn hàng là ${OrderCode}`, "error");
+                                }
+                            },
+
+                        });
+
+
+                    }
+
+
+                });
+            }
+            else {
+                Swal.fire({
+                    title: "Không thể hủy trạng thái!",
+                    text: "Trạng thái này đã được hủy hoặc không ở trạng thái chờ xác nhận nên không thể hủy.",
+                    icon: "error", // Biểu tượng thông báo (error, warning, info, success)
+                    confirmButtonText: "Đã hiểu", // Nút xác nhận
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $(this).prop("disabled", true);
+                    }
+                });
+            }
+
+
+
+        });
+
+
+
+  
+    </script>
+
+
 }
+
+
+
+
+
+
+
+
+

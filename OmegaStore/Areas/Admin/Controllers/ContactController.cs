@@ -41,7 +41,7 @@ namespace OmegaStore.Areas.Admin.Controllers
 
             // Gửi email
             await _SendMailService.SendEmailAsync(contact.Email,contact.Subject,htmlMessage);
-            await _services.ChangeContactStatus(contact.ContactId,RequestStatus.Pending);
+            await _services.ChangeContactStatus(contact.ContactId,RequestStatus.Resolved);
             return RedirectToAction("Index");
 
         }

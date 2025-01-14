@@ -12,8 +12,8 @@ public partial class Blog
 	public string Title { get; set; } = null!;
     public string Thumbnail { get; set; } = null!;
     public string Slug { get; set; } = null!;
-	public string ListContent { get; set; } = null!;
-	public string ShortContent { get; set; } = null!;
+	public string? ListContent { get; set; }
+	public string? ShortContent { get; set; }
 	public string Content { get; set; } = null!;
     public DateTime? CreatedAt { get; set; } = DateTime.Now;
 }

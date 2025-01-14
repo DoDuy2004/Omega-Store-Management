@@ -6,7 +6,7 @@ namespace OmegaStore.Models;
 
 public partial class Contact
 {
-    
+
     public int ContactId { get; set; }
 
     [Required(ErrorMessage = "Vui lòng nhập email của bạn!")]
@@ -18,15 +18,14 @@ public partial class Contact
 
     [Required(ErrorMessage = "Nhập chủ đề bạn cần hỗ trợ")]
     public string Subject { get; set; } = null!;
-    public string? Message { get; set; }=null!;
+    public string? Message { get; set; } = null!;
     public DateTime? CreatedAt { get; set; } = DateTime.Now;
-    public RequestStatus Status { get; set; }=RequestStatus.Unresolved;
-    public string OderCode { get; set; } = null!;
+    public RequestStatus Status { get; set; } = RequestStatus.Unresolved;
+    public string? OrderCode { get; set; }
 }
 
 public enum RequestStatus
 {
-    Pending = -1,  // Đang chờ
     Resolved = 1,  // Đã giải quyết
     Unresolved = 0 // Chưa giải quyết
 }
