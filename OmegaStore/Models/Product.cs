@@ -15,7 +15,7 @@ public partial class Product
     public string Name { get; set; } = null!;
     public string Thumbnail { get; set; } = null!;
 
-    [Required(ErrorMessage = "Tỷ lệ giảm giá phải nằm trong khoảng từ 0 đến 100."), Range(0, double.MaxValue, ErrorMessage = "Giá phải lớn hơn hoặc bằng 0.")]
+    [Required(ErrorMessage = "Giá sản phẩm là bắt buộc"), Range(0, double.MaxValue, ErrorMessage = "Giá phải lớn hơn hoặc bằng 0.")]
     public decimal Price { get; set; }
 
     
