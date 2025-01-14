@@ -7,6 +7,91 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/admin/css/All.css">
+    <style>
+        .choose-button {
+            text-align: center;
+        }
+
+        .upload-message {
+            position: absolute; /* Định vị absolute trong div */
+            top: 50%; /* Căn top từ giữa div */
+            left: 50%; /* Căn left từ giữa div */
+            transform: translate(-50%, -50%); /* Căn giữa theo cả trục x và y */
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 0;
+        }
+
+        .wg-box .image-list-product {
+            height: 190px;
+            gap: 10px;
+        }
+
+        .field-validation-error {
+            font-size: medium;
+        }
+
+        .slideshow img {
+            width: 150px;
+            height: 150px;
+        }
+
+        .image-box {
+            width: 100%;
+            height: 260px;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+            .image-box.hidden {
+                display: none;
+            }
+
+            .image-box input[type="file"] {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                cursor: pointer;
+                z-index: 1;
+            }
+
+        .image-preview {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            flex-shrink: 0; /* Không cho phép co dãn ảnh */
+        }
+
+        .image-list-product .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 0px;
+        }
+
+        img {
+            height: 100%;
+            max-width: 100%;
+            vertical-align: middle;
+            -ms-interpolation-mode: bicubic;
+        }
+    </style>
 }
 
 @section Scripts {
@@ -17,9 +102,138 @@
     <script src="https://kit.fontawesome.com/ffa90392e4.js" crossorigin="anonymous"></script>
     <script src="~/admin/lib/easing/easing.min.js"></script>
     <script src="~/admin/lib/slick/slick.min.js"></script>
-
+    <partial name="_ValidationScriptsPartial" />
     <!-- Template Javascript -->
     <script src="~/admin/js/slideshow.js"></script>
+    <script>
+        function handleImageChange(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // Hiển thị ảnh ở khu vực xem trước
+                    const previewContainer = document.getElementById('preview-container');
+                    const previewDiv = document.createElement('div');
+                    previewDiv.classList.add('image-preview');
+
+                    // Gắn ID cho hình ảnh để liên kết với input
+                    const inputId = `input-${Date.now()}`;
+                    input.dataset.previewId = inputId;
+
+                    previewDiv.setAttribute('data-input-id', inputId);
+
+                    previewDiv.innerHTML = `
+                                        <img src="${e.target.result}" alt="Image Preview">
+                                        <button type="button" class="remove-btn" onclick="removeImage(this)">×</button>
+                                    `;
+
+                    previewContainer.appendChild(previewDiv);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+                // Ẩn thẻ div chứa input hiện tại
+                input.parentElement.classList.add('hidden');
+                createNewImageBox();
+            }
+        }
+
+        function createNewImageBox() {
+            const container = document.getElementById('image-container');
+
+            const newBox = document.createElement('div');
+            newBox.classList.add('image-box');
+            newBox.innerHTML = `
+                                <input type="file" name="images" accept="image/*" onchange="handleImageChange(this)">
+                                <div class="upload-message">Chọn ảnh</div>
+                            `;
+
+            container.appendChild(newBox);
+        }
+
+        function removeImage(button) {
+            const previewDiv = button.parentNode;
+            // Lấy giá trị của data-image-name từ button
+            const imageName = button.getAttribute('data-image-name');
+            // Kiểm tra nếu data-image-name có giá trị
+            if (imageName) {
+                // Tạo một input hidden mới
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'removedImages'; 
+                hiddenInput.value = imageName;
+
+                // Thêm input hidden vào form
+                const hiddenInputContainer = document.getElementById('hidden-input-container');
+                hiddenInputContainer.appendChild(hiddenInput);
+            }
+            // Xóa ảnh trong khu vực xem trước
+            const inputId = previewDiv.getAttribute('data-input-id');
+            const associatedInput = document.querySelector(`#image-container input[data-preview-id="${inputId}"]`);
+            if (associatedInput) {
+                associatedInput.parentNode.remove();
+            }
+
+            previewDiv.remove();
+        }
+
+        document.getElementById('fileInput').addEventListener('change', function (event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var img = document.getElementById('previewAvatar');
+                img.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file); // Dùng để đọc file dưới dạng base64
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('addform');  // Form của bạn
+            const fileInput = document.getElementById('fileInput');  // Thay cho querySelector
+            const errorSpan = document.getElementById('avatar-error');  // Thẻ span chứa lỗi
+
+            form.addEventListener('submit', function (event) {
+                if (fileInput.files.length === 0) {
+                    event.preventDefault();  // Ngăn gửi form nếu input file rỗng
+                    errorSpan.style.display = 'block';  // Hiện lỗi
+                } else {
+                    errorSpan.style.display = 'none';  // Ẩn lỗi khi input đã chọn
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('#Name').on('input', function () {
+                var productName = $(this).val();
+                var productId = $('input[asp-for="Id"]').val();
+
+                // Gửi AJAX request tới backend để kiểm tra Slug
+                $.ajax({
+                    url: '/Admin/Product/CheckSlug',  // Thay thế với route đến action CheckSlug
+                    method: 'GET',
+                    data: {
+                        name: productName,
+                        id: productId
+                    },
+                    success: function (data) {
+                        if (!data.success) {
+                            // Hiển thị thông báo lỗi nếu Slug đã tồn tại
+                            $('#NameError').text(data.message);
+                            $('#submitButton').prop('disabled', true);
+                        } else {
+                            $('#NameError').text("");
+                            $('#submitButton').prop('disabled', false); // Bật lại nút submit
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+    </script>
 }
 
 <div class="main-content">
@@ -55,12 +269,20 @@
                 <a asp-area="Admin" asp-controller="Product" asp-action="Index"><i class="fa-solid fa-circle-arrow-left"></i>Quay Lại Danh Sách</a>
             </div>
             <!-- form-add-product -->
-            <form class="tf-section-2 form-add-product">
+            <form class="tf-section-2 form-add-product" enctype="multipart/form-data" asp-area="Admin" asp-controller="Product" asp-action="EditProduct">
+                <input class="inputContent mb-10" asp-for="Id" type="hidden">
+                <input class="inputContent mb-10" asp-for="Status" type="hidden">
                 <div class="wg-box">
                     <fieldset class="name">
+                        <div class="body-title mb-10">Mã sản phẩm <span class="tf-color-1"></span></div>
+                        <input class="inputContent mb-10" asp-for="ProductCode" type="text" tabindex="0" readonly>
+                        <span asp-validation-for="ProductCode" class="text-danger"></span>
+                    </fieldset>
+                    <fieldset class="name">
                         <div class="body-title mb-10">Tên sản phẩm <span class="tf-color-1"></span></div>
-                        <input class="inputContent mb-10" asp-for="Name" type="text" tabindex="0"  aria-required="true" required="">
-                        <!-- <div class="text-tiny">Do not exceed 20 characters when entering the product name.</div> -->
+                        <input class="inputContent mb-10" asp-for="Name" type="text" tabindex="0">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <span id="NameError"  style="font-size:medium" class="text-danger"></span>
                     </fieldset>
                     <div class="gap22 cols">
                         <fieldset class="category">
@@ -70,34 +292,34 @@
                                 </select>
                             </div>
                         </fieldset>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
                     </div>
                     <fieldset class="name">
+                        <div class="body-title mb-10">Số lượng <span class="tf-color-1"></span></div>
+                        <input class="inputContent mb-10" asp-for="Stock" type="text" tabindex="0" >
+                        <span asp-validation-for="Stock" class="text-danger"></span>
+                    </fieldset>
+                    <fieldset class="name">
                         <div class="body-title mb-10">Giá sản phẩm <span class="tf-color-1"></span></div>
-                        <input class="inputContent mb-10" asp-for="Price" type="text"  tabindex="0"  aria-required="true" required="">
-                        <!-- <div class="text-tiny">Do not exceed 20 characters when entering the product name.</div> -->
+                        <input class="inputContent mb-10" asp-for="Price" type="text"  tabindex="0" >
+                        <span asp-validation-for="Price" class="text-danger"></span>
                     </fieldset>
                     <fieldset class="name">
                         <div class="body-title mb-10">Phần trăm giảm giá <span class="tf-color-1"></span></div>
-                        <input class="inputContent mb-10" asp-for="DiscountRate" type="text"  tabindex="0"  aria-required="true" required="">
-                        <!-- <div class="text-tiny">Do not exceed 20 characters when entering the product name.</div> -->
+                        <input class="inputContent mb-10" asp-for="DiscountRate" type="text"  tabindex="0" >
+                        <span asp-validation-for="DiscountRate" class="text-danger"></span>
                     </fieldset>
-                    <fieldset class="name">
+                    @* <fieldset class="name">
                         <div class="body-title mb-10">Slug<span class="tf-color-1"></span></div>
-                        <input class="inputContent mb-10" asp-for="Slug" type="text"  tabindex="0"  aria-required="true" required="" disabled>
-                        <!-- <div class="text-tiny">Do not exceed 20 characters when entering the product name.</div> -->
-                    </fieldset>
+                        <input class="inputContent mb-10" asp-for="Slug" type="text"  tabindex="0" readonly>
+                        <span asp-validation-for="Slug" class="text-danger"></span>
+                    </fieldset> *@
                     <fieldset class="description mb-24">
                         <div class="body-title mb-10">Mô tả sản phẩm <span class="number"></span></div>
-                        <textarea class="inputContent" type="text" name="area" asp-for="Description">
+                        <textarea class="inputContent" type="text" asp-for="Description">
 
                         </textarea>
-                        <!-- <textarea class="" name="description" placeholder="Description" tabindex="0" aria-required="true" required=""></textarea> -->
                     </fieldset>
-                    <!-- <fieldset class="description">
-                      <div class="body-title mb-10">Description <span class="tf-color-1">*</span></div>
-                      <textarea class="mb-10" name="description" placeholder="Description" tabindex="0" aria-required="true" required=""></textarea>
-                      <div class="text-tiny">Do not exceed 100 characters when entering the product name.</div>
-                    </fieldset> -->
                 </div>
                 <div class="wg-box">
                     <div class="body-title mb-10">Sửa hình ảnh</div>
@@ -105,114 +327,54 @@
                         <div class="sidebar-image-editor w-100">
 
                             <div class="box-uploadImage mb-16 w-50">
-                                <div class="item-image-avatar  normal-slider avatar-box">
-                                    <div class="empty-avatar" id="avatar">Hình Ảnh</div>
-                                </div>
-
-                                <div class="selectButton">
-                                    <div class="chooseImage w-50">
-                                        <input type="file" id="fileInput" class="file-input">
-                                        <label for="fileInput" class="choose-button w-100">Chọn ảnh</label>
+                                <div class="item-image-avatar  normal-slider avatar-box" id="image-container">
+                                    <div class="image-box">
+                                        <input type="file" name="images" accept="image/*" onchange="handleImageChange(this)">
+                                        <div class="upload-message">Chọn ảnh</div>
                                     </div>
-                                    <div class="removeImage w-50">
-                                        <button class="remove-button w-100">Bỏ chọn</button>
-                                    </div>
-                                </div>
-                                <div class="Add-Image">
-                                    <button class="w-100">Thêm</button>
                                 </div>
                             </div>
 
                             <div class="box-uploadImage-avatar mb-16">
                                 <div class="item-image">
-                                    <img src="~/admin/" class="w-100">
+                                    <img id="previewAvatar" src="~/img/products/@Model.Thumbnail" class="w-100" alt="Ảnh đại diện">
                                 </div>
                                 <div class="Add-Image-Avatar">
-                                    <input type="file" id="fileInput" class="file-input">
+                                    <input type="file" id="fileInput" name="Thumbnail" class="file-input">
                                     <label for="fileInput" class="choose-button w-100">Chọn ảnh đại diện</label>
+
+                                </div>
+                                <div style="margin-top:10px">
+                                    <span style="color:red;font-size:medium;display:none;text-align:center" id="avatar-error">
+                                        Sản phẩm cần có ảnh đại diện
+                                    </span>
                                 </div>
                             </div>
-
-                            <!-- <div class="item up-load">
-                              <label class="uploadfile" for="myFile">
-                                <span class="icon">
-                                  <i class="icon-upload-cloud"></i>
-                                </span>
-                                <span class="text-tiny">Drop your images here or select <span class="tf-color">click to browse</span></span>
-                                <input type="file" id="myFile" name="filename">
-                              </label>
-                            </div> -->
                         </div>
                         <div class="box-detail">
                             <div class="box-slideshow-image">
                                 <div class="title-list-image">
                                     <span>Danh sách hình ảnh của sản phẩm: </span>
                                 </div>
-                                <div class="image-list-product product-slider-single-edit mt-3 slideshow" id="slideshow">
-                                    <div class="box-image-item mt-2 slider-nav-img"><img src="~/admin/images/luffy.png" alt="Product Image" class="product-image-item" onclick="updateAvatar(this.src)"></div>
-                                    <div class="box-image-item mt-2 slider-nav-img"><img src="~/admin/images/rua.jpg" alt="Product Image" class="product-image-item" onclick="updateAvatar(this.src)"></div>
-                                    <div class="box-image-item mt-2 slider-nav-img"><img src="~/admin/images/mabu.jpg" alt="Product Image" class="product-image-item" onclick="updateAvatar(this.src)"></div>
-                                    <div class="box-image-item mt-2 slider-nav-img"><img src="~/admin/images/ruaxanh.webp" alt="Product Image" class="product-image-item" onclick="updateAvatar(this.src)"></div>
-                                    <div class="box-image-item mt-2 slider-nav-img"><img src="~/admin/images/thap.jpg" alt="Product Image" class="product-image-item" onclick="updateAvatar(this.src)"></div>
-                                    <div class="box-image-item mt-2 slider-nav-img"><img src="~/admin/images/placeholder.png" alt="Product Image" class="product-image-item" onclick="updateAvatar(this.src)"></div>
-                                    <div class="box-image-item mt-2 slider-nav-img"><img src="~/admin/images/pokemon.jpg" alt="Product Image" class="product-image-item" onclick="updateAvatar(this.src)"></div>
-                                    <div class="box-image-item mt-2 slider-nav-img"><img src="~/admin/images/frog.jpg" alt="Product Image" class="product-image-item" onclick="updateAvatar(this.src)"></div>
-                                    <div class="box-image-item mt-2 slider-nav-img"><img src="~/admin/images/pika.png" alt="Product Image" class="product-image-item" onclick="updateAvatar(this.src)"></div>
-                                    <div class="box-image-item mt-2 slider-nav-img"><img src="~/admin/images/waterpoke.jpg" alt="Product Image" class="product-image-item" onclick="updateAvatar(this.src)"></div>
-
+                                <div class="image-list-product product-slider-single-edit mt-3 slideshow" id="preview-container">
+                                    @foreach(var image in Model.ProductsImages)
+                                    {
+                                        <div class="image-preview" data-input-id="@image.Image">
+                                            <img src="~/img/products/@image.Image" alt="Image Preview">
+                                            <button type="button" class="remove-btn" data-image-name="@image.Image" onclick="removeImage(this)">×</button>
+                                        </div>
+                                    }                                
                                 </div>
+                                <div id="hidden-input-container">
 
-                                <!-- <div class="chevron-item">
-                                  <span class="chevron-left"><i class="fa-solid fa-chevron-left"></i></span>
-                                  <span class="chevron-right"><i class="fa-solid fa-chevron-right"></i></span>
-                                </div> -->
+                                </div>                           
                             </div>
                         </div>
-                        <!-- <div class="body-text">You need to add at least 4 images. Pay attention to the quality of the pictures you add, comply with the background color standards. Pictures must be in certain dimensions. Notice that the product shows all the details</div> -->
+                     
                     </fieldset>
-                    <!-- <div class="cols gap22">
-                    <fieldset class="name">
-                        <div class="body-title mb-10">Add size</div>
-                        <div class="select mb-10">
-                          <select class="">
-                            <option>EU - 44</option>
-                            <option>EU - 40</option>
-                            <option>EU - 50</option>
-                          </select>
-                        </div>
-                        <div class="list-box-value mb-10">
-                          <div class="box-value-item">
-                            <div class="body-text">EU - 38.5</div>
-                          </div>
-                          <div class="box-value-item">
-                            <div class="body-text">EU - 39</div>
-                          </div>
-                          <div class="box-value-item">
-                            <div class="body-text">EU - 40</div>
-                          </div>
-                        </div>
-                        <div class="list-box-value">
-                          <div class="box-value-item">
-                            <div class="body-text">EU - 41.5</div>
-                          </div>
-                          <div class="box-value-item">
-                            <div class="body-text">EU - 42</div>
-                          </div>
-                          <div class="box-value-item">
-                            <div class="body-text">EU - 43</div>
-                          </div>
-                        </div>
-                      </fieldset>
-                    <fieldset class="name">
-                        <div class="body-title mb-10">Product date</div>
-                        <div class="select">
-                          <input type="date" name="date" value="2023-11-20">
-                        </div>
-                      </fieldset>
-                    </div> -->
+                    
                     <div class="cols gap10">
-                        <button class="add-product-button w-100" type="submit">Sửa sản phẩm</button>
-                        <!-- <a href="#" class="tf-button style-2 w-full">Schedule</a> -->
+                        <button class="add-product-button w-100" type="submit" id="submitButton">Sửa sản phẩm</button>
                     </div>
                 </div>
             </form>

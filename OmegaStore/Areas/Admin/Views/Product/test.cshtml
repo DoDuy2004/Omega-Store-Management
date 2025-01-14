@@ -1,10 +1,16 @@
 ﻿@model OmegaStore.Models.Product
-@Model.ProductCode
-@Model.Name
-@Model.Thumbnail
-@Model.Price
-@Model.DiscountRate
-@Model.Slug
-@Model.Description
-@Model.CategoryId
-@Model.Status
+<p>Product id: </p>@Model.Id
+<p>Product code: </p>@Model.ProductCode
+<p>Product name: </p>@Model.Name
+<p>Product thumbail: </p>@Model.Thumbnail
+<p>Product price: </p>@Model.Price
+<p>Product discount: </p>@Model.DiscountRate
+<p>Product slug: </p>@Model.Slug
+<p>Product description: </p>@Model.Description
+<p>Product categoryid: </p>@Model.CategoryId
+<p>Product status: </p>@Model.Status
+
+@foreach(var image in ViewBag.ImageList)
+{
+    <p>@image</p>
+}
