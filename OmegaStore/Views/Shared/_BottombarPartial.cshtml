@@ -3,9 +3,7 @@
 		<div class="row align-items-center">
 			<div class="col-md-2">
 				<div class="logo">
-					<a asp-controller="Home" asp-action="Index" class="d-inline-block">
-						<img src="~/img/logo.png" alt="Logo" width="100" class="img-fluid">
-					</a>
+					@await Component.InvokeAsync("LogoInBottombar")
 				</div>
 			</div>
 			<div class="col-md-7">

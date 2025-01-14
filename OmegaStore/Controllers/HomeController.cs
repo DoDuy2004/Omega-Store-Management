@@ -36,6 +36,7 @@ namespace OmegaStore.Controllers
         }
         public IActionResult Contact()
         {
+            ViewBag.WebsiteInfo = _context.WebsiteInfos.First(w => w.Id == 1);
             return View();
         }
         [HttpPost]
