@@ -40,6 +40,13 @@ namespace OmegaStore.Services
             var account = GetAccountByUsername(username);
             return account != null && account.Status == 0;
         }
+
+        public int GetAccountId(string? username)
+        {
+            int id = _context.Accounts.FirstOrDefault(a => a.Username == username)!.Id;
+
+            return id;
+        }
     }
 
 }

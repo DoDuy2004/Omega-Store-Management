@@ -58,11 +58,18 @@ namespace OmegaStore.Controllers
             {
                 return RedirectToAction("Index");
             }
+
+            string returnUrl = Request.Query["returnUrl"]!;
+
+            Console.WriteLine("Duy dep trai" + returnUrl);
+
+            ViewBag.returnUrl = returnUrl;
+
             return View("Login");
         }//Trang đăng nhập
 
         [HttpPost]
-        public IActionResult Login(string username, string password)
+        public IActionResult Login(string username, string password, string? returnUrl)
         {
             var user = _accountService.Authenticate(username, password);
 
@@ -81,6 +88,13 @@ namespace OmegaStore.Controllers
             }
 
             HttpContext.Session.SetString("Username", username);
+
+            Console.WriteLine("Duy dep trai" + returnUrl);
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+
             return RedirectToAction("Index");
         }//Xử lý đăng nhập tại trang đăng nhập
 

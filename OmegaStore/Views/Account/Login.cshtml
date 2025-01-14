@@ -25,6 +25,7 @@
                 <div class="login-form pt-0">
                     <h2 class="mb-3">Đăng nhập</h2>
                     <form action="/Account/Login" method="post">
+                        <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
                         <div class="row">
                             <div class="col-md-12">
                                 <label class="font-weight-bold">Email hoặc tên đăng nhập <span class="text-danger">*</span></label>

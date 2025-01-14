@@ -339,7 +339,6 @@ public partial class StoreDbContext : DbContext
                 .HasColumnName("fullname");
 
             entity.Property(e => e.Email)
-                .IsRequired()
                 .HasMaxLength(50)
                 .HasColumnName("email");
 
@@ -370,6 +369,10 @@ public partial class StoreDbContext : DbContext
             entity.Property(e => e.Status)
                 .IsRequired()
                 .HasColumnName("status");
+
+            entity.Property(e => e.Note)
+                .HasMaxLength(500) // Giới hạn tối đa 500 ký tự
+                .IsUnicode(true);  // Cho phép lưu Unicode
 
             // Cấu hình mối quan hệ với Account: Một Account có thể có nhiều Order
             entity.HasOne(o => o.Account)  // Mỗi Order thuộc về một Account
