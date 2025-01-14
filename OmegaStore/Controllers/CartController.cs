@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using OmegaStore.Models;
 using OmegaStore.Models.ViewModels;
 using OmegaStore.Services;
@@ -9,11 +10,15 @@ namespace OmegaStore.Controllers
     {
 		private readonly IProductService _productService;
         private readonly ICartService _cartService;
+        private readonly IAccountService _accountService;
+        private readonly IOrderService _orderService;
         private readonly int pageSize = 4;
-        public CartController (IProductService productService, ICartService cartService)
+        public CartController (IProductService productService, ICartService cartService, IAccountService accountService, IOrderService orderService)
         {
             _cartService = cartService;
             _productService = productService;
+            _accountService = accountService;
+            _orderService = orderService;
         }
 		public IActionResult Index()
         {
@@ -30,7 +35,6 @@ namespace OmegaStore.Controllers
                     .Take(pageSize)
                     .ToList(),
                 TotalPrice = _cartService.GetTotalPrice(),
-                ShippingFee = 25000,
                 TotalQuantity = _cartService.GetTotalQuantity(),
                 TotalItems = _cartService.GetTotalItems()
             };
@@ -53,7 +57,6 @@ namespace OmegaStore.Controllers
             {
                 CartItems = _cartService.GetCart().CartItems,
                 TotalPrice = _cartService.GetTotalPrice(),
-                ShippingFee = 25000,
                 TotalQuantity = _cartService.GetTotalQuantity(),
                 TotalItems = _cartService.GetTotalItems()
             };
@@ -98,7 +101,6 @@ namespace OmegaStore.Controllers
             {
                 CartItems = _cartService.GetCart().CartItems,
                 TotalPrice = _cartService.GetTotalPrice(),
-                ShippingFee = 25000,
                 TotalQuantity = _cartService.GetTotalQuantity(),
                 TotalItems = _cartService.GetTotalItems()
             };
@@ -114,7 +116,6 @@ namespace OmegaStore.Controllers
             {
                 CartItems = _cartService.GetCart().CartItems,
                 TotalPrice = _cartService.GetTotalPrice(),
-                ShippingFee = 25000,
                 TotalQuantity = _cartService.GetTotalQuantity(),
                 TotalItems = _cartService.GetTotalItems()
             };
@@ -130,15 +131,84 @@ namespace OmegaStore.Controllers
             {
                 CartItems = _cartService.GetCart().CartItems,
                 TotalPrice = _cartService.GetTotalPrice(),
-                ShippingFee = 25000,
                 TotalQuantity = _cartService.GetTotalQuantity(),
                 TotalItems = _cartService.GetTotalItems()
             };
             return Json(new { success = true, cartViewModel = cartViewModel });
         }
-        public IActionResult Checkout() 
-        { 
-            return View(); 
+
+        [HttpGet]
+        public IActionResult Checkout()
+        {
+            var cartItems = _cartService.GetCart().CartItems;
+            var totalPrice = _cartService.GetTotalPrice();
+
+            Account? account = new Account();
+            var username = HttpContext.Session.GetString("Username");
+
+            if (!String.IsNullOrEmpty(username))
+            {
+                account = _accountService.GetAccountByUsername(username);
+            }
+
+            var checkout = new CheckoutViewModel
+            {
+                Order = new Order
+                {
+                    Fullname = account!.Fullname,
+                    Email = account!.Email,
+                    Phone = account!.Phone,
+                    Address = account!.Address
+                },
+                CartItems = cartItems,
+                ShipFee = 25000,
+                TotalPrice = totalPrice
+            };
+            return View(checkout);
+        }
+
+        [HttpPost]
+        public IActionResult Checkout(CheckoutViewModel checkout, string? username)
+        {
+            int? accountId = null;
+            var cartItems = _cartService.GetCart().CartItems;
+
+            ModelState.Remove("Order.OrderCode");
+
+            if(!String.IsNullOrEmpty(username))
+            {
+                accountId = _accountService.GetAccountId(username!);
+            }
+
+
+            if (!ModelState.IsValid)
+            {
+                Console.WriteLine("Loi roi duy oi!, thang dan nay...");
+
+                return BadRequest(new { success = false, modelState = ModelState });
+            }
+
+            Console.WriteLine("Kha lam!, thang dan nay...");
+
+            Order order = new Order
+            {
+                OrderCode = _orderService.GenerateOrderCode(),
+                Fullname = checkout.Order.Fullname,
+                Email = checkout.Order.Email,
+                Phone = checkout.Order.Phone,
+                PaymentMethod = checkout.Order.PaymentMethod,
+                Address = checkout.Order.Address,
+                TotalAmount = checkout.Order.TotalAmount,
+                Note = checkout.Order.Note,
+                AccountId = accountId,
+                Status = 1,
+            };
+
+            _cartService.Checkout(order, cartItems);
+
+            _cartService.ClearCart();
+
+            return Json(new { success = true, order = order });
         }
     }
 }

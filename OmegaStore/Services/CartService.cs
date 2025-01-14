@@ -6,11 +6,13 @@ namespace OmegaStore.Services
     public class CartService : ICartService
     {
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly StoreDbContext _context;
         private readonly string cartSessionKey = "Cart";
 
-        public CartService(IHttpContextAccessor contextAccessor)
+        public CartService(IHttpContextAccessor contextAccessor, StoreDbContext context)
         {
             _contextAccessor = contextAccessor;
+            _context = context;
         }
         private void SaveCartToSession(Cart cart)
         {
@@ -130,6 +132,38 @@ namespace OmegaStore.Services
             cartItem.Quantity = quantity;
             SaveCartToSession(cart);
             return true;
+        }
+
+        public void Checkout(Order order, List<CartItem> cartItems)
+        {
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+
+            var detailOrders = new List<DetailOrder>();
+
+            foreach (CartItem item in cartItems)
+            {
+                detailOrders.Add(new DetailOrder
+                {
+                    OrderId = order.Id,
+                    ProductId = item.Product.Id,
+                    Quantity = item.Quantity,
+                    TotalPrice = item.Product.Price * item.Quantity
+                });
+            }
+
+            _context.DetailOrders.AddRange(detailOrders);
+            _context.SaveChanges();
+
+            //var detailOrders = cartItems.Select(item => new DetailOrder
+            //{
+            //    OrderId = order.Id,
+            //    ProductId = item.Product.Id,
+            //    Quantity = item.Quantity,
+            //    TotalPrice = item.Product.Price * item.Quantity
+            //});
+
+            //_context.DetailOrders.AddRange(detailOrders);
         }
     }
 }

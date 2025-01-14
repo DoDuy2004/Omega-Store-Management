@@ -15,5 +15,6 @@ namespace OmegaStore.Services
         bool IncreaseQuantity(int cartItemId);
         bool UpdateQuantity(int cartItemId, int quantity);
         bool DecreaseQuantity(int cartItemId);
+        void Checkout(Order order, List<CartItem> cartItems);
     }
 }
