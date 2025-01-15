@@ -121,5 +121,53 @@ namespace OmegaStore.Controllers
             var reviews = _context.Reviews.Where(r => r.ProductId == ProductId);
             return Json(new { reviews = reviews });
         }
+
+        [HttpGet]
+        [Route("[controller]/[action]/{keyword?}")]
+        public IActionResult Search([FromQuery] string keyword)
+        {
+            var products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.Id, (p, c) => new
+            { Product = p, Category = c }).Where(pc => pc.Category.Status == 1 && (pc.Product.Name.ToLower().Contains(keyword.ToLower()) || pc.Category.Name.Contains(keyword))).ToList();
+            ViewBag.Categories = _context.Categories.Where(c => c.Status == 1);
+            ViewBag.Keyword = keyword;
+            return View(products);
+        }
+        [HttpPost]
+        public IActionResult Search(string keyword, int category, int min_price, int max_price)
+        {
+            var products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.Id, (p, c) => new
+            { Product = p, Category = c }).Where(pc => pc.Category.Status == 1 && (pc.Product.Name.ToLower().Contains(keyword.ToLower()) || pc.Category.Name.Contains(keyword)) && pc.Product.Price >= min_price).ToList();
+
+            if (category != 0)
+            {
+                if (max_price != 0)
+                {
+                    products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.Id, (p, c)
+                    => new { Product = p, Category = c })
+                    .Where(pc => pc.Category.Status == 1
+                    && (pc.Product.Name.ToLower().Contains(keyword.ToLower())
+                    || pc.Category.Name.ToLower().Contains(keyword.ToLower()))
+                    && pc.Category.Id == category
+                    && pc.Product.Price >= min_price
+                    && pc.Product.Price <= max_price
+                    ).ToList();
+                }
+                else
+                {
+                    products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.Id, (p, c)
+                        => new { Product = p, Category = c })
+                        .Where(pc => pc.Category.Status == 1
+                        && (pc.Product.Name.ToLower().Contains(keyword.ToLower())
+                        || pc.Category.Name.ToLower().Contains(keyword.ToLower()))
+                        && pc.Category.Id == category
+                        && pc.Product.Price >= min_price
+                        ).ToList();
+                }
+            }
+
+            ViewBag.Categories = _context.Categories.Where(c => c.Status == 1);
+            ViewBag.Keyword = keyword;
+            return View("Search", products);
+        }
     }
 }

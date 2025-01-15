@@ -3,15 +3,17 @@
 		<div class="row align-items-center">
 			<div class="col-md-2">
 				<div class="logo">
-					@await Component.InvokeAsync("LogoInBottombar")
+					<a asp-controller="Home" asp-action="Index" class="d-inline-block">
+						<img src="~/img/logo.png" alt="Logo" width="100" class="img-fluid">
+					</a>
 				</div>
 			</div>
 			<div class="col-md-7">
 				<div class="search">
-					<form action="product-list.html">
-						<input type="text" name="search" placeholder="Bạn đang tìm gì... (Nhập mã hóa đơn để tra cứu đơn)"
+					<form asp-controller="Product" asp-action="Search" method="get">
+						<input type="text" name="keyword" placeholder="Bạn đang tìm gì... "
 							   autocomplete="off">
-						<button><i class="fa fa-search"></i></button>
+						<button type="submit"><i class="fa fa-search"></i></button>
 					</form>
 				</div>
 			</div>
@@ -19,3 +21,4 @@
 		</div>
 	</div>
 </div>
+
