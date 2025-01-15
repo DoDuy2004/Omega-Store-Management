@@ -4,7 +4,7 @@
 
 	@foreach (var cate in Model)
 	{
-		<a asp-controller="Category" asp-action="ListProduct" asp-route-slug="@cate.Slug" class="dropdown-item font-weight-bold">@cate.Name</a>
+		<a asp-controller="Category" asp-action="ListProduct" asp-route-slug="@cate.Slug" class="dropdown-item font-weight-bold ">@cate.Name</a>
 	}
 
 

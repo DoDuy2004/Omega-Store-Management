@@ -45,12 +45,42 @@ namespace OmegaStore.Controllers
             }).ToList();
             ViewBag.OrderAccount = OrderAccount;
 
+            var productrated = _context.Products
+              .Include(p => p.DetailOrders) 
+                  .ThenInclude(or => or.Order)
+                .Include(p => p.Reviews)     
+                .Where(p => p.DetailOrders.Any(or => or.Order.Status == 4 && or.Order.AccountId == account.Id)) 
+                .Select(p => new
+                {
+                    ProductId = p.Id,
+                    ProductName = p.Name,
+                    ProductImage = p.Thumbnail,
+                    ProductPrice = p.Price,
+                    ProductDiscountRate = p.DiscountRate,
+                    ProductSlug = p.Slug,
+                    TotalSold = p.DetailOrders.Where(or => or.Order.Status == 4).Sum(or => or.Quantity),
+                    // Lọc các đánh giá thuộc sản phẩm hiện tại nếu có trả về true,nếu không có đánh giá trả về 0
+                    AverageRating = p.Reviews
+                    .Where(r => r.ProductId == p.Id) 
+                    .Any()
+                     ? p.Reviews
+                    .Where(r => r.ProductId == p.Id) 
+                    .Average(r => r.Rating) 
+                    : 0, 
+                    Create_at=p.Reviews.Where(r=>r.ProductId==p.Id && r.Email==account.Email)
+                                       .OrderByDescending(r=>r.CreatedAt)
+                                       .Select(r=>r.CreatedAt)
+                                       .FirstOrDefault()
+                }).OrderByDescending(p=>p.Create_at).ToList();
+
+            ViewBag.ProductRated = productrated;
 
 
 
 
 
-            ViewBag.Username = username;
+
+         ViewBag.Username = username;
             return View(account);
         }//Trang chi tiết tài khoản
 
@@ -290,6 +320,7 @@ namespace OmegaStore.Controllers
                 return Json(new { success = false });
             }
         }
+     
 
         [HttpGet]
         public IActionResult AddWishList(int id)
