@@ -1,16 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OmegaStore.Models;
+using OmegaStore.Services;
 
 namespace OmegaStore.Controllers
 {
     public class ProductController : Controller
     {
         private readonly StoreDbContext _context;
+        private readonly IAccountService _accountService;
 
-        public ProductController(StoreDbContext context)
+        public ProductController(StoreDbContext context, IAccountService accountService)
         {
             _context = context;
+            _accountService = accountService;
         }
 
         [HttpGet("[controller]/{slug}")]
@@ -39,11 +42,18 @@ namespace OmegaStore.Controllers
 
                 ViewBag.likes = _context.Wishlist
                     .Where(l => l.ProductId == product.Id).Count();
+
+                var account = _context.Accounts
+                    .FirstOrDefault(a => a.Username == HttpContext.Session.GetString("Username"));
+
+                if (account != null)
+                {
+                    ViewBag.isAddedWishlist = _context.Wishlist
+                    .FirstOrDefault(w => w.ProductId == product.Id && w.AccountId == account.Id);
+                }
             }
 
-            return View();
-
-            //return Content(slug);
+			return View();
         }
 
         [HttpPost("[controller]/Comment")]

@@ -253,6 +253,7 @@ namespace OmegaStore.Controllers
 
 
         }
+
         [HttpPost]
         public IActionResult CancelOrder(int orderid, int status)
         {
@@ -276,7 +277,68 @@ namespace OmegaStore.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult AddWishList(int id)
+        {
+            var username = HttpContext.Session.GetString("Username");
+            var account = _accountService.GetAccountByUsername(username ?? "");
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
 
+            if (account != null)
+            {
+                _context.Wishlist.Add(new Wishlist
+                {
+                    AccountId = account.Id,
+                    ProductId = id
+                });
+
+                _context.SaveChanges();
+
+                return Json(new
+                {
+                    icon = "success",
+                    title = "Thêm yêu thích thành công"
+                });
+            }
+
+            return Json(new
+            {
+                icon = "error",
+                title = "Thêm yêu thích không thành công"
+            });
+        }
+
+        public IActionResult DelWishList(int id)
+        {
+            var username = HttpContext.Session.GetString("Username");
+            var account = _accountService.GetAccountByUsername(username ?? "");
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+
+            if (account != null)
+            {
+                _context.Wishlist.Remove(new Wishlist
+                {
+                    AccountId = account.Id,
+                    ProductId = id
+                });
+
+                _context.SaveChanges();
+
+                return Json(new
+                {
+                    success = true,
+                    icon = "success",
+                    title = "Hủy yêu thích thành công"
+                });
+            }
+
+            return Json(new
+            {
+                success = false,
+                icon = "error",
+                title = "Hủy yêu thích không thành công"
+            });
+        }
     }
 
 }
