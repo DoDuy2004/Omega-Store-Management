@@ -3,6 +3,16 @@
 @{
     ViewData["Title"] = "Danh sách sản phẩm";
 }
+
+@section Styles{
+    <style>
+        .nav-link.active {
+            color: #fff !important;
+            background-color: #00d2d3 !important;
+
+        }
+    </style>
+}
 <!-- Breadcrumb Start -->
 <div class="breadcrumb-wrap mb-0">
     <div class="container">
@@ -42,16 +52,14 @@
                             <!-- Danh mục 1 -->
                                 @foreach (var cate in ViewBag.ListCate)
                             {
+                                var isActive = ViewBag.Slug == cate.Slug ? "active" : "";
                                 <li class="nav-item dropdown position-relative">
-                                    <a class="nav-link"
+                                    <a class="nav-link @isActive"
                                        asp-controller="Category" asp-action="ListProduct" asp-route-slug="@cate.Slug"
                                        id="navbarDropdown1"
-                                       role="button"
-                                       >
-                                       @cate.Name
+                                       role="button">
+                                        @cate.Name
                                     </a>
-                            
-                                   
                                 </li>
                             }
                             
@@ -111,7 +119,7 @@
                                     <span class="rating">@ls.Rating<i class="fa fa-star"></i></span>
                                 </div>
                                 <div class="btn-add-cart">
-                                    <button>Thêm vào giỏ hàng</button>
+                                    <button id="btn-add-cart" data-id="@ls.Id">Thêm vào giỏ hàng</button>
                                 </div>
                             </div>
                         </div>
