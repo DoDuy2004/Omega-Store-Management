@@ -606,11 +606,7 @@ public partial class StoreDbContext : DbContext
             // Cấu hình thuộc tính Fanpage
             entity.Property(e => e.Fanpage)
                 .HasColumnName("fanpage");
-
-			// Cấu hình thuộc tính Logo
-			entity.Property(e => e.Logo)
-				.HasColumnName("logo");
-		});// Đã sửa
+        });// Đã sửa
 
         modelBuilder.Entity<Review>(entity =>
         {

@@ -1,9 +1,15 @@
-﻿@model IEnumerable<OmegaStore.Models.Product>
+﻿@using System.Globalization
+@model IEnumerable<OmegaStore.Models.Product>
 @{
 	var sliderClass = Model.Count() >= 4 ? "product-slider-4" : "";
 	var centerClass = Model.Count() >= 4 ? "justify-content-center" : "";
 
 	decimal salesCount = 0;
+
+	var formatPrice = (decimal price) =>
+	{
+		return price.ToString("N0", new CultureInfo("vi-VN"));
+	};
 }
 <div class="row align-items-center @centerClass product-slider @sliderClass">
 	@foreach (var item in Model)
@@ -18,8 +24,8 @@
 				</div>
 				<div class="product-title"><a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Slug">@item.Name</a></div>
 				<div class="product-price">
-					<p class="price-discount"><span>@Math.Truncate(item.Price * (1 - (decimal) item.DiscountRate / 100))đ</span></p>
-					<p class="price"><span>@Math.Truncate(item.Price)đ</span></p>
+					<p class="price-discount"><span>@formatPrice(Math.Truncate(item.Price * (1 - (decimal)item.DiscountRate / 100)))đ</span></p>
+					<p class="price"><span>@formatPrice(Math.Truncate(item.Price))đ</span></p>
 				</div>
 				<div class="view-rating">
 					<span class="view">23<i class="fa fa-eye"></i></span>
@@ -33,12 +39,6 @@
 						<i class="fa fa-star"></i>
 					</span>
 				</div>
-				@* <form asp-controller="Cart" asp-action="AddToCart" method="post">
-					<input type="hidden" name="productId" value="@item.Id" />
-					<div class="btn-add-cart">
-						<button>Thêm vào giỏ hàng</button>
-					</div>
-				</form> *@
 					<div class="btn-add-cart">
 						<button id="btn-add-cart" data-id="@item.Id">Thêm vào giỏ hàng</button>
 					</div>
