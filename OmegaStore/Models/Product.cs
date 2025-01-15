@@ -15,7 +15,9 @@ public partial class Product
     public string Name { get; set; } = null!;
     public string Thumbnail { get; set; } = null!;
 
-    [Required(ErrorMessage = "Giá sản phẩm là bắt buộc"), Range(0, double.MaxValue, ErrorMessage = "Giá phải lớn hơn hoặc bằng 0.")]
+    [Required(ErrorMessage = "Giá sản phẩm là bắt buộc")]
+    [Range(0, double.MaxValue, ErrorMessage = "Giá phải lớn hơn hoặc bằng 0.")]
+    [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Giá sản phẩm phải là số và không âm.")]
     public decimal Price { get; set; }
 
     
@@ -23,8 +25,8 @@ public partial class Product
     public int DiscountRate { get; set; }
 
     public string Slug { get; set; } = null!;
-
-    [Required,Range(0,int.MaxValue,ErrorMessage = "Số lượng tồn kho là bắt buộc.")]
+    [Required(ErrorMessage = "Số lượng tồn kho là bắt buộc!")]
+    [Range(0,int.MaxValue,ErrorMessage = "Số lượng tồn kho phải lớn hơn hoặc bằng 0.")]
     public int Stock { get; set; }
     public string? Description { get; set; }
 
