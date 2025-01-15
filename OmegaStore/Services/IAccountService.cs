@@ -9,5 +9,6 @@ namespace OmegaStore.Services
         Account? GetAccountByUsername(string username); // Lấy thông tin tài khoản theo Username
         bool IsAccountLocked(string username); // Kiểm tra tài khoản bị khóa
         bool CheckFieldExists(string field, string value);
+        int GetAccountId(string username);
     }
 }

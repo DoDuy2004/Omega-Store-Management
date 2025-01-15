@@ -1904,6 +1904,21 @@ h2 {
   float: right;
 }
 
+.checkout .checkout-summary .product-name {
+    max-width: 150px; /* Thay đổi chiều rộng tùy theo thiết kế của bạn */
+    overflow: hidden; /* Ẩn nội dung vượt quá */
+    text-overflow: ellipsis; /* Hiển thị dấu ba chấm */
+    white-space: nowrap; /* Không cho xuống dòng */
+    display: block; /* Để hiệu lực text-overflow */
+}
+
+.checkout .checkout-summary .product-name:hover {
+    white-space: normal; /* Cho phép xuống dòng khi di chuột */
+    overflow: visible; /* Hiển thị toàn bộ nội dung */
+    max-height: none; /* Bỏ giới hạn chiều cao */
+    z-index: 1; /* Để đảm bảo không bị chồng lên phần tử khác */
+}
+
 .checkout .checkout-summary h2 {
   font-size: 20px;
   padding-top: 12px;

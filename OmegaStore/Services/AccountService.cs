@@ -61,6 +61,12 @@ namespace OmegaStore.Services
 
             return false;
         }
+        public int GetAccountId(string? username)
+        {
+            int id = _context.Accounts.FirstOrDefault(a => a.Username == username)!.Id;
+
+            return id;
+        } 
     }
 
 }

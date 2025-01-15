@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace OmegaStore.Models;
 
@@ -37,6 +38,7 @@ public partial class Account
     public int Status { get; set; }
     public virtual Role Role { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();
