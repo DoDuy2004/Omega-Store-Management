@@ -31,7 +31,7 @@ public partial class Order
     public int Status { get; set; }
 
     // Thêm AccountId làm khóa ngoại
-    public int AccountId { get; set; }
+    public int? AccountId { get; set; }
 
     // Mối quan hệ với Account
     public virtual Account? Account { get; set; } = null!;
