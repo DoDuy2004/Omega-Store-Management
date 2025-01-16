@@ -1,4 +1,5 @@
 ﻿using OmegaStore.Models;
+using OmegaStore.Models.ViewModels;
 
 namespace OmegaStore.Services
 {
@@ -16,5 +17,8 @@ namespace OmegaStore.Services
         bool UpdateQuantity(int cartItemId, int quantity);
         bool DecreaseQuantity(int cartItemId);
         void Checkout(Order order, List<CartItem> cartItems);
+        void SetCheckoutOrder(CheckoutViewModel checkout);
+        CheckoutViewModel GetCheckoutOrder();
+        void RemoveCheckoutOrder();
     }
 }

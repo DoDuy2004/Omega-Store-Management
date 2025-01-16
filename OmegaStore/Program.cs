@@ -2,8 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using OmegaStore.Models;
 using OmegaStore.Services;
+using OmegaStore.Models.Momo;
+using OmegaStore.Services.Momo;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Kết nối MomoAPI
+builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+builder.Services.AddScoped<IMomoService, MomoService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

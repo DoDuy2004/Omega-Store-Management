@@ -14,6 +14,12 @@ namespace OmegaStore.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
             return View();
         }
 

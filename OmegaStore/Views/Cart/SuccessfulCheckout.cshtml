@@ -1,0 +1,63 @@
+﻿@model OmegaStore.Models.Order
+
+@{
+    ViewData["Title"] = "Thông báo đặt hàng";
+    string payment = Model.PaymentMethod ? "Thanh toán bằng Momo" : "Thanh toán khi nhận hàng (COD)";
+}
+
+@section Styles {
+    <style>
+        i.fa-check-circle {
+            font-size: 70px;
+            color: green;
+        }
+
+        .wrapper-order {
+            margin: 0 auto;
+            width: 600px;
+            border-top: 8px solid green;
+            background: #fff;
+            padding: 60px;
+        }
+    </style>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="wrapper-order text-center mb-3">
+                <i class="fas fa-check-circle"></i>
+                <h3 class="font-weight-bold mt-4">Đặt hàng thành công</h3>
+                <p>Mã đơn hàng: <span>@Model.OrderCode</span></p>
+                <p>*****************************</p>
+                <section>
+                    <p class="font-weight-bold">Thông tin giao hàng</p>
+                    <div class="row">
+                        <div class="col-3">
+                            <p class="mb-1 font-weight-bold text-right">Họ tên:</p>
+                            <p class="mb-1 font-weight-bold text-right">Điện thoại:</p>
+                            <p class="mb-1 font-weight-bold text-right">Địa chỉ giao:</p>
+                        </div>
+                        <div class="col-9">
+                            <p class="mb-1 text-left">@Model.Fullname</p>
+                            <p class="mb-1 text-left">@Model.Phone</p>
+                            <p class="mb-1 text-left">@Model.Address</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <p class="font-weight-bold mt-3">Phương thức thanh toán</p>
+                    <p>@payment</p>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-center mb-5">
+                <a asp-controller="" asp-action="" class="btn btn-success mr-3">Về trang chủ</a>
+                <a asp-controller="" asp-action="" class="btn btn-primary">Xem chi tiết đơn hàng này</a>
+            </div>
+        </div>
+    </div>
+</div>

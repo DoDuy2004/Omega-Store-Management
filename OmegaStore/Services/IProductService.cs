@@ -1,10 +1,11 @@
-﻿using OmegaStore.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using OmegaStore.Models;
 
 namespace OmegaStore.Services
 {
     public interface IProductService
     {
-        Task<ICollection<Product>> GetProducts();
+        DbSet<Product> GetProducts();
         Task<Product> GetProduct(int productId);
     }
 }
