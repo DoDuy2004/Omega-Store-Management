@@ -129,7 +129,7 @@ namespace OmegaStore.Controllers
         {
             if (keyword == null) keyword = " ";
             var products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.Id, (p, c) => new
-            { Product = p, Category = c }).Where(pc => pc.Category.Status == 1 && (pc.Product.Name.ToLower().Contains(keyword.ToLower()) || pc.Category.Name.Contains(keyword))).ToList();
+            { Product = p, Category = c }).Where(pc => pc.Category.Status == 1 && (pc.Product.Name.ToLower().Contains(keyword.ToLower()) || pc.Category.Name.ToLower().Contains(keyword.ToLower()) || pc.Product.Description.Contains(keyword))).ToList();
             ViewBag.Categories = _context.Categories.Where(c => c.Status == 1);
             ViewBag.Keyword = keyword;
 
@@ -139,10 +139,11 @@ namespace OmegaStore.Controllers
             return View(lst);
         }
         [HttpPost]
-        public IActionResult Search(string keyword, int category, int min_price, int max_price)
+        public IActionResult Search(string keyword, int category, int min_price, int max_price, int? page)
         {
+            if (keyword == null) keyword = " ";
             var products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.Id, (p, c) => new
-            { Product = p, Category = c }).Where(pc => pc.Category.Status == 1 && (pc.Product.Name.ToLower().Contains(keyword.ToLower()) || pc.Category.Name.Contains(keyword)) && pc.Product.Price >= min_price).ToList();
+            { Product = p, Category = c }).Where(pc => pc.Category.Status == 1 && (pc.Product.Name.ToLower().Contains(keyword.ToLower()) || pc.Category.Name.ToLower().Contains(keyword.ToLower()) || pc.Product.Description.Contains(keyword)) && pc.Product.Price >= min_price).ToList();
 
             if (category != 0)
             {
@@ -152,7 +153,8 @@ namespace OmegaStore.Controllers
                     => new { Product = p, Category = c })
                     .Where(pc => pc.Category.Status == 1
                     && (pc.Product.Name.ToLower().Contains(keyword.ToLower())
-                    || pc.Category.Name.ToLower().Contains(keyword.ToLower()))
+                    || pc.Category.Name.ToLower().Contains(keyword.ToLower()) 
+                    || pc.Product.Description.Contains(keyword))
                     && pc.Category.Id == category
                     && pc.Product.Price >= min_price
                     && pc.Product.Price <= max_price
@@ -164,7 +166,8 @@ namespace OmegaStore.Controllers
                         => new { Product = p, Category = c })
                         .Where(pc => pc.Category.Status == 1
                         && (pc.Product.Name.ToLower().Contains(keyword.ToLower())
-                        || pc.Category.Name.ToLower().Contains(keyword.ToLower()))
+                        || pc.Category.Name.ToLower().Contains(keyword.ToLower()) 
+                        || pc.Product.Description.Contains(keyword))
                         && pc.Category.Id == category
                         && pc.Product.Price >= min_price
                         ).ToList();
@@ -173,7 +176,11 @@ namespace OmegaStore.Controllers
 
             ViewBag.Categories = _context.Categories.Where(c => c.Status == 1);
             ViewBag.Keyword = keyword;
-            return View("Search", products);
+
+            int pageSize = 8;
+            int pageNumber = page == null || page < 0 ? 1 : page.Value;
+            var lst = new PagedList<dynamic>(products, pageNumber, pageSize);
+            return View("Search", lst);
         }
     }
 }
