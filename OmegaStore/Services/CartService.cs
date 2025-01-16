@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using OmegaStore.Models;
+using OmegaStore.Models.ViewModels;
 
 namespace OmegaStore.Services
 {
@@ -69,7 +70,7 @@ namespace OmegaStore.Services
             if(cart.CartItems.Count() == 0) {
                 return false;
             }
-            
+
             cart.CartItems.Clear();
             SaveCartToSession(cart);
             return true;
@@ -164,6 +165,25 @@ namespace OmegaStore.Services
             //});
 
             //_context.DetailOrders.AddRange(detailOrders);
+        }
+
+        public void SetCheckoutOrder(CheckoutViewModel checkout)
+        {
+            _contextAccessor.HttpContext!.Session.SetString("Checkout", JsonConvert.SerializeObject(checkout));
+        }
+
+        public CheckoutViewModel GetCheckoutOrder()
+        {
+            var checkout = _contextAccessor.HttpContext!.Session.GetString("Checkout");
+
+            return string.IsNullOrEmpty(checkout)
+                ? new CheckoutViewModel()
+                : JsonConvert.DeserializeObject<CheckoutViewModel>(checkout) ?? new CheckoutViewModel();
+        }
+
+        public void RemoveCheckoutOrder()
+        {
+            _contextAccessor.HttpContext!.Session.Remove("Checkout");
         }
     }
 }

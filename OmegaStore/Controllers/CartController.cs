@@ -3,6 +3,7 @@ using Microsoft.Identity.Client;
 using OmegaStore.Models;
 using OmegaStore.Models.ViewModels;
 using OmegaStore.Services;
+using OmegaStore.Services.Momo;
 
 namespace OmegaStore.Controllers
 {
@@ -12,13 +13,16 @@ namespace OmegaStore.Controllers
         private readonly ICartService _cartService;
         private readonly IAccountService _accountService;
         private readonly IOrderService _orderService;
+        private readonly IMomoService _momoService;
         private readonly int pageSize = 4;
-        public CartController (IProductService productService, ICartService cartService, IAccountService accountService, IOrderService orderService)
+        public CartController (IProductService productService, ICartService cartService,
+            IAccountService accountService, IOrderService orderService, IMomoService momoService)
         {
             _cartService = cartService;
             _productService = productService;
             _accountService = accountService;
             _orderService = orderService;
+            _momoService = momoService;
         }
 		public IActionResult Index()
         {
@@ -137,8 +141,8 @@ namespace OmegaStore.Controllers
             return Json(new { success = true, cartViewModel = cartViewModel });
         }
 
-        [HttpGet]
-        public IActionResult Checkout()
+        [HttpPost]
+        public IActionResult FormCheckout()
         {
             var cartItems = _cartService.GetCart().CartItems;
             var totalPrice = _cartService.GetTotalPrice();
@@ -162,53 +166,120 @@ namespace OmegaStore.Controllers
                 },
                 CartItems = cartItems,
                 ShipFee = 25000,
-                TotalPrice = totalPrice
+                TotalPrice = (double)totalPrice
             };
-            return View(checkout);
+            return View("Checkout", checkout);
         }
 
         [HttpPost]
-        public IActionResult Checkout(CheckoutViewModel checkout, string? username)
+        public async Task<IActionResult> Checkout(CheckoutViewModel checkout, string? username)
         {
-            int? accountId = null;
-            var cartItems = _cartService.GetCart().CartItems;
+            checkout.Order.OrderCode = _orderService.GenerateOrderCode();
 
-            ModelState.Remove("Order.OrderCode");
-
-            if(!String.IsNullOrEmpty(username))
+            // Momo
+            if (checkout.Order.PaymentMethod)
             {
-                accountId = _accountService.GetAccountId(username!);
+                int? accountId = null;
+                var cartItems = _cartService.GetCart().CartItems;
+
+                if (!String.IsNullOrEmpty(username))
+                {
+                    accountId = _accountService.GetAccountId(username!);
+                }
+
+                checkout.CartItems = cartItems;
+                checkout.Order.AccountId = accountId;
+                checkout.Order.Status = 1;
+
+                // Lưu session về đơn hàng thanh toán
+                _cartService.SetCheckoutOrder(checkout);
+
+                // Tạo request đến MomoAPI
+                var response = await _momoService.CreatePaymentMomo(checkout);
+                return Redirect(response.PayUrl);
             }
-
-
-            if (!ModelState.IsValid)
+            // COD
+            else
             {
-                Console.WriteLine("Loi roi duy oi!, thang dan nay...");
+                int? accountId = null;
+                var cartItems = _cartService.GetCart().CartItems;
 
-                return BadRequest(new { success = false, modelState = ModelState });
+                ModelState.Remove("Order.OrderCode");
+
+                // Lấy id account khi đã đăng nhập
+                if (!String.IsNullOrEmpty(username))
+                {
+                    accountId = _accountService.GetAccountId(username!);
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                Order order = new Order
+                {
+                    OrderCode = checkout.Order.OrderCode,
+                    Fullname = checkout.Order.Fullname,
+                    Email = checkout.Order.Email,
+                    Phone = checkout.Order.Phone,
+                    PaymentMethod = checkout.Order.PaymentMethod,
+                    Address = checkout.Order.Address,
+                    TotalAmount = checkout.Order.TotalAmount,
+                    Note = checkout.Order.Note,
+                    AccountId = accountId,
+                    Status = 1,
+                };
+                // Tạo đơn hàng
+                _cartService.Checkout(order, cartItems);
+                // Xóa session giỏ hàng
+                _cartService.ClearCart();
+
+                return View("SuccessfulCheckout", order);
             }
+        }
 
-            Console.WriteLine("Kha lam!, thang dan nay...");
+        [HttpGet]
+        public IActionResult PaymentCallBack()
+        {
+            var response = _momoService.PaymentExcuteAsync(HttpContext.Request.Query);
+            var requestQuery = HttpContext.Request.Query;
 
-            Order order = new Order
+            // Giao dịch với Momo thành công
+            if (requestQuery["message"] == "Success")
             {
-                OrderCode = _orderService.GenerateOrderCode(),
-                Fullname = checkout.Order.Fullname,
-                Email = checkout.Order.Email,
-                Phone = checkout.Order.Phone,
-                PaymentMethod = checkout.Order.PaymentMethod,
-                Address = checkout.Order.Address,
-                TotalAmount = checkout.Order.TotalAmount,
-                Note = checkout.Order.Note,
-                AccountId = accountId,
-                Status = 1,
-            };
+                // Lấy thông tin đơn hàng thanh toán
+                CheckoutViewModel checkout = _cartService.GetCheckoutOrder();
 
-            _cartService.Checkout(order, cartItems);
+                Order order = new Order
+                {
+                    OrderCode = checkout.Order.OrderCode,
+                    Fullname = checkout.Order.Fullname,
+                    Email = checkout.Order.Email,
+                    Phone = checkout.Order.Phone,
+                    PaymentMethod = checkout.Order.PaymentMethod,
+                    Address = checkout.Order.Address,
+                    TotalAmount = checkout.Order.TotalAmount,
+                    Note = checkout.Order.Note,
+                    AccountId = checkout.Order.AccountId,
+                    Status = checkout.Order.Status,
+                };
 
-            _cartService.ClearCart();
+                // Tạo đơn hàng
+                _cartService.Checkout(order, checkout.CartItems!);
+                // Xóa session liên quan
+                _cartService.ClearCart();
+                _cartService.RemoveCheckoutOrder();
 
-            return Json(new { success = true, order = order });
+                return View("SuccessfulCheckout", order);
+            }
+            // Giao dịch với Momo thất bại
+            else
+            {
+                // Xóa session đơn hàng thanh toán
+                _cartService.RemoveCheckoutOrder();
+                return View("FailedCheckout");
+            }
         }
     }
 }

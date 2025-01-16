@@ -31,7 +31,7 @@ namespace OmegaStore.Controllers
                 return RedirectToAction("LoginView"); // Chuyển hướng nếu không tìm thấy tài khoản
             }
 
-
+            // Danh sách các đơn hàng của tài khoản
 
             var OrderAccount = _context.Orders.Include(o => o.Account).Include(o => o.DetailOrders).Where(o => o.AccountId == account.Id).Select(o => new
             {
@@ -42,10 +42,109 @@ namespace OmegaStore.Controllers
                 Total = o.TotalAmount,
                 Statuss = o.Status,
 
-            }).ToList();
-            ViewBag.OrderAccount = OrderAccount;
+
+            }).OrderByDescending(o=>o.Create_at).ToList();
+
+            if (OrderAccount != null && OrderAccount.Any())
+            {
+                ViewBag.OrderAccount = OrderAccount.Any() ? OrderAccount : null;
+            }
+            else
+            {
+                ViewBag.OrderAccount = null;
+            }
 
 
+
+            // Danh sách các sản phẩm đã đánh giá
+            var CheckReviewExistDate = _context.Products
+             .Include(p => p.DetailOrders)
+                 .ThenInclude(or => or.Order)
+               .Include(p => p.Reviews)
+               .Where(p => p.DetailOrders.Any(or => or.Order.Status == 4 && or.Order.AccountId == account.Id))
+               .Where(r => r.Reviews.Any(r => r.Email == account.Email)).ToList();
+            if (CheckReviewExistDate != null && CheckReviewExistDate.Any())
+            {
+
+                var productrated = _context.Products
+             .Include(p => p.DetailOrders)
+                 .ThenInclude(or => or.Order)
+               .Include(p => p.Reviews)
+               .Where(p => p.DetailOrders.Any(or => or.Order.Status == 4 && or.Order.AccountId == account.Id))
+               .Where(r=>r.Reviews.Any(r=>r.Email==account.Email))
+               .Select(p => new
+               {
+                   ProductId = p.Id,
+                   ProductName = p.Name,
+                   ProductImage = p.Thumbnail,
+                   ProductPrice = p.Price,
+                   ProductDiscountRate = p.DiscountRate,
+                   ProductSlug = p.Slug,
+                   TotalSold = p.DetailOrders.Where(or => or.Order.Status == 4).Sum(or => or.Quantity),
+                   // Lọc các đánh giá thuộc sản phẩm hiện tại nếu có trả về true,nếu không có đánh giá trả về 0
+                   AverageRating = p.Reviews
+                   .Where(r => r.ProductId == p.Id)
+                   .Any()
+                    ? p.Reviews
+                   .Where(r => r.ProductId == p.Id)
+                   .Average(r => r.Rating)
+                   : 0,
+                   Create_at = p.Reviews.Where(r => r.ProductId == p.Id && r.Email == account.Email)
+                                      .OrderByDescending(r => r.CreatedAt)
+                                      .Select(r => r.CreatedAt)
+                                      .FirstOrDefault()
+               }).OrderByDescending(p => p.Create_at).ToList();
+
+                ViewBag.ProductRated = productrated.Any() ? productrated : null;
+            }
+            else
+            {
+                ViewBag.ProductRated = null;
+            }
+
+            //Danh sách sản phẩm đã thêm vào yêu thích
+            var CheckDataFvProductList = _context.Products
+                            .Include(o => o.DetailOrders)
+                            .ThenInclude(o => o.Order)
+                            .Include(r => r.Reviews)
+                            .Include(o => o.Wishlists)
+                            .ThenInclude(o => o.Account)
+                            .Where(w => w.Wishlists.Any(w => w.AccountId == account.Id)).ToList();
+            if (CheckDataFvProductList != null && CheckDataFvProductList.Any())
+            {
+                var FavoriteProductList = _context.Products
+                        .Include(o => o.DetailOrders)
+                        .ThenInclude(o => o.Order)
+                        .Include(r=>r.Reviews)
+                        .Include(o => o.Wishlists)
+                        .ThenInclude(o => o.Account)
+                        .Where(w => w.Wishlists.Any(w => w.AccountId == account.Id))
+                        .Select(p => new
+                        {
+
+                            ProductId = p.Id,
+                            ProductName = p.Name,
+                            ProductImage = p.Thumbnail,
+                            ProductPrice = p.Price,
+                            ProductDiscountRate = p.DiscountRate,
+                            ProductSlug = p.Slug,
+                            TotalSold = p.DetailOrders.Where(or => or.Order.Status == 4).Sum(or => or.Quantity),
+                            // Lọc các đánh giá thuộc sản phẩm hiện tại nếu có trả về true,nếu không có đánh giá trả về 0
+                            AverageRating = p.Reviews
+                            .Where(r => r.ProductId == p.Id)
+                            .Any()
+                            ? p.Reviews
+                            .Where(r => r.ProductId == p.Id)
+                            .Average(r => r.Rating)
+                            : 0,
+                          
+                        }).OrderByDescending(p=>p.ProductId).ToList();
+                ViewBag.FavoriteProductList = FavoriteProductList.Any()?FavoriteProductList:null;
+            }
+            else
+            {
+                ViewBag.FavoriteProductList = null;
+            }
 
 
 
@@ -267,6 +366,7 @@ namespace OmegaStore.Controllers
 
 
         }
+
         [HttpPost]
         public IActionResult CancelOrder(int orderid, int status)
         {
@@ -289,8 +389,70 @@ namespace OmegaStore.Controllers
                 return Json(new { success = false });
             }
         }
+     
 
+        [HttpGet]
+        public IActionResult AddWishList(int id)
+        {
+            var username = HttpContext.Session.GetString("Username");
+            var account = _accountService.GetAccountByUsername(username ?? "");
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
 
+            if (account != null)
+            {
+                _context.Wishlist.Add(new Wishlist
+                {
+                    AccountId = account.Id,
+                    ProductId = id
+                });
+
+                _context.SaveChanges();
+
+                return Json(new
+                {
+                    icon = "success",
+                    title = "Thêm yêu thích thành công"
+                });
+            }
+
+            return Json(new
+            {
+                icon = "error",
+                title = "Thêm yêu thích không thành công"
+            });
+        }
+
+        public IActionResult DelWishList(int id)
+        {
+            var username = HttpContext.Session.GetString("Username");
+            var account = _accountService.GetAccountByUsername(username ?? "");
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+
+            if (account != null)
+            {
+                _context.Wishlist.Remove(new Wishlist
+                {
+                    AccountId = account.Id,
+                    ProductId = id
+                });
+
+                _context.SaveChanges();
+
+                return Json(new
+                {
+                    success = true,
+                    icon = "success",
+                    title = "Hủy yêu thích thành công"
+                });
+            }
+
+            return Json(new
+            {
+                success = false,
+                icon = "error",
+                title = "Hủy yêu thích không thành công"
+            });
+        }
     }
 
 }

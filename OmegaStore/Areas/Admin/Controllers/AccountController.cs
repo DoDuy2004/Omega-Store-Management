@@ -1,21 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmegaStore.Models;
+using OmegaStore.Services;
 
 namespace OmegaStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class AccountController : Controller
     {
-        private readonly StoreDbContext _context;
+        private readonly IAccountService _accountService;
 
-        public AccountController(StoreDbContext context)
+        public AccountController( IAccountService accountService)
         {
-            _context = context;
+            _accountService = accountService;
         }
         public IActionResult Index()
-        {
-            var accounts = _context.Accounts.ToList();
-            return View(accounts);
+        { 
+            return View();
         }
 
         public IActionResult Detail()
@@ -33,9 +33,46 @@ namespace OmegaStore.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult Login()
+        public IActionResult LoginView()
         {
-            return View();
+            return View("Login");
+        }
+        
+        [HttpPost]
+        public IActionResult Login(string username, string password)
+        {
+            
+            if (username == null || password == null)
+            {
+                TempData["ErrorMessage"] = "Vui lòng nhập đầy đủ thông tin!";
+                TempData["Username"] = username;
+                return RedirectToAction("LoginView");
+            }
+            var user = _accountService.AuthenticateAdmin(username, password);
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "Sai tài khoản hoặc mật khẩu!";
+                TempData["Username"] = username;
+                return RedirectToAction("LoginView");
+            }
+
+            if (_accountService.IsAccountLocked(username))
+            {
+                TempData["ErrorMessage"] = "Tài khoản này đã bị khóa!";
+                TempData["Username"] = username;
+                return RedirectToAction("LoginView");
+            }
+
+            HttpContext.Session.SetString("AdminUsername", username);
+
+            return RedirectToAction("Index", "Home");
+        }//Xử lý đăng nhập tại trang đăng nhập
+
+        //Đăng xuất
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("LoginView");
         }
 
         public IActionResult ForgotPassword()

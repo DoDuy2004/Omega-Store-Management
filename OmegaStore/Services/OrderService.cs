@@ -12,7 +12,7 @@ namespace OmegaStore.Services
         }
         public string GenerateOrderCode()
         {
-            string currentDate = DateTime.Now.ToString("yyyyMMdd");
+            string currentDate = DateTime.UtcNow.Ticks.ToString();
             var maxOrderId = _context.Orders.Max(o => (int?)o.Id);
             return $"ORD{currentDate}{maxOrderId+1}";
         }

@@ -18,7 +18,7 @@ namespace OmegaStore.Areas.Admin.Controllers
         //Trang Danh sách Danh mục
         public async Task<IActionResult> Index()
         {
-            var categories = _context.Categories.ToListAsync(); // Lấy tất cả các danh mục từ cơ sở dữ liệu
+            var categories = _context.Categories.Where(c => c.Status == 1).ToListAsync(); // Lấy tất cả các danh mục từ cơ sở dữ liệu
             return View(await categories); // Truyền danh sách danh mục vào View
         }
 
@@ -33,20 +33,31 @@ namespace OmegaStore.Areas.Admin.Controllers
             Category category = await _context.Categories.FirstOrDefaultAsync(c => c.Slug == slug);
             return View(category);
         }
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    Category category = _context.Categories.FirstOrDefault(c => c.Id == id);
-        //    category.Status = 0;
-        //    _context.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
-
-        //public async Task<IActionResult> Search([FromQuery] string keyword)
-        //{
-        //    List<Category> categories = _context.Categories.Where(c => c.Name.Contains(keyword)).ToList();
-        //    return View("Index", categories);
-
-        //}
+        public async Task<IActionResult> Delete(string slug)
+        {
+            Category category = _context.Categories.FirstOrDefault(c => c.Slug == slug);
+            if (category != null)
+            {
+                category.Status = 0;
+                _context.SaveChanges();
+                TempData["success"] = "Xóa danh mục thành công.";
+                return RedirectToAction("Index");
+            }
+            TempData["error"] = "Xóa danh mục không thành công.";
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Search(string keyword)
+        {
+            string value = keyword.ToLower().Trim();
+            List<Category> categories = _context.Categories.Where(c => c.Name.ToLower().Contains(value) || c.Slug.Contains(value)).ToList();
+            if (categories.Count > 0)
+            {
+                return View("Index", categories);
+            }
+            TempData["error"] = "Không tìm thấy kết quả nào.";
+            return View("Index", categories);
+        }
         public string ToSlug(string input)
         {
             string normalizedString = input.Normalize(NormalizationForm.FormD);

@@ -54,7 +54,9 @@
 
                     </div>
                     <div class="col-md-12 p-4" id="btn-checkout">
-                        <a asp-controller="Cart" asp-action="Checkout" class="btn btn-outline-info py-2 px-3 w-100">Thanh toán</a>
+                        <form asp-controller="Cart" asp-action="FormCheckout" method="post">
+                            <button class="btn btn-outline-info py-2 px-3 w-100">Thanh toán</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -1,16 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OmegaStore.Models;
+using OmegaStore.Services;
 
 namespace OmegaStore.Controllers
 {
     public class ProductController : Controller
     {
         private readonly StoreDbContext _context;
+        private readonly IAccountService _accountService;
 
-        public ProductController(StoreDbContext context)
+        public ProductController(StoreDbContext context, IAccountService accountService)
         {
             _context = context;
+            _accountService = accountService;
         }
 
         [HttpGet("[controller]/{slug}")]
@@ -39,11 +42,18 @@ namespace OmegaStore.Controllers
 
                 ViewBag.likes = _context.Wishlist
                     .Where(l => l.ProductId == product.Id).Count();
+
+                var account = _context.Accounts
+                    .FirstOrDefault(a => a.Username == HttpContext.Session.GetString("Username"));
+
+                if (account != null)
+                {
+                    ViewBag.isAddedWishlist = _context.Wishlist
+                    .FirstOrDefault(w => w.ProductId == product.Id && w.AccountId == account.Id);
+                }
             }
 
-            return View();
-
-            //return Content(slug);
+			return View();
         }
 
         [HttpPost("[controller]/Comment")]
@@ -110,6 +120,54 @@ namespace OmegaStore.Controllers
         {
             var reviews = _context.Reviews.Where(r => r.ProductId == ProductId);
             return Json(new { reviews = reviews });
+        }
+
+        [HttpGet]
+        [Route("[controller]/[action]/{keyword?}")]
+        public IActionResult Search([FromQuery] string keyword)
+        {
+            var products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.Id, (p, c) => new
+            { Product = p, Category = c }).Where(pc => pc.Category.Status == 1 && (pc.Product.Name.ToLower().Contains(keyword.ToLower()) || pc.Category.Name.Contains(keyword))).ToList();
+            ViewBag.Categories = _context.Categories.Where(c => c.Status == 1);
+            ViewBag.Keyword = keyword;
+            return View(products);
+        }
+        [HttpPost]
+        public IActionResult Search(string keyword, int category, int min_price, int max_price)
+        {
+            var products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.Id, (p, c) => new
+            { Product = p, Category = c }).Where(pc => pc.Category.Status == 1 && (pc.Product.Name.ToLower().Contains(keyword.ToLower()) || pc.Category.Name.Contains(keyword)) && pc.Product.Price >= min_price).ToList();
+
+            if (category != 0)
+            {
+                if (max_price != 0)
+                {
+                    products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.Id, (p, c)
+                    => new { Product = p, Category = c })
+                    .Where(pc => pc.Category.Status == 1
+                    && (pc.Product.Name.ToLower().Contains(keyword.ToLower())
+                    || pc.Category.Name.ToLower().Contains(keyword.ToLower()))
+                    && pc.Category.Id == category
+                    && pc.Product.Price >= min_price
+                    && pc.Product.Price <= max_price
+                    ).ToList();
+                }
+                else
+                {
+                    products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.Id, (p, c)
+                        => new { Product = p, Category = c })
+                        .Where(pc => pc.Category.Status == 1
+                        && (pc.Product.Name.ToLower().Contains(keyword.ToLower())
+                        || pc.Category.Name.ToLower().Contains(keyword.ToLower()))
+                        && pc.Category.Id == category
+                        && pc.Product.Price >= min_price
+                        ).ToList();
+                }
+            }
+
+            ViewBag.Categories = _context.Categories.Where(c => c.Status == 1);
+            ViewBag.Keyword = keyword;
+            return View("Search", products);
         }
     }
 }

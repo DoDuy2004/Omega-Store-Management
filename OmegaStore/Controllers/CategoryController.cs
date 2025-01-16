@@ -65,8 +65,8 @@ namespace OmegaStore.Controllers
 				Products = prod,
 				CategoryProducts = product
 			};
-				ViewBag.ListCate = cate;
-
+			ViewBag.ListCate = cate;
+			ViewBag.Slug = slug;
 			return View(ProductCategoryModel);
 		}
 	}

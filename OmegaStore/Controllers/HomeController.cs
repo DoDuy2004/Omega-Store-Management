@@ -61,7 +61,8 @@ namespace OmegaStore.Controllers
 			};
 
             ViewBag.categories = _context.Categories.ToList();
-
+			var slideShow = _context.Slideshows.ToList();
+			ViewBag.SlideShow = slideShow;
             return View(homeViewModel);
         }
         public IActionResult Contact()
