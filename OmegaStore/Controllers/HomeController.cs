@@ -31,8 +31,10 @@ namespace OmegaStore.Controllers
             }
             var products = _context.Products.Include(p => p.Reviews);
             ViewBag.categories = _context.Categories.ToList();
+			var slideShow = _context.Slideshows.ToList();
+			ViewBag.SlideShow = slideShow;
 
-            return View(products);
+			return View(products);
         }
         public IActionResult Contact()
         {

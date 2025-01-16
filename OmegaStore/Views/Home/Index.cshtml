@@ -49,15 +49,12 @@
 				</div>
 				<div class="col-md-8">
 					<div class="header-slider normal-slider">
-						<div class="header-slider-item">
-							<img src="~/img/blogs/blog3.jpg" class="img-fluid" alt="Slider Image" />
-						</div>
-						<div class="header-slider-item">
-							<img src="~/img/blogs/blog4.jpg" class="img-fluid" alt="Slider Image" />
-						</div>
-						<div class="header-slider-item">
-							<img src="~/img/blogs/blog5.jpg" class="img-fluid" alt="Slider Image" />
-						</div>
+						@foreach (var sls in ViewBag.SlideShow)
+						{
+							<div class="header-slider-item">
+								<a asp-controller="SlideShow" asp-action="@sls.Link"><img src="~/img/@sls.Image" class="img-fluid" alt="Slider Image" /></a>
+							</div>
+						}
 					</div>
 				</div>
 			</div>
