@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using OmegaStore.Models;
+using OmegaStore.Models.ViewModels;
 using OmegaStore.Services;
 using System.Diagnostics;
 
@@ -18,8 +19,9 @@ namespace OmegaStore.Controllers
             _productService = productService;
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var startDate = DateTime.Now.AddDays(-30); 
             // Kiểm tra username trong session
             var username = HttpContext.Session.GetString("Username");
 
@@ -30,9 +32,37 @@ namespace OmegaStore.Controllers
                 HttpContext.Session.SetString("Username", username);
             }
             var products = _context.Products.Include(p => p.Reviews);
+
+            var homeViewModel = new HomeViewModel
+            {
+                BestSellingProducts = await _productService.GetProducts()
+                    .Include(p => p.Reviews)
+                    .Include(p => p.DetailOrders)
+                    .Where(p => p.DetailOrders.Any(d => d.Order!.CreatedAt >= startDate))
+                    .OrderByDescending(p => p.DetailOrders
+                        .Where(d => d.Order!.CreatedAt >= startDate)
+                        .Sum(d => d.Quantity))
+                    .Take(15).ToListAsync(),
+                NewProducts = await _productService.GetProducts()
+                    .Include(p => p.Reviews)
+                    .Where(p => p.CreatedAt >= startDate )
+					.OrderByDescending(p => p.CreatedAt)
+					.Take(15).ToListAsync(),
+                HarryPotterProducts = _productService.GetProducts()
+                    .Include(p => p.Reviews)
+                    .Where(p => p.CategoryId == 3)
+					.OrderByDescending(p => p.CreatedAt)
+					.Take(15).ToList(),
+                DinosaurProducts = _productService.GetProducts()
+                    .Include(p => p.Reviews)
+                    .Where(p => p.CategoryId == 6)
+					.OrderByDescending(p => p.CreatedAt)
+					.Take(15).ToList()
+			};
+
             ViewBag.categories = _context.Categories.ToList();
 
-            return View(products);
+            return View(homeViewModel);
         }
         public IActionResult Contact()
         {

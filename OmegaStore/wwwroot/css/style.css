@@ -906,7 +906,8 @@ h2 {
 }
 
 .product-item .view-rating i {
-  margin-left: 8px;
+  margin-right: 5px;
+  font-size: .6rem;
 }
 
 .product-item .view-rating .rating i {
@@ -2732,4 +2733,10 @@ h2 {
   .footer-bottom .template-by {
     text-align: center;
   }
+}
+
+.btn-xem-them:hover {
+    background-color: #ffc107;
+    color: #fff !important;
+    border: none;
 }

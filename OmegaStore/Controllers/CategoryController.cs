@@ -45,6 +45,7 @@ namespace OmegaStore.Controllers
 			.Include(p => p.Reviews) // Lấy đánh giá của sản phẩm
 			.Where(p => p.Category.Slug == slug).Select(p => new CategoryProductListViewModel
 				{
+					Id = p.Id,
 					Name = p.Name,
 					Price = p.Price,
 					Slug = p.Slug,
@@ -65,7 +66,6 @@ namespace OmegaStore.Controllers
 				CategoryProducts = product
 			};
 				ViewBag.ListCate = cate;
-
 
 			return View(ProductCategoryModel);
 		}
