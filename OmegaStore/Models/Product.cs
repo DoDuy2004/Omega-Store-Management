@@ -20,8 +20,9 @@ public partial class Product
     [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Giá sản phẩm phải là số và không âm.")]
     public decimal Price { get; set; }
 
-    
-    [Required(ErrorMessage = "Tỷ lệ giảm giá phải nằm trong khoảng từ 0 đến 100."), Range(0, 100, ErrorMessage = "Tỷ lệ giảm giá phải nằm trong khoảng từ 0 đến 100.")]
+
+    [Required(ErrorMessage = "Tỷ lệ giảm giá phải nằm trong khoảng từ 0 đến 100.")]
+    [Range(0, 100, ErrorMessage = "Tỷ lệ giảm giá phải nằm trong khoảng từ 0 đến 100.")]
     public int DiscountRate { get; set; }
 
     public string Slug { get; set; } = null!;
