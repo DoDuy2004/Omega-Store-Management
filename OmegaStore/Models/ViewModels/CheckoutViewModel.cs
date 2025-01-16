@@ -7,7 +7,8 @@ namespace OmegaStore.Models.ViewModels
     {
         public Order Order { get; set; } = null!;
         public List<CartItem>? CartItems { get; set; } = null!;
-        public decimal? ShipFee { get; set; }
-        public decimal? TotalPrice { get; set; }
+        public double ShipFee { get; set; }
+        public double TotalPrice { get; set; }
+        public string OrderInfo { get; set; } = string.Empty;
     }
 }

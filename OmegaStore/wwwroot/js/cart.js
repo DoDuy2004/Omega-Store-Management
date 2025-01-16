@@ -4,7 +4,7 @@ function loadCart(currentPage = 1) {
         method: "GET",
         data: { currentPage: currentPage },
         success: function (res) {
-
+            $("#cart-body").empty();
             if (res.cartItems.length === 0) {
                 $("#cart-body").append(`
                     <tr>
