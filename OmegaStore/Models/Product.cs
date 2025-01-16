@@ -34,8 +34,10 @@ public partial class Product
     [Required,Range(1,int.MaxValue,ErrorMessage = "Danh mục là bắt buộc.")]
     public int CategoryId { get; set; }
     public int Status { get; set; }
+	public DateTime? CreatedAt { get; set; } = DateTime.Now;
 
-    public virtual Category Category { get; set; } = null!;
+
+	public virtual Category Category { get; set; } = null!;
     public virtual ICollection<DetailOrder> DetailOrders { get; set; } = new List<DetailOrder>();
     public virtual ICollection<ProductsImage> ProductsImages { get; set; } = new List<ProductsImage>();
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
