@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Runtime.ConstrainedExecution;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace OmegaStore.Areas.Admin.Controllers
@@ -20,15 +21,27 @@ namespace OmegaStore.Areas.Admin.Controllers
             _context = context;
         }
 
+
+
         //Trang Danh sách sản phẩm
         public IActionResult Index()
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if(username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
             return View(); // Truyền danh sách sản phẩm vào View
         }
 
+        //Tải sản phẩm, tìm kiếm, phân trang
         public IActionResult List(string searchQuery = "", int page = 1, int Status = 1, int pageSize = 6)
         {
-            var query = _context.Products.Where(p => p.Status == Status).ToList();
+            var query = _context.Products
+                    .Where(p => p.Status == Status)
+                    .OrderByDescending(p => p.Id)  // Sắp xếp giảm dần theo ID
+                    .ToList();
             var normalQuery = searchQuery;
             // Lọc theo từ khóa tìm kiếm
             if (!string.IsNullOrWhiteSpace(searchQuery))
@@ -72,9 +85,294 @@ namespace OmegaStore.Areas.Admin.Controllers
             return View(product); // Truyền sản phẩm vào View
         }
 
+
+
+
+
+        //Trang thêm sản phẩm
+        public IActionResult Create()
+        {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            var categories = _context.Categories.ToList();
+            ViewData["AccountName"] = username;
+            // Tạo SelectList từ danh sách Categories
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            return View();
+        }
+
+        //Thêm sản phẩm(ver cùi bắp)
+        public IActionResult AddProduct(Product product, IEnumerable<IFormFile> images, IFormFile Thumbnail)
+        {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return NotFound();
+            }
+            ModelState.Remove("ProductCode");
+            ModelState.Remove("Status");
+            ModelState.Remove("Slug");
+            ModelState.Remove("Stock");
+            ModelState.Remove("Thumbnail");
+            ModelState.Remove("Category");
+            ModelState.Remove("DetailOrders");
+            ModelState.Remove("ProductsImages");
+            ModelState.Remove("Reviews");
+            ModelState.Remove("Wishlists");
+            if (ModelState.IsValid)
+            {
+                product.Slug = CreateUnaccentedText(RemoveExtraSpaces(product.Name));
+                // Kiểm tra xem Slug đã tồn tại chưa
+                bool isSlugExists = _context.Products.Any(p => p.Slug == product.Slug);
+                if (isSlugExists)
+                {
+                    ModelState.AddModelError("Name", "Tên sản phẩm này đã tồn tại!");
+                    var categories = _context.Categories.ToList();
+                    // Tạo SelectList từ danh sách Categories
+                    ViewBag.Categories = new SelectList(categories, "Id", "Name");
+                    return View("Create", product);
+                }
+                product.ProductCode = "No Code";
+                product.Status = 1;
+                product.Stock = 0;
+                product.Thumbnail = "No Image";
+                _context.Products.Add(product);
+                _context.SaveChanges();
+
+                product.ProductCode = GenerateProductCode(product.Id);
+
+                if (Thumbnail.Length > 0)
+                {
+                    // Đường dẫn lưu hình ảnh trên server
+                    string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/products");
+
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+
+                    string fileName = $"{product.ProductCode}.jpg";
+                    string filePath = Path.Combine(uploadPath, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        Thumbnail.CopyTo(stream);
+                    }
+                    product.Thumbnail = fileName;
+                }
+                _context.Update(product);
+                _context.SaveChanges();
+
+
+
+                // Xử lý việc lưu hình ảnh
+                if (images != null && images.Any())
+                {
+                    int imageIndex = 1;
+
+                    foreach (var image in images)
+                    {
+                        if (image.Length > 0)
+                        {
+                            // Đường dẫn lưu hình ảnh trên server
+                            string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/products");
+
+                            if (!Directory.Exists(uploadPath))
+                            {
+                                Directory.CreateDirectory(uploadPath);
+                            }
+
+                            string fileName = $"{product.ProductCode}_{imageIndex}.jpg";
+                            string filePath = Path.Combine(uploadPath, fileName);
+
+                            using (var stream = new FileStream(filePath, FileMode.Create))
+                            {
+                                image.CopyTo(stream);
+                            }
+
+                            // Thêm thông tin vào bảng ProductImage
+                            var productImage = new ProductsImage
+                            {
+                                ProductId = product.Id,
+                                Image = fileName
+                            };
+
+                            _context.ProductsImages.Add(productImage);
+                            imageIndex++;
+                        }
+                    }
+                    _context.SaveChanges();
+                }
+                TempData["Success"] = "Thêm sản phẩm mới thành công!";
+                return RedirectToAction("Create");
+            }
+            TempData["Error"] = "Đã có lỗi xảy ra, hãy thử lại sau!";
+            return RedirectToAction("Create");
+
+        }
+
+        //Thêm sản phẩm Ajax
+        [HttpPost]
+        public JsonResult AddProductTest(Product product, IEnumerable<IFormFile> images, IFormFile Thumbnail)
+        {
+            //Kiểm tra xem có đăng nhập hay không.
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                //Không đăng nhập, không có quyền => cook
+                return Json(new { success = false, message = "Bạn Không có quyền thực hiện thao tác này!"});
+            }
+
+            var errors = new List<string>();
+
+            // Kiểm tra từng ảnh trong images
+            if (images != null)
+            {
+                foreach (var file in images)
+                {
+                    if (file == null || (Path.GetExtension(file.FileName.ToLower()) != ".jpg" && Path.GetExtension(file.FileName.ToLower()) != ".png" && Path.GetExtension(file.FileName.ToLower()) != ".jpeg" && Path.GetExtension(file.FileName.ToLower()) != ".hex"))
+                    {
+                        errors.Add("Ảnh chỉ chấp nhận dạng có phần mở rộng .jpg, .png, .hex hoặc .jpeg.");
+                    }
+                }
+            }
+
+            // Kiểm tra Thumbnail
+            if (Thumbnail != null)
+            {
+                if (Path.GetExtension(Thumbnail.FileName.ToLower()) != ".jpg" && Path.GetExtension(Thumbnail.FileName.ToLower()) != ".png" && Path.GetExtension(Thumbnail.FileName.ToLower()) != ".jpeg" && Path.GetExtension(Thumbnail.FileName.ToLower()) != ".hex")
+                {
+                    errors.Add("Ảnh đại diện chỉ chấp nhận dạng có phần mở rộng .jpg, .png, .hex hoặc .jpeg.");
+                }
+            }
+
+            // Nếu có lỗi, trả về danh sách lỗi
+            if (errors.Any())
+            {
+                return Json(new { success = false, message = "Dữ liệu Hình ảnh chỉ chấp nhận dạng có phần mở rộng .jpg, .png, .hex hoặc .jpeg.", errors });
+            }
+
+            try
+            {
+                ModelState.Remove("ProductCode");
+                ModelState.Remove("Status");
+                ModelState.Remove("Slug");
+                ModelState.Remove("Stock");
+                ModelState.Remove("Thumbnail");
+                ModelState.Remove("Category");
+                ModelState.Remove("DetailOrders");
+                ModelState.Remove("ProductsImages");
+                ModelState.Remove("Reviews");
+                ModelState.Remove("Wishlists");
+
+                if (ModelState.IsValid)
+                {
+                    product.Slug = CreateUnaccentedText(RemoveExtraSpaces(product.Name));
+
+                    // Kiểm tra Slug
+                    bool isSlugExists = _context.Products.Any(p => p.Slug == product.Slug);
+                    if (isSlugExists)
+                    {
+                        return Json(new { success = false, message = "Tên sản phẩm này đã tồn tại!" });
+                    }
+
+                    product.ProductCode = "No Code";
+                    product.Status = 1;
+                    product.Stock = 0;
+                    product.Thumbnail = "No Image";
+
+                    // Thêm sản phẩm
+                    _context.Products.Add(product);
+                    _context.SaveChanges();
+
+                    // Tạo mã sản phẩm
+                    product.ProductCode = GenerateProductCode(product.Id);
+
+                    // Lưu Thumbnail
+                    if (Thumbnail != null && Thumbnail.Length > 0)
+                    {
+                        string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/products");
+
+                        if (!Directory.Exists(uploadPath))
+                        {
+                            Directory.CreateDirectory(uploadPath);
+                        }
+
+                        string fileName = $"{product.ProductCode}.jpg";
+                        string filePath = Path.Combine(uploadPath, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            Thumbnail.CopyTo(stream);
+                        }
+                        product.Thumbnail = fileName;
+                    }
+
+                    _context.Update(product);
+                    _context.SaveChanges();
+
+                    // Lưu các ảnh khác
+                    if (images != null && images.Any())
+                    {
+                        int imageIndex = 1;
+
+                        foreach (var image in images)
+                        {
+                            if (image.Length > 0)
+                            {
+                                string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/products");
+
+                                if (!Directory.Exists(uploadPath))
+                                {
+                                    Directory.CreateDirectory(uploadPath);
+                                }
+
+                                string fileName = $"{product.ProductCode}_{imageIndex}.jpg";
+                                string filePath = Path.Combine(uploadPath, fileName);
+
+                                using (var stream = new FileStream(filePath, FileMode.Create))
+                                {
+                                    image.CopyTo(stream);
+                                }
+
+                                var productImage = new ProductsImage
+                                {
+                                    ProductId = product.Id,
+                                    Image = fileName
+                                };
+
+                                _context.ProductsImages.Add(productImage);
+                                imageIndex++;
+                            }
+                        }
+                        _context.SaveChanges();
+                    }
+
+                    return Json(new { success = true, message = "Thêm sản phẩm mới thành công!" });
+                }
+
+                return Json(new { success = false, message = "Dữ liệu không hợp lệ!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Có lỗi xảy ra!", error = ex.Message });
+            }
+        }
+
+
+
+
         //Trang Chỉnh sửa sản phẩm
         public IActionResult Edit(int id)
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
             var product = _context.Products
                 .Include(p => p.ProductsImages)
                 .FirstOrDefault(p => p.Id == id);
@@ -82,11 +380,12 @@ namespace OmegaStore.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["AccountName"] = username;
             ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name", product.CategoryId); // Danh sách categories
             return View(product);
         }
 
+        //Thay đổi thông tin sản phẩm(ver cùi bắp)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProduct(IEnumerable<String>? removedImages, Product product, IEnumerable<IFormFile>? images, IFormFile? Thumbnail)
@@ -260,11 +559,49 @@ namespace OmegaStore.Areas.Admin.Controllers
             ViewBag.ImageList = removedImages;
             return RedirectToAction("Index");
         }
-
+        
+        //Thay đổi thông tin sản phẩm Ajax
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProductTest(IEnumerable<string>? removedImages, Product product, IEnumerable<IFormFile>? images, IFormFile? Thumbnail)
         {
+            //Kiểm tra xem có đăng nhập hay không.
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                //Không đăng nhập, không có quyền => cook
+                return Json(new { success = false, message = "Bạn Không có quyền thực hiện thao tác này!" });
+            }
+
+            var errors = new List<string>();
+
+            // Kiểm tra từng ảnh trong images
+            if (images != null)
+            {
+                foreach (var file in images)
+                {
+                    if (file == null || (Path.GetExtension(file.FileName.ToLower()) != ".jpg" && Path.GetExtension(file.FileName.ToLower()) != ".png" && Path.GetExtension(file.FileName.ToLower()) != ".jpeg" && Path.GetExtension(file.FileName.ToLower()) != ".hex"))
+                    {
+                        errors.Add("Ảnh chỉ chấp nhận dạng có phần mở rộng .jpg, .png, .hex hoặc .jpeg.");
+                    }
+                }
+            }
+
+            // Kiểm tra Thumbnail
+            if (Thumbnail != null)
+            {
+                if (Path.GetExtension(Thumbnail.FileName.ToLower()) != ".jpg" && Path.GetExtension(Thumbnail.FileName.ToLower()) != ".png" && Path.GetExtension(Thumbnail.FileName.ToLower()) != ".jpeg" && Path.GetExtension(Thumbnail.FileName.ToLower()) != ".hex")
+                {
+                    errors.Add("Ảnh đại diện chỉ chấp nhận dạng có phần mở rộng .jpg, .png, .hex hoặc .jpeg.");
+                }
+            }
+
+            // Nếu có lỗi, trả về danh sách lỗi
+            if (errors.Any())
+            {
+                return Json(new { success = false, message = "Dữ liệu Hình ảnh chỉ chấp nhận dạng có phần mở rộng .jpg, .png, .hex hoặc .jpeg.", errors });
+            }
+
             //Lấy ra sản phẩm cần chỉnh sửa.
             var productUpdate = _context.Products
                 .Include(p => p.ProductsImages)
@@ -317,12 +654,7 @@ namespace OmegaStore.Areas.Admin.Controllers
             //Không hợp lệ
             else
             {
-                 var errors = ModelState.Values
-                    .SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage)
-                    .ToList();
-
-                return Json(new { success = false, message = "Dữ liệu không hợp lệ.", errors });
+                return Json(new { success = false, message = "Dữ liệu không hợp lệ." });
             }
 
             
@@ -469,18 +801,16 @@ namespace OmegaStore.Areas.Admin.Controllers
             return Json(new { success = true, message = "Cập nhật sản phẩm thành công!" });
         }
 
-        //Trang thêm sản phẩm
-        public IActionResult Create()
-        {
-            var categories = _context.Categories.ToList();
-            // Tạo SelectList từ danh sách Categories
-            ViewBag.Categories = new SelectList(categories, "Id", "Name");
-            return View();
-        }
+        
 
         //Xóa sản phẩm
         public async Task<IActionResult> Delete(int id)
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return NotFound();
+            }
             try
             {
                 var product = await _context.Products.FindAsync(id);//Tìm sản phẩm có trùng id
@@ -516,221 +846,7 @@ namespace OmegaStore.Areas.Admin.Controllers
             }
         }
 
-        //Thêm sản phẩm
-        public IActionResult AddProduct(Product product, IEnumerable<IFormFile> images, IFormFile Thumbnail)
-        {
-            ModelState.Remove("ProductCode");
-            ModelState.Remove("Status");
-            ModelState.Remove("Slug");
-            ModelState.Remove("Stock");
-            ModelState.Remove("Thumbnail");
-            ModelState.Remove("Category");
-            ModelState.Remove("DetailOrders");
-            ModelState.Remove("ProductsImages");
-            ModelState.Remove("Reviews");
-            ModelState.Remove("Wishlists");
-            if (ModelState.IsValid)
-            {
-                product.Slug = CreateUnaccentedText(RemoveExtraSpaces(product.Name));
-                // Kiểm tra xem Slug đã tồn tại chưa
-                bool isSlugExists = _context.Products.Any(p => p.Slug == product.Slug);
-                if (isSlugExists)
-                {
-                    ModelState.AddModelError("Name", "Tên sản phẩm này đã tồn tại!");
-                    var categories = _context.Categories.ToList();
-                    // Tạo SelectList từ danh sách Categories
-                    ViewBag.Categories = new SelectList(categories, "Id", "Name");
-                    return View("Create", product);
-                }
-                product.ProductCode = "No Code";
-                product.Status = 1;
-                product.Stock = 0;
-                product.Thumbnail = "No Image";
-                _context.Products.Add(product);
-                _context.SaveChanges();
-
-                product.ProductCode = GenerateProductCode(product.Id);
-
-                if (Thumbnail.Length > 0)
-                {
-                    // Đường dẫn lưu hình ảnh trên server
-                    string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/products");
-
-                    if (!Directory.Exists(uploadPath))
-                    {
-                        Directory.CreateDirectory(uploadPath);
-                    }
-
-                    string fileName = $"{product.ProductCode}.jpg";
-                    string filePath = Path.Combine(uploadPath, fileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        Thumbnail.CopyTo(stream);
-                    }
-                    product.Thumbnail = fileName;
-                }
-                _context.Update(product);
-                _context.SaveChanges();
-
-
-
-                // Xử lý việc lưu hình ảnh
-                if (images != null && images.Any())
-                {
-                    int imageIndex = 1;
-
-                    foreach (var image in images)
-                    {
-                        if (image.Length > 0)
-                        {
-                            // Đường dẫn lưu hình ảnh trên server
-                            string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/products");
-
-                            if (!Directory.Exists(uploadPath))
-                            {
-                                Directory.CreateDirectory(uploadPath);
-                            }
-
-                            string fileName = $"{product.ProductCode}_{imageIndex}.jpg";
-                            string filePath = Path.Combine(uploadPath, fileName);
-
-                            using (var stream = new FileStream(filePath, FileMode.Create))
-                            {
-                                image.CopyTo(stream);
-                            }
-
-                            // Thêm thông tin vào bảng ProductImage
-                            var productImage = new ProductsImage
-                            {
-                                ProductId = product.Id,
-                                Image = fileName
-                            };
-
-                            _context.ProductsImages.Add(productImage);
-                            imageIndex++;
-                        }
-                    }
-                    _context.SaveChanges();
-                }
-                TempData["Success"] = "Thêm sản phẩm mới thành công!";
-                return RedirectToAction("Create");
-            }
-            TempData["Error"] = "Đã có lỗi xảy ra, hãy thử lại sau!";
-            return RedirectToAction("Create");
-
-        }
-
-        [HttpPost]
-        public JsonResult AddProductTest(Product product, IEnumerable<IFormFile> images, IFormFile Thumbnail)
-        {
-            try
-            {
-                ModelState.Remove("ProductCode");
-                ModelState.Remove("Status");
-                ModelState.Remove("Slug");
-                ModelState.Remove("Stock");
-                ModelState.Remove("Thumbnail");
-                ModelState.Remove("Category");
-                ModelState.Remove("DetailOrders");
-                ModelState.Remove("ProductsImages");
-                ModelState.Remove("Reviews");
-                ModelState.Remove("Wishlists");
-
-                if (ModelState.IsValid)
-                {
-                    product.Slug = CreateUnaccentedText(RemoveExtraSpaces(product.Name));
-
-                    // Kiểm tra Slug
-                    bool isSlugExists = _context.Products.Any(p => p.Slug == product.Slug);
-                    if (isSlugExists)
-                    {
-                        return Json(new { success = false, message = "Tên sản phẩm này đã tồn tại!" });
-                    }
-
-                    product.ProductCode = "No Code";
-                    product.Status = 1;
-                    product.Stock = 0;
-                    product.Thumbnail = "No Image";
-
-                    // Thêm sản phẩm
-                    _context.Products.Add(product);
-                    _context.SaveChanges();
-
-                    // Tạo mã sản phẩm
-                    product.ProductCode = GenerateProductCode(product.Id);
-
-                    // Lưu Thumbnail
-                    if (Thumbnail != null && Thumbnail.Length > 0)
-                    {
-                        string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/products");
-
-                        if (!Directory.Exists(uploadPath))
-                        {
-                            Directory.CreateDirectory(uploadPath);
-                        }
-
-                        string fileName = $"{product.ProductCode}.jpg";
-                        string filePath = Path.Combine(uploadPath, fileName);
-
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            Thumbnail.CopyTo(stream);
-                        }
-                        product.Thumbnail = fileName;
-                    }
-
-                    _context.Update(product);
-                    _context.SaveChanges();
-
-                    // Lưu các ảnh khác
-                    if (images != null && images.Any())
-                    {
-                        int imageIndex = 1;
-
-                        foreach (var image in images)
-                        {
-                            if (image.Length > 0)
-                            {
-                                string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/products");
-
-                                if (!Directory.Exists(uploadPath))
-                                {
-                                    Directory.CreateDirectory(uploadPath);
-                                }
-
-                                string fileName = $"{product.ProductCode}_{imageIndex}.jpg";
-                                string filePath = Path.Combine(uploadPath, fileName);
-
-                                using (var stream = new FileStream(filePath, FileMode.Create))
-                                {
-                                    image.CopyTo(stream);
-                                }
-
-                                var productImage = new ProductsImage
-                                {
-                                    ProductId = product.Id,
-                                    Image = fileName
-                                };
-
-                                _context.ProductsImages.Add(productImage);
-                                imageIndex++;
-                            }
-                        }
-                        _context.SaveChanges();
-                    }
-
-                    return Json(new { success = true, message = "Thêm sản phẩm mới thành công!" });
-                }
-
-                return Json(new { success = false, message = "Dữ liệu không hợp lệ!" });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Có lỗi xảy ra!", error = ex.Message });
-            }
-        }
-
+        
 
         //Tạo chữ ko dấu
         public static string CreateUnaccentedText(string input)

@@ -19,6 +19,14 @@ namespace OmegaStore.Services
             u.RoleId == 3);
         }
 
+        public Account? AuthenticateAdmin(string username, string password)
+        {
+            return _context.Accounts.FirstOrDefault(u =>
+            (u.Username == username || u.Email == username) &&
+            u.Password == password &&
+            u.RoleId != 3);
+        }
+
         public bool Register(Account account)
         {
             try

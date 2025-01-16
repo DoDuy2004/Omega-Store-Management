@@ -182,7 +182,7 @@
             var allowedExtensions = ['jpg', 'png', 'hex', 'jpeg']; // Định dạng file được chấp nhận
             if (file) {
                 const fileExtension = file.name.split('.').pop().toLowerCase();
-
+                const errorSpan = document.getElementById('avatar-error');  // Thẻ span chứa lỗi
                 // Kiểm tra định dạng file
                 if (!allowedExtensions.includes(fileExtension)) {
                     Swal.fire({
@@ -203,7 +203,7 @@
                     var img = document.getElementById('previewAvatar');
                     img.src = e.target.result;
                 };
-
+                errorSpan.style.display = 'none';  // Ẩn lỗi khi input đã chọn
                 reader.readAsDataURL(file); // Dùng để đọc file dưới dạng base64
             }
         });
