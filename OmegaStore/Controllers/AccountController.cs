@@ -138,7 +138,7 @@ namespace OmegaStore.Controllers
                             .Average(r => r.Rating)
                             : 0,
                           
-                        }).ToList();
+                        }).OrderByDescending(p=>p.ProductId).ToList();
                 ViewBag.FavoriteProductList = FavoriteProductList.Any()?FavoriteProductList:null;
             }
             else
