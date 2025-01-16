@@ -39,7 +39,11 @@ namespace OmegaStore.Areas.Admin.Controllers
             if (category != null)
             {
                 category.Status = 0;
-                _context.SaveChanges();
+                var products = await _context.Products.Where(p => p.CategoryId == category.Id).ToListAsync();
+                foreach (var p in products) {
+                    p.Status = 0;
+                }
+                await _context.SaveChangesAsync();
                 TempData["success"] = "Xóa danh mục thành công.";
                 return RedirectToAction("Index");
             }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using OmegaStore.Models;
 using OmegaStore.Services;
+using X.PagedList;
 
 namespace OmegaStore.Controllers
 {
@@ -124,13 +125,18 @@ namespace OmegaStore.Controllers
 
         [HttpGet]
         [Route("[controller]/[action]/{keyword?}")]
-        public IActionResult Search([FromQuery] string keyword)
+        public IActionResult Search([FromQuery] string keyword, int? page)
         {
+            if (keyword == null) keyword = " ";
             var products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.Id, (p, c) => new
             { Product = p, Category = c }).Where(pc => pc.Category.Status == 1 && (pc.Product.Name.ToLower().Contains(keyword.ToLower()) || pc.Category.Name.Contains(keyword))).ToList();
             ViewBag.Categories = _context.Categories.Where(c => c.Status == 1);
             ViewBag.Keyword = keyword;
-            return View(products);
+
+            int pageSize = 8;
+            int pageNumber = page == null || page < 0 ? 1 : page.Value;
+            var lst = new PagedList<dynamic>(products, pageNumber, pageSize);
+            return View(lst);
         }
         [HttpPost]
         public IActionResult Search(string keyword, int category, int min_price, int max_price)

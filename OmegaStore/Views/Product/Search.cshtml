@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Danh sách sản phẩm";
 }
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<dynamic>
 <!-- Breadcrumb Start -->
 <div class="breadcrumb-wrap mb-0">
     <div class="container">
@@ -93,8 +95,8 @@
                                 </div>
                                 <div class="product-title"><a asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Product.Slug">@product.Product.Name</a></div>
                                 <div class="product-price">
-                                    <p class="price-discount"><span>@((int)product.Product.Price)đ</span></p>
-                                    <p class="price"><span>@((int)((float)product.Product.Price + (float)product.Product.Price * ((float)product.Product.DiscountRate / 100)))đ</span></p>
+                                    <p class="price-discount"><span>@((int)((float)product.Product.Price - (float)product.Product.Price * ((float)product.Product.DiscountRate / 100)))đ</span></p>
+                                    <p class="price"><span>@((int)product.Product.Price)đ</span></p>
                                 </div>
                                 <div class="view-rating">
                                     <span class="view">23<i class="fa fa-eye"></i></span>
@@ -128,21 +130,24 @@
                     </div> *@
 
                 </div>
+                <style>
+                    .pagination-container{
+                        display: flex;
+                        justify-content:center;
+                        align-items: center;
+                    }
+                    .pagination li{
+                        width: 35px;
+                        height: 38px;
+                        border:1px solid black;
+                        display: flex;
+                        justify-content:center;
+                        align-items: center;
+                    }
+                </style>
                 <!-- Pagination Start -->
                 <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" asp-controller="" asp-action="" tabindex="-1">Trước</a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" asp-controller="" asp-action="">1</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" asp-controller="" asp-action="">2</a></li>
-                        <li class="page-item"><a class="page-link" asp-controller="" asp-action="">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" asp-controller="" asp-action="">Sau</a>
-                        </li>
-                    </ul>
+                    @Html.PagedListPager(Model, page => Url.Action("Search", new { page = page }))
                 </nav>
                 <!-- Pagination Start -->
             </div>
