@@ -344,7 +344,7 @@ namespace OmegaStore.Controllers
                     Total = o.TotalAmount,
                     Statuss = o.Status,
 
-                }).ToList();
+                }).OrderByDescending(o => o.Create_at).ToList();
                 return Json(OrderStatus);
             }
             else
@@ -358,7 +358,7 @@ namespace OmegaStore.Controllers
                     Total = o.TotalAmount,
                     Statuss = o.Status,
 
-                }).ToList();
+                }).OrderByDescending(o => o.Create_at).ToList();
                 return Json(OrderStatus);
             }
 
