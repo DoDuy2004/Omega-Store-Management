@@ -52,16 +52,23 @@ namespace OmegaStore.Services
                     await mail.WriteToAsync(emailsavefile);
 
                     _logger.LogInformation("Lỗi gửi mail, lưu tại - " + emailsavefile);
-                    _logger.LogError(ex.Message);
+                    _logger.LogError($"Lỗi:{ex.Message}");
                 }
                 catch (Exception directoryEx)
                 {
                     _logger.LogError($"Không thể tạo thư mục lưu email: {directoryEx.Message}");
                 }
-
-                smtp.Disconnect(true);
-                _logger.LogInformation("send mail to: " + email);
-
+            }
+            
+            finally
+            {
+                
+                if (smtp.IsConnected)
+                {
+                    await smtp.DisconnectAsync(true);
+                }
+                smtp.Dispose();
+                _logger.LogInformation("Đã giải phóng tài nguyên SMTP.");
             }
         }
     }

@@ -10,12 +10,35 @@
 }
 
 @section Scripts {
-    <script src="~/admin/js/zoom.js"></script>
     <script src="~/admin/js/tinymce/tinymce.min.js"></script>
     <script src="~/admin/js/tinymce/tinymce-custom.js"></script>
-    <script src="~/admin/js/switcher.js"></script>
-    <script src="~/admin/js/theme-settings.js"></script>
+
+
+    @if (Model.Status == RequestStatus.Resolved)
+    {
+        <script>
+            $(document).ready(function () {
+                $("#ResponseMessage").prop("disabled", true);
+                $("#send-response").prop("disabled", true).addClass("disabled-button"); // Disable button
+            });
+        </script>
+    }
+    <script>
+
+        var errorMessage = '@Html.Raw(TempData["Error"])';
+
+        if (errorMessage) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gửi phản hồi thất bại',
+                text: errorMessage,
+                allowOutsideClick: false,
+            });
+        }
+
+    </script>
 }
+
 
 <div class="main-content">
     <!-- main-content-wrap -->
@@ -47,7 +70,8 @@
                 </ul>
             </div>
             <!-- new-page-wrap -->
-            <form class="form-new-page" asp-area="Admin" asp-controller="Contact"asp-action="SendResponseEmail" asp-route-ContactId=@Model.ContactId>
+            <form id="response-form" class="form-new-page" asp-area="Admin" asp-controller="Contact"
+                asp-action="SendResponseEmail" asp-route-ContactId=@Model.ContactId>
                 <div class="new-page-wrap">
                     <div class="left">
                         <div class="wg-box">
@@ -92,7 +116,7 @@
                                             <!-- <input class="" type="text" placeholder="https://themeforest.net/user/themesflat" name="text" tabindex="0" value="" aria-required="true" required=""> -->
                                         </fieldset>
                                         <fieldset class="description mb-24">
-                                            <div class="body-title mb-10">Mã vận đơn: <span
+                                            <div class="body-title mb-10">Mã đơn hàng: <span
                                                     class="number">@Model.OrderCode</span></div>
                                             <!-- <textarea class="" name="description" placeholder="Description" tabindex="0" aria-required="true" required=""></textarea> -->
                                         </fieldset>
@@ -104,13 +128,13 @@
                                             <textarea disabled="true" type="text">@Model.Message</textarea>
                                         </fieldset>
                                         <fieldset class="content">
-                                                <div class="body-title mb-10">Phản hồi:</div>
-
-                                                <textarea type="text" name="ResponseMessage"
-                                                    placeholder="Nội dung phản hồi"></textarea>
-                                                <div class="box-response">
-                                                    <button type="submit" class="block-response" style="font-size: 14px;">Gửi phản hồi</button>
-                                                </div>
+                                            <div class="body-title mb-10">Phản hồi:</div>
+                                            <textarea id="ResponseMessage" type="text" name="ResponseMessage"
+                                                placeholder="Nội dung phản hồi">@Model.ResponseMessage</textarea>
+                                            <div class="box-response">
+                                                <button id="send-response" type="submit" class="block-response"
+                                                    style="font-size: 14px;">Gửi phản hồi</button>
+                                            </div>
                                         </fieldset>
                                     </div>
                                 </div>

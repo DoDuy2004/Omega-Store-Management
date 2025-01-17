@@ -58,3 +58,17 @@
     width:fit-content;
     padding:12px 17px;
   }
+.col.col-status{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.icon-trash-2:hover {
+  color: #ff0000;
+}
+.box-response .disabled-button.block-response{
+  background-color: gray;
+  color: white;
+  cursor: default;
+}
