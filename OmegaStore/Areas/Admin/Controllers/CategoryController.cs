@@ -18,18 +18,39 @@ namespace OmegaStore.Areas.Admin.Controllers
         //Trang Danh sách Danh mục
         public async Task<IActionResult> Index()
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
+
             var categories = _context.Categories.Where(c => c.Status == 1).ToListAsync(); // Lấy tất cả các danh mục từ cơ sở dữ liệu
             return View(await categories); // Truyền danh sách danh mục vào View
         }
 
         public IActionResult Create()
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
+
             return View();
         }
         [HttpGet]
         [Route("[controller]/[action]/{slug?}")]
         public async Task<IActionResult> Edit(string slug)
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
+
             Category category = await _context.Categories.FirstOrDefaultAsync(c => c.Slug == slug);
             return View(category);
         }
@@ -53,6 +74,13 @@ namespace OmegaStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Search(string keyword)
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
+
             string value = keyword.ToLower().Trim();
             List<Category> categories = _context.Categories.Where(c => c.Name.ToLower().Contains(value) || c.Slug.Contains(value)).ToList();
             if (categories.Count > 0)

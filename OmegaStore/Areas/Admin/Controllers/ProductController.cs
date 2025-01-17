@@ -69,6 +69,13 @@ namespace OmegaStore.Areas.Admin.Controllers
         [HttpGet("[Area]/[controller]/[action]/{slug}")]
         public IActionResult Detail(string slug)
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
+
             var products = _context.Products;
             var product = products
                 .Include(p => p.ProductsImages)
