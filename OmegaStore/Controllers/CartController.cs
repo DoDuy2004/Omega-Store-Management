@@ -214,7 +214,7 @@ namespace OmegaStore.Controllers
 
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest();
+                    return View("FailedCheckout");
                 }
 
                 Order order = new Order
