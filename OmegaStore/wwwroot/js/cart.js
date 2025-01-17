@@ -23,7 +23,7 @@ function loadCart(currentPage = 1) {
                         <tr>
                             <td>
                                 <a href="/Product/${item.product.slug }" class="d-block" style="width: 60px;">
-                                    <img class="img-fluid" src="../img/${item.product.thumbnail}" alt="">
+                                    <img class="img-fluid" src="../img/products/${item.product.thumbnail}" alt="">
                                 </a>
                             </td>
                             <td style="font-size: .9rem">
@@ -86,7 +86,7 @@ function renderCartMiniSummary(res) {
 function renderPagination(totalItems, currentPage) {
     const totalPages = Math.ceil(totalItems / 4);
     if (totalPages <= 1) {
-        $(".pagination-cart").empty();
+        $(".pagination").empty();
         return;
     }
     let links = "";
@@ -113,7 +113,7 @@ function renderPagination(totalItems, currentPage) {
         `;
     }
     
-    $(".pagination-cart").html(`
+    $(".pagination").html(`
             ${prev}
             ${links}
             ${next}

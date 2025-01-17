@@ -21,6 +21,7 @@ namespace OmegaStore.Controllers
         public IActionResult Detail(string slug)
         {
             var products = _context.Products;
+            // Truy vấn sản phẩm theo slug
             var product = products
                 .Include(p => p.ProductsImages)
                 .Include(p => p.Reviews)
@@ -30,9 +31,11 @@ namespace OmegaStore.Controllers
 
             if (product != null)
             {
+                // Lấy danh sách các sản phẩm liên quan
                 ViewBag.relatedProducts = products
                     .Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id).ToList();
 
+                // Lấy số lượt đã bán của sản phẩm
                 ViewBag.saleCount = _context.Orders
                     .Join(_context.DetailOrders,
                           o => o.Id,
@@ -41,6 +44,7 @@ namespace OmegaStore.Controllers
                     .Where(od => od.Status == 4 && od.ProductId == product.Id)
                     .Sum(od => od.Quantity);
 
+                // Lấy số lượt yêu thích
                 ViewBag.likes = _context.Wishlist
                     .Where(l => l.ProductId == product.Id).Count();
 
@@ -49,6 +53,7 @@ namespace OmegaStore.Controllers
 
                 if (account != null)
                 {
+                    // Kiểm tra sản phẩm đã có trong danh sách yêu thích chưa
                     ViewBag.isAddedWishlist = _context.Wishlist
                     .FirstOrDefault(w => w.ProductId == product.Id && w.AccountId == account.Id);
                 }
@@ -67,6 +72,7 @@ namespace OmegaStore.Controllers
 
             if (ModelState.IsValid)
             {
+                // Tạo đối tượng lưu danh sách kết quả khi kết bảng đơn hàng và chi tiết đơn hàng
                 var result = orders.Join(detailOrders, o => o.Id, d => d.OrderId,
                     (o, d) => new
                     {
@@ -75,6 +81,7 @@ namespace OmegaStore.Controllers
                         Status = o.Status
                     });
 
+                // Kiểm tra đã mua hàng chưa
                 var isPurchased = result
                     .FirstOrDefault(o => o.Email == review.Email 
                     && o.ProductId == review.ProductId
@@ -88,6 +95,7 @@ namespace OmegaStore.Controllers
                         text = "Bạn chưa thực hiện mua sản phẩm này >.<"
                     });
 
+                // Kiểm tra đã đánh giá chưa
                 var isCommented = reviews
                     .FirstOrDefault(r => r.Email == review.Email && r.ProductId == review.ProductId);
 
@@ -138,6 +146,7 @@ namespace OmegaStore.Controllers
             var lst = new PagedList<dynamic>(products, pageNumber, pageSize);
             return View(lst);
         }
+
         [HttpPost]
         public IActionResult Search(string keyword, int category, int min_price, int max_price, int? page)
         {

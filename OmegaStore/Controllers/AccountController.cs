@@ -391,7 +391,7 @@ namespace OmegaStore.Controllers
         }
      
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult AddWishList(int id)
         {
             var username = HttpContext.Session.GetString("Username");
@@ -415,13 +415,10 @@ namespace OmegaStore.Controllers
                 });
             }
 
-            return Json(new
-            {
-                icon = "error",
-                title = "Thêm yêu thích không thành công"
-            });
+            return BadRequest();
         }
 
+        [HttpPost]
         public IActionResult DelWishList(int id)
         {
             var username = HttpContext.Session.GetString("Username");
@@ -446,12 +443,7 @@ namespace OmegaStore.Controllers
                 });
             }
 
-            return Json(new
-            {
-                success = false,
-                icon = "error",
-                title = "Hủy yêu thích không thành công"
-            });
+            return BadRequest();
         }
     }
 

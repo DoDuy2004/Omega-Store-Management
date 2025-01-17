@@ -1,6 +1,15 @@
 ﻿@model OmegaStore.Models.ViewModels.OrderDetailCustomerAllViewModel
 @{
 	ViewData["Title"] = "Chi tiết đơn hàng";
+	string status = (Model.OrderDetailCustomerViewModel.StatusOrder == 1
+		? "Chờ xác nhận" : Model.OrderDetailCustomerViewModel.StatusOrder == 2
+		? "Xác nhận" : Model.OrderDetailCustomerViewModel.StatusOrder == 3
+		? "Đang giao" : Model.OrderDetailCustomerViewModel.StatusOrder == 4
+		? "Hoàn thành" : "Đã hủy");
+
+	string classStatus = (status == "Chờ xác nhận" ? "processing"
+	: status == "Xác nhận" ? "confirmed" : status == "Đang giao" ? "shipping"
+	: status == "Hoàn thành" ? "delivered" : "cancelled");
 }
 
 @section Styles {
@@ -30,8 +39,10 @@
 			<div class="col-md-12">
 				<div class="order-title mb-3 p-3 position-relative">
 					<h3 class="font-weight-bold text-uppercase text-center">Chi tiết đơn hàng</h3>
-					<a asp-controller="Account" asp-action="Index" class="btn btn-outline-success back-btn position-absolute">Quay lại</a>
-				
+					@if (Context.Session.GetString("Username") != null)
+					{
+						<a asp-controller="Account" asp-action="Index" class="btn btn-outline-success back-btn position-absolute">Quay lại</a>
+					}
 				</div>
 			</div>
 		</div>
@@ -41,12 +52,8 @@
 					<div class="col-md-12">
 						<div class="order-info mb-3 px-3 py-2 position-relative">
 							<p class="order-code font-weight-bold">Đơn hàng: <span>@Model.OrderDetailCustomerViewModel.OrderCodeId</span></p>
-							<p class="order-date font-weight-bold">Ngày đặt: <span class="font-weight-normal">@Model.OrderDetailCustomerViewModel.Crreate_at</p>
-							<!-- <span class="status status-processing position-absolute">Đang xử lý</span> -->
-							<!-- <span class="status status-confirmed position-absolute">Đã xác nhận</span> -->
-							<!-- <span class="status status-shipping position-absolute">Đang giao</span> -->
-							<span class="status status-delivered position-absolute">@(Model.OrderDetailCustomerViewModel.StatusOrder == 1 ? "Chờ xác nhận" : Model.OrderDetailCustomerViewModel.StatusOrder == 2 ? "Xác nhận" : Model.OrderDetailCustomerViewModel.StatusOrder == 3 ? "Đang giao" : Model.OrderDetailCustomerViewModel.StatusOrder == 4?"Hoàn thành":"Đã hủy")</span>
-							<!-- <span class="status status-cancelled position-absolute">Đã hủy</span> -->
+							<p class="order-date font-weight-bold">Ngày đặt: <span class="font-weight-normal">@Model.OrderDetailCustomerViewModel.Crreate_at</span></p>
+							<span class="status status-@classStatus position-absolute">@status</span>
 						</div>
 					</div>
 				</div>

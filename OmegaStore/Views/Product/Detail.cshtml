@@ -60,14 +60,14 @@
 
                             // Trả về chuỗi html các bài đánh giá
                             return `
-                                        <div class="reviewer">${r.fullname} - <span>${new Date(r.createdAt).toLocaleString("vi-VN")}</span></div>
-                                        <p>
-                                            ${r.comment}
-                                        </p>
-                                        <div class="ratting">
-                                            ${starHTML}
-                                        </div>
-                                    `;
+                                <div class="reviewer">${r.fullname} - <span>${new Date(r.createdAt).toLocaleString("vi-VN")}</span></div>
+                                <p>
+                                    ${r.comment}
+                                </p>
+                                <div class="ratting">
+                                    ${starHTML}
+                                </div>
+                            `;
                         }).join('');
                     }
 
@@ -200,7 +200,7 @@
             $("#wishlist-add-btn").on("click", function () {
                 $.ajax({
                     url: "/Account/AddWishList/@product.Id",
-                    method: "GET",
+                    method: "POST",
                     success: function (res) {
                         notiWishList(res);
                     }
@@ -210,7 +210,7 @@
             $("#wishlist-del-btn").on("click", function () {
                 $.ajax({
                     url: "/Account/DelWishList/@product.Id",
-                    method: "GET",
+                    method: "POST",
                     success: function (res) {
                         notiWishList(res);
                     }

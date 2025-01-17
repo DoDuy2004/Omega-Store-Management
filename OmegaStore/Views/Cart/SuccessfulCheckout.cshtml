@@ -56,7 +56,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-center mb-5">
                 <a asp-controller="" asp-action="" class="btn btn-success mr-3">Về trang chủ</a>
-                <a asp-controller="" asp-action="" class="btn btn-primary">Xem chi tiết đơn hàng này</a>
+                <a asp-controller="Order" asp-action="Index" asp-route-id="@Model.Id" class="btn btn-primary">Xem chi tiết đơn hàng này</a>
             </div>
         </div>
     </div>
