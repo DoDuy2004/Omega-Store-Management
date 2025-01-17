@@ -28,7 +28,7 @@ namespace OmegaStore.Controllers
             var account = _accountService.GetAccountByUsername(username);
             if (account == null)
             {
-                return RedirectToAction("LoginView"); // Chuyển hướng nếu không tìm thấy tài khoản
+                return NotFound(); // Chuyển hướng nếu không tìm thấy tài khoản
             }
 
             // Danh sách các đơn hàng của tài khoản

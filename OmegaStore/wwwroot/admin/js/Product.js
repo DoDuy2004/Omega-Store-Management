@@ -22,12 +22,17 @@
                     success: function (response) {
                         if (response.success) {
                             // Hiển thị thông báo thành công
-                            Swal.fire(
-                                "Đã xóa!",
-                                response.message,
-                                "success"
-                            );
-                            window.location.reload();
+                            Swal.fire({
+                                title: "Đã xóa!",
+                                text: response.message,
+                                icon: "success",
+                                confirmButtonText: "OK"
+                            }).then((innerResult) => {
+                                if (innerResult.isConfirmed) {
+                                    // Chỉ reload trang khi người dùng bấm OK trong thông báo thành công
+                                    window.location.reload();
+                                }
+                            });
                         } else {
                             // Hiển thị thông báo lỗi (server trả về)
                             Swal.fire(
