@@ -10,9 +10,73 @@
 }
 
 @section Scripts {
-    <script src="~/admin/js/zoom.js"></script>
+   
     <script src="~/admin/js/switcher.js"></script>
-    <script src="~/admin/js/theme-settings.js"></script>
+ 
+
+    <script>
+        var successMessage = '@Html.Raw(TempData["success"])';
+        
+        if (successMessage) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Gửi phản hồi thành công',
+                text: "",
+                timerProgressBar: false,
+                allowOutsideClick: true,
+            });
+        }
+        $(document).ready(function () {
+            $(".icon-trash-2").click(function (e) {
+                e.preventDefault();
+                var contactID = $(this).data("id");
+                Swal.fire({
+                    title: "Xóa liên hệ?",
+                    text: "Yêu cầu liên hệ này sẽ bị xóa vĩnh viễn!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "Hủy",
+                    cancelButtonColor: "#d33",
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Xóa"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '@Url.Action("DeleteContact", "Contact",new{area="admin"})',
+                            type: "POST",
+                            data: { id: contactID },
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire({
+                                        title: "Đã xóa",
+                                        icon: "success",
+                                        text: response.message,
+                                        timer: 3000,
+                                    }).then(() => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: "Lỗi hệ thống",
+                                        icon: "error",
+                                        text: "Không thể xóa yêu cầu này."
+                                    });
+                                }
+                            },
+                            error: function () {
+                                Swal.fire({
+                                    title: "Lỗi",
+                                    icon: "error",
+                                    text: "Đã xảy ra lỗi trong quá trình xử lý."
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
+    </script>
 }
 
 <div class="main-content">
@@ -66,7 +130,7 @@
                             <tr>
                                 <th>STT</th>
                                 <th>Tiêu Đề</th>
-                                <th>Mã Vận Đơn</th>
+                                <th>Mã đơn hàng</th>
                                 <th>Trạng Thái</th>
                             </tr>
                         </thead>
@@ -85,12 +149,18 @@
                                                     <div class="col">@stt</div>
                                                     <div class="col">@item.Subject</div>
                                                     <div class="col">@item.OrderCode</div>
-                                                    <div class="col">
+                                                    <div class="col col-status">
                                                         @if (item.Status == RequestStatus.Resolved)
                                                         {
                                                             <span class="status status-done">Đã xử lý</span>
+                                                            <div class="list-icon-function">
+                                                                <div class="item trash">
+                                                                    <i class="icon-trash-2"
+                                                                        data-id="@item.ContactId"></i>
+                                                                </div>
+                                                            </div>
                                                         }
-                                                        @if (item.Status == RequestStatus.Unresolved)
+                                                        else if (item.Status == RequestStatus.Unresolved)
                                                         {
                                                             <span class="status status-pending">Chưa xử lý</span>
                                                         }

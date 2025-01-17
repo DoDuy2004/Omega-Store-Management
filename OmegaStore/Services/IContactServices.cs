@@ -6,5 +6,7 @@ namespace OmegaStore.Services{
         public Task<ICollection<Contact>> GetListRequest();
         public Task<Contact> GetRequest(int id);
         public Task ChangeContactStatus(int ContactId, RequestStatus status);
+        public Task<Boolean> DeleteContactAsync(int ContactId);
+        public Task<Boolean>AddResponseMessage(int ContactID, string ResponseMessage);
     }
 }
