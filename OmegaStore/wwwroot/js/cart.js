@@ -86,7 +86,7 @@ function renderCartMiniSummary(res) {
 function renderPagination(totalItems, currentPage) {
     const totalPages = Math.ceil(totalItems / 4);
     if (totalPages <= 1) {
-        $(".pagination").empty();
+        $(".pagination-cart").empty();
         return;
     }
     let links = "";
@@ -113,7 +113,7 @@ function renderPagination(totalItems, currentPage) {
         `;
     }
     
-    $(".pagination").html(`
+    $(".pagination-cart").html(`
             ${prev}
             ${links}
             ${next}

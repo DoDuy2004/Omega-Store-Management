@@ -652,6 +652,7 @@ namespace OmegaStore.Areas.Admin.Controllers
                 try
                 {
                     _context.Products.Update(productUpdate);
+                    await _context.SaveChangesAsync();
                 }
                 catch (Exception ex)
                 {
