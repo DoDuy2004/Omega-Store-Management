@@ -171,13 +171,13 @@ public partial class StoreDbContext : DbContext
 
             // Thuộc tính Thumbnail
             entity.Property(e => e.ListContent)
-                  .IsRequired(false)
+                  .IsRequired()
                   .HasColumnType("ntext") // Nếu cần kiểu dữ liệu ntext
                   .HasColumnName("listcontent");
 
             // Thuộc tính Thumbnail
             entity.Property(e => e.ShortContent)
-                  .IsRequired(false)
+                  .IsRequired()
                   .HasColumnType("ntext") // Nếu cần kiểu dữ liệu ntext
                   .HasColumnName("shortcontent");
 
@@ -275,11 +275,6 @@ public partial class StoreDbContext : DbContext
             entity.Property(e => e.Status)
                   .IsRequired()  // Bắt buộc nhập
                   .HasColumnName("status");
-
-            entity.Property(e => e.OrderCode)
-                    .IsRequired(false)
-                    .HasMaxLength(50)
-                    .HasColumnName("order_code");
         });
 
 
@@ -344,7 +339,6 @@ public partial class StoreDbContext : DbContext
                 .HasColumnName("fullname");
 
             entity.Property(e => e.Email)
-                .IsRequired()
                 .HasMaxLength(50)
                 .HasColumnName("email");
 
@@ -376,12 +370,15 @@ public partial class StoreDbContext : DbContext
                 .IsRequired()
                 .HasColumnName("status");
 
+            entity.Property(e => e.Note)
+                .HasMaxLength(500) // Giới hạn tối đa 500 ký tự
+                .IsUnicode(true);  // Cho phép lưu Unicode
+
             // Cấu hình mối quan hệ với Account: Một Account có thể có nhiều Order
             entity.HasOne(o => o.Account)  // Mỗi Order thuộc về một Account
                 .WithMany(a => a.Orders)  // Một Account có thể có nhiều Order
                 .HasForeignKey(o => o.AccountId)  // Khóa ngoại trỏ đến AccountId trong Order
-                .OnDelete(DeleteBehavior.Cascade)  // Nếu xóa Account, xóa các Order liên quan
-                .IsRequired(false);
+                .OnDelete(DeleteBehavior.Cascade);  // Nếu xóa Account, xóa các Order liên quan
 
             // Mối quan hệ với bảng DetailOrder (một Order có thể có nhiều DetailOrder)
             entity.HasMany(e => e.DetailOrders)
@@ -609,11 +606,7 @@ public partial class StoreDbContext : DbContext
             // Cấu hình thuộc tính Fanpage
             entity.Property(e => e.Fanpage)
                 .HasColumnName("fanpage");
-
-			// Cấu hình thuộc tính Logo
-			entity.Property(e => e.Logo)
-				.HasColumnName("logo");
-		});// Đã sửa
+        });// Đã sửa
 
         modelBuilder.Entity<Review>(entity =>
         {

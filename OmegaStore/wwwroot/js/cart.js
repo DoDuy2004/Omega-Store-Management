@@ -5,7 +5,6 @@ function loadCart(currentPage = 1) {
         data: { currentPage: currentPage },
         success: function (res) {
             $("#cart-body").empty();
-
             if (res.cartItems.length === 0) {
                 $("#cart-body").append(`
                     <tr>
@@ -15,6 +14,7 @@ function loadCart(currentPage = 1) {
                         </td>
                     </tr>
                     `);
+                $("div#btn-checkout").empty();
             } else {
                 const rows = res.cartItems
                 .map((item) => {
@@ -23,7 +23,7 @@ function loadCart(currentPage = 1) {
                         <tr>
                             <td>
                                 <a href="/Product/${item.product.slug }" class="d-block" style="width: 60px;">
-                                    <img class="img-fluid" src="../img/${item.product.thumbnail}" alt="">
+                                    <img class="img-fluid" src="../img/products/${item.product.thumbnail}" alt="">
                                 </a>
                             </td>
                             <td style="font-size: .9rem">
@@ -72,8 +72,7 @@ function renderCartSummary(res) {
     $(".cart-content").html(`
         <h1>Giỏ hàng rút gọn</h1>
         <p>Tổng tiền hàng:<span>${res.totalPrice.toLocaleString()} đ</span></p>
-        <p>Phí vận chuyển:<span>${res.shippingFee.toLocaleString()} đ</span></p>
-        <h2>Thành tiền:<span>${(res.totalPrice + res.shippingFee).toLocaleString()} đ</span></h2>
+        <h2>Thành tiền:<span>${res.totalPrice.toLocaleString()} đ</span></h2>
     `);
 }
 
@@ -86,7 +85,7 @@ function renderCartMiniSummary(res) {
 
 function renderPagination(totalItems, currentPage) {
     const totalPages = Math.ceil(totalItems / 4);
-    if (!totalPages) {
+    if (totalPages <= 1) {
         $(".pagination").empty();
         return;
     }

@@ -1,0 +1,142 @@
+﻿@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+}
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<dynamic>
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap mb-0">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Danh sách sản phẩm</li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Product List Start -->
+<div class="product-view pt-2">
+    <div class="container">
+        
+        <div class="row">
+            <!-- Side Bar Start -->
+            <div class="col-lg-4 sidebar">
+
+
+                <form class="price-filter-form mt-0" asp-controller="Product" asp-action="Search" method="post">
+                    <div class="sidebar-widget category">
+                        <h2 class="title">Danh Mục</h2>
+                        <nav class="navbar bg-light">
+                            <ul class="navbar-nav">
+                                @foreach (var category in ViewBag.Categories)
+                                {
+                                    <li>
+                                        <input type="radio" name="category" id="@category.Id" value="@category.Id" />
+                                        <lable for="@category.Id">@category.Name</lable>
+                                    </li>
+                                }
+                                <input value="@ViewBag.Keyword" name="keyword" hidden />
+                                <!-- Danh mục 1 -->
+                            </ul>
+                        </nav>
+                    </div>
+                    <h2 class="title">Lọc theo giá</h2>
+                    <div class="price-filter-fields">
+                        <div class="price-field">
+                            <label for="min-price" class="price-label">Giá thấp nhất:</label>
+                            <input type="number"
+                                   id="min-price"
+                                   name="min_price"
+                                   class="price-input"
+                                   placeholder="0"
+                                   min="0" />
+                        </div>
+                        <div class="price-field">
+                            <label for="max-price" class="price-label">Giá cao nhất:</label>
+                            <input type="number"
+                                   id="max-price"
+                                   name="max_price"
+                                   class="price-input"
+                                   placeholder="100000"
+                                   min="0" />
+                        </div>
+                    </div>
+                    <button type="submit" class="filter-button">Áp dụng</button>
+                </form>
+
+
+            </div>
+            <!-- Side Bar End -->
+            <div class="col-lg-8">
+                <div class="row">
+                    @foreach (var product in Model)
+                    {
+                        <div class="col-md-4">
+                            <div class="product-item">
+                                <div class="product-image">
+                                    <div class="discount-per">
+                                        <span>@product.Product.DiscountRate%</span>
+                                    </div>
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Product.Slug"><img src="~/img/products/@product.Product.Thumbnail" alt="" /></a>
+                                </div>
+                                <div class="product-title"><a asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Product.Slug">@product.Product.Name</a></div>
+                                <div class="product-price">
+                                    <p class="price-discount"><span>@((int)((float)product.Product.Price - (float)product.Product.Price * ((float)product.Product.DiscountRate / 100)))đ</span></p>
+                                    <p class="price"><span>@((int)product.Product.Price)đ</span></p>
+                                </div>
+                                <div class="view-rating">
+                                    <span class="view">23<i class="fa fa-eye"></i></span>
+                                    <span class="rating">4.7/5<i class="fa fa-star"></i></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                    @* <div class="col-md-4">
+                    <div class="product-item">
+                    <div class="product-image">
+                    <div class="discount-per">
+                    <span>18%</span>
+                    </div>
+                    <a asp-controller="Product" asp-action="Detail"><img src="~/img/gura.jpeg" alt="" /></a>
+                    </div>
+                    <div class="product-title"><a asp-controller="Product" asp-action="Detail">Tên sản phẩm</a></div>
+                    <div class="product-price">
+                    <p class="price-discount"><span>300.000đ</span></p>
+                    <p class="price"><span>359.000đ</span></p>
+                    </div>
+                    <div class="view-rating">
+                    <span class="view">23<i class="fa fa-eye"></i></span>
+                    <span class="rating">4.7/5<i class="fa fa-star"></i></span>
+                    </div>
+                    <div class="btn-add-cart">
+                    <button>Thêm vào giỏ hàng</button>
+                    </div>
+                    </div>
+                    </div> *@
+
+                </div>
+                <style>
+                    .pagination-container{
+                        display: flex;
+                        justify-content:center;
+                        align-items: center;
+                    }
+                    .pagination li{
+                        width: 35px;
+                        height: 38px;
+                        border:1px solid black;
+                        display: flex;
+                        justify-content:center;
+                        align-items: center;
+                    }
+                </style>
+                <!-- Pagination Start -->
+                <nav aria-label="Page navigation example">
+                    @Html.PagedListPager(Model, page => Url.Action("Search", new { page = page }))
+                </nav>
+                <!-- Pagination Start -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Product List End -->

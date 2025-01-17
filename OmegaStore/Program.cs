@@ -2,8 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using OmegaStore.Models;
 using OmegaStore.Services;
+using OmegaStore.Models.Momo;
+using OmegaStore.Services.Momo;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Kết nối MomoAPI
+builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+builder.Services.AddScoped<IMomoService, MomoService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -18,6 +24,7 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IContactServices,ContactService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddTransient<IEmailSender,SendMailService>();
 

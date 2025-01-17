@@ -18,6 +18,12 @@ namespace OmegaStore.Areas.Admin.Controllers
         }
         public async Task<IActionResult>Index(int ? status,string ? search)
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
 
             var GetStatus = status;
 
@@ -108,6 +114,12 @@ namespace OmegaStore.Areas.Admin.Controllers
         }
         public IActionResult Detail(int id)
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
 
             var productsDetail = _Context.DetailOrders
                .Include(p => p.Product) // Bao gồm thông tin sản phẩm

@@ -18,35 +18,88 @@ namespace OmegaStore.Areas.Admin.Controllers
         //Trang Danh sách Danh mục
         public async Task<IActionResult> Index()
         {
-            var categories = _context.Categories.ToListAsync(); // Lấy tất cả các danh mục từ cơ sở dữ liệu
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
+
+            var categories = _context.Categories.Where(c => c.Status == 1).ToListAsync(); // Lấy tất cả các danh mục từ cơ sở dữ liệu
             return View(await categories); // Truyền danh sách danh mục vào View
         }
 
         public IActionResult Create()
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
+
             return View();
         }
         [HttpGet]
         [Route("[controller]/[action]/{slug?}")]
         public async Task<IActionResult> Edit(string slug)
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
+
             Category category = await _context.Categories.FirstOrDefaultAsync(c => c.Slug == slug);
             return View(category);
         }
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    Category category = _context.Categories.FirstOrDefault(c => c.Id == id);
-        //    category.Status = 0;
-        //    _context.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        public async Task<IActionResult> Delete(string slug)
+        {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
+            Category category = _context.Categories.FirstOrDefault(c => c.Slug == slug);
+            if (category != null)
+            {
+                category.Status = 0;
+                var products = await _context.Products.Where(p => p.CategoryId == category.Id).ToListAsync();
+                foreach (var p in products) {
+                    p.Status = 0;
+                }
+                await _context.SaveChangesAsync();
+                TempData["success"] = "Xóa danh mục thành công.";
+                return RedirectToAction("Index");
+            }
+            TempData["error"] = "Xóa danh mục không thành công.";
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Search(string keyword)
+        {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
 
-        //public async Task<IActionResult> Search([FromQuery] string keyword)
-        //{
-        //    List<Category> categories = _context.Categories.Where(c => c.Name.Contains(keyword)).ToList();
-        //    return View("Index", categories);
-
-        //}
+            string value = " ";
+            if (keyword != null)
+            {
+                value = keyword.ToLower();
+            }
+            List<Category> categories = _context.Categories.Where(c => c.Name.ToLower().Contains(value) || c.Slug.Contains(value)).ToList();
+            if (categories.Count > 0)
+            {
+                return View("Index", categories);
+            }
+            TempData["error"] = "Không tìm thấy kết quả nào.";
+            return View("Index", categories);
+        }
         public string ToSlug(string input)
         {
             string normalizedString = input.Normalize(NormalizationForm.FormD);

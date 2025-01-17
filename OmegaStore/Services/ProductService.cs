@@ -11,9 +11,9 @@ namespace OmegaStore.Services
         {
             _context = context;
         }
-        public async Task<ICollection<Product>> GetProducts() 
+        public DbSet<Product> GetProducts() 
         {
-            return await _context.Products.ToListAsync(); 
+            return _context.Products; 
         }
 
         public async Task<Product> GetProduct(int productId)

@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+}
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap mb-0">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Danh sách sản phẩm</li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Product List Start -->
+<div class="product-view pt-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    @foreach (var product in Model)
+                    {
+                        <div class="col-md-4">
+                            <div class="product-item">
+                                <div class="product-image">
+                                    <div class="discount-per">
+                                        <span>@product.Product.DiscountRate%</span>
+                                    </div>
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Product.Slug"><img src="~/img/products/@product.Product.Thumbnail" alt="" /></a>
+                                </div>
+                                <div class="product-title"><a asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Product.Slug">@product.Product.Name</a></div>
+                                <div class="product-price">
+                                    <p class="price-discount"><span>@((int)product.Product.Price)đ</span></p>
+                                    <p class="price"><span>@((int)((float)product.Product.Price + (float)product.Product.Price * ((float)product.Product.DiscountRate / 100)))đ</span></p>
+                                </div>
+                                <div class="view-rating">
+                                    <span class="view">23<i class="fa fa-eye"></i></span>
+                                    <span class="rating">4.7/5<i class="fa fa-star"></i></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Product List End -->

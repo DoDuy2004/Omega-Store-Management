@@ -13,6 +13,17 @@
     <script src="~/admin/js/zoom.js"></script>
     <script src="~/admin/js/switcher.js"></script>
     <script src="~/admin/js/theme-settings.js"></script>
+    <script>
+        function confirmDelete(link) {
+            if (confirm("Bạn có chắc chắn muốn xóa danh mục này không?")) {
+                // Nếu người dùng chọn "OK", tiếp tục hành động xóa
+                return true;
+            } else {
+                // Nếu người dùng chọn "Cancel", ngăn chặn hành động xóa
+                return false;
+            }
+        }
+    </script>
 }
 
 <div class="main-content">
@@ -51,7 +62,7 @@
                     <div class="wg-filter flex-grow">
 
                         <!--Số lượng hiện thị mỗi trang-->
-                        <div class="show">
+                        @* <div class="show">
                             <div class="text-tiny">Hiển thị</div>
                             <div class="select">
                                 <select class="">
@@ -61,10 +72,10 @@
                                 </select>
                             </div>
 
-                        </div>
+                        </div> *@
                         <!--Số lượng hiện thị mỗi trang-->
                         <!--Form tìm kiếm-->
-                        <form class="form-search" asp-area="Admin" asp-controller="Category" asp-action="Search" method="get">
+                        <form class="form-search" asp-area="Admin" asp-controller="Category" asp-action="Search" method="post">
                             <fieldset class="name">
                                 <input type="text" id="keyword" name="keyword" placeholder="Tìm kiếm">
                             </fieldset>
@@ -124,8 +135,8 @@
                                         <div class="item edit">
                                             <a asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-slug="@category.Slug"><i class="icon-edit-3"></i></a>
                                         </div>
-                                        <div class="item trash">
-                                            <i class="icon-trash-2"></i>
+                                        <div class="item">
+                                            <a class="text-danger" asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-slug="@category.Slug" onclick="return confirmDelete(this);"><i class="icon-trash-2"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +147,7 @@
                 <div class="divider"></div>
 
                 <!--Phân trang-->
-                <div class="flex items-center justify-between flex-wrap gap10">
+                @* <div class="flex items-center justify-between flex-wrap gap10">
                     <div class="text-tiny">Showing 10 entries</div>
                     <ul class="wg-pagination">
                         <li>
@@ -155,7 +166,7 @@
                             <a href="#"><i class="icon-chevron-right"></i></a>
                         </li>
                     </ul>
-                </div>
+                </div> *@
                 <!--Phân trang-->
 
             </div>

@@ -1,44 +1,69 @@
-﻿@model IEnumerable<OmegaStore.Models.Product>
+﻿@using System.Globalization
+@model IEnumerable<OmegaStore.Models.Product>
 @{
 	var sliderClass = Model.Count() >= 4 ? "product-slider-4" : "";
 	var centerClass = Model.Count() >= 4 ? "justify-content-center" : "";
 
 	decimal salesCount = 0;
+
+	var formatPrice = (decimal price) =>
+	{
+		return price.ToString("N0", new CultureInfo("vi-VN"));
+	};
 }
 <div class="row align-items-center @centerClass product-slider @sliderClass">
 	@foreach (var item in Model)
 	{
+		var totalReview = item.Reviews.Count();
+		var totalStar = 0;
+		var avgStar = 0.0;
+		foreach(var star in item.Reviews)
+		{
+			totalStar += star.Rating;
+		}
+		avgStar = (float)totalStar / totalReview;
+
 		<div class="col-lg-3">
 			<div class="product-item">
 				<div class="product-image">
 					<div class="discount-per">
 						<span>-@item.DiscountRate@("%")</span>
 					</div>
-					<a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Slug"><img src="~/img/@item.Thumbnail" alt=""></a>
+					<a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Slug"><img src="~/img/products/@item.Thumbnail" alt=""></a>
 				</div>
 				<div class="product-title"><a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Slug">@item.Name</a></div>
 				<div class="product-price">
-					<p class="price-discount"><span>@Math.Truncate(item.Price * (1 - (decimal) item.DiscountRate / 100))đ</span></p>
-					<p class="price"><span>@Math.Truncate(item.Price)đ</span></p>
+					<p class="price-discount"><span>@formatPrice(Math.Truncate(item.Price * (1 - (decimal)item.DiscountRate / 100)))đ</span></p>
+					<p class="price"><span>@formatPrice(Math.Truncate(item.Price))đ</span></p>
 				</div>
 				<div class="view-rating">
-					<span class="view">23<i class="fa fa-eye"></i></span>
 					<span class="rating">
-						
-						@foreach (var r in item.Reviews)
+						@if(totalReview == 0)
 						{
-							salesCount += r.Rating;
+							<i class="far fa-star"></i>
+							<i class="far fa-star"></i>
+							<i class="far fa-star"></i>
+							<i class="far fa-star"></i>
+							<i class="far fa-star"></i>
 						}
-						@(item.Reviews.Count > 0 ? Math.Round(salesCount / item.Reviews.Count, 1) : "0.0")@("/5")
-						<i class="fa fa-star"></i>
+						else
+						{
+							for(int i = 0; i < (int)avgStar; i++)
+							{
+								<i class="fa fa-star"></i>
+							}
+							if ( 5 - avgStar >= 0.5)
+							{
+								<i class="fas fa-star-half"></i>
+							}
+							else
+							{
+								<i class="far fa-star"></i>
+							}
+						}
+						(@totalReview đánh giá)
 					</span>
 				</div>
-				@* <form asp-controller="Cart" asp-action="AddToCart" method="post">
-					<input type="hidden" name="productId" value="@item.Id" />
-					<div class="btn-add-cart">
-						<button>Thêm vào giỏ hàng</button>
-					</div>
-				</form> *@
 					<div class="btn-add-cart">
 						<button id="btn-add-cart" data-id="@item.Id">Thêm vào giỏ hàng</button>
 					</div>

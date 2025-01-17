@@ -277,14 +277,20 @@
                                 <img src="~/admin/images/avatar/user-1.png" alt="">
                             </span>
                             <span class="flex flex-column">
-                                <span class="body-title mb-2">Nguyễn Phương Nam</span>
+                                <span class="body-title mb-2">
+                                    @if (ViewData["AccountName"] != null)
+                                    {
+                                        @ViewData["AccountName"]
+                                    }
+                                </span>
+
                                 <span class="text-tiny">Quản trị viên</span>
                             </span>
                         </span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end has-content" aria-labelledby="dropdownMenuButton3">
                         <li>
-                            <a href="login.html" class="user-item">
+                            <a asp-area="Admin" asp-controller="Account" asp-action="Logout" class="user-item">
                                 <div class="icon">
                                     <i class="icon-log-out"></i>
                                 </div>

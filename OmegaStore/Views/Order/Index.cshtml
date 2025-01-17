@@ -1,9 +1,19 @@
-﻿@{
+﻿@model OmegaStore.Models.ViewModels.OrderDetailCustomerAllViewModel
+@{
 	ViewData["Title"] = "Chi tiết đơn hàng";
+	string status = (Model.OrderDetailCustomerViewModel.StatusOrder == 1
+		? "Chờ xác nhận" : Model.OrderDetailCustomerViewModel.StatusOrder == 2
+		? "Xác nhận" : Model.OrderDetailCustomerViewModel.StatusOrder == 3
+		? "Đang giao" : Model.OrderDetailCustomerViewModel.StatusOrder == 4
+		? "Hoàn thành" : "Đã hủy");
+
+	string classStatus = (status == "Chờ xác nhận" ? "processing"
+	: status == "Xác nhận" ? "confirmed" : status == "Đang giao" ? "shipping"
+	: status == "Hoàn thành" ? "delivered" : "cancelled");
 }
 
 @section Styles {
-	<link rel="stylesheet" href="./css/order-detail.css">
+	<link rel="stylesheet" href="~/css/order-detail.css">
 }
 @section Scripts {
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -29,8 +39,10 @@
 			<div class="col-md-12">
 				<div class="order-title mb-3 p-3 position-relative">
 					<h3 class="font-weight-bold text-uppercase text-center">Chi tiết đơn hàng</h3>
-					<a asp-controller="Account" asp-action="Index" class="btn btn-outline-success back-btn position-absolute">Quay lại</a>
-					<a asp-controller="" asp-action="" class="btn btn-danger cancel-btn position-absolute">Hủy đơn</a>
+					@if (Context.Session.GetString("Username") != null)
+					{
+						<a asp-controller="Account" asp-action="Index" class="btn btn-outline-success back-btn position-absolute">Quay lại</a>
+					}
 				</div>
 			</div>
 		</div>
@@ -39,13 +51,9 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="order-info mb-3 px-3 py-2 position-relative">
-							<p class="order-code font-weight-bold">Đơn hàng: <span>#120720040123456abc</span></p>
-							<p class="order-date font-weight-bold">Ngày đặt: <span class="font-weight-normal">12/07/2024 - 18:12:00</p>
-							<!-- <span class="status status-processing position-absolute">Đang xử lý</span> -->
-							<!-- <span class="status status-confirmed position-absolute">Đã xác nhận</span> -->
-							<!-- <span class="status status-shipping position-absolute">Đang giao</span> -->
-							<span class="status status-delivered position-absolute">Đã giao</span>
-							<!-- <span class="status status-cancelled position-absolute">Đã hủy</span> -->
+							<p class="order-code font-weight-bold">Đơn hàng: <span>@Model.OrderDetailCustomerViewModel.OrderCodeId</span></p>
+							<p class="order-date font-weight-bold">Ngày đặt: <span class="font-weight-normal">@Model.OrderDetailCustomerViewModel.Crreate_at</span></p>
+							<span class="status status-@classStatus position-absolute">@status</span>
 						</div>
 					</div>
 				</div>
@@ -57,12 +65,12 @@
 									<div class="title font-weight-bold">Người nhận:</div>
 								</div>
 								<div class="col-md-9 py-1">
-									<p class="font-weight-bold">Nguyễn Văn Năm</p>
+									<p class="font-weight-bold">@Model.OrderDetailCustomerViewModel.Name</p>
 									<p>
-										<span>0909092004</span>
-										<span>NguyenVanNam99@gmail.com</span>
+										<span class="p-1">@Model.OrderDetailCustomerViewModel.PhoneNumber</span>
+										<span>@Model.OrderDetailCustomerViewModel.EmailUser</span>
 									</p>
-									<p>Số 199, ấp Xóm Mới, xã Tân Phú, huyện Nghĩa Dương, Đà Nẵng</p>
+									<p>@Model.OrderDetailCustomerViewModel.AddressUser</p>
 								</div>
 							</div>
 						</div>
@@ -71,6 +79,9 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="order-products">
+							@if(Model.OrderDetailProductListCustomerViewModels != null)
+							{
+							
 							<table class="table">
 								<thead>
 									<tr>
@@ -82,66 +93,46 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>
-											<a asp-controller="Product" asp-action="Detail" class="d-block" style="width: 80px;">
-												<img class="img-fluid" src="~/img/gura.jpeg" alt="">
-											</a>
-										</td>
-										<td>
-											<a asp-controller="Product" asp-action="Detail" class="ellipsis">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.</a>
-										</td>
-										<td>3.000.000đ</td>
-										<td class="text-center">1</td>
-										<td>3.000.000đ</td>
-									</tr>
-									<tr>
-										<td>
-											<a asp-controller="Product" asp-action="Detail" class="d-block" style="width: 80px;">
-												<img class="img-fluid" src="~/img/gura.jpeg" alt="">
-											</a>
-										</td>
-										<td>
-											<a asp-controller="Product" asp-action="Detail" class="ellipsis">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.</a>
-										</td>
-										<td>3.000.000đ</td>
-										<td class="text-center">1</td>
-										<td>3.000.000đ</td>
-									</tr>
-									<tr>
-										<td>
-											<a asp-controller="Product" asp-action="Detail" class="d-block" style="width: 80px;">
-												<img class="img-fluid" src="~/img/gura.jpeg" alt="">
-											</a>
-										</td>
-										<td>
-											<a asp-controller="Product" asp-action="Detail" class="ellipsis">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi dolores totam architecto saepe. Ipsa, ullam! Beatae dolorem ipsum quod architecto.</a>
-										</td>
-										<td>3.000.000đ</td>
-										<td class="text-center">1</td>
-										<td>3.000.000đ</td>
-									</tr>
+									@foreach (var ls in Model.OrderDetailProductListCustomerViewModels)
+									{
+										<tr>
+											<td>
+												<a asp-controller="Product" asp-action="Detail" asp-route-slug="@ls.ProductSlug" class="d-block" style="width: 80px;">
+													<img class="img-fluid" src="~/img/products/@ls.Thumbnail" alt="">
+												</a>
+											</td>
+											<td>
+												<a asp-controller="Product" asp-action="Detail" asp-route-slug="@ls.ProductSlug" class="ellipsis">@ls.Name</a>
+											</td>
+											<td>@(String.Format("{0:N0}", Math.Truncate((ls.Price - (ls.Price * ls.DiscountRate) / 100)))) đ</td>
+											<td class="text-center">@ls.Quantity</td>
+											<td>@(String.Format("{0:N0}", Math.Truncate(ls.TotalPrice))) đ</td>
+										</tr>
+									}
+									
 								</tbody>
 							</table>
+							
+							}
+							else
+							{
+							<div class="d-flex justify-content-center align-items-center text-muted">
+								<span>Dữ liệu sản phẩm của đơn hàng này chưa được thêm vào</span>
+							</div>
+							}
+							
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="order-delivery mb-3 px-3 py-2 position-relative">
-							<p class="font-weight-bold">Đơn vị vận chuyển: <span>Viettelpost</span></p>
-							<p class="font-weight-bold">Mã vận đơn: <span class="text-danger">abc123xyz</span></p>
-						</div>
-					</div>
-				</div>
+				
 				<div class="row">
 					<div class="col-md-12">
 						<div class="order-total-amount mb-3 p-3">
 							<div class="d-flex justify-content-between mb-3">
 								<span class="font-weight-bold text-secondary">Tạm tính: </span>
-								<span class="font-weight-bold">9.999.999đ</span>
+								<span class="font-weight-bold">@(String.Format("{0:N0}", Math.Truncate(Model.OrderDetailCustomerViewModel.Total))) đ</span>
 							</div>
 							<div class="d-flex justify-content-between mb-3">
 								<span class="font-weight-bold text-secondary">Phí vận chuyển: </span>
@@ -149,11 +140,11 @@
 							</div>
 							<div class="d-flex justify-content-between mb-3">
 								<span class="font-weight-bold text-secondary">Thành tiền: </span>
-								<span class="font-weight-bold">9.999.999đ</span>
+								<span class="font-weight-bold">@(String.Format("{0:N0}", Math.Truncate(Model.OrderDetailCustomerViewModel.Total +25000))) đ</span>
 							</div>
 							<div class="d-flex justify-content-between pt-3 border-top border-secondary">
 								<span class="font-weight-bold">Cần thanh toán: </span>
-								<span class="font-weight-bold text-danger" style="font-size: 18px;">9.999.999đ</span>
+								<span class="font-weight-bold text-danger" style="font-size: 18px;">@(String.Format("{0:N0}", Math.Truncate(Model.OrderDetailCustomerViewModel.Total + 25000))) đ</span>
 							</div>
 						</div>
 					</div>
@@ -162,7 +153,7 @@
 					<div class="col-md-12">
 						<div class="order-note p-3">
 							<h5>Ghi chú:</h5>
-							<textarea class="w-100 p-2" style="min-height: 150px;" disabled>Nhà đối diện trường tiểu học Tân Phú 1, cổng màu đen</textarea>
+							<textarea class="w-100 p-2" style="min-height: 150px;" disabled>@Model.OrderDetailCustomerViewModel.Note</textarea>
 						</div>
 					</div>
 				</div>
