@@ -56,6 +56,12 @@ namespace OmegaStore.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Delete(string slug)
         {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            ViewData["AccountName"] = username;
             Category category = _context.Categories.FirstOrDefault(c => c.Slug == slug);
             if (category != null)
             {
@@ -81,7 +87,11 @@ namespace OmegaStore.Areas.Admin.Controllers
             }
             ViewData["AccountName"] = username;
 
-            string value = keyword.ToLower().Trim();
+            string value = " ";
+            if (keyword != null)
+            {
+                value = keyword.ToLower();
+            }
             List<Category> categories = _context.Categories.Where(c => c.Name.ToLower().Contains(value) || c.Slug.Contains(value)).ToList();
             if (categories.Count > 0)
             {
