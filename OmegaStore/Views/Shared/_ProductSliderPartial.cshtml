@@ -29,7 +29,7 @@
 					<div class="discount-per">
 						<span>-@item.DiscountRate@("%")</span>
 					</div>
-					<a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Slug"><img src="~/img/@item.Thumbnail" alt=""></a>
+					<a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Slug"><img src="~/img/products/@item.Thumbnail" alt=""></a>
 				</div>
 				<div class="product-title"><a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Slug">@item.Name</a></div>
 				<div class="product-price">
