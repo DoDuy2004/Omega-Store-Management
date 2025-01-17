@@ -252,7 +252,7 @@ namespace OmegaStore.Areas.Admin.Controllers
             {
                 if (Path.GetExtension(Thumbnail.FileName.ToLower()) != ".jpg" && Path.GetExtension(Thumbnail.FileName.ToLower()) != ".png" && Path.GetExtension(Thumbnail.FileName.ToLower()) != ".jpeg" && Path.GetExtension(Thumbnail.FileName.ToLower()) != ".hex")
                 {
-                    errors.Add("Ảnh đại diện chỉ chấp nhận dạng có phần mở rộng .jpg, .png, .hex hoặc .jpeg.");
+                    errors.Add("Ảnh chỉ chấp nhận dạng có phần mở rộng .jpg, .png, .hex hoặc .jpeg.");
                 }
             }
 
@@ -371,7 +371,26 @@ namespace OmegaStore.Areas.Admin.Controllers
 
 
 
-
+        //Trang Chỉnh sửa sản phẩm
+        [HttpGet("[Area]/[controller]/[action]/{slug}")]
+        public IActionResult EditTest(string slug)
+        {
+            var username = HttpContext.Session.GetString("AdminUsername");
+            if (username == null)
+            {
+                return RedirectToAction("LoginView", "Account");
+            }
+            var product = _context.Products
+                .Include(p => p.ProductsImages)
+                .FirstOrDefault(p => p.Slug == slug);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            ViewData["AccountName"] = username;
+            ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name", product.CategoryId); // Danh sách categories
+            return View("Edit",product);
+        }
         //Trang Chỉnh sửa sản phẩm
         public IActionResult Edit(int id)
         {
@@ -719,7 +738,7 @@ namespace OmegaStore.Areas.Admin.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return Json(new { success = false, message = "Có lỗi xảy ra khi xóa ảnh!", error = ex.Message });
+                    return Json(new { success = false, message = "Có lỗi xảy ra với hình ảnh!", error = ex.Message });
                 }
 
                 // Bước 2: Lấy danh sách các ảnh còn lại và cập nhật thứ tự trong CSDL
@@ -763,7 +782,7 @@ namespace OmegaStore.Areas.Admin.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return Json(new { success = false, message = "Có lỗi xảy ra khi xóa ảnh!", error = ex.Message });
+                    return Json(new { success = false, message = "Có lỗi xảy ra với hình ảnh!", error = ex.Message });
                 }
             }
 
@@ -802,7 +821,7 @@ namespace OmegaStore.Areas.Admin.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return Json(new { success = false, message = "Có lỗi xảy ra với hình ảnh được thêm mới.", error = ex.Message });
+                    return Json(new { success = false, message = "Có lỗi xảy ra với hình ảnh!", error = ex.Message });
                 }
 
             }

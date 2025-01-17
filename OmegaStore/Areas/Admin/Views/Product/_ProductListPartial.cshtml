@@ -103,7 +103,7 @@
                             <a asp-area="Admin" asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Slug"><i class="icon-eye"></i></a>
                         </div>
                         <div class="item edit">
-                            <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id"><i class="icon-edit-3"></i></a>
+                            <a asp-area="Admin" asp-controller="Product" asp-action="EditTest" asp-route-slug="@product.Slug"><i class="icon-edit-3"></i></a>
                         </div>
                         @if(product.Status == 1){
                             <div class="item trash" data-id="@product.Id">

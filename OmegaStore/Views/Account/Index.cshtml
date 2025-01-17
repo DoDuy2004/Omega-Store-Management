@@ -29,7 +29,7 @@
     <div class="container">
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Tài khoản của tôi</li>
+            <li class="breadcrumb-item active">Tài khoản cá nhân</li>
         </ul>
     </div>
 </div>
@@ -83,13 +83,23 @@
                              role="tabpanel"
                              aria-labelledby="account-tab">
                             <h4 class="text-uppercase mb-3">Thông tin tài khoản</h4>
+                            <p><span class="font-weight-bold">Tên đăng nhập:</span> @Model.Username</p>
                             <p><span class="font-weight-bold">Họ tên:</span> @Model.Fullname</p>
+                            @if (Model.Gender)
+                            {
+                                <p><span class="font-weight-bold">Giới tính:</span>Nam</p>
+                            }else{
+                                <p><span class="font-weight-bold">Giới tính:</span>Nữ</p>
+                            }
                             <p>
                                 <span class="font-weight-bold">Email:</span>
                                 @Model.Email
                             </p>
                             <p>
                                 <span class="font-weight-bold">Điện thoại:</span> @Model.Phone
+                            </p>
+                            <p>
+                                <span class="font-weight-bold">Địa chỉ:</span> @Model.Address
                             </p>
 
                             <div class="btn-update">
