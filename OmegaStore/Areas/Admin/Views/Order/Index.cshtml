@@ -378,7 +378,7 @@
                             var OrderId = $(this).data("orderid");                    
                             var btn = $(this);
                             var Status = $(this).data("status");
-                            if (Status == 4 || Status == 5) {
+                            if (Status == 5) {
 
                                 Swal.fire({
                                     title: `Xóa đơn hàng`,
@@ -415,7 +415,7 @@
                                 });
                             }
                             else {
-                                Swal.fire("Xóa đơn hàng thất bại", `Chỉ xóa được đơn hàng ở trạng thái "Đả hủy" hoặc "Hoàn thành"`, "error");
+                                Swal.fire("Xóa đơn hàng thất bại", `Chỉ xóa được đơn hàng ở trạng thái "Đả hủy"`, "error");
 
                             }
                         });
