@@ -1,5 +1,8 @@
-﻿@{
+﻿@model OmegaStore.Models.ViewModels.StatisticViewModel
+@{
     ViewData["Title"] = "Tổng Quan";
+
+    int i = 1;
 }
 
 @section Styles {
@@ -19,66 +22,19 @@
     <script src="~/admin/js/switcher.js"></script>
     <script src="~/admin/js/theme-settings.js"></script>
     <script>
-        const PieChart = document.getElementById('myPieChart').getContext('2d');
-        const myPieChart = new Chart(PieChart, {
-            type: 'pie',
-            data: {
-                labels: ['Chờ xác nhận', 'Đang vận chuyển', 'Đã giao', 'Đã hủy', 'Chưa xác nhận'],
-                datasets: [{
-                    label: 'Số lượng',
-                    data: [12, 19, 3, 5, 2], // Dữ liệu cho các nhóm
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgba(54, 162, 235, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
-                        'rgba(75, 192, 192, 0.6)',
-                        'rgba(153, 102, 255, 0.6)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Biểu Đồ Tỉ lệ đơn hàng'
-                    }
-                }
-            }
-        });
-    </script>
-    <script>
         const LineChart = document.getElementById('myLineChart').getContext('2d');
         const myLineChart = new Chart(LineChart, {
             type: 'line',
             data: {
-                labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],
+                labels: @Html.Raw(Json.Serialize(ViewBag.ChartLabels)),
                 datasets: [
                     {
                         label: 'Thu',
-                        data: [300, 500, 400, 600, 700, 800], // Dữ liệu cho thu
+                        data: @Html.Raw(Json.Serialize(ViewBag.ChartData)), // dữ liệu cho thu
                         borderColor: 'rgba(75, 192, 192, 1)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         fill: true,
                     },
-                    {
-                        label: 'Chi',
-                        data: [200, 300, 250, 400, 500, 600], // Dữ liệu cho chi
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        fill: true,
-                    }
                 ]
             },
             options: {
@@ -89,7 +45,7 @@
                     },
                     title: {
                         display: true,
-                        text: 'Biểu Đồ Đường: Thu và Chi'
+                        text: 'Biểu Đồ Đường: doanh thu (2025)'
                     }
                 },
                 scales: {
@@ -122,12 +78,8 @@
                             </div>
                             <div>
                                 <div class="body-text mb-2">Tổng sản phẩm đã bán</div>
-                                <h4>34,945</h4>
+                                <h4>@Model.TotalProductSold</h4>
                             </div>
-                        </div>
-                        <div class="box-icon-trending up">
-                            <i class="icon-trending-up"></i>
-                            <div class="body-title number">1.56%</div>
                         </div>
                     </div>
                     <div class="wrap-chart">
@@ -149,12 +101,8 @@
                             </div>
                             <div>
                                 <div class="body-text mb-2">Tổng đơn hoàn thành</div>
-                                <h4>$37,802</h4>
+                                <h4>@Model.TotalOrderCompleted</h4>
                             </div>
-                        </div>
-                        <div class="box-icon-trending down">
-                            <i class="icon-trending-down"></i>
-                            <div class="body-title number">1.56%</div>
                         </div>
                     </div>
                     <div class="wrap-chart">
@@ -176,12 +124,8 @@
                             </div>
                             <div>
                                 <div class="body-text mb-2">Tổng sản phẩm</div>
-                                <h4>34,945</h4>
+                                <h4>@Model.TotalProduct</h4>
                             </div>
-                        </div>
-                        <div class="box-icon-trending">
-                            <i class="icon-trending-up"></i>
-                            <div class="body-title number">0.00%</div>
                         </div>
                     </div>
                     <div class="wrap-chart">
@@ -202,13 +146,9 @@
                                 <i class="icon-edit-3"></i>
                             </div>
                             <div>
-                                <div class="body-text mb-2">Tổng đánh giá</div>
-                                <h4>34,945</h4>
+                                <div class="body-text mb-2">Tổng danh mục</div>
+                                <h4>@Model.TotalCategory</h4>
                             </div>
-                        </div>
-                        <div class="box-icon-trending up">
-                            <i class="icon-trending-up"></i>
-                            <div class="body-title number">1.56%</div>
                         </div>
                     </div>
                     <div class="wrap-chart">
@@ -239,19 +179,51 @@
                     </div>
                     <canvas id="myLineChart"></canvas>
                 </div>
-                <!-- /chart -->
-                <!-- top-countries -->
+                <!-- top-product -->
                 <div class="wg-box">
                     <div class="flex items-center justify-between">
-                        <h5>Tỉ lệ đơn hàng</h5>
+                        <h5>Sản phẩm bán chạy</h5>
+                        <div class="dropdown default">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                <span class="view-all">Xem thêm</span>
+                            </button>
+
+                        </div>
                     </div>
-                    <div class="">
-                        <canvas id="myPieChart"></canvas>
+                    <div class="wg-table table-top-product">
+                        <ul class="flex flex-column gap14">
+                            @foreach(var item in Model.BestSellingProducts )
+                            {
+                                <li class="product-item">
+                                    <div class="rank">
+                                        <p>@i</p>
+                                    </div>
+                                    <div class="image">
+                                        <img src="~/img/products/@item.Thumbnail" alt="">
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="name">
+                                            <a href="product-list.html" class="body-title-2">
+                                                @item.ProductName
+                                            </a>
+                                            <div class="text-tiny mt-3">@item.Stock Items</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-tiny mb-3">Lượt bán</div>
+                                            <div class="body-text">@item.TotalQuantitySold</div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                                i++;
+                            }
+                        </ul>
                     </div>
                 </div>
-                <!-- /top-countries -->
+                <!-- /top-product -->
             </div>
-            <div class="tf-section-6 mb-30">
+            <div class="tf-section-12 mb-30 col-lg-12">
                 <!-- product-overview -->
                 <div class="wg-box">
                     <div class="flex items-center justify-between">
@@ -290,68 +262,25 @@
                             </li>
                         </ul>
                         <ul class="flex flex-column gap10">
-                            <li class="product-item gap14">
-                                <div class="flex items-center justify-between flex-grow">
-                                    <div class="name">
-                                        <a href="product-list.html" class="body-text">DH011224009</a>
+                            @foreach(var order in Model.NewOrders ?? new List<Order>())
+                            {
+                                <li class="product-item gap14">
+                                    <div class="flex items-center justify-between flex-grow">
+                                        <div class="name">
+                                            <a href="product-list.html" class="body-text">@order.OrderCode</a>
+                                        </div>
+                                        <div class="body-text">@order.Fullname</div>
+                                        <div class="body-text">@order.CreatedAt</div>
+                                        <div class="body-text">@order.TotalAmount VNĐ</div>
+                                        <div class="block-available">Chờ xác nhận</div>
                                     </div>
-                                    <div class="body-text">Khách</div>
-                                    <div class="body-text">07-12-2024</div>
-                                    <div class="body-text">2.000.000 VNĐ</div>
-                                    <div class="block-available">Chờ xác nhận</div>
-                                </div>
-                            </li>
-                            <li class="product-item gap14">
-                                <div class="flex items-center justify-between flex-grow">
-                                    <div class="name">
-                                        <a href="product-list.html" class="body-text">DH011224009</a>
-                                    </div>
-                                    <div class="body-text">Khách</div>
-                                    <div class="body-text">07-12-2024</div>
-                                    <div class="body-text">2.000.000 VNĐ</div>
-                                    <div class="block-not-available">Chờ xác nhận</div>
-                                </div>
-                            </li>
-                            <li class="product-item gap14">
-
-                                <div class="flex items-center justify-between flex-grow">
-                                    <div class="name">
-                                        <a href="product-list.html" class="body-text">DH011224009</a>
-                                    </div>
-                                    <div class="body-text">Khách</div>
-                                    <div class="body-text">07-12-2024</div>
-                                    <div class="body-text">2.000.000 VNĐ</div>
-                                    <div class="block-not-available">Chờ xác nhận</div>
-                                </div>
-                            </li>
-                            <li class="product-item gap14">
-
-                                <div class="flex items-center justify-between flex-grow">
-                                    <div class="name">
-                                        <a href="product-list.html" class="body-text">DH011224009</a>
-                                    </div>
-                                    <div class="body-text">Khách</div>
-                                    <div class="body-text">07-12-2024</div>
-                                    <div class="body-text">2.000.000 VNĐ</div>
-                                    <div class="block-not-available">Chờ xác nhận</div>
-                                </div>
-                            </li>
-                            <li class="product-item gap14">
-
-                                <div class="flex items-center justify-between flex-grow">
-                                    <div class="name">
-                                        <a href="product-list.html" class="body-text">DH011224009</a>
-                                    </div>
-                                    <div class="body-text">Khách</div>
-                                    <div class="body-text">07-12-2024</div>
-                                    <div class="body-text">2.000.000 VNĐ</div>
-                                    <div class="block-not-available">Chờ xác nhận</div>
-                                </div>
-                            </li>
+                                </li>
+                            }
+                           
                         </ul>
                     </div>
                     <div class="divider"></div>
-                    <div class="flex items-center justify-between flex-wrap gap10">
+@*                     <div class="flex items-center justify-between flex-wrap gap10">
                         <div class="text-tiny">Hiển thị: 5</div>
                         <ul class="wg-pagination">
                             <li>
@@ -370,134 +299,9 @@
                                 <a href="#"><i class="icon-chevron-right"></i></a>
                             </li>
                         </ul>
-                    </div>
+                    </div> *@
                 </div>
                 <!-- /product-overview -->
-                <!-- top-product -->
-                <div class="wg-box">
-                    <div class="flex items-center justify-between">
-                        <h5>Sản phẩm bán chạy</h5>
-                        <div class="dropdown default">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                <span class="view-all">Xem thêm</span>
-                            </button>
-
-                        </div>
-                    </div>
-                    <div class="wg-table table-top-product">
-                        <ul class="flex flex-column gap14">
-                            <li class="product-item">
-                                <div class="rank">
-                                    <p>1</p>
-                                </div>
-                                <div class="image">
-                                    <img src="~/admin/images/products/1.png" alt="">
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div class="name">
-                                        <a href="product-list.html" class="body-title-2">
-                                            Patimax
-                                            Fragrance Long...
-                                        </a>
-                                        <div class="text-tiny mt-3">100 Items</div>
-                                    </div>
-                                    <div>
-                                        <div class="text-tiny mb-3">Lượt bán</div>
-                                        <div class="body-text">200</div>
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li class="product-item">
-                                <div class="rank">
-                                    <p>2</p>
-                                </div>
-                                <div class="image">
-                                    <img src="~/admin/images/products/2.png" alt="">
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div class="name">
-                                        <a href="product-list.html" class="body-title-2">
-                                            Nulo
-                                            MedalSeries Adult Cat...
-                                        </a>
-                                        <div class="text-tiny mt-3">100 Items</div>
-                                    </div>
-                                    <div>
-                                        <div class="text-tiny mb-3">Lượt bán</div>
-                                        <div class="body-text">200</div>
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li class="product-item">
-                                <div class="rank">
-                                    <p>3</p>
-                                </div>
-                                <div class="image">
-                                    <img src="~/admin/images/products/3.png" alt="">
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div class="name">
-                                        <a href="product-list.html" class="body-title-2">
-                                            Pedigree
-                                            Puppy Dry Dog...
-                                        </a>
-                                        <div class="text-tiny mt-3">100 Items</div>
-                                    </div>
-                                    <div>
-                                        <div class="text-tiny mb-3">Lượt bán</div>
-                                        <div class="body-text">200</div>
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li class="product-item">
-                                <div class="rank">
-                                    <p>4</p>
-                                </div>
-                                <div class="image">
-                                    <img src="~/admin/images/products/4.png" alt="">
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div class="name">
-                                        <a href="product-list.html" class="body-title-2">
-                                            Biscoito
-                                            Premier Cookie...
-                                        </a>
-                                        <div class="text-tiny mt-3">100 Items</div>
-                                    </div>
-                                    <div>
-                                        <div class="text-tiny mb-3">Lượt bán</div>
-                                        <div class="body-text">200</div>
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li class="product-item">
-                                <div class="rank">
-                                    <p>5</p>
-                                </div>
-                                <div class="image">
-                                    <img src="~/admin/images/products/5.png" alt="">
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div class="name">
-                                        <a href="product-list.html" class="body-title-2 mb-3">Pedigree Adult Dry Dog...</a>
-                                        <div class="text-tiny">100 Items</div>
-                                    </div>
-                                    <div>
-                                        <div class="text-tiny mb-3">Lượt bán</div>
-                                        <div class="body-text">200</div>
-                                    </div>
-
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /top-product -->
             </div>
             <div class="tf-section-3">
             </div>
