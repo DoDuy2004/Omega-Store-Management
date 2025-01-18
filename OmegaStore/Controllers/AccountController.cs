@@ -33,7 +33,7 @@ namespace OmegaStore.Controllers
 
             // Danh sách các đơn hàng của tài khoản
 
-            var OrderAccount = _context.Orders.Include(o => o.Account).Include(o => o.DetailOrders).Where(o => o.AccountId == account.Id).Select(o => new
+            var OrderAccount = _context.Orders.Include(o => o.Account).Include(o => o.DetailOrders).Where(o => o.AccountId == account.Id && o.Status !=0).Select(o => new
             {
                 OrderId = o.Id,
                 AccountId = o.Account.Id,
