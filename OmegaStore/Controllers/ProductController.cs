@@ -17,6 +17,7 @@ namespace OmegaStore.Controllers
             _accountService = accountService;
         }
 
+
         [HttpGet("[controller]/{slug}")]
         public IActionResult Detail(string slug)
         {
